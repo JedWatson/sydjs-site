@@ -15,6 +15,7 @@ User.add({
 	password: { type: Types.Password, initial: true, required: false }
 }, 'Profile', {
 	organisation: { type: Types.Relationship, ref: 'Organisation' },
+	github: { type: String, width: 'short' },
 	twitter: { type: String, width: 'short' },
 	website: { type: Types.Url },
 	bio: { type: Types.Html, wysiwyg: true }

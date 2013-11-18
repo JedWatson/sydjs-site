@@ -10,7 +10,9 @@ Talk.add({
 	name: { type: String, required: true, initial: true },
 	meetup: { type: Types.Relationship, ref: 'Meetup', required: true, initial: true, index: true },
 	who: { type: Types.Relationship, ref: 'User', many: true, index: true },
-	description: { type: Types.Html, wysiwyg: true }
+	description: { type: Types.Html, wysiwyg: true },
+	slides: { type: Types.Url },
+	link: { type: Types.Url }
 });
 
 Talk.addPattern('standard meta');
