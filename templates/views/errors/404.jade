@@ -1,0 +1,10 @@
+extends ../../layouts/default
+
+block content
+	.container
+		h1.page-header-heading!=errorTitle || 'Page not found (404)'
+		if 'object' == typeof errorMsg
+			div(style='margin: 30px 0;').debug!= htmlStringify(errorMsg)
+		else
+			p.lead.page-header-lead!= utils.textToHTML(errorMsg) || 'If you found this page, you probably know what it means. Good luck on your travels :)'
+		p: a(href='/').btn.btn-default.btn-lg SydJS Home

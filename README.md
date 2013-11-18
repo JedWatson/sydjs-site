@@ -1,4 +1,6 @@
-sydjs-site
-==========
+sydjs.com
+=========
 
-SydJS Meetup Website
+The SydJS Website
+
+... a work in progress :)

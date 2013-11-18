@@ -1,0 +1,58 @@
+include ../mixins/flash-messages
+
+doctype 5
+html
+	head
+		if env == 'production'
+			script.
+				var _sf_startpt=(new Date()).getTime()
+		
+		meta(charset="utf-8")
+		meta(name="viewport", content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width")
+		
+		title= title || 'Keystone Demo'
+		link(rel="shortcut icon", href="/favicon.ico", type="image/x-icon")
+		link(href="/styles/site.min.css", rel="stylesheet")
+		
+		block css
+		block head
+	body: #sydjs-wrapper
+		
+		//- header
+		header(role='banner')#sydjs-nav
+			nav.navbar.navbar-default.navbar-static-top: .container
+				ul.nav.navbar-nav
+					each link in navLinks
+						li(class=(section == link.key ? 'active' : null)): a(href=link.href)= link.label
+				ul.nav.navbar-nav.pull-right
+					if user
+						li: a(href='/keystone') Open Keystone
+					else
+						li: a(href='/keystone/signin') Sign In
+		
+		//- body
+		#sydjs-body
+			//- intro
+			block intro
+			//- messages
+			+flash-messages(messages)
+			//- content
+			block content
+		//- footer
+		#sydjs-footer: .container
+			p Powered by <a href='http://keystonejs.com'>KeystoneJS</a>.
+		
+		//- scripts
+		script(src='/js/lib/jquery/jquery-1.10.2.min.js')
+		
+		block page-js
+		
+		if env == 'production' && ga_property && ga_domain
+			script.
+				(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+				(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+				m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+				})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+				ga('create', '#{ga_property}', '#{ga_domain}');
+				ga('send', 'pageview');

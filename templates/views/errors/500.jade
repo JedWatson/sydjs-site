@@ -1,0 +1,18 @@
+extends ../../layouts/default
+
+block content
+	.container
+		h1.page-header-heading!=errorTitle || 'Error (500)'
+		if 'object' == typeof errorMsg
+			div(style='margin: 30px 0;').debug!= htmlStringify(errorMsg)
+		else
+			p.lead.page-header-lead!= utils.textToHTML(errorMsg) || 'Sorry, the server encountered an error.<br><br>Please try again shortly, or contact us if the problem continues.'
+		
+		if err
+			h3 Error Details
+			div(style='margin: 30px 0 100px;').debug
+				if 'string' == typeof err
+					!= utils.textToHTML(err)
+				else
+					!= htmlStringify(err)
+		p: a(href='/').btn.btn-default.btn-lg SydJS Home
