@@ -1,8 +1,25 @@
 extends ../../layouts/default
 
+mixin meetup(meetup)
+	h2= meetup.name
+	p!= meetup.description
+	if meetup.talks.length
+		h3 Talks
+		each talk in meetup.talks
+			p= talk.name
+			if talk.who.length
+				p by 
+					each user in talk.who
+						= user.name.full + ' '
+						if user.twitter
+							a(href='http://twitter.com/' + user.twitter.replace('@', ''), target='_blank')= user.twitter + ' '
+
 block content
 	.container
 		h1 Next Meetup
-		p
+		each meetup in meetups.upcoming
+			+meetup(meetup)
+		
 		h1 Past Meetups
-
+		each meetup in meetups.past
+			+meetup(meetup)

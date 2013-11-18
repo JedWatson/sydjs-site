@@ -3,4 +3,17 @@ extends ../../layouts/default
 block content
 	.container
 		h1 Members
-
+		each member in members
+			h3= member.name.full
+			if member.bio
+				p!= member.bio
+			if member.talks.length
+				h4 Talks
+				ul
+				each talk in member.talks
+					li= talk.name
+			if member.posts.length
+				h4 Posts
+				ul
+				each post in member.posts
+					li= post.title
