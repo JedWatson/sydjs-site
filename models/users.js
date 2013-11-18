@@ -14,6 +14,7 @@ User.add({
 	email: { type: Types.Email, initial: true, required: true, index: true },
 	password: { type: Types.Password, initial: true, required: false }
 }, 'Profile', {
+	isPublic: Boolean,
 	organisation: { type: Types.Relationship, ref: 'Organisation' },
 	github: { type: String, width: 'short' },
 	twitter: { type: String, width: 'short' },
@@ -21,7 +22,7 @@ User.add({
 	bio: { type: Types.Html, wysiwyg: true }
 }, 'Mentoring', {
 	mentoring: {
-		available: { type: Boolean, label: 'Is Available' },
+		available: { type: Boolean, label: 'Is Available', index: true },
 		free: { type: Boolean, label: 'For Free', dependsOn: deps.mentoring },
 		paid: { type: Boolean, label: 'For Payment', dependsOn: deps.mentoring },
 		swap: { type: Boolean, label: 'For Swap', dependsOn: deps.mentoring },
@@ -37,7 +38,7 @@ User.schema.virtual('canAccessKeystone').get(function() {
 	return this.isAdmin;
 });
 
-User.relationship({ ref: 'Post', refPath: 'author', path: 'talks' });
+User.relationship({ ref: 'Post', refPath: 'author', path: 'posts' });
 User.relationship({ ref: 'Talk', refPath: 'who', path: 'talks' });
 
 User.addPattern('standard meta');
