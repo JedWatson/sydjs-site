@@ -7,8 +7,8 @@ Meetup.add({
 	name: { type: String, required: true, initial: true },
 	state: { type: Types.Select, options: 'draft, published, archived', default: 'draft', index: true },
 	date: { type: Types.Date, required: true, initial: true, index: true },
-	time: { type: String, required: true, initial: true, width: 'short', note: 'e.g. 6pm - 9pm' },
-	place: { type: String, required: true, initial: true, width: 'medium', note: 'usually Level 6, 341 George St Atlassian' },
+	time: { type: String, required: true, initial: true, width: 'short', default: '6pm - 9pm', note: 'e.g. 6pm - 9pm' },
+	place: { type: String, required: true, initial: true, width: 'medium', default: 'Level 6, 341 George St (Atlassian)', note: 'usually Level 6, 341 George St (Atlassian)' },
 	description: { type: Types.Html, wysiwyg: true }
 });
 
