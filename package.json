@@ -9,6 +9,7 @@
   "dependencies": {
     "keystone": "~0.1.40",
     "underscore": "~1.5.2",
+    "moment": "~2.4.0",
     "async": "~0.2.9",
     "dotenv": "0.0.3"
   },
