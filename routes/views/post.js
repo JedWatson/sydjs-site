@@ -14,10 +14,21 @@ exports = module.exports = function(req, res) {
 	};
 	
 	// Load the current post
-	view.query('data.post', Post.model.findOne().where('state', 'published').where('slug', locals.filters.post).populate('author categories')).none(res.notfound);
+	view.query('data.post',
+		Post.model.findOne()
+			.where('state', 'published')
+			.where('slug', locals.filters.post)
+			.populate('author categories')
+	).none(res.notfound);
 	
 	// Load recent posts
-	view.query('data.posts', Post.model.find().where('state', 'published').sort('-publishedDate').populate('author').limit('4'));
+	view.query('data.posts',
+		Post.model.find()
+			.where('state', 'published')
+			.sort('-publishedDate')
+			.populate('author')
+			.limit('4')
+	);
 	
 	// Render the view
 	view.render('site/post');

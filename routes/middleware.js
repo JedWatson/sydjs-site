@@ -1,9 +1,23 @@
 var _ = require('underscore'),
 	keystone = require('keystone');
 
-/**
-	Common error handlers
-*/
+exports.initLocals = function(req, res, next) {
+	
+	res.locals.navLinks = [
+		{ label: 'Home', key: 'home', href: '/' },
+		{ label: 'Meetups', key: 'meetups', href: '/meetups' },
+		{ label: 'Members', key: 'members', href: '/members' },
+		{ label: 'Links', key: 'links', href: '/links' },
+		{ label: 'Blog', key: 'blog', href: '/blog' },
+		{ label: 'About', key: 'about', href: '/about' },
+		{ label: 'Mentoring', key: 'mentoring', href: '/mentoring' }
+	];
+	
+	res.locals.user = req.user;
+	
+	next();
+	
+};
 
 exports.initErrorHandlers = function(req, res, next) {
 	
@@ -21,19 +35,6 @@ exports.initErrorHandlers = function(req, res, next) {
 			errorMsg: message
 		});
 	}
-	
-	next();
-	
-};
-
-exports.initLocals = function(req, res, next) {
-	
-	res.locals.navLinks = [
-		{ label: 'Home', key: 'home', href: '/' },
-		{ label: 'Blog', key: 'blog', href: '/blog' }
-	];
-	
-	res.locals.user = req.user;
 	
 	next();
 	
