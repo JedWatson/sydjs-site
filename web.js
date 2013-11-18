@@ -28,6 +28,9 @@ keystone.init({
 	'user model': 'User',
 	'cookie secret': process.env.COOKIE_SECRET || 'sydjs',
 	
+	'google api key': process.env.GOOGLE_BROWSER_KEY,
+	'google server api key': process.env.GOOGLE_SERVER_KEY,
+	
 	'ga property': process.env.GA_PROPERTY,
 	'ga domain': process.env.GA_DOMAIN
 	
