@@ -46,8 +46,9 @@ keystone.set('locals', {
 });
 
 keystone.set('nav', {
+	'meetups': ['meetups', 'talks'],
+	'members': ['users', 'organisations'],
 	'posts': ['posts', 'post-categories'],
-	'people': 'users'
 });
 	
 keystone.start();
