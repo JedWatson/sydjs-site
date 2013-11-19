@@ -52,6 +52,7 @@ block content
 			a(href='/about') Learn more about SydJS
 			|  &nbsp;&middot;&nbsp; 
 			a(href='/about') Read our Community Guidelines
+		p: a(href="https://twitter.com/sydjs", class="twitter-follow-button", data-show-count="true") Follow @sydjs
 
 
 
@@ -88,7 +89,11 @@ block content
 
 
 block js
+	// twitter
+	script.
+		!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
 	script(src!='https://maps.googleapis.com/maps/api/js?key=AIzaSyBnDlg_VYer_nHycWCWYZmikwlAFpfoQhw&sensor=false&libraries=places')
+	//- TODO use dynamic google API key
 	script.
 		jQuery(function($) {
 			
