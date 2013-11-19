@@ -40,6 +40,7 @@ User.schema.virtual('canAccessKeystone').get(function() {
 
 User.relationship({ ref: 'Post', refPath: 'author', path: 'posts' });
 User.relationship({ ref: 'Talk', refPath: 'who', path: 'talks' });
+User.relationship({ ref: 'RSVP', refPath: 'who', path: 'rsvps' });
 
 User.addPattern('standard meta');
 User.defaultColumns = 'name, email, twitter, isAdmin';

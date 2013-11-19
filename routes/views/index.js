@@ -7,6 +7,13 @@ exports = module.exports = function(req, res) {
 	
 	locals.section = 'home';
 	
+	view.on('init', function(next) {
+		keystone.content.fetch('home', function(err, content) {
+			console.log(content);
+			next();
+		});
+	});
+	
 	view.render('site/index');
 	
 }
