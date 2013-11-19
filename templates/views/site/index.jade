@@ -1,6 +1,115 @@
 extends ../../layouts/default
 
-block content
-	.container
-		h1 Welcome to SydJS
+include ../../mixins/post
 
+block content
+	//- Hero
+	section.section.home-meetup
+		.home-meetup-wrapper
+			.container
+				h1= nextMeetup.name
+				.row
+					.col-sm-8
+						p!= nextMeetup.description
+						if nextMeetup.talks.length
+							h5.talks__heading With talks about
+							ol.talks
+								each talk in nextMeetup.talks
+									li.talk
+										.talk__heading= talk.name
+										if talk.who.length
+											.talk__speaker by 
+												each user in talk.who
+													= user.name.full + ' '
+													if user.twitter
+														a(href='http://twitter.com/' + user.twitter.replace('@', ''), target='_blank')= user.twitter + ' '
+					.col-sm-4
+						dl.dl-horizontal.home-meetup__details-list
+							dt
+								.sr-only Date
+								span.entypo.entypo-fixed-width.entypo-calendar
+							dd=nextMeetup._.date.format('dddd, DD MMM YYYY')
+							dt
+								.sr-only Time
+								span.entypo.entypo-fixed-width.entypo-clock
+							dd=nextMeetup.time
+							dt
+								.sr-only Place
+								span.entypo.entypo-fixed-width.entypo-location
+							dd=nextMeetup.place
+						.register-btn
+							a(href=js).btn.btn-lg.btn-block.btn-register Register
+						hr.line-dashed
+						p: a(href='/meetups').text-muted View past meetups &rarr;
+		.home-meetup-map#meetup-map
+			span.sr-only='Map for ' + nextMeetup.place
+	
+
+	//- About
+	section.section.home-about: .container
+		h2 SydJS is a gathering of some friendly folks in Sydney who love Javascript. But first, you must demonstrate your commitment to justice.
+		p
+			a(href='/about') Learn more about SydJS
+			|  &nbsp;&middot;&nbsp; 
+			a(href='/about') Read our Community Guidelines
+
+
+
+	//- Blog
+	section.section.home-blog: .container
+		.blog(itemscope itemtype="http://schema.org/Blog")
+			for post in posts
+				+post(post)
+		hr.line-dashed
+		p: a(href='/blog').text-muted See all SydJS blog posts &rarr;
+
+
+
+	//- Links
+	section.section.home-links: .container
+		.row
+			.col-sm-4
+				.link-icon-badge: span.link-icon.entypo.entypo-network
+				h2 Organisations
+				p When a forest grows too wild, a purging fire is inevitable and natural. Tomorrow the world will watch in horror as its greatest city destroys itself.
+				p: a(href='/members') View organisations
+
+			.col-sm-4
+				.link-icon-badge: span.link-icon.entypo.entypo-users
+				h2 Members
+				p When a forest grows too wild, a purging fire is inevitable and natural. Tomorrow the world will watch in horror as its greatest city destroys itself.
+				p: a(href='/members') View members
+
+			.col-sm-4
+				.link-icon-badge: span.link-icon.entypo.entypo-link
+				h2 Resources
+				p When a forest grows too wild, a purging fire is inevitable and natural. Tomorrow the world will watch in horror as its greatest city destroys itself.
+				p: a(href='/members') View resources
+
+
+block js
+	script(src!='https://maps.googleapis.com/maps/api/js?key=AIzaSyBnDlg_VYer_nHycWCWYZmikwlAFpfoQhw&sensor=false&libraries=places')
+	script.
+		jQuery(function($) {
+			
+			// LOAD MAP
+			google.maps.visualRefresh = true;
+			
+			var mapOptions = {
+				scrollwheel: false,
+				disableDefaultUI: true,
+				zoomControl: true,
+				zoomControlOptions: {
+					style: google.maps.ZoomControlStyle.DEFAULT
+				},
+				mapTypeControlOptions: {
+					mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
+				}
+			};
+			
+			var map = new google.maps.Map(document.getElementById("meetup-map"), mapOptions);
+			
+			console.log(new google.maps.LatLng('-33.867259', '151.207051'));
+			map.setCenter(new google.maps.LatLng('-33.867259', '151.207051'));
+			map.setZoom(12);
+		});

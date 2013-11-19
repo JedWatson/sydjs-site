@@ -1,0 +1,22 @@
+mixin post(post)
+	article(role="article", itemscope itemtype="http://schema.org/BlogPosting").blog-post
+		.blog-post__date.illustrative-heading
+			span.illustrative-heading__line
+			span.illustrative-heading__text
+				time(datetime=post._.publishedDate.format('YYYY-MM-DD'), itemprop='datePublished')=post._.publishedDate.format('MMMM Do, YYYY')
+		.blog-post__image
+			a(href='/blog/post/' + post.slug)
+				if post.image.exists
+					img(src=post._.image.fit(770,510), alt=post.title).img-responsive
+		.blog-post__content
+			h3(itemprop='name').blog-post__heading: a(href='/blog/post/' + post.slug, itemprop='url')= post.title
+			if post.author
+				h5.blog-post__author by 
+					a(href='/members', rel='author')=post.author.name.full
+				if post.categories && post.categories.length
+					| in 
+					each cat, i in post.categories
+						if i
+							| , 
+						a(href='/blog/' + cat.key)= cat.name
+			p(itemprop='description')!= post.content.brief

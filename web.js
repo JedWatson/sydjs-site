@@ -42,6 +42,7 @@ keystone.set('routes', require('./routes'));
 
 keystone.set('locals', {
 	_: require('underscore'),
+	js: 'javascript:;',
 	env: keystone.get('env'),
 	utils: keystone.utils,
 	ga_property: keystone.get('ga property'),

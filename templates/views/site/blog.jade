@@ -1,32 +1,12 @@
 extends ../../layouts/default
 
-mixin post(post)
-	.post
-		h2: a(href='/blog/post/' + post.slug)= post.title
-		p.lead.text-muted Posted 
-			if post.publishDate
-				| on #{post._.publishedDate.format('MMMM Do, YYYY')} 
-			if post.categories && post.categories.length
-				| in 
-				each cat, i in post.categories
-					a(href='/blog/' + cat.key)= cat.name
-					if i < post.categories.length - 1
-						| , 
-					else
-						|  
-			if post.author
-				| by #{post.author.name.first}
-		if post.image.exists
-			img(src=post._.image.fit(160,160)).img.pull-right
-		p!= post.content.brief
-		if post.content.extended
-			p.read-more: a(href='/blog/post/' + post.slug) Read more...
+include ../../mixins/post
 
 block content
 	.container
 		h1=data.category ? data.category.name : 'Blog'
 		.row
-			.col-sm-8.col-md-9
+			.col-sm-9	
 				if filters.category && !data.category
 					h3 Invalid Category.
 				else
@@ -40,7 +20,7 @@ block content
 						else
 							h3 There are no posts yet.
 			
-			.col-sm-4.col-md-3
+			.col-sm-3
 				if data.categories.length
 					//- h2 Categories
 					.list-group(style='margin-top: 70px;')

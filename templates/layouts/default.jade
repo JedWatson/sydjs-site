@@ -18,35 +18,64 @@ html
 		block head
 	body: #sydjs-wrapper
 		
-		//- header
-		header(role='banner')#sydjs-nav
-			nav.navbar.navbar-default.navbar-static-top: .container
-				ul.nav.navbar-nav
-					each link in navLinks
-						li(class=(section == link.key ? 'active' : null)): a(href=link.href)= link.label
-				ul.nav.navbar-nav.pull-right
-					if user
-						li: a(href='/keystone') Open Keystone
-					else
-						li: a(href='/keystone/signin') Sign In
+		//- EASTER EGG
+		#easter-egg(style='display: none;')
+			
 		
-		//- body
+		//- HEADER
+		header(role='banner')#sydjs-nav
+			nav.navbar.navbar-default.navbar-static-top(role='navigation'): .container
+				.navbar-header
+					button.navbar-toggle.navbar-toggle-menu.navbar-toggle-left(type='button', data-toggle='collapse', data-target='.navbar-headernav-collapse')
+						span.sr-only Toggle navigation
+						!='<span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>'
+					a(href='/', title='Back to Home').navbar-logo
+						img(src='/images/logo.svg', alt='SydJS logo', width=130, height=115)
+					//- a(href='/', title='Back to Home').navbar-brand.visible-xs SydJS
+				.collapse.navbar-collapse.navbar-headernav-collapse
+					ul.nav.navbar-nav
+						each link in navLinks
+							if link.layout == 'left'
+								li(class=(section == link.key ? 'nav-item-' + link.key + ' active' : 'nav-item-' + link.key)): a(href=link.href)= link.label
+					ul.nav.navbar-nav.navbar-right
+						each link in navLinks
+							if link.layout == 'right'
+								li(class=(section == link.key ? 'nav-item-' + link.key + ' active' : 'nav-item-' + link.key)): a(href=link.href)= link.label
+						if user
+							li.dropdown
+								a(href=js, data-toggle='dropdown')
+									| #{user.name.first} 
+									span.caret
+								ul.dropdown-menu
+									li: a(href='/me') Profile
+									li: a(href='/keystone') Keystone
+									li.divider
+									li: a(href='/signout') Sign out
+						else
+							li: a(href='/signin') Sign In
+		
+		
+		//- BODY
 		#sydjs-body
-			//- intro
+			
 			block intro
-			//- messages
+			
 			+flash-messages(messages)
-			//- content
+			
 			block content
-		//- footer
+		
+		
+		//- FOOTER
 		#sydjs-footer: .container
 			p Copyright &copy; 2013 SydJS. Powered by <a href='http://keystonejs.com'>KeystoneJS</a>.
 			p If you run a meetup, please feel free to clone our site and make your own!
 		
 	//- scripts
 	script(src='/js/lib/jquery/jquery-1.10.2.min.js')
+	script(src='/js/lib/bootstrap/collapse.js')
+	script(src='/js/lib/bootstrap/dropdown.js')
 	
-	block page-js
+	block js
 	
 	if env == 'production' && ga_property && ga_domain
 		script.

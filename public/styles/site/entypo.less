@@ -26,14 +26,18 @@
 
 // Regular catchall
 .entypo {
+	
+	// positioning
 	display: inline-block;
-	line-height: 1;
+	vertical-align: -0.125em;
+	
+	// resets inherited font styles
 	font-family: 'EntypoRegular';
 	font-style: normal;
 	font-weight: normal;
-	position: relative;
+	font-variant: normal;
 	text-decoration: inherit;
-	top: 1px;
+	text-transform: none;
 	
 	// silence screen readers
 	speak: none;
@@ -41,32 +45,29 @@
 	// smooth iOS font
 	-webkit-font-smoothing: antialiased;
 	
-	/* reset parent styles, that can break glyph codes */
-	font-variant: normal;
-	text-transform: none;
-	
 	/* entypo is abnormally small */
 	font-size: 2em;
 	
 	/* offset font-size */
 	line-height: .5em;
-	
-	/*
-		Column icons
-		==============================
-		center align icons when in column layout
-		not intended for general use
-		uncomment, or copy, when needed
-	*/
-	/*
-		display: inline-block;
-		width: .7em;
-		text-align: center;
-	*/
 }
+
+// Fixed width icons
+.entypo-fixed-width {
+	text-align: center;
+	width: .7em;
+}
+
+// Social catchall
 .entypo-social {
 	.entypo();
 	font-family: 'EntypoSocial';
+}
+
+// Entypo in buttons
+.entypo-btn-align {
+	margin-left: -0.075em;
+	margin-right: 0.075em;
 }
 
 // ICONS - Regular

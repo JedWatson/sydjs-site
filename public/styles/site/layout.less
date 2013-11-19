@@ -1,0 +1,165 @@
+// EASTER EGG
+// ------------------------------
+#easter-egg {
+	background: url('/images/blueprintbg.png') #365bb4;
+	border-bottom: 8px solid white;
+	height: 400px;
+}
+
+
+
+
+
+// NAVBAR
+// ------------------------------
+.navbar {
+	border-bottom: 8px solid white;
+	font-size: @font-size-small;
+	font-weight: 500;
+	margin: 0;
+	
+	.container {
+		position: relative;
+	}
+}
+.navbar-nav > li > a {
+	padding-left: 20px;
+	padding-right: 20px;
+	text-transform: uppercase;
+	
+	@media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+	@media (min-width: @screen-lg-min) {
+		padding-left: 30px;
+		padding-right: 30px;
+	}
+}
+.navbar-logo {
+	margin-left: (@grid-gutter-width / 2);
+	position: absolute;
+	z-index: 1;
+	
+	@media (max-width: @screen-sm-max) {
+		img {
+			.size(90px,80px);
+		}
+	}
+	@media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+		.size(90px,80px);
+		left: 50%;
+		margin-left: -45px;
+	}
+	@media (min-width: @screen-md-min) {
+		.size(130px,115px);
+		left: 50%;
+		margin-left: -65px;
+	}
+}
+
+// not sure what the padding is doing on this element...
+.navbar-collapse {
+	.box-shadow( none );
+	padding-left: 0;
+	padding-right: 0;
+}
+.navbar-nav {
+	margin-left: 0;
+	margin-right: 0;
+}
+
+// hide the home link so it doesn't intersect the logo
+@media (max-width: @screen-xs-max) {
+	.nav-item-home {
+		visibility: hidden;
+	}
+	.navbar-nav .divider {
+		background-color: @navbar-default-toggle-border-color;
+	}
+}
+
+
+
+// FOOTER
+// ------------------------------
+#sydjs-body {
+	border-bottom: 8px solid white;
+}
+#sydjs-footer {
+	background-color: @brown;
+	color: mix(@brown, white, 50%);
+	font-size: @font-size-small;
+	padding: 20px 0;
+	position: relative;
+	text-align: center;
+	// text-transform: uppercase;
+	
+	p {
+		color: @gray-light;
+		margin-bottom: 0;
+	}
+	a {
+		color: white;
+	}
+	
+}
+
+
+
+
+
+// BLOG
+// ------------------------------
+@post-image-width: 170px;
+.blog-post {
+	text-align: center;
+	margin-bottom: 40px;
+}
+.blog-post__image {
+	margin-bottom: 20px;
+}
+.blog-post__content {
+	text-align: left;
+}
+.blog-post__heading {
+	margin-top: 0;
+	
+	a {
+		color: @headings-color;
+	}
+}
+.blog-post__author {
+	color: mix(@body-bg, @text-color, 50%);
+	font-weight: 200;
+	
+	a {
+		color: mix(@body-bg, @text-color, 50%);
+	}
+}
+
+@media (min-width: @screen-sm-min) {
+	.blog-post__image {
+		float: left;
+		width: @post-image-width;
+	}
+	.blog-post__content {
+		margin-left: @post-image-width + 20;
+	}
+}
+
+
+
+
+
+// FORMS
+// ------------------------------
+.form-horizontal .control-label {
+	text-align: left;
+}
+.checkbox { font-weight: inherit; }
+@media (max-width: @screen-xs-max) {
+	.form-group .row > [class^='col-'] {
+		margin-bottom: 10px;
+	}
+}

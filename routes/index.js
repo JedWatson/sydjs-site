@@ -40,5 +40,12 @@ exports = module.exports = function(app) {
 	app.get('/blog/post/:post', routes.views.post);
 	app.get('/about', routes.views.about);
 	app.get('/mentoring', routes.views.mentoring);
+	
+	
+	// session
+	app.all('/signin', routes.views.signin);
+	app.get('/signout', routes.views.signout);
+	
+	app.all('/me', routes.views.me);
 
 }
