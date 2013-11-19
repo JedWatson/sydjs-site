@@ -1,0 +1,103 @@
+extends ../../layouts/default
+
+block content
+	.section.section-profile-form
+		.container
+			form(method='post', action='private_info').profile-form
+				h4.profile-form__heading Your Profile
+				.form-group
+					.row
+						.col-sm-6: input(type='text', name='name.first' value=user.name.first).input.input-xl.input-faded
+						.col-sm-6: input(type='text', name='name.last' value=user.name.last).input.input-xl.input-faded
+				.form-group
+					label.input-label Email
+					input(type='email', name='email' value=user.email).input.input-labelled.input-faded
+				.row
+					.col-sm-6
+						.form-group
+							label.input-label Twitter
+							input(type='text', name='twitter' value=user.twitter).input.input-labelled.input-faded
+					.col-sm-6
+						.form-group
+							label.input-label Github
+							input(type='text', name='github' value=user.github).input.input-labelled.input-faded
+				
+	.section.section-next-meetup
+		.container
+			.row
+				.col-sm-6
+					if meetups.next
+						h2.mt-0 Next Meetup
+						h4=meetups.next._.date.format('dddd, DD MMM YYYY')
+						p.btn-group.btn-group-justified(data-toggle='buttons')
+							label.btn.btn-default.js-rsvp-attending
+								input(type='radio', name='rsvp', id='rsvp-attending')
+								|  Coming
+							label.btn.btn-default.js-rsvp-decline
+								input(type='radio', name='rsvp', id='rsvp-decline')
+								|  Not Coming
+						p: a(href='/meetups') See all meetups &rarr;
+					else
+						h2.mt-0 No upcoming meetups
+					
+				.col-sm-6	
+					if meetups.past.length
+						h2.mt-0 Meetups I've been to
+						ol
+							each attendedMU in meetups.past
+								li=attendedMU.name
+	.section.section-public-form
+		.container
+			.row
+				.col-sm-8.col-sm-offset-2
+					form(method='post').form-horizontal
+						h2.h1.text-center.mt-0 Public info
+						.form-group
+							.col-sm-10.col-sm-offset-2
+								label.checkbox
+									input(type='checkbox', name='isPublic')
+									|  Show my profile on the SydJS website
+						.form-group
+							label.col-sm-2.control-label Website
+							.col-sm-10
+								input(type='text', name='website', value=user.website).form-control
+						.form-group
+							label.col-sm-2.control-label Bio
+							.col-sm-10
+								textarea(name='bio').form-control=user.bio
+						.form-group
+							label.col-sm-2.control-label Mentoring
+							.col-sm-10
+								label.checkbox
+									input(type='checkbox', name='mentoring.available')
+									|  Available as a mentor
+								label.checkbox
+									input(type='checkbox', name='mentoring.free')
+									|  For Free
+								label.checkbox
+									input(type='checkbox', name='mentoring.paid')
+									|  For Payment
+								label.checkbox
+									input(type='checkbox', name='mentoring.swap')
+									|  For Swap
+								label.checkbox
+									input(type='text', name='mentoring.have', placeholder='Has...').form-control
+								label.checkbox
+									input(type='text', name='mentoring.want', placeholder='Wants...').form-control
+						.form-group
+							.col-sm-10.col-sm-offset-2
+								button(type='submit', data-loading-text="Saving...").btn.btn-primary Save changes
+				.col-sm-4
+block js
+	script(src='/js/lib/bootstrap/button.js')
+	script.
+		jQuery(function($) {
+			$('.js-rsvp-attending').click( function() {
+				$(this).addClass('btn-success');
+				$(this).siblings().removeClass('btn-danger');
+			});
+			$('.js-rsvp-decline').click( function() {
+				$(this).addClass('btn-danger');
+				$(this).siblings().removeClass('btn-success');
+			});
+		});

@@ -1,0 +1,65 @@
+.section-profile-form {
+	border-bottom: 0 none;
+}
+.profile-form {
+	.header {
+		color: mix(@body-bg, @text-color, 50%)
+	}
+	
+	.input {
+		border-radius: @input-border-radius;
+		padding: @padding-base-vertical @padding-base-horizontal;
+		width: 100%;
+	}
+	.input-faded {
+		.transition( all 200ms linear );
+		.box-shadow( none );
+		background-color: @body-bg;
+		border: 1px solid mix(black,@body-bg, 8%);
+		
+		&:hover {
+			border-color: mix(black,@body-bg, 18%);
+		}
+		&:focus {
+			background-color: white;
+			border-color: @link-color;
+		}
+	}
+	.input-xl {
+		color: @text-color;
+		border-radius: @border-radius-large;
+		border-width: 2px;
+		font-size: 30px;
+		font-weight: 500;
+		padding: @padding-base-vertical @padding-base-horizontal;
+		
+		@media (min-width: @screen-sm-min) {
+			font-size: 48px;
+		}
+	}
+	
+	// labelling
+	.form-group {
+		position: relative;
+	}
+	.input-label {
+		.text-overflow();
+		color: mix(@body-bg, @text-color, 70%);
+		font-size: @font-size-small;
+		padding: @padding-base-vertical + 3 @padding-base-horizontal;
+		position: absolute;
+		text-transform: uppercase;
+		width: 100px;
+	}
+	.input-labelled {
+		padding-left: 100px;
+	}
+}
+.profile-form__heading {
+	color: mix(@body-bg,@text-color, 50%);
+}
+.section-next-meetup {
+	background-color: white;
+	border-bottom-color: mix(@body-bg, black, 90%);
+	border-top: 8px solid mix(@body-bg, black, 90%);
+}
