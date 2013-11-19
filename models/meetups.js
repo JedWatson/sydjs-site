@@ -13,6 +13,11 @@ Meetup.add({
 });
 
 Meetup.relationship({ ref: 'Talk', refPath: 'meetup', path: 'talks' });
+Meetup.relationship({ ref: 'RSVP', refPath: 'meetup', path: 'rsvps' });
+
+Meetup.schema.methods.refreshRSVPs = function() {
+	
+}
 
 Meetup.addPattern('standard meta');
 Meetup.defaultColumns = 'name, state|20%, date|20%';

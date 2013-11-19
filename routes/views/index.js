@@ -11,7 +11,6 @@ exports = module.exports = function(req, res) {
 	
 	locals.section = 'home';
 	
-	
 	// Load the next meetup
 	view.query('nextMeetup',
 		Meetup.model.findOne()

@@ -2,14 +2,13 @@ extends ../../layouts/session
 
 block content
 	form(method='post',role='signin').signin-form
-		h2 Sign in or Register
-		a(href=js).btn.btn-facebook.btn-block
+		//- a(href=js).btn.btn-facebook.btn-block
 			span.entypo.entypo-s-facebook
 			|  Sign in with Facebook
 		.form-control-box
-			//- label(for='signin-email').sr-only Email
+			label(for='signin-email').sr-only Email
 			input(type='email', name='email', placeholder='Email', id='signin-email').form-control
-			//- label(for='signin-password').sr-only Password
+			label(for='signin-password').sr-only Password
 			input(type='password', name='password', placeholder='Password', id='signin-password').form-control
 		button(type='submit').btn.btn-block.btn-submit Sign in
 		
@@ -17,15 +16,15 @@ block content
 		
 	form(method='post',role='join', style='display: none;').join-form
 		.form-control-box
-			//- label(for='join-name').sr-only Email
+			label(for='join-name').sr-only Email
 			input(type='text', name='name', placeholder='Name', id='join-name').form-control
-			//- label(for='join-email').sr-only Email
+			label(for='join-email').sr-only Email
 			input(type='email', name='email', placeholder='Email', id='join-email').form-control
-			//- label(for='join-password').sr-only Password
+			label(for='join-password').sr-only Password
 			input(type='password', name='password', placeholder='Password', id='join-password').form-control
-			//- label(for='signin-password').sr-only Confirm Password
+			label(for='join-passwordConfirm').sr-only Confirm Password
 			input(type='password', name='passwordConfirm', placeholder='Confirm Password', id='signin-passwordConfirm').form-control
-			//- label(for='signin-twitter').sr-only Twitter
+			label(for='join-twitter').sr-only Twitter
 			input(type='text', name='twitter', placeholder='Twitter', id='signin-twitter').form-control
 		button(type='submit').btn.btn-block.btn-submit Join SydJS
 		
@@ -35,7 +34,7 @@ block content
 		//- a(href=js).js-toggle-join Join SydJS
 		a(href=js, style='display: none;').js-toggle-signin Sign In
 	p.text-center
-		a(href='/forgot-password') Forgot your password?
+		a(href=js) Forgot your password?
 
 block js
 	script.

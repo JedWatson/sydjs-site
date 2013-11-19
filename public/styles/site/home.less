@@ -19,8 +19,15 @@
 // NEXT MEETUP
 .home-meetup {
 	
+	h4 {
+		color: mix(@brown, @tan, 40%);
+		font-weight: bold;
+		margin-top: 30px;
+		text-transform: uppercase;
+	}
 	h1 {
-		margin: 20px 0;
+		margin: 0px 0px 10px;
+		text-transform: normal;
 	}
 	.btn-register {
 		background-color: @orange;
@@ -89,7 +96,7 @@
 	list-style: none;
 	margin: 0;
 	padding: 0;
-}
+
 	.talk {
 		line-height: 1.1;
 		margin-bottom: 1em;
@@ -102,8 +109,15 @@
 	.talk__speaker {
 		color: mix(@brown, @tan, 50%);
 	}
-
-
+	a {
+		color: mix(@brown, @tan, 50%);
+		
+		&:hover {
+			color: @brand-primary;
+			text-decoration: none;
+		}
+	}
+}
 
 
 

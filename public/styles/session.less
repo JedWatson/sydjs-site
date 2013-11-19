@@ -108,20 +108,18 @@ form {
 	border-radius: 0;
 	border: 1px solid #ccc;
 	display: block;
+	margin-bottom: -1px;
 	padding: @padding-base-vertical @padding-base-horizontal;
 	position: relative;
 	width: 100%;
 	-webkit-appearance: none;
 	
-	&:first-child {
+	&:first-of-type {
 		.border-top-radius( 4px );
 	}
-	&:last-child {
+	&:last-of-type {
 		.border-bottom-radius( 4px );
-	}
-	
-	& + & {
-		margin-top: -1px;
+		margin-bottom: 0;
 	}
 	
 	// pop the focused field to the top so the border is visible
