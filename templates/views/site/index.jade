@@ -7,6 +7,7 @@ block content
 	section.section.home-meetup
 		.home-meetup-wrapper
 			.container
+				h4 Our next meetup:
 				h1= nextMeetup.name
 				.row
 					.col-sm-8
@@ -88,28 +89,28 @@ block content
 
 
 block js
-	script(src!='https://maps.googleapis.com/maps/api/js?key=AIzaSyBnDlg_VYer_nHycWCWYZmikwlAFpfoQhw&sensor=false&libraries=places')
-	script.
-		jQuery(function($) {
-			
-			// LOAD MAP
-			google.maps.visualRefresh = true;
-			
-			var mapOptions = {
-				scrollwheel: false,
-				disableDefaultUI: true,
-				zoomControl: true,
-				zoomControlOptions: {
-					style: google.maps.ZoomControlStyle.DEFAULT
-				},
-				mapTypeControlOptions: {
-					mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
-				}
-			};
-			
-			var map = new google.maps.Map(document.getElementById("meetup-map"), mapOptions);
-			
-			console.log(new google.maps.LatLng('-33.867259', '151.207051'));
-			map.setCenter(new google.maps.LatLng('-33.867259', '151.207051'));
-			map.setZoom(12);
-		});
+	if google_api_key
+		script(src!='https://maps.googleapis.com/maps/api/js?key=' + google_api_key + '&sensor=false&libraries=places')
+		script.
+			jQuery(function($) {
+				
+				// LOAD MAP
+				google.maps.visualRefresh = true;
+				
+				var mapOptions = {
+					scrollwheel: false,
+					disableDefaultUI: true,
+					zoomControl: true,
+					zoomControlOptions: {
+						style: google.maps.ZoomControlStyle.DEFAULT
+					},
+					mapTypeControlOptions: {
+						mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
+					}
+				};
+				
+				var map = new google.maps.Map(document.getElementById("meetup-map"), mapOptions);
+				
+				map.setCenter(new google.maps.LatLng('-33.867259', '151.207051'));
+				map.setZoom(12);
+			});
