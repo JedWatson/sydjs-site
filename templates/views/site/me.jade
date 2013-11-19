@@ -29,7 +29,7 @@ block content
 	.section.section-next-meetup
 		.container
 			.row
-				.col-sm-8(class=!meetups.past.length ? '' : 'col-sm-offset-2')
+				.col-sm-8.col-md-7
 					if meetups.next
 						.meetup-calendar.calendar
 							.calendar__header=meetups.next._.date.format('MMM')
@@ -53,9 +53,9 @@ block content
 						p Follow us on Twitter to find out when we anounce the next meetup
 						p: a(href="https://twitter.com/sydjs", class="twitter-follow-button", data-show-count="true") Follow @sydjs
 
-				if !meetups.past.length
-					.col-sm-6
-						h2.mt-0 You've been to...
+				if meetups.past.length
+					.col-sm-4.col-md-push-1
+						h3.mt-0 You've been to...
 						ol
 							each attendedMU in meetups.past
 								li=attendedMU.name
@@ -64,10 +64,11 @@ block content
 	//- PUBLIC INFO FORM
 	.section.section-public-form
 		.container
+			h2.mt-0 Your profile
 			.row
-				.col-sm-8.col-sm-offset-2
+				.col-sm-8.col-md-7
 					form(method='post').form-horizontal
-						h2.h1.text-center.mt-0 Public info
+						h3.mt-0 Public info
 						.form-group
 							.col-sm-10.col-sm-offset-2
 								label.checkbox
@@ -102,8 +103,22 @@ block content
 									input(type='text', name='mentoring.want', placeholder='Wants...').form-control
 						.form-group
 							.col-sm-10.col-sm-offset-2
-								button(type='submit', data-loading-text="Saving...").btn.btn-primary Save changes
-				.col-sm-4
+								button(type='submit', data-loading-text="Saving...").btn.btn-primary Save profile
+				.col-sm-4.col-md-push-1
+					form(method='post')
+						h3.mt-0 Change password
+						.form-group
+							label(for='change-password').sr-only Current Password
+							input(type='password', name='password', placeholder='Password', id='change-password').form-control
+						.form-group
+							label(for='change-passwordNew').sr-only New Password
+							input(type='password', name='password', placeholder='New Password', id='change-passwordNew').form-control
+						.form-group
+							label(for='change-passwordConfirm').sr-only Confirm Password
+							input(type='password', name='passwordConfirm', placeholder='Confirm Password', id='signin-passwordConfirm').form-control
+						.form-group
+							button(type='submit', data-loading-text="Changing...").btn.btn-primary Change
+							
 block js
 	script(src='/js/lib/bootstrap/button.js')<a href="https://twitter.com/twitterapi" class="twitter-follow-button" data-show-count="false" data-lang="en">Follow @twitterapi</a>
 	// twitter
