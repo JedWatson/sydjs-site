@@ -22,6 +22,8 @@ block content
 							label.input-label Github
 							input(type='text', name='github' value=user.github).input.input-labelled.input-faded
 				
+			if user.canAccessKeystone
+				a.btn.btn-default.btn-block(href='/keystone') Open the Keystone Admin UI
 	.section.section-next-meetup
 		.container
 			.row
@@ -39,10 +41,9 @@ block content
 						p: a(href='/meetups') See all meetups &rarr;
 					else
 						h2.mt-0 No upcoming meetups
-					
-				.col-sm-6	
-					if meetups.past.length
-						h2.mt-0 Meetups I've been to
+				if meetups.past.length
+					.col-sm-6
+						h2.mt-0 You've been to...
 						ol
 							each attendedMU in meetups.past
 								li=attendedMU.name
