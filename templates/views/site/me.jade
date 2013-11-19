@@ -4,6 +4,8 @@ block content
 	.section.section-profile-form
 		.container
 			form(method='post', action='private_info').profile-form
+				if user.canAccessKeystone
+					a(href='/keystone').btn.btn-xs.btn-success.pull-right Open the Keystone Admin UI
 				h4.profile-form__heading Your Profile
 				.form-group
 					.row
@@ -21,13 +23,13 @@ block content
 						.form-group
 							label.input-label Github
 							input(type='text', name='github' value=user.github).input.input-labelled.input-faded
-	
-	
+							
+							
 	//- NEXT MEETUP
 	.section.section-next-meetup
 		.container
 			.row
-				.col-sm-6
+				.col-sm-8(class=!meetups.past.length ? '' : 'col-sm-offset-2')
 					if meetups.next
 						.meetup-calendar.calendar
 							.calendar__header=meetups.next._.date.format('MMM')
@@ -50,15 +52,13 @@ block content
 						h2.mt-0 No upcoming meetups...
 						p Follow us on Twitter to find out when we anounce the next meetup
 						p: a(href="https://twitter.com/sydjs", class="twitter-follow-button", data-show-count="true") Follow @sydjs
-					
-				.col-sm-6	
-					h2.mt-0 Meetups I've been to
-					if meetups.past.length
+
+				if !meetups.past.length
+					.col-sm-6
+						h2.mt-0 You've been to...
 						ol
 							each attendedMU in meetups.past
 								li=attendedMU.name
-					else
-						p You haven't been to any meetups yet...
 	
 	
 	//- PUBLIC INFO FORM
