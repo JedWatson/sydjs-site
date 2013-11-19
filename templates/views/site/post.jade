@@ -1,17 +1,19 @@
 extends ../../layouts/default
 
 block content
+	.back-bar
+		.container: .row: .col-sm-10.col-sm-offset-1.col-md-8.col-md-offset-2
+			p.xs-right: a(href='/blog').text-muted &larr; Back to the blog
+	
 	//- - console.log(data.post)
 	.container: .row: .col-sm-10.col-sm-offset-1.col-md-8.col-md-offset-2
-		article
-			p: a(href='/blog') &larr; back to the blog
-			hr
+		article.full-post
 			if !data.post
 				h2 Invalid Post.
 			else
 				header
-					h1= data.post.title
-					h5 Posted 
+					h1.mb-0= data.post.title
+					h4.blog-post__author Posted 
 						if data.post.publishDate
 							| on #{data.post._.publishedDate.format('MMMM Do, YYYY')} 
 						if data.post.categories && data.post.categories.length
@@ -23,8 +25,22 @@ block content
 								else
 									|  
 						if data.post.author
-							| by #{data.post.author.name.first}
+							| by 
+							a(href='/members', rel='author')=data.post.author.name.full
+				
+				
+					//- sharing buttons
+					.share-buttons
+						span.share-button
+							.fb-like(data-href="http://www.sydjs.com/blog/post/" + data.post.slug, data-colorscheme="light", data-layout="button_count", data-action="like", data-show-faces="false", data-send="false")
+						span.share-button
+							a(href="https://twitter.com/share", data-via="SydJS", data-hashtags="sydjs", data-count="button", data-dnt="true").twitter-share-button Tweet
+						span.share-button
+							.g-plusone(data-size="medium")
 				.post
 					if data.post.image.exists
-						.image-wrap: img(src=data.post._.image.fit(750,450)).img-responsive
+						.thumbnail: img(src=data.post._.image.fit(750,450)).img-responsive
 					!= data.post.content.full
+block js
+	script(src='/js/common/share.js')
+	script(src="https://apis.google.com/js/plusone.js")

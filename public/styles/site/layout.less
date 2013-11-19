@@ -149,6 +149,12 @@
 }
 
 
+// full post
+.full-post {
+	padding-bottom: 40px;
+}
+
+
 
 
 
@@ -163,3 +169,43 @@
 		margin-bottom: 10px;
 	}
 }
+
+
+
+
+// MISC
+// ------------------------------
+.back-bar {
+	background-color: white;
+	border-bottom: 1px solid darken(@body-bg, 10%);
+	p {
+		margin-bottom: 8px;
+	}
+}
+.thumbnail {
+	background-color: white;
+}
+
+// share buttons
+.share-buttons {
+	margin: 20px 0;
+	min-height: 20px;
+	
+	@media (min-width: @screen-sm) {
+		&.right {
+			float: right;
+		
+			.share-button {
+				margin-left: 10px;
+				margin-right: 0;
+			}
+		}
+	}
+}	
+	
+	.share-button {
+		display: inline-block;
+		margin-right: 10px;
+		vertical-align: middle;
+		width: 76px;
+	}

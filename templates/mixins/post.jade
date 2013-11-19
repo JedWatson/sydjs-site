@@ -20,3 +20,4 @@ mixin post(post)
 							| , 
 						a(href='/blog/' + cat.key)= cat.name
 			p(itemprop='description')!= post.content.brief
+			p: a(href='/blog/post/' + post.slug, itemprop='url') Read more &rarr;

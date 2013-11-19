@@ -62,8 +62,8 @@ block content
 		.blog(itemscope itemtype="http://schema.org/Blog")
 			for post in posts
 				+post(post)
-		hr.line-dashed
-		p: a(href='/blog').text-muted See all SydJS blog posts &rarr;
+			hr.line-dashed
+			p: a(href='/blog', itemprop='url').text-muted See all SydJS blog posts &rarr;
 
 
 
