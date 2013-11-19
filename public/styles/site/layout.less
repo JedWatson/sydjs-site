@@ -84,20 +84,22 @@
 // FOOTER
 // ------------------------------
 #sydjs-body {
-	border-bottom: 8px solid white;
+	
 }
 #sydjs-footer {
+	border-top: 8px solid white;
+	border-bottom: 8px solid white;
 	background-color: @brown;
 	color: mix(@brown, white, 50%);
 	font-size: @font-size-small;
 	padding: 20px 0;
+	margin-top: 60px;
 	position: relative;
 	text-align: center;
 	// text-transform: uppercase;
 	
 	p {
-		color: @gray-light;
-		margin-bottom: 0;
+		margin-bottom: 5px;
 	}
 	a {
 		color: white;
@@ -173,11 +175,51 @@
 
 
 
+// PAGE INTROS
+// ------------------------------
+.page-intro {
+	background-color: white;
+	border-bottom: 1px solid darken(@body-bg, 10%);
+	padding-bottom: 30px;
+	margin-bottom: 30px;
+	
+	p {
+		
+		font-size: floor(@font-size-base * 1.15);
+		font-weight: 200;
+		line-height: 1.4;
+		margin-bottom: 8px;
+
+		@media (min-width: @screen-sm-min) {
+			font-size: (@font-size-base * 1.5);
+		}
+		
+	}
+	
+	.buttons {
+		min-height: 30px;
+		margin-top: 14px;
+		
+		.btn {
+			margin-right: 10px;
+		}
+	
+		.twitter-follow-button {
+			position: absolute;
+			margin-top: 2px;
+		}
+	}
+}
+
+
+
+
 // MISC
 // ------------------------------
 .back-bar {
 	background-color: white;
 	border-bottom: 1px solid darken(@body-bg, 10%);
+	
 	p {
 		margin-bottom: 8px;
 	}
@@ -202,10 +244,10 @@
 		}
 	}
 }	
-	
-	.share-button {
-		display: inline-block;
-		margin-right: 10px;
-		vertical-align: middle;
-		width: 76px;
-	}
+
+.share-button {
+	display: inline-block;
+	margin-right: 10px;
+	vertical-align: middle;
+	width: 76px;
+}

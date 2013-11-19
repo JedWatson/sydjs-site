@@ -19,15 +19,15 @@
 // NEXT MEETUP
 .home-meetup {
 	
-	h4 {
+	h5 {
 		color: mix(@brown, @tan, 40%);
-		font-weight: bold;
-		margin-top: 30px;
+		font-weight: normal;
+		margin: 0px;
 		text-transform: uppercase;
 	}
 	h1 {
 		margin: 0px 0px 10px;
-		text-transform: normal;
+		color: @brown;
 	}
 	.btn-register {
 		background-color: @orange;
@@ -63,7 +63,7 @@
 	z-index: 2;
 }
 .home-meetup-map {
-	height: 200px;
+	height: 260px;
 }
 .home-meetup__details-list {
 	font-size: @font-size-large;
@@ -86,14 +86,14 @@
 
 // Talks
 .talks__heading {
-	color: mix(@brown, @tan, 40%);
-	font-weight: bold;
+	color: mix(@brown, @tan, 60%) !important;
 	margin-top: 30px;
+	font-weight: normal;
 	text-transform: uppercase;
 }
 .talks {
 	list-style: none;
-	margin: 0;
+	margin-top: 10px;
 	padding: 0;
 
 	.talk {
@@ -106,10 +106,10 @@
 		font-weight: 200;
 	}
 	.talk__speaker {
-		color: mix(@brown, @tan, 50%);
+		color: mix(@brand-primary, black, 50%);
 	}
 	a {
-		color: mix(@brown, @tan, 50%);
+		color: mix(@brand-primary, black, 80%);
 		
 		&:hover {
 			color: @brand-primary;
@@ -164,7 +164,7 @@
 	
 	@media (min-width: @screen-sm-min) {
 		.container {
-			width: 640px;
+			width: @screen-sm-min;
 		}
 	}
 }
@@ -174,11 +174,9 @@
 
 // LINKS
 .home-links {
-	// background-color: mix(@link-color, white, 10%);
-	
 	.link-icon-badge {
 		.square( 90px );
-		background-color: @link-color;
+		background-color: @brand-primary;
 		border-radius: 50%;
 		line-height: 90px;
 		margin-left: auto;

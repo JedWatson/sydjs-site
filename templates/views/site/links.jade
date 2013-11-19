@@ -1,6 +1,16 @@
 extends ../../layouts/default
 
+block intro
+	.page-intro: .container
+		h1 Links
+		p Tutorials, Libraries, Frameworks and blog posts mentioned in SydJS talks, or just of general usefulness. Join to contribute.
+		.buttons
+			a(href='/join').btn.btn-primary Join SydJS
+
 block content
 	.container
-		h1 Links
-
+		//- if links.length
+		//- 	each link in links
+		//- 		h3= link.name
+		//- else
+		h3.text-muted Oops, nothing here yet!

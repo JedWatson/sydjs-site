@@ -10,7 +10,7 @@ Organisation.add({
 	logo: { type: Types.CloudinaryImage },
 	website: Types.Url,
 	isHiring: Boolean,
-	description: { type: Types.Html, wysiwyg: true, height: 150 },
+	description: { type: Types.Markdown },
 	location: Types.Location
 });
 

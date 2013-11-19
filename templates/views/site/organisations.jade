@@ -1,0 +1,20 @@
+extends ../../layouts/default
+
+block intro
+	.page-intro: .container
+		h1 Members
+		p The organisations and people who are part of SydJS. Should you be here? Join us!
+		.buttons
+			a(href='/join').btn.btn-primary Join SydJS
+			a(href='/members').btn.btn-default View Members
+			a(href='/members/mentors').btn.btn-default View Mentors
+
+block content
+	.container
+		if organisations.length
+			each org in organisations
+				h3= org.name
+				if org.description.html
+					p!= org.description.html
+		else
+			h3.text-muted Oops, nobody's here!

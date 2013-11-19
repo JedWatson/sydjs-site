@@ -31,21 +31,22 @@ var routes = {
 // Bind Routes
 exports = module.exports = function(app) {
 	
-	// Views
+	// Website
 	app.get('/', routes.views.index);
 	app.get('/meetups', routes.views.meetups);
 	app.get('/members/:filter(mentors)?', routes.views.members);
+	app.get('/members/organisations', routes.views.organisations);
 	app.get('/links', routes.views.links);
 	app.get('/blog/:category?', routes.views.blog);
 	app.get('/blog/post/:post', routes.views.post);
 	app.get('/about', routes.views.about);
 	app.get('/mentoring', routes.views.mentoring);
 	
-	
-	// session
-	app.all('/signin', routes.views.signin);
+	// Session
+	app.all('/:mode(signin|join|forgot|attend)', routes.views.signin);
 	app.get('/signout', routes.views.signout);
 	
+	// User
 	app.all('/me', routes.views.me);
 
 }

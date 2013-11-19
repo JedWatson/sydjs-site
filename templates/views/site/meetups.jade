@@ -1,10 +1,10 @@
 extends ../../layouts/default
 
 mixin meetup(meetup)
-	h2= meetup.name
+	h3= meetup.name
 	p!= meetup.description
 	if meetup.talks.length
-		h3 Talks
+		h4 Talks
 		each talk in meetup.talks
 			p= talk.name
 			if talk.who.length
@@ -12,14 +12,26 @@ mixin meetup(meetup)
 					each user in talk.who
 						= user.name.full + ' '
 						if user.twitter
-							a(href='http://twitter.com/' + user.twitter.replace('@', ''), target='_blank')= user.twitter + ' '
+							a(href='http://twitter.com/' + user.twitter.replace('@', ''), target='_blank' data-size="large")= user.twitter + ' '
+block intro
+	.page-intro: .container
+		h1 Meetups
+		p We usually meet up the 3rd Wednesday of every month. To stay in the loop, follow us on twitter.
+		.buttons
+			a(href='/join').btn.btn-primary Join SydJS
+			a(href="https://twitter.com/sydjs", class="twitter-follow-button", data-show-count="true" data-size="large") Follow @sydjs
 
 block content
 	.container
-		h1 Next Meetup
+		h2 Next Meetup
 		each meetup in meetups.upcoming
 			+meetup(meetup)
 		
-		h1 Past Meetups
+		h2 Past Meetups
 		each meetup in meetups.past
 			+meetup(meetup)
+
+block js
+	// twitter
+	script.
+		!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");

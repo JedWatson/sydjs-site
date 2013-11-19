@@ -17,6 +17,9 @@ exports = module.exports = function(req, res) {
 	
 	view.query('members', membersQuery, 'posts talks[meetup]');
 	
-	view.render('site/members');
-	
+	if (req.params.filter == 'mentors') {
+		view.render('site/mentors');
+	} else {
+		view.render('site/members');
+	}
 }

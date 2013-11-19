@@ -14,14 +14,14 @@ exports = module.exports = function(req, res) {
 		Meetup.model.find()
 			.where('date').gte(moment().startOf('day').toDate())
 			.where('state', 'published')
-			.sort('-startDate')
+			.sort('-date')
 	, 'talks[who]');
 	
 	view.query('meetups.past',
 		Meetup.model.find()
 			.where('date').lt(moment().subtract('days', 1).endOf('day').toDate())
 			.where('state', 'published')
-			.sort('-startDate')
+			.sort('-date')
 	, 'talks[who]');
 	
 	view.render('site/meetups');

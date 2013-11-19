@@ -16,7 +16,7 @@ exports = module.exports = function(req, res) {
 		Meetup.model.findOne()
 			.where('date').gte(moment().startOf('day').toDate())
 			.where('state', 'published')
-			.sort('-startDate')
+			.sort('date')
 	, 'talks[who]');
 	
 	

@@ -19,7 +19,7 @@ User.add({
 	github: { type: String, width: 'short' },
 	twitter: { type: String, width: 'short' },
 	website: { type: Types.Url },
-	bio: { type: Types.Html, wysiwyg: true }
+	bio: { type: Types.Markdown }
 }, 'Mentoring', {
 	mentoring: {
 		available: { type: Boolean, label: 'Is Available', index: true },

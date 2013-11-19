@@ -5,15 +5,21 @@ block content
 		.container
 			form(method='post', action='private_info').profile-form
 				if user.canAccessKeystone
-					a(href='/keystone').btn.btn-xs.btn-success.pull-right Open the Keystone Admin UI
+					a(href='/keystone', target='_blank').btn.btn-xs.btn-success.pull-right Open the Keystone Admin UI
 				h4.profile-form__heading Your Profile
 				.form-group
 					.row
 						.col-sm-6: input(type='text', name='name.first' value=user.name.first).input.input-xl.input-faded
 						.col-sm-6: input(type='text', name='name.last' value=user.name.last).input.input-xl.input-faded
-				.form-group
-					label.input-label Email
-					input(type='email', name='email' value=user.email).input.input-labelled.input-faded
+				.row
+					.col-sm-6
+						.form-group
+							label.input-label Email
+							input(type='email', name='email' value=user.email).input.input-labelled.input-faded
+					.col-sm-6
+						.form-group
+							label.input-label Website
+							input(type='text', name='website' value=user.website).input.input-labelled.input-faded
 				.row
 					.col-sm-6
 						.form-group
@@ -55,8 +61,8 @@ block content
 
 				if meetups.past.length
 					.col-sm-4.col-md-push-1
-						h3.mt-0 You've been to...
-						ol
+						h4.mt-0 You've been to...
+						ul
 							each attendedMU in meetups.past
 								li=attendedMU.name
 	
@@ -75,13 +81,11 @@ block content
 									input(type='checkbox', name='isPublic')
 									|  Show my profile on the SydJS website
 						.form-group
-							label.col-sm-2.control-label Website
-							.col-sm-10
-								input(type='text', name='website', value=user.website).form-control
-						.form-group
 							label.col-sm-2.control-label Bio
+								br
+								.text-muted (markdown)
 							.col-sm-10
-								textarea(name='bio').form-control=user.bio
+								textarea(name='bio', rows=5).form-control=user.bio
 						.form-group
 							label.col-sm-2.control-label Mentoring
 							.col-sm-10
@@ -97,10 +101,14 @@ block content
 								label.checkbox
 									input(type='checkbox', name='mentoring.swap')
 									|  For Swap
-								label.checkbox
-									input(type='text', name='mentoring.have', placeholder='Has...').form-control
-								label.checkbox
-									input(type='text', name='mentoring.want', placeholder='Wants...').form-control
+						.form-group
+							label.col-sm-2.control-label I have...
+							.col-sm-10
+								input(type='text', name='mentoring.have', placeholder='').form-control
+						.form-group
+							label.col-sm-2.control-label I want...
+							.col-sm-10
+								input(type='text', name='mentoring.want', placeholder='').form-control
 						.form-group
 							.col-sm-10.col-sm-offset-2
 								button(type='submit', data-loading-text="Saving...").btn.btn-primary Save profile
@@ -120,10 +128,7 @@ block content
 							button(type='submit', data-loading-text="Changing...").btn.btn-primary Change
 							
 block js
-	script(src='/js/lib/bootstrap/button.js')<a href="https://twitter.com/twitterapi" class="twitter-follow-button" data-show-count="false" data-lang="en">Follow @twitterapi</a>
-	// twitter
-	script.
-		!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+	script(src='/js/lib/bootstrap/button.js')
 	// attending
 	script.
 		jQuery(function($) {

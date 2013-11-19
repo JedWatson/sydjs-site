@@ -12,6 +12,7 @@ keystone.init({
 	
 	'name': 'SydJS',
 	'brand': 'SydJS',
+	'back': '/me',
 	
 	'favicon': 'public/favicon.ico',
 	'less': 'public',
@@ -45,6 +46,7 @@ keystone.set('locals', {
 	js: 'javascript:;',
 	env: keystone.get('env'),
 	utils: keystone.utils,
+	editable: keystone.content.editable,
 	google_api_key: keystone.get('google api key'),
 	ga_property: keystone.get('ga property'),
 	ga_domain: keystone.get('ga domain')

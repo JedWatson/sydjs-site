@@ -8,11 +8,10 @@ mixin post(post)
 			a(href='/blog/post/' + post.slug)
 				if post.image.exists
 					img(src=post._.image.fit(770,510), alt=post.title).img-responsive
-		.blog-post__content
+		.blog-post__content(data-ks-editable=editable(user, { list: 'Post', id: post.id }))
 			h3(itemprop='name').blog-post__heading: a(href='/blog/post/' + post.slug, itemprop='url')= post.title
 			if post.author
-				h5.blog-post__author by 
-					a(href='/members', rel='author')=post.author.name.full
+				h5.blog-post__author by #{post.author.name.full}
 				if post.categories && post.categories.length
 					| in 
 					each cat, i in post.categories

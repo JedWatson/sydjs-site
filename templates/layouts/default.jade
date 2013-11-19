@@ -14,6 +14,9 @@ html
 		link(rel="shortcut icon", href="/favicon.ico", type="image/x-icon")
 		link(href="/styles/site.min.css", rel="stylesheet")
 		
+		if user && user.canAccessKeystone
+			link(href="/keystone/styles/content/editor.min.css", rel="stylesheet")
+		
 		block css
 		block head
 	body: #sydjs-wrapper
@@ -42,15 +45,8 @@ html
 							if link.layout == 'right'
 								li(class=(section == link.key ? 'nav-item-' + link.key + ' active' : 'nav-item-' + link.key)): a(href=link.href)= link.label
 						if user
-							li.dropdown
-								a(href=js, data-toggle='dropdown')
-									| #{user.name.first} 
-									span.caret
-								ul.dropdown-menu
-									li: a(href='/me') Profile
-									li: a(href='/keystone') Keystone
-									li.divider
-									li: a(href='/signout') Sign out
+							li: a(href='/me')= user.name.first
+							li: a(href='/signout').entypo.entypo-large.entypo-circled-cross
 						else
 							li: a(href='/signin') Sign In
 		
@@ -68,12 +64,15 @@ html
 		//- FOOTER
 		#sydjs-footer: .container
 			p Copyright &copy; 2013 SydJS. Powered by <a href='http://keystonejs.com'>KeystoneJS</a>.
-			p If you run a meetup, please feel free to clone our site and make your own!
+			p If you run a meetup, please feel free to clone our site and make your own! You can <a href="https://github.com/JedWatson/sydjs-site">find it on GitHub</a>.
 		
 	//- scripts
 	script(src='/js/lib/jquery/jquery-1.10.2.min.js')
 	script(src='/js/lib/bootstrap/collapse.js')
 	script(src='/js/lib/bootstrap/dropdown.js')
+	
+	if user && user.canAccessKeystone
+		script(src='/keystone/js/content/editor.js')
 	
 	block js
 	
