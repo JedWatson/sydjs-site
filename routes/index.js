@@ -59,6 +59,7 @@ exports = module.exports = function(app) {
 	app.get('/authentication/facebook', routes.authentication.facebook);
 	
 	// User
+	app.all('/me*', middleware.checkUser);
 	app.all('/me', routes.views.me);
 	app.all('/me/create/post', routes.views.createPost);
 	app.all('/me/create/link', routes.views.createLink);

@@ -1,11 +1,11 @@
 extends ../../layouts/default
 
-block content
+block intro
 	.back-bar
 		.container: .row: .col-sm-10.col-sm-offset-1.col-md-8.col-md-offset-2
 			.xs-right: a(href='/blog').text-muted &larr; Back to the blog
-	
-	//- - console.log(data.post)
+
+block content
 	.container: .row: .col-sm-10.col-sm-offset-1.col-md-8.col-md-offset-2
 		article.full-post
 			if !data.post

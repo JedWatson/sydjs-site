@@ -75,6 +75,21 @@ exports.flashMessages = function(req, res, next) {
 	
 };
 
+/**
+	Prevents people from accessing protected pages when they're not signed in
+ */
+
+exports.checkUser = function(req, res, next) {
+	
+	if (!req.user) {
+		req.flash('error', 'Please sign in to access this page.');
+		res.redirect('/signin');
+	} else {
+		next();
+	}
+	
+}
+
 
 /**
 	Returns a closure that can be used within views to change a parameter in the query string
