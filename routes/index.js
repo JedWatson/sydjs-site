@@ -25,6 +25,7 @@ keystone.set('500', function(err, req, res, next) {
 
 // Load Routes
 var routes = {
+	api: importRoutes('./api'),
 	views: importRoutes('./views'),
 	authentication: importRoutes('./authentication')
 };
@@ -54,5 +55,9 @@ exports = module.exports = function(app) {
 	
 	// User
 	app.all('/me', routes.views.me);
+	
+	// API
+	app.all('/api*', keystone.initAPI);
+	app.all('/api/me/meetup', routes.api.me.meetup);
 
 }
