@@ -1,0 +1,18 @@
+body {
+    background: #2c53b0 url(blueprintbg.png);
+    font-family: "Helvetica Neue",Arial,sans-serif;
+    color: #fff;
+}
+a:link, a:visited {
+    color: #fff;
+}
+.js #content {
+    position: absolute;
+    left: -9999em;
+    top: -9999em;
+}
+.no-raphael #content {
+    position: initial;
+    left: initial;
+    top: initial;
+}

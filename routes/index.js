@@ -33,8 +33,11 @@ var routes = {
 // Bind Routes
 exports = module.exports = function(app) {
 	
+	// Old
+	app.get('/', routes.views.old);
+	
 	// Website
-	app.get('/', routes.views.index);
+	app.get('/home', routes.views.index);
 	app.get('/meetups', routes.views.meetups);
 	app.get('/members/:filter(mentors)?', routes.views.members);
 	app.get('/members/organisations', routes.views.organisations);
