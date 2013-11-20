@@ -1,0 +1,48 @@
+extends ../../layouts/default
+
+block content
+
+	.section
+		.container
+			form(method='post', enctype='multipart/form-data', autocomplete='off', novalidate).form-horizontal.create-form.profile-form
+				input(type='hidden', name='action', value='create-post')
+				
+				.row: .col-sm-8.col-sm-offset-2
+					
+					//- Title
+					.form-group
+						h1 Create a blog post
+						input(type='text', id='post-title', name='title', placeholder='Post title').input.input-xl.input-faded
+					
+					
+					//- Image
+					.form-group
+						label Upload image
+						input(type='file', name='image_upload')
+					
+					//- Content
+					.form-group
+						label Post content
+						textarea(name='content.extended', class='wysiwyg').input.input-faded
+					
+					
+					//- Submit
+					.form-group
+						button(type='submit', data-loading-text="Changing...").btn.btn-lg.btn-primary.btn-block Create post
+						
+block js
+	script(src='/js/lib/bootstrap/button.js')
+	script(src='/js/lib/tinymce/tinymce.min.js')
+	script(src='/js/lib/tinymce/jquery.tinymce.min.js')
+	script.
+		jQuery(function($) {
+			$( "#post-title" ).focus();
+			tinymce.init({
+				selector: 'textarea.wysiwyg',
+				menubar: false,
+				height: 400,
+				plugins: [ 'code', 'link' ],
+				toolbar: 'bold italic | alignleft aligncenter alignright | bullist numlist | outdent indent | link | code',
+				skin: 'keystone'
+			});
+		});
