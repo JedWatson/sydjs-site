@@ -6,4 +6,4 @@ require('./organisations');
 require('./posts');
 require('./postCategories');
 require('./links');
-require('./linkCategories');
+require('./linkTags');
