@@ -16,6 +16,8 @@ Link.add({
 	publishedDate: { type: Types.Date, index: true }
 });
 
+Link.relationship({ ref: 'LinkComment', refPath: 'link', path: 'comments' });
+
 Link.addPattern('standard meta');
 Link.defaultColumns = 'label, href, author|20%, state|20%';
 Link.register();

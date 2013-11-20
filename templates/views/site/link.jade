@@ -1,11 +1,12 @@
 extends ../../layouts/default
 
-block content
+block intro
 	.back-bar
 		.container: .row: .col-sm-10.col-sm-offset-1.col-md-8.col-md-offset-2
 			.xs-right: a(href='/links').text-muted &larr; Back to Links
 	
-	//- - console.log(data.post)
+
+block content
 	.container: .row: .col-sm-10.col-sm-offset-1.col-md-8.col-md-offset-2
 		article.full-post
 			if !data.link
@@ -41,6 +42,7 @@ block content
 					h3: a(href=data.link.href, target='_blank'): em!=data.link.href
 				.post
 					!= data.link.label
+
 block js
 	script(src='/js/common/share.js')
 	script(src="https://apis.google.com/js/plusone.js")
