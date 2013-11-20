@@ -49,6 +49,7 @@ keystone.set('locals', {
 	js: 'javascript:;',
 	env: keystone.get('env'),
 	utils: keystone.utils,
+	plural: keystone.utils.plural,
 	editable: keystone.content.editable,
 	google_api_key: keystone.get('google api key'),
 	ga_property: keystone.get('ga property'),

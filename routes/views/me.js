@@ -45,7 +45,7 @@ exports = module.exports = function(req, res) {
 	view.on('post', { action: 'profile.bottom' }, function(next) {
 	
 		req.user.getUpdateHandler(req).process(req.body, {
-			fields: 'isPublic,bio,mentoring.available,mentoring.free,mentoring.paid,mentoring.swap,mentoring.have,mentoring.want',
+			fields: 'isPublic,bio,photo,mentoring.available,mentoring.free,mentoring.paid,mentoring.swap,mentoring.have,mentoring.want',
 			flashErrors: true
 		}, function(err) {
 		

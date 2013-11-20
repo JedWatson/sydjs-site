@@ -87,7 +87,7 @@ block content
 			h2.mt-0 Your profile
 			.row
 				.col-sm-8.col-md-7
-					form(method='post', autocomplete='off').form-horizontal
+					form(method='post', enctype='multipart/form-data', autocomplete='off', novalidate).form-horizontal
 						input(type='hidden', name='action', value='profile.bottom')
 						h3.mt-0 Public info
 						.form-group
@@ -101,6 +101,11 @@ block content
 								.text-muted (markdown)
 							.col-sm-10
 								textarea(name='bio', rows=5).form-control=user.bio.md
+						
+						.form-group
+							label.col-sm-2.control-label Photo
+							.col-sm-10
+								input(type='file', name='photo_upload')
 						.form-group
 							label.col-sm-2.control-label Mentoring
 							.col-sm-10

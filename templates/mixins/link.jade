@@ -6,10 +6,10 @@ mixin link(link)
 					span.entypo.entypo-link.text-muted
 			.col-xs-11
 				h4(itemprop='name').mt-5
-					//- a(href='/links/link/' + link.slug, itemprop='url')
-					strong= link.label
+					a(href='/links/link/' + link.slug, itemprop='url').text-dark
+						strong= link.label
 				if link.author
-					p.byline: small.text-muted #{link.author.name.full}, added #{moment(link.publishedDate).fromNow()}
+					p.byline: small.text-muted #{link.author.name.full} &middot; added #{moment(link.publishedDate).fromNow()}
 				p.link: a(href=link.href, target='_blank'): em!=link.href
 				if link.tags && link.tags.length
 					ul.list-unstyled.tags-list

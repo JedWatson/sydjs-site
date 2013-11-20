@@ -6,11 +6,11 @@ var LinkComment = new keystone.List('LinkComment', {
 });
 
 LinkComment.add({
-	post: { type: Types.Relationship, ref: 'Post', index: true },
+	link: { type: Types.Relationship, ref: 'Link', index: true },
 	author: { type: Types.Relationship, ref: 'User', index: true },
 	date: { type: Types.Date, default: Date.now, index: true },
 	content: { type: Types.Markdown }
 });
 
-LinkComment.defaultColumns = 'post, author, date|20%';
+LinkComment.defaultColumns = 'author, date|20%';
 LinkComment.register();

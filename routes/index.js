@@ -43,9 +43,9 @@ exports = module.exports = function(app) {
 	app.get('/members/organisations', routes.views.organisations);
 	app.get('/links', routes.views.links);
 	app.get('/links/:tag?', routes.views.links);
-	app.get('/links/link/:link', routes.views.link);
+	app.all('/links/link/:link', routes.views.link);
 	app.get('/blog/:category?', routes.views.blog);
-	app.get('/blog/post/:post', routes.views.post);
+	app.all('/blog/post/:post', routes.views.post);
 	app.get('/about', routes.views.about);
 	app.get('/mentoring', routes.views.mentoring);
 	
