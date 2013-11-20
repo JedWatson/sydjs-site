@@ -61,19 +61,26 @@
 }
 .section-next-meetup {
 	background-color: white;
-	border-bottom-color: mix(@body-bg, black, 90%);
+	border-bottom: 8px solid mix(@body-bg, black, 90%);
 	border-top: 8px solid mix(@body-bg, black, 90%);
 }
 
 // calendar
 @calendar-width:    100px;
 .calendar {
+	.center-block();
 	background-color: white;
 	border-radius: 4px;
-	float: left;
 	text-align: center;
 	text-transform: uppercase;
 	width: @calendar-width;
+}
+.calendar--past {
+	color: @gray-light;
+	
+	.calendar__header {
+		background-color: mix(black, @body-bg, 30%);
+	}
 }
 	.calendar__header {
 		.border-top-radius( 4px );
@@ -94,6 +101,15 @@
 	.calendar__date {
 		font-size: 48px;
 	}
-.meetup-content {
-	margin-left: @calendar-width + 20;
+	
+.meetup-calendar {
+	margin-bottom: 20px;
+}
+@media (min-width: @screen-sm-min) {
+	.meetup-calendar {
+		float: left;
+	}
+	.meetup-content {
+		margin-left: @calendar-width + 20;
+	}
 }

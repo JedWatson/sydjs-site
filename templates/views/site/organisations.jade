@@ -1,20 +1,54 @@
 extends ../../layouts/default
 
+mixin organisations(org)
+	.org.row
+		.col-sm-3.col-md-2.text-center
+			if org.logo.exists
+				if org.website
+					a(href=org.website, target='_blank').org__logo
+						img(src=org._.logo.limit(120,120), alt=org.name)
+				else
+					span.org__logo
+						img(src=org._.logo.limit(120,120), alt=org.name)
+		.col-sm-9.col-md-8
+			h2.org__heading
+				if org.website
+					a(href=org.website, target='_blank')= org.name
+				else
+					= org.name
+			h4.org__location
+				span.org__location-icon.entypo.entypo-location
+				span.org__location-address 84 Mary St, Surry Hills NSW
+			p We help businesses, associations & agencies create better, more effective websites and mobile apps.
+			p Get in touch and we can arrange a free consultation at your place or ours and talk in clear language about how we can help with your next mobile, web or development project.
+			if org.description.html
+				!= org.description.html
+		if org.members.length
+			.col-sm-9.col-sm-offset-3.col-md-2.col-md-offset-0
+				hr.line-dashed.visible-xs.visible-sm
+				h6.text-muted.mt-0 Members in #{org.name}
+				ul.list-unstyled
+					each member in org.members
+						li: a(href=js)=member.name.full
+
 block intro
 	.page-intro: .container
-		h1 Members
+		h1 Organisations
 		p The organisations and people who are part of SydJS. Should you be here? Join us!
 		.buttons
-			a(href='/join').btn.btn-primary Join SydJS
+			if !user
+				a(href='/join').btn.btn-primary Join SydJS
 			a(href='/members').btn.btn-default View Members
 			a(href='/members/mentors').btn.btn-default View Mentors
 
 block content
 	.container
-		if organisations.length
-			each org in organisations
-				h3= org.name
-				if org.description.html
-					p!= org.description.html
-		else
-			h3.text-muted Oops, nobody's here!
+		.organisations
+			if organisations.length
+				each foo, i in [1,2,3]
+					each org in organisations
+						if i
+							hr
+						+organisations(org)
+			else
+				h3.text-muted Oops, nobody's here!

@@ -13,7 +13,7 @@
 // NAVBAR
 // ------------------------------
 .navbar {
-	border-bottom: 8px solid white;
+	// border-bottom: 8px solid white;
 	font-size: @font-size-small;
 	font-weight: 500;
 	margin: 0;
@@ -37,9 +37,16 @@
 	}
 }
 .navbar-logo {
+	.transition( top 0.1s ease-in-out );
+	border-top: 0px solid @brand-primary;
+	display: block;
 	margin-left: (@grid-gutter-width / 2);
 	position: absolute;
 	z-index: 1;
+	
+	img {
+		width: 100%;
+	}
 	
 	@media (max-width: @screen-sm-max) {
 		img {
@@ -50,11 +57,17 @@
 		.size(90px,80px);
 		left: 50%;
 		margin-left: -45px;
+		top: -2px;
 	}
 	@media (min-width: @screen-md-min) {
-		.size(130px,115px);
+		.size(130px,119px);
 		left: 50%;
 		margin-left: -65px;
+		top: -4px;
+	
+	}
+	&:hover {
+		top: 0;
 	}
 }
 
@@ -87,8 +100,7 @@
 	
 }
 #sydjs-footer {
-	border-top: 8px solid white;
-	border-bottom: 8px solid white;
+	// border-top: 8px solid white;
 	background-color: @brown;
 	color: mix(@brown, white, 50%);
 	font-size: @font-size-small;
@@ -162,26 +174,40 @@
 
 // FORMS
 // ------------------------------
+
+// twbs right aligned labels looks weird
 .form-horizontal .control-label {
 	text-align: left;
 }
+
+// labels for checkboxes should look like content
 .checkbox { font-weight: inherit; }
+
+// allow gap between collapsed fields on small devices
 @media (max-width: @screen-xs-max) {
 	.form-group .row > [class^='col-'] {
 		margin-bottom: 10px;
 	}
 }
 
+// assume textarea's have adequate width
+// allow vertical resizing
+textarea {
+	.resizable(vertical);
+}
 
 
 
 // PAGE INTROS
 // ------------------------------
+.back-bar,
 .page-intro {
 	background-color: white;
-	border-bottom: 1px solid darken(@body-bg, 10%);
-	padding-bottom: 30px;
-	margin-bottom: 30px;
+	border-bottom: 1px solid darken(desaturate(@body-bg, 30%), 8%);
+}
+.page-intro {
+	padding-bottom: 35px;
+	margin-bottom: 40px;
 	
 	p {
 		
@@ -214,11 +240,48 @@
 
 
 
+// MEETUPS
+// ------------------------------
+.meetup {
+	margin-top: 60px;
+}
+.meetup--present {
+	margin-top: 0;
+}
+.meetup-talks {
+	border-top: 1px dashed @hr-border;
+	font-size: @font-size-base;
+	padding-left: 40px;
+	padding-top: 20px;
+	position: relative;
+	
+	.meetup-talks__icon {
+		.text-muted();
+		display: block;
+		position: absolute;
+		left: 0;
+		top: 20px;
+	}
+	.meetup-talks__heading {
+		.text-muted();
+		margin-top: 0;
+	}
+	.talk {
+		margin-bottom: 15px;
+	}
+	.talk__speaker {
+		.text-muted();
+	}
+}
+	
+
+
+
 // MISC
 // ------------------------------
 .back-bar {
-	background-color: white;
-	border-bottom: 1px solid darken(@body-bg, 10%);
+	padding-bottom: 10px;
+	padding-top: 10px;
 	
 	p {
 		margin-bottom: 8px;
@@ -233,7 +296,7 @@
 	margin: 20px 0;
 	min-height: 20px;
 	
-	@media (min-width: @screen-sm) {
+	@media (min-width: @screen-sm-min) {
 		&.right {
 			float: right;
 		
@@ -250,4 +313,36 @@
 	margin-right: 10px;
 	vertical-align: middle;
 	width: 76px;
+}
+
+
+
+// organisations
+.org__heading {
+	margin-top: 0;
+	
+	a {
+		color: @headings-color;
+	}
+}
+.org__location {
+	.text-muted();
+}
+.org__location-icon {
+	float: left;
+	font-size: 42px;
+	margin-right: 10px;
+	// margin-top: 2px;
+}
+.org__location-address {
+	display: table;
+}
+.org__logo {
+	display: block;
+	margin-bottom: 20px;
+}
+@media (min-width: @screen-sm-min) {
+	.org__logo img {
+		.img-responsive();
+	}
 }

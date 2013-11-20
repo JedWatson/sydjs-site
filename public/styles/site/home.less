@@ -1,7 +1,7 @@
 
 // coverall
 .section {
-	border-bottom: 8px solid white;
+	// border-bottom: 8px solid white;
 	
 	&:last-child {
 		border-bottom: 0 none;
@@ -57,13 +57,12 @@
 	}
 }
 .home-meetup-wrapper {
-	box-shadow: 0 4px 0 rgba(0,0,0,0.1);
-	border-bottom: 1px solid mix(@tan, black, 70%);
+	border-bottom: 8px solid mix(black, @body-bg, 10%);
 	position: relative;
 	z-index: 2;
 }
 .home-meetup-map {
-	height: 260px;
+	height: 300px;
 }
 .home-meetup__details-list {
 	font-size: @font-size-large;
@@ -123,6 +122,8 @@
 // ABOUT
 .home-about {
 	background-color: @brand-primary;
+	border-bottom: 8px solid mix(white, @brand-primary, 20%);
+	border-top: 8px solid mix(white, @brand-primary, 20%);
 	color: white;
 	text-align: center;
 	
@@ -156,11 +157,10 @@
 
 // BLOG
 .home-blog {
-	// background-color: white;
+	background-color: white;
 	
-	/*.illustrative-heading__text {
-		background-color: white;
-	}*/
+	.illustrative-heading__line { border-color: #eee; }
+	.illustrative-heading__text { background-color: white; }
 	
 	@media (min-width: @screen-sm-min) {
 		.container {
@@ -174,14 +174,26 @@
 
 // LINKS
 .home-links {
+	border-top: 8px solid mix(black, @body-bg, 10%);
+	
+	.home-links__heading a {
+		color: @headings-color;
+	}
+	
 	.link-icon-badge {
 		.square( 90px );
 		background-color: @brand-primary;
 		border-radius: 50%;
+		display: block;
 		line-height: 90px;
 		margin-left: auto;
 		margin-right: auto;
 		text-align: center;
+		
+		&:hover {
+			background-color: @link-hover-color;
+			text-decoration: none;
+		}
 	}
 	.link-icon {
 		color: white;

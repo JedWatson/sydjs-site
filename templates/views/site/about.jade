@@ -6,7 +6,8 @@ block intro
 		p Welcome to SydJS. There should be a nice intro here, as soon as Sharkie writes it.
 		p In the meantime we're a bunch of Javascripting Sydneysiders, and you should come to our next meetup.
 		.buttons
-			a(href='/join').btn.btn-primary Join SydJS
+			if !user
+				a(href='/join').btn.btn-primary Join SydJS
 			a(href="https://twitter.com/sydjs", class="twitter-follow-button", data-show-count="true" data-size="large") Follow @sydjs
 
 block content	

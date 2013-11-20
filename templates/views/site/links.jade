@@ -4,8 +4,9 @@ block intro
 	.page-intro: .container
 		h1 Links
 		p Tutorials, Libraries, Frameworks and blog posts mentioned in SydJS talks, or just of general usefulness. Join to contribute.
-		.buttons
-			a(href='/join').btn.btn-primary Join SydJS
+		if !user
+			.buttons
+				a(href='/join').btn.btn-primary Join SydJS
 
 block content
 	.container

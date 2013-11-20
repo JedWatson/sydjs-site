@@ -10,7 +10,7 @@
 @brand-primary:         #2697de;
 @brand-secondary:       #d55500;
 @brand-success:         #1aaf5e;
-@brand-warning:         #f4c600;
+@brand-warning:         #f0ad4e;
 @brand-danger:          #b50001;
 @brand-info:            #00abec;
 
@@ -31,8 +31,8 @@
 // Links
 // -------------------------
 
-@link-color:            mix(@brand-primary, black, 80%);
-@link-hover-color:      @brand-primary;
+@link-color:            @brand-primary;
+@link-hover-color:      lighten(saturate(@brand-primary, 10%), 10%);
 
 // Typography
 // -------------------------
@@ -58,6 +58,12 @@
 @navbar-default-toggle-hover-bg:           mix(white, @brown, 5%);
 @navbar-default-toggle-icon-bar-bg:        mix(white, @brown, 35%);
 @navbar-default-toggle-border-color:       mix(white, @brown, 25%);
+
+
+// Buttons
+// -------------------------
+
+@btn-default-bg:                 #f6f6f6;
 
 
 

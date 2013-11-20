@@ -33,7 +33,7 @@ html
 						span.sr-only Toggle navigation
 						!='<span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>'
 					a(href='/', title='Back to Home').navbar-logo
-						img(src='/images/logo.svg', alt='SydJS logo', width=130, height=115)
+						img(src='/images/logo.svg', alt='SydJS logo', width=130, height=119)
 					//- a(href='/', title='Back to Home').navbar-brand.visible-xs SydJS
 				.collapse.navbar-collapse.navbar-headernav-collapse
 					ul.nav.navbar-nav
@@ -46,7 +46,9 @@ html
 								li(class=(section == link.key ? 'nav-item-' + link.key + ' active' : 'nav-item-' + link.key)): a(href=link.href)= link.label
 						if user
 							li: a(href='/me')= user.name.first
-							li: a(href='/signout').entypo.entypo-large.entypo-circled-cross
+							li: a(href='/signout')
+								span.visible-xs Sign out
+								span.entypo.entypo-large.entypo-logout.hidden-xs
 						else
 							li: a(href='/signin') Sign In
 		
@@ -63,8 +65,8 @@ html
 		
 		//- FOOTER
 		#sydjs-footer: .container
-			p Copyright &copy; 2013 SydJS. Powered by <a href='http://keystonejs.com'>KeystoneJS</a>.
-			p If you run a meetup, please feel free to clone our site and make your own! You can <a href="https://github.com/JedWatson/sydjs-site">find it on GitHub</a>.
+			p Copyright &copy; 2013 SydJS. Powered by <a href='http://keystonejs.com', target='_blank'>KeystoneJS</a>.
+			p If you run a meetup, please feel free to clone our site and make your own! You can <a href="https://github.com/JedWatson/sydjs-site", target='_blank'>find it on GitHub</a>.
 		
 	//- scripts
 	script(src='/js/lib/jquery/jquery-1.10.2.min.js')

@@ -1,0 +1,27 @@
+mixin meetup(meetup, mode)
+	.meetup(class='meetup--'+mode)
+		.meetup-calendar.calendar(class=mode == 'past' ? 'calendar--past' : null)
+			.calendar__header=meetup._.date.format('MMM')
+			.calendar__body
+				.calendar__date=meetup._.date.format('DD')
+				.calendar__year=meetup._.date.format('YYYY')
+		.meetup-content
+			if mode == 'present'
+				.text-muted Next Meetup
+			h2.mt-0= meetup.name
+			p!= meetup.description
+			if meetup.talks.length
+				.meetup-talks
+					span.meetup-talks__icon.entypo.entypo-large.entypo-comment
+					h4.meetup-talks__heading Talks from the night
+					ul.list-unstyled
+						each talk in meetup.talks
+							li.talk
+								strong.talk__name= talk.name
+								if talk.who.length
+									.talk__speaker
+										| by 
+										each user in talk.who
+											= user.name.full + ' '
+											if user.twitter
+												a(href='http://twitter.com/' + user.twitter.replace('@', ''), target='_blank' data-size="large")= user.twitter + ' '

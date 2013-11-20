@@ -464,21 +464,35 @@
   color: @color;
   background-color: @background;
   border-color: @border;
+  
+	background-color: @background;
+	border-color: @background;
+	border-bottom-color: mix(@background, black, 85%);
+	border-bottom-width: 2px;
+	color: @color;
+	font-weight: bold;
+	position: relative;
+	// text-transform: uppercase;
 
   &:hover,
   &:focus,
   &:active,
   &.active,
   .open .dropdown-toggle& {
+		background-color: mix(@background, white, 90%);
+		border-color: @background;
+		border-bottom-color: mix(@background, black, 90%);
     color: @color;
-    background-color: darken(@background, 8%);
-        border-color: darken(@border, 12%);
-  }
+		outline: 0 none;
+	}
   &:active,
   &.active,
   .open .dropdown-toggle& {
-    background-image: none;
-  }
+		box-shadow: none;
+		background-color: @background;
+		border-bottom-color: @background;
+		top: 2px;
+	}
   &.disabled,
   &[disabled],
   fieldset[disabled] & {

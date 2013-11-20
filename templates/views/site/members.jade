@@ -5,7 +5,8 @@ block intro
 		h1 Members
 		p The people and organisations who are part of SydJS. Should you be here? Join us!
 		.buttons
-			a(href='/join').btn.btn-primary Join SydJS
+			if !user
+				a(href='/join').btn.btn-primary Join SydJS
 			a(href='/members/organisations').btn.btn-default View Organisations
 			a(href='/members/mentors').btn.btn-default View Mentors
 
@@ -13,7 +14,7 @@ block content
 	.container
 		if members.length
 			each member in members
-				h3= member.name.full
+				h3.mt-0= member.name.full
 				if member.bio.html
 					p!= member.bio.html
 				if member.talks.length

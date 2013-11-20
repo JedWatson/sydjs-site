@@ -2,10 +2,11 @@ extends ../../layouts/default
 
 block intro
 	.page-intro: .container
-		h1 Members
+		h1 Mentors
 		p The mentors who are part of SydJS. Should you be here? Join us!
 		.buttons
-			a(href='/join').btn.btn-primary Join SydJS
+			if !user
+				a(href='/join').btn.btn-primary Join SydJS
 			a(href='/members').btn.btn-default View Members
 			a(href='/members/organisations').btn.btn-default View Organisations
 

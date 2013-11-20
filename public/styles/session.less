@@ -124,6 +124,7 @@ form {
 	
 	// pop the focused field to the top so the border is visible
 	&:focus {
+		.box-shadow( 0 0 7px -2px fade(@link-color, 60%) );
 		border-color: @link-color;
 		z-index: 1;
 	}

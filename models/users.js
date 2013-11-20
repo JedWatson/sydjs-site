@@ -16,6 +16,7 @@ User.add({
 }, 'Profile', {
 	isPublic: Boolean,
 	organisation: { type: Types.Relationship, ref: 'Organisation' },
+	photo: { type: Types.CloudinaryImage },
 	github: { type: String, width: 'short' },
 	twitter: { type: String, width: 'short' },
 	website: { type: Types.Url },

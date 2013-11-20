@@ -42,9 +42,9 @@ h5 {
 	font-weight: normal;
 }
 
-a:hover {
+/*a:hover {
 	text-decoration: none;
-}
+}*/
 
 .control-label .text-muted {
 	font-weight: normal;
@@ -114,7 +114,13 @@ a:hover {
 .line-dashed { border-top: 1px dashed @hr-border; }
 .line-dotted { border-top: 1px dotted @hr-border; }
 .line-solid  { border-top: 1px solid @hr-border; }
-.line-thick  { border-top: 6px solid @hr-border; }
+
+// more border needs more gap
+.line-thick  {
+	border-top: 6px solid @hr-border;
+	margin-top:    @line-height-computed * 2;
+	margin-bottom: @line-height-computed * 2;
+}
 
 
 

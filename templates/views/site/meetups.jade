@@ -1,35 +1,29 @@
 extends ../../layouts/default
 
-mixin meetup(meetup)
-	h3= meetup.name
-	p!= meetup.description
-	if meetup.talks.length
-		h4 Talks
-		each talk in meetup.talks
-			p= talk.name
-			if talk.who.length
-				p by 
-					each user in talk.who
-						= user.name.full + ' '
-						if user.twitter
-							a(href='http://twitter.com/' + user.twitter.replace('@', ''), target='_blank' data-size="large")= user.twitter + ' '
+include ../../mixins/meetup
+
 block intro
 	.page-intro: .container
 		h1 Meetups
 		p We usually meet up the 3rd Wednesday of every month. To stay in the loop, follow us on twitter.
 		.buttons
-			a(href='/join').btn.btn-primary Join SydJS
+			if !user
+				a(href='/join').btn.btn-primary Join SydJS
 			a(href="https://twitter.com/sydjs", class="twitter-follow-button", data-show-count="true" data-size="large") Follow @sydjs
+
 
 block content
 	.container
-		h2 Next Meetup
+		//- h2 Next Meetup
 		each meetup in meetups.upcoming
-			+meetup(meetup)
+			+meetup(meetup, 'present')
 		
-		h2 Past Meetups
-		each meetup in meetups.past
-			+meetup(meetup)
+		hr.line-thick
+		.meetup-content
+			//- h2 Past Meetups
+			//- .text-muted Past Meetups
+		each meetup, i in meetups.past
+			+meetup(meetup, 'past')
 
 block js
 	// twitter

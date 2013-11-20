@@ -6,9 +6,10 @@ block intro
 	.page-intro: .container
 		h1=data.category ? data.category.name : 'Blog'
 		p This is the blog of SydJS, contributed by our members and guest authors. Join to contribute.
-		.buttons
-			a(href='/join').btn.btn-primary Join SydJS
-			a(href='/signin').btn.btn-default Sign In
+		if !user
+			.buttons
+				a(href='/join').btn.btn-primary Join SydJS
+				a(href='/signin').btn.btn-default Sign In
 
 block content
 	.container
