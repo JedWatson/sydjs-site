@@ -15,8 +15,8 @@ var deps = {
 
 User.add({
 	name: { type: Types.Name, required: true, index: true },
-	email: { type: Types.Email, initial: true, required: false, index: true },
-	password: { type: Types.Password, initial: true, required: false }
+	email: { type: Types.Email, initial: true, index: true },
+	password: { type: Types.Password, initial: true }
 }, 'Profile', {
 	isPublic: Boolean,
 	organisation: { type: Types.Relationship, ref: 'Organisation' },
