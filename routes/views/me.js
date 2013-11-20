@@ -62,6 +62,11 @@ exports = module.exports = function(req, res) {
 	
 	view.on('post', { action: 'profile.password' }, function(next) {
 	
+		if (!req.body.password || !req.body.password_confirm) {
+			req.flash('error', 'Please enter a password.');
+			return next();
+		}
+	
 		req.user.getUpdateHandler(req).process(req.body, {
 			fields: 'password',
 			flashErrors: true
