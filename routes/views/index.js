@@ -19,12 +19,20 @@ exports = module.exports = function(req, res) {
 			.sort('date')
 	, 'talks[who]');
 	
+	// Load the last meetup
+	view.query('lastMeetup',
+		Meetup.model.findOne()
+			.where('date').lt(moment().startOf('day').toDate())
+			.where('state', 'published')
+			.sort('-date')
+	, 'talks[who]');
 	
-	// Load posts
+	// Load recent posts
 	view.query('posts',
 		Post.model.find()
 			.where('state', 'published')
 			.sort('-publishedDate')
+			.limit(2)
 			.populate('author categories'));
 	
 	view.render('site/index');

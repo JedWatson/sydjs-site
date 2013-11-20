@@ -4,10 +4,15 @@ include ../../mixins/post
 
 block content
 	//- Hero
+	if nextMeetup
+		- lastMeetup = false;
+	else
+		- nextMeetup = lastMeetup;
+		
 	section.section.home-meetup
 		.home-meetup-wrapper
 			.container
-				h5 Our next meetup:
+				h5= (lastMeetup) ? 'Our last meetup:' : 'Our next meetup:'
 				div(data-ks-editable=editable(user, { list: 'Meetup', id: nextMeetup.id }))
 					h1= nextMeetup.name
 					.row
@@ -45,8 +50,9 @@ block content
 									.sr-only Place
 									span.entypo.entypo-fixed-width.entypo-location
 								dd=nextMeetup.place
-							.register-btn
-								a(href='/attend').btn.btn-lg.btn-block.btn-register Register
+							if !lastMeetup
+								.register-btn
+									a(href='/attend').btn.btn-lg.btn-block.btn-register Register
 							hr.line-dashed
 							p: a(href='/meetups').text-muted All our meetups &rarr;
 		.home-meetup-map
@@ -58,7 +64,7 @@ block content
 
 	//- About
 	section.section.home-about: .container
-		h2 In Sydney and into JavaScript? You need to visit SydJS.
+		h2 In Sydney and into JavaScript? You need to join SydJS.
 			br
 			br
 			| Every 3rd Wednesday of the month you'll find us talking about what we're doing, and what's happening around us in the world of JavaScript.

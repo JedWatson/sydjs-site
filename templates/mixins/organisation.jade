@@ -22,7 +22,7 @@ mixin organisations(org)
 				!= org.description.html
 			if org.website
 				h5: a(href=org.website, target='_blank')= org.website.replace('http://', '')
-		if org.members.length
+		if org.members && org.members.length
 			.col-sm-9.col-sm-offset-3.col-md-2.col-md-offset-0
 				hr.line-dashed.visible-xs.visible-sm
 				h6.text-muted.mt-0 Members in #{org.name}

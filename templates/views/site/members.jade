@@ -18,12 +18,12 @@ block content
 				p: a(href='https://twitter.com/' + member.twitter.replace('@', ''), target='_blank')= member.twitter
 				if member.bio.html
 					p!= member.bio.html
-				if member.talks.length
+				if member.talks && member.talks.length
 					h5.text-muted.caps.mv-0: strong Talks
 					ul.list-unstyled
 						each talk in member.talks
 							li= talk.name
-				if member.posts.length
+				if member.posts && member.posts.length
 					h5.text-muted.caps.mv-0: strong Posts
 					ul.list-unstyled
 						each post in member.posts
