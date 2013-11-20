@@ -15,7 +15,7 @@ $(function() {
 		var height = $easterEgg.height();
 		
 		$easterEgg.css({ height: 0 });
-		$easterEgg.animate({ height: height }, 1000);
+		$easterEgg.animate({ height: height }, 400);
 		
 		$oldLogo.css('opacity', 0);
 		
