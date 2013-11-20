@@ -1,35 +1,33 @@
 extends ../../layouts/session
 
 block content
-	form(method='post',role='signin').signin-form
+	form(method='post',role='signin', autocomplete='off', style=(form.action && form.action != 'signin' ? 'display: none;' : null)).signin-form
+		input(type='hidden', name='action', value='signin')
 		//- a(href=js).btn.btn-facebook.btn-block
 			span.entypo.entypo-s-facebook
 			|  Sign in with Facebook
 		.form-control-box
 			label(for='signin-email').sr-only Email
-			input(type='email', name='email', placeholder='Email', id='signin-email').form-control
+			input(type='email', name='signin_email', placeholder='Email', id='signin-email', value=signin_email).form-control
 			label(for='signin-password').sr-only Password
-			input(type='password', name='password', placeholder='Password', id='signin-password').form-control
+			input(type='password', name='signin_password', placeholder='Password', id='signin-password', value='').form-control
 		button(type='submit').btn.btn-block.btn-submit Sign in
-		
-		
-		
-	form(method='post',role='join', style='display: none;').join-form
+	
+	form(method='post',role='join', autocomplete='off', style=(form.action != 'join' ? 'display: none;' : null)).join-form
+		input(type='hidden', name='action', value='join')
 		.form-control-box
 			label(for='join-name').sr-only Email
-			input(type='text', name='name', placeholder='Name', id='join-name').form-control
+			input(type='text', name='join_name', placeholder='Name', id='join-name', value=form.join_name).form-control
 			label(for='join-email').sr-only Email
-			input(type='email', name='email', placeholder='Email', id='join-email').form-control
+			input(type='email', name='join_email', placeholder='Email', id='join-email', value=form.join_email).form-control
 			label(for='join-password').sr-only Password
-			input(type='password', name='password', placeholder='Password', id='join-password').form-control
+			input(type='password', name='join_password', placeholder='Password', id='join-password', value='').form-control
 			label(for='join-passwordConfirm').sr-only Confirm Password
-			input(type='password', name='passwordConfirm', placeholder='Confirm Password', id='signin-passwordConfirm').form-control
+			input(type='password', name='join_passwordConfirm', placeholder='Confirm Password', id='signin-passwordConfirm', value='').form-control
 			label(for='join-twitter').sr-only Twitter
-			input(type='text', name='twitter', placeholder='Twitter', id='signin-twitter').form-control
+			input(type='text', name='join_twitter', placeholder='Twitter', id='signin-twitter', value=form.join_twitter).form-control
 		button(type='submit').btn.btn-block.btn-submit Join SydJS
-		
-		
-		
+	
 	p.text-center
 		a(href=js).js-toggle-join Join SydJS
 		a(href=js, style='display: none;').js-toggle-signin Sign In
