@@ -32,7 +32,7 @@ block content
 							h3 There are no links yet.
 			
 			.col-sm-3
-				h4 Sort by
+				h5.text-muted Sort by
 				p: small
 					if current.sort == 'updated'
 						strong Recently added
@@ -45,7 +45,7 @@ block content
 						a(href=qs_set({ sort: 'name' })) Name
 				if data.tags.length
 					hr
-					h4 Tags
+					h5.text-muted Tags
 					ul.list-unstyled.tags-list
 						li: a(href='/links', class=!data.tag ? 'active' : false) All
 						each tag in data.tags

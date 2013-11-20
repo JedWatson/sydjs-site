@@ -15,5 +15,6 @@ mixin link(link)
 					ul.list-unstyled.tags-list
 						each tag, i in link.tags
 							li: a(href='/links/' + tag.key)= tag.name
-				p.mt-0(itemprop='description')!= link.description.html
+				.description
+					!= link.description.html
 		
