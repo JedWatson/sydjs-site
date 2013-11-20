@@ -17,7 +17,7 @@ mixin social-signin()
 	p.signin-form-heading or your email
 
 block content
-	form(method='post',role='signin', autocomplete='off', style=(form.action && form.action != 'signin' ? 'display: none;' : null)).signin-form
+	form(method='post',role='signin', style=(form.action && form.action != 'signin' ? 'display: none;' : null)).signin-form
 		input(type='hidden', name='action', value='signin')
 		
 		+social-signin
@@ -29,7 +29,7 @@ block content
 			input(type='password', name='signin_password', placeholder='Password', id='signin-password', value='').form-control
 		button(type='submit').btn.btn-block.btn-submit Sign in
 	
-	form(method='post',role='join', autocomplete='off', style=(form.action != 'join' ? 'display: none;' : null)).join-form
+	form(method='post',role='join', style=(form.action != 'join' ? 'display: none;' : null)).join-form
 		input(type='hidden', name='action', value='join')
 		
 		+social-signin

@@ -13,19 +13,21 @@ block intro
 block content
 	.container
 		if members.length
-			each member in members
-				h3.mt-0= member.name.full
-				if member.bio.html
-					p!= member.bio.html
-				if member.talks.length
-					h4 Talks
-					ul
-					each talk in member.talks
-						li= talk.name
-				if member.posts.length
-					h4 Posts
-					ul
-					each post in member.posts
-						li= post.title
+			.row
+				each member in members
+					.col-sm-3
+						h3.mt-0= member.name.full
+						if member.bio.html
+							p!= member.bio.html
+						if member.talks.length
+							h5.text-muted Talks
+							ul.list-unstyled
+								each talk in member.talks
+									li= talk.name
+						if member.posts.length
+							h5.text-muted Posts
+							ul.list-unstyled
+								each post in member.posts
+									li= post.title
 		else
 			h3.text-muted Oops, nobody's here!
