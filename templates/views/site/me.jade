@@ -3,7 +3,8 @@ extends ../../layouts/default
 block content
 	.section.section-profile-form
 		.container
-			form(method='post', action='private_info').profile-form
+			form(method='post', autocomplete='off').profile-form
+				input(type='hidden', name='action', value='profile.top')
 				if user.canAccessKeystone
 					a(href='/keystone', target='_blank').btn.btn-xs.btn-success.pull-right Open the Keystone Admin UI
 				h4.profile-form__heading Your Profile
@@ -29,8 +30,11 @@ block content
 						.form-group
 							label.input-label Github
 							input(type='text', name='github' value=user.github).input.input-labelled.input-faded
-							
-							
+				.row
+					.col-sm-6
+						.form-group
+							button(type='submit', data-loading-text="Saving...").btn.btn-primary Save profile
+				
 	//- NEXT MEETUP
 	.section.section-next-meetup
 		.container
@@ -73,12 +77,13 @@ block content
 			h2.mt-0 Your profile
 			.row
 				.col-sm-8.col-md-7
-					form(method='post').form-horizontal
+					form(method='post', autocomplete='off').form-horizontal
+						input(type='hidden', name='action', value='profile.bottom')
 						h3.mt-0 Public info
 						.form-group
 							.col-sm-10.col-sm-offset-2
 								label.checkbox
-									input(type='checkbox', name='isPublic')
+									input(type='checkbox', name='isPublic', value='true', checked=user.isPublic ? 'true' : null)
 									|  Show my profile on the SydJS website
 						.form-group
 							label.col-sm-2.control-label Bio
@@ -90,45 +95,48 @@ block content
 							label.col-sm-2.control-label Mentoring
 							.col-sm-10
 								label.checkbox
-									input(type='checkbox', name='mentoring.available')
+									input(type='checkbox', name='mentoring.available', value='true', checked=user.mentoring.available)
 									|  Available as a mentor
 								label.checkbox
-									input(type='checkbox', name='mentoring.free')
+									input(type='checkbox', name='mentoring.free', value='true', checked=user.mentoring.free)
 									|  For Free
 								label.checkbox
-									input(type='checkbox', name='mentoring.paid')
+									input(type='checkbox', name='mentoring.paid', value='true', checked=user.mentoring.paid)
 									|  For Payment
 								label.checkbox
-									input(type='checkbox', name='mentoring.swap')
+									input(type='checkbox', name='mentoring.swap', value='true', checked=user.mentoring.swap)
 									|  For Swap
 						.form-group
 							label.col-sm-2.control-label I have...
 							.col-sm-10
-								input(type='text', name='mentoring.have', placeholder='').form-control
+								input(type='text', name='mentoring.have', placeholder='', value=user.mentoring.have).form-control
 						.form-group
 							label.col-sm-2.control-label I want...
 							.col-sm-10
-								input(type='text', name='mentoring.want', placeholder='').form-control
+								input(type='text', name='mentoring.want', placeholder='', value= user.mentoring.want).form-control
 						.form-group
 							.col-sm-10.col-sm-offset-2
 								button(type='submit', data-loading-text="Saving...").btn.btn-primary Save profile
 				.col-sm-4.col-md-push-1
-					form(method='post')
+					form(method='post', autocomplete='off')
+						input(type='hidden', name='action', value='profile.password')
 						h3.mt-0 Change password
-						.form-group
-							label(for='change-password').sr-only Current Password
-							input(type='password', name='password', placeholder='Password', id='change-password').form-control
+						//-
+							.form-group
+								label(for='change-password').sr-only Current Password
+								input(type='password', name='currentPassword', placeholder='Password', id='change-password').form-control
 						.form-group
 							label(for='change-passwordNew').sr-only New Password
 							input(type='password', name='password', placeholder='New Password', id='change-passwordNew').form-control
 						.form-group
 							label(for='change-passwordConfirm').sr-only Confirm Password
-							input(type='password', name='passwordConfirm', placeholder='Confirm Password', id='signin-passwordConfirm').form-control
+							input(type='password', name='password_confirm', placeholder='Confirm Password', id='signin-passwordConfirm').form-control
 						.form-group
 							button(type='submit', data-loading-text="Changing...").btn.btn-primary Change
 							
 block js
 	script(src='/js/lib/bootstrap/button.js')
+	script(src='/js/views/me.js')
 	// attending
 	script.
 		jQuery(function($) {
