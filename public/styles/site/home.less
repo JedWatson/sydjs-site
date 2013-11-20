@@ -62,7 +62,51 @@
 	z-index: 2;
 }
 .home-meetup-map {
-	height: 300px;
+	position: relative;
+	
+	.map {
+		height: 300px;
+	}
+	.directions-button {
+		display: none;
+	}
+	@media (min-width: @screen-sm-min) {
+		.directions-button {
+			.transition( opacity 200ms linear );
+			.box-shadow( ~"0 0 0 1px rgba(0,0,0,0.15), 0 1px 5px rgba(0,0,0,0.2)" );
+			background-color: white;
+			border-radius: 4px;
+			// bottom: 20px;
+			display: block;
+			font-weight: bold;
+			// left: 50%;
+			// margin-left: -150px;
+			padding: @padding-large-vertical @padding-base-horizontal;
+			position: absolute;
+			opacity: 0;
+			text-align: center;
+			top: 20px;
+			right: 20px;
+			width: 240px;
+			z-index: 300;
+			
+			&:hover {
+				@shadow: 0 0 0 2px @link-color, 0 1px 5px rgba(0,0,0,0.2);
+				.box-shadow( @shadow );
+				color: @link-color;
+				text-decoration: none;
+			}
+			&:active,
+			&:focus {
+				outline: 0 none;
+				text-decoration: none;
+				top: 22px;
+			}
+		}
+		&:hover .directions-button {
+			opacity: 1;
+		}
+	}
 }
 .home-meetup__details-list {
 	font-size: @font-size-large;
