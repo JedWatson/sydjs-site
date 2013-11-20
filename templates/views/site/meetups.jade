@@ -17,6 +17,9 @@ block content
 		//- h2 Next Meetup
 		each meetup in meetups.upcoming
 			+meetup(meetup, 'present')
+			if user
+				.meetup-content
+					a(href='/me').btn.btn-primary Attend
 		
 		hr.line-thick
 		.meetup-content

@@ -9,10 +9,12 @@ block intro
 			p Tutorials, Libraries, Frameworks and blog posts under <strong>#{data.tag.name}</strong>
 		else
 			p Tutorials, Libraries, Frameworks and blog posts mentioned in SydJS talks, or just of general usefulness.
-		if !user
-			.buttons
+		.buttons
+			if !user
 				a(href='/join').btn.btn-primary Join SydJS
 				a(href='/signin').btn.btn-default Sign In
+			else
+				a(href='/me/create/link').btn.btn-primary Add link
 
 block content
 	.container
