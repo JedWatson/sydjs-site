@@ -34,10 +34,10 @@ var routes = {
 exports = module.exports = function(app) {
 	
 	// Old
-	app.get('/', routes.views.old);
+	// app.get('/', routes.views.old);
 	
 	// Website
-	app.get('/home', routes.views.index);
+	app.get('/', routes.views.index);
 	app.get('/meetups', routes.views.meetups);
 	app.get('/members/:filter(mentors)?', routes.views.members);
 	app.get('/members/organisations', routes.views.organisations);
