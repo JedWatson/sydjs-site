@@ -61,7 +61,8 @@ keystone.set('locals', {
 keystone.set('nav', {
 	'meetups': ['meetups', 'talks'],
 	'members': ['users', 'organisations'],
-	'posts': ['posts', 'post-categories'],
+	'posts': ['posts', 'post-categories', 'post-comments'],
+	'links': ['links', 'link-tags', 'link-comments']
 });
 
 keystone.start();

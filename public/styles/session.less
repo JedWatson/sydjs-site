@@ -17,6 +17,7 @@
 @import "bootstrap/buttons.less";
 @import "bootstrap/utilities.less";
 @import "bootstrap/alerts.less";
+@import "bootstrap/grid.less";
 
 @import "site/entypo.less";
 
@@ -29,6 +30,15 @@
 .text-right          { text-align: right; }
 .text-center         { text-align: center; }
 
+
+
+
+
+// Flash messages
+#flash-messages {
+	padding: 0;
+	width: 100%;
+}
 
 
 
@@ -83,7 +93,7 @@ h2, .h2 {
 	position: absolute;
 	left: 50%;
 	margin-left: -45px;
-	top: 0;
+	top: -4px;
 	
 	@media (max-width: @screen-sm-max) {
 		img {
@@ -97,6 +107,42 @@ h2, .h2 {
 }
 
 
+
+
+// SIGN IN
+// ------------------------------
+.signin-form-heading {
+	color: mix(@body-bg, @text-color, 50%);
+}
+.social-signup-buttons {
+	.clearfix();
+	margin-bottom: 20px;
+	margin-left: -5px;
+	margin-right: -5px;
+	
+	.signup-button {
+		float: left;
+		margin: 0;
+		padding-left: 5px;
+		padding-right: 5px;
+		width: 33%;
+		
+		.entypo-social {
+			font-size: 40px;
+			vertical-align: middle;
+		}
+	}
+}
+.signup-button__text {
+	display: none;
+}
+@media (min-width: @screen-md-min) {
+	.signup-button__text {
+		display: inline-block;
+		vertical-align: middle;
+		margin-left: 6px;
+	}
+}
 
 
 // SIGN IN

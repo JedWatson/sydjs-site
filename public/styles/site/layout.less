@@ -2,7 +2,7 @@
 // ------------------------------
 #easter-egg {
 	background: url('/images/blueprintbg.png') #365bb4;
-	border-bottom: 8px solid white;
+	border-bottom: 4px solid @link-color;
 	height: 400px;
 	
 	#old-logo {
@@ -44,6 +44,9 @@
 		padding-left: 30px;
 		padding-right: 30px;
 	}
+}
+.navbar-default-toggle .navbar-toggle {
+	background-color: @navbar-default-toggle-bg;
 }
 .navbar-logo {
 	.transition( top 0.1s ease-in-out );
