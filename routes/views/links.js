@@ -1,4 +1,7 @@
-var keystone = require('keystone');
+var keystone = require('keystone'),
+	async = require('async');
+	
+var Link = keystone.list('Link');
 
 exports = module.exports = function(req, res) {
 	
@@ -7,8 +10,11 @@ exports = module.exports = function(req, res) {
 	
 	// Init locals
 	locals.section = 'links';
+	locals.current = {
+		sort: (req.query.sort == 'name') ? 'name' : 'updated'
+	};
 	locals.filters = {
-		category: req.params.tag
+		tag: req.params.tag
 	};
 	locals.data = {
 		links: [],
@@ -27,9 +33,9 @@ exports = module.exports = function(req, res) {
 			locals.data.tags = results;
 			
 			// Load the counts for each category
-			async.each(locals.data.tags, function(category, next) {
+			async.each(locals.data.tags, function(tag, next) {
 				
-				keystone.list('Link').model.count().where('category').in([category.id]).exec(function(err, count) {
+				keystone.list('Link').model.count().where('tag').in([tag.id]).exec(function(err, count) {
 					tag.linkCount = count;
 					next(err);
 				});
@@ -56,18 +62,20 @@ exports = module.exports = function(req, res) {
 		
 	});
 	
-	// Load the posts
-	view.on('init', function(next) {
+	view.on('render', function(next) {
 		
 		var q = keystone.list('Link').model.find().where('state', 'published').sort('-publishedDate').populate('author tags');
 		
-		if (locals.data.category) {
+		if (locals.data.tag) {
 			q.where('tags').in([locals.data.tag]);
 		}
 		
+		q.sort(locals.current.sort == 'name' ? 'name.last' : '-changedOn');
+		
 		q.exec(function(err, results) {
+			if (err) return res.err(err);
 			locals.data.links = results;
-			next(err);
+			next();
 		});
 		
 	});

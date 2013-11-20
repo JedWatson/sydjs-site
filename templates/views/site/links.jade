@@ -4,8 +4,11 @@ include ../../mixins/link
 
 block intro
 	.page-intro: .container
-		h1=data.tag ? data.tag.name : 'Link'
-		p Tutorials, Libraries, Frameworks and blog posts mentioned in SydJS talks, or just of general usefulness. Join to contribute.
+		h1 Links
+		if data.tag
+			p Tutorials, Libraries, Frameworks and blog posts under <strong>#{data.tag.name}</strong>
+		else
+			p Tutorials, Libraries, Frameworks and blog posts mentioned in SydJS talks, or just of general usefulness.
 		if !user
 			.buttons
 				a(href='/join').btn.btn-primary Join SydJS
@@ -29,9 +32,20 @@ block content
 							h3 There are no links yet.
 			
 			.col-sm-3
+				h4 Sort by
+				p
+					if current.sort == 'updated'
+						strong Recently Updated
+					else
+						a(href=qs_set({ sort: undefined })) Recently Updated
+					span.text-muted  |
+					if current.sort == 'name'
+						strong Name
+					else
+						a(href=qs_set({ sort: 'name' })) Name
 				if data.tags.length
-					//- h2 Categories
-					.list-group(style='margin-top: 70px;')
-						a(href='/links', class=!data.tag ? 'active' : false).list-group-item All Categories
-						each cat in data.tags
-							a(href='/links/' + cat.key, class=data.tag && data.tag.id == cat.id ? 'active' : false).list-group-item= cat.name
+					h4 Tags
+					ul.list-unstyled.list-inline.tags-list
+						li: a(href='/links', class=!data.tag ? 'active' : false) All
+						each tag in data.tags
+							li: a(href='/links/' + tag.key, class=data.tag && data.tag.id == tag.id ? 'active' : false).list-group-item= tag.name

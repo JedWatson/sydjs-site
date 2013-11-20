@@ -1,14 +1,19 @@
 mixin link(link)
 	article(role="article", itemscope itemtype="http://schema.org/BlogPosting").links-list
-		h3(itemprop='name').mb-0
-			//- a(href='/links/link/' + link.slug, itemprop='url')
-			strong= link.label
-			if link.author
-				small.text-muted  - #{link.author.name.full}, added #{moment(link.publishedDate).fromNow()}
-		p: a(href=link.href, target='_blank'): small: em!=link.href
-		p(itemprop='description')!= link.description.html
-		if link.categories && link.categories.length
-			each cat, i in link.categories
-				if i
-					| , 
-				a(href='/links/' + cat.key)= cat.name
+		.row
+			.col-xs-1
+				h2
+					span.entypo.entypo-link.text-muted
+			.col-xs-11
+				h3(itemprop='name').mt-5
+					//- a(href='/links/link/' + link.slug, itemprop='url')
+					strong= link.label
+				if link.author
+					p.byline: small.text-muted #{link.author.name.full}, added #{moment(link.publishedDate).fromNow()}
+				p.link: a(href=link.href, target='_blank'): small: em!=link.href
+				if link.tags && link.tags.length
+					ul.list-unstyled.list-inline.tags-list
+						each tag, i in link.tags
+							li: a(href='/links/' + tag.key)= tag.name
+				p(itemprop='description')!= link.description.html
+		

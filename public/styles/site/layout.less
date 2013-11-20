@@ -176,6 +176,57 @@
 
 
 
+// LINKS
+// ------------------------------
+.links-list {
+	h2 {
+		margin: -5px 0 0 0;
+		text-align: right;
+	}
+	h3 {
+		margin: 0 0 0 0;
+	}
+	.byline {
+		margin: 0 0 10px 0;
+	}
+
+	.tags-list {
+		margin: -10px 0 30px 0;
+		a {
+			padding: 2px 10px;
+			font-size: @font-size-base - 2;
+		}
+	}
+}
+
+.tags-list {
+	a {
+		padding: 2px 10px 5px;
+		display: inline-block;
+		border-radius: 50px;
+		margin-bottom: 5px;
+		font-size: @font-size-base;
+		background-color: @gray-light;
+		color: white;
+		&:hover {
+			text-decoration: none;
+			background-color: @link-color;
+		}
+		&.active {
+			background-color: @link-color;
+		}
+	}
+	a + a {
+		margin-left: 5px;
+	}
+}
+
+.links-list + .links-list {
+	margin-top: 30px;
+}
+
+
+
 
 // FORMS
 // ------------------------------
