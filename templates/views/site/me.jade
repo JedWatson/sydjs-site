@@ -5,7 +5,7 @@ block content
 		.container
 			form(method='post', autocomplete='off').profile-form
 				input(type='hidden', name='action', value='profile.top')
-				if user.canAccessKeystone
+				if user && user.canAccessKeystone
 					a(href='/keystone', target='_blank').btn.btn-xs.btn-success.pull-right Open the Keystone Admin UI
 				h4.profile-form__heading Your Profile
 				.form-group

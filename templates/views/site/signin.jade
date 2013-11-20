@@ -3,9 +3,21 @@ extends ../../layouts/session
 block content
 	form(method='post',role='signin', autocomplete='off', style=(form.action && form.action != 'signin' ? 'display: none;' : null)).signin-form
 		input(type='hidden', name='action', value='signin')
-		//- a(href=js).btn.btn-facebook.btn-block
-			span.entypo.entypo-s-facebook
-			|  Sign in with Facebook
+		
+		p.signin-form-heading Use a social account
+		.social-signup-buttons
+			.signup-button: a(href='/authentication/facebook', title='Sign in with Facebook').btn.btn-facebook.btn-block
+				span.entypo-social.entypo-s-facebook
+				span.signup-button__text  Facebook
+				
+			.signup-button: a(href='/authentication/twitter', title='Sign in with Twitter').btn.btn-twitter.btn-block
+				span.entypo-social.entypo-twitter
+				span.signup-button__text  Twitter
+				
+			.signup-button: a(href='/authentication/github', title='Sign in with Github').btn.btn-github.btn-block
+				span.entypo-social.entypo-github
+				span.signup-button__text  Github
+		p.signin-form-heading or your email
 		.form-control-box
 			label(for='signin-email').sr-only Email
 			input(type='email', name='signin_email', placeholder='Email', id='signin-email', value=signin_email).form-control
@@ -29,8 +41,8 @@ block content
 		button(type='submit').btn.btn-block.btn-submit Join SydJS
 	
 	p.text-center
-		a(href=js).js-toggle-join Join SydJS
-		a(href=js, style='display: none;').js-toggle-signin Sign In
+		a(href=js).btn.btn-block.btn-link.js-toggle-join Join SydJS
+		a(href=js, style='display: none;').btn.btn-block.btn-link.js-toggle-signin Sign In
 	//-
 		p.text-center
 			a(href=js) Forgot your password?
