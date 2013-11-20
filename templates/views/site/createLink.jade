@@ -1,0 +1,45 @@
+extends ../../layouts/default
+
+block content
+
+	.section
+		.container
+			form(method='post', enctype='multipart/form-data', autocomplete='off', novalidate).form-horizontal.create-form.profile-form
+				input(type='hidden', name='action', value='add-link')
+				
+				.row: .col-sm-8.col-sm-offset-2
+					
+					//- Title
+					.form-group
+						h1 Add a link
+						input(type='text', id='link-url', name='href', placeholder='Add your URL here').input.input-md.input-faded
+					.form-group
+						input(type='text', id='link-label', name='label', placeholder='Title').input.input-xl.input-faded
+					
+					
+					//- Content
+					.form-group
+						label Description
+						textarea(name='description', class='wysiwyg').input.input-faded
+					
+					
+					//- Submit
+					.form-group
+						button(type='submit', data-loading-text="Saving...").btn.btn-lg.btn-primary.btn-block Add link
+						
+block js
+	script(src='/js/lib/bootstrap/button.js')
+	script(src='/js/lib/tinymce/tinymce.min.js')
+	script(src='/js/lib/tinymce/jquery.tinymce.min.js')
+	script.
+		jQuery(function($) {
+			$( "#link-url" ).focus();
+			tinymce.init({
+				selector: 'textarea.wysiwyg',
+				menubar: false,
+				height: 400,
+				plugins: [ 'code', 'link' ],
+				toolbar: 'bold italic | alignleft aligncenter alignright | bullist numlist | outdent indent | link | code',
+				skin: 'keystone'
+			});
+		});

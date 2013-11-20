@@ -1,8 +1,6 @@
 var keystone = require('keystone'),
 	Post = keystone.list('Post');
 
-var Meetup = keystone.list('Meetup');
-
 exports = module.exports = function(req, res) {
 	
 	var view = new keystone.View(req, res),
@@ -16,7 +14,8 @@ exports = module.exports = function(req, res) {
 		// handle form
 		var newPost = new Post.model({
 				author: locals.user.id,
-				state: 'published'
+				state: 'published',
+				publishedDate: new Date()
 			}),
 
 			updater = newPost.getUpdateHandler(req, res, {

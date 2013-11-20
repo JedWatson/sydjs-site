@@ -1,0 +1,19 @@
+mixin link(link)
+	article(role="article", itemscope itemtype="http://schema.org/BlogPosting").blog-post
+		.blog-post__date.illustrative-heading
+			span.illustrative-heading__line
+			span.illustrative-heading__text
+				time(datetime=link._.publishedDate.format('YYYY-MM-DD'), itemprop='datePublished')=link._.publishedDate.format('MMMM Do, YYYY')
+		.blog-post__content.link(data-ks-editable=editable(user, { list: 'Link', id: link.id }))
+			h3(itemprop='name').blog-post__heading: a(href='/links/link/' + link.slug, itemprop='url')= link.label
+			if link.author
+				h5.blog-post__author by #{link.author.name.full}
+				if link.categories && link.categories.length
+					| in 
+					each cat, i in link.categories
+						if i
+							| , 
+						a(href='/links/' + cat.key)= cat.name
+			p: a(href=link.href, target='_blank'): em!=link.href
+			p(itemprop='description')!= link.description.html
+			p: a(href='/links/link/' + link.slug, itemprop='url') Read more &rarr;

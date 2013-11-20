@@ -1,0 +1,46 @@
+extends ../../layouts/default
+
+block content
+	.back-bar
+		.container: .row: .col-sm-10.col-sm-offset-1.col-md-8.col-md-offset-2
+			.xs-right: a(href='/links').text-muted &larr; Back to Links
+	
+	//- - console.log(data.post)
+	.container: .row: .col-sm-10.col-sm-offset-1.col-md-8.col-md-offset-2
+		article.full-post
+			if !data.link
+				h2 Invalid Link.
+			else
+				header
+					h1.mb-0= data.link.label
+					h4.blog-post__author Shared 
+						if data.link.publishDate
+							| on #{data.link._.publishedDate.format('MMMM Do, YYYY')} 
+						if data.link.categories && data.link.categories.length
+							| in 
+							each cat, cat_i in data.link.categories
+								a(href='/links/' + cat.key)= cat.name
+								if cat_i < data.link.categories.length - 1
+									| , 
+								else
+									|  
+						if data.link.author
+							| by 
+							a(href='/members', rel='author')=data.link.author.name.full
+				
+				
+					//- sharing buttons
+					.share-buttons
+						span.share-button
+							.fb-like(data-href="http://www.sydjs.com/blog/link/" + data.link.slug, data-colorscheme="light", data-layout="button_count", data-action="like", data-show-faces="false", data-send="false")
+						span.share-button
+							a(href="https://twitter.com/share", data-via="SydJS", data-hashtags="sydjs", data-count="button", data-dnt="true").twitter-share-button Tweet
+						span.share-button
+							.g-plusone(data-size="medium")
+				.link
+					h3: a(href=data.link.href, target='_blank'): em!=data.link.href
+				.post
+					!= data.link.label
+block js
+	script(src='/js/common/share.js')
+	script(src="https://apis.google.com/js/plusone.js")
