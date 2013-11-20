@@ -23,7 +23,7 @@ html
 		
 		//- EASTER EGG
 		#easter-egg(style='display: none;')
-			
+			#old-logo
 		
 		//- HEADER
 		header(role='banner')#sydjs-nav
@@ -75,6 +75,8 @@ html
 	
 	if user && user.canAccessKeystone
 		script(src='/keystone/js/content/editor.js')
+	
+	script(src='/js/site.js')
 	
 	block js
 	
