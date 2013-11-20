@@ -3,7 +3,7 @@ include ../mixins/flash-messages
 doctype 5
 html
 	head
-		if env == 'production'
+		if env == 'production' && chartbeat_property && chartbeat_domain
 			script.
 				var _sf_startpt=(new Date()).getTime()
 		
