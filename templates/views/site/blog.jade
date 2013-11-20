@@ -14,7 +14,7 @@ block intro
 block content
 	.container
 		.row
-			div(class= data.categories.length ? 'col-sm-9' : 'col-sm-8 col-sm-offset-2')
+			div(class= data.categories.length ? 'col-sm-8' : 'col-sm-8 col-sm-offset-2')
 				if filters.category && !data.category
 					h3 Invalid Category.
 				else
@@ -29,9 +29,10 @@ block content
 							h3 There are no posts yet.
 			
 			if data.categories.length
-				.col-sm-3
-					//- h2 Categories
-					.list-group(style='margin-top: 70px;')
-						a(href='/blog', class=!data.category ? 'active' : false).list-group-item All Categories
-						each cat in data.categories
-							a(href='/blog/' + cat.key, class=data.category && data.category.id == cat.id ? 'active' : false).list-group-item= cat.name
+				.col-sm-3.col-sm-offset-1
+					if data.categories.length
+						h5.text-muted Tags
+						ul.list-unstyled.tags-list
+							li: a(href='/blog', class=!data.category ? 'active' : false) All
+							each tag in data.categories
+								li: a(href='/blog/' + tag.key, class=data.tag && data.tag.id == tag.id ? 'active' : false).list-group-item= tag.name

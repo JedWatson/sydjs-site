@@ -12,11 +12,9 @@ mixin post(post)
 			h3(itemprop='name').blog-post__heading: a(href='/blog/post/' + post.slug, itemprop='url')= post.title
 			if post.author
 				h5.blog-post__author by #{post.author.name.full}
-				if post.categories && post.categories.length
-					| in 
-					each cat, i in post.categories
-						if i
-							| , 
-						a(href='/blog/' + cat.key)= cat.name
-			p(itemprop='description')!= post.content.brief
+			if post.categories && post.categories.length
+				ul.list-unstyled.tags-list
+					each tag, i in post.categories
+						li: a(href='/blog/' + tag.key)= tag.name
+			.description(itemprop='description')!= post.content.brief
 			p: a(href='/blog/post/' + post.slug, itemprop='url') Read more &rarr;
