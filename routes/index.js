@@ -48,5 +48,7 @@ exports = module.exports = function(app) {
 	
 	// User
 	app.all('/me', routes.views.me);
+	app.all('/me/create/post', routes.views.createPost);
+	app.all('/me/create/link', routes.views.createLink);
 
 }
