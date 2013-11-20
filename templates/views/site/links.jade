@@ -4,7 +4,7 @@ include ../../mixins/link
 
 block intro
 	.page-intro: .container
-		h1=data.category ? data.category.name : 'Link'
+		h1=data.tag ? data.tag.name : 'Link'
 		p Tutorials, Libraries, Frameworks and blog posts mentioned in SydJS talks, or just of general usefulness. Join to contribute.
 		if !user
 			.buttons
@@ -15,23 +15,23 @@ block content
 	.container
 		.row
 			.col-sm-9	
-				if filters.category && !data.category
-					h3 Invalid Category.
+				if filters.tag && !data.tag
+					h3 Invalid tag.
 				else
 					if data.links.length
 						.blog
 							each link in data.links
 								+link(link)
 					else
-						if data.category
-							h3 No links in the category #{data.category.name}.
+						if data.tag
+							h3 No links in the tag #{data.tag.name}.
 						else
 							h3 There are no links yet.
 			
 			.col-sm-3
-				if data.categories.length
+				if data.tags.length
 					//- h2 Categories
 					.list-group(style='margin-top: 70px;')
-						a(href='/links', class=!data.category ? 'active' : false).list-group-item All Categories
-						each cat in data.categories
-							a(href='/links/' + cat.key, class=data.category && data.category.id == cat.id ? 'active' : false).list-group-item= cat.name
+						a(href='/links', class=!data.tag ? 'active' : false).list-group-item All Categories
+						each cat in data.tags
+							a(href='/links/' + cat.key, class=data.tag && data.tag.id == cat.id ? 'active' : false).list-group-item= cat.name

@@ -8,29 +8,29 @@ exports = module.exports = function(req, res) {
 	// Init locals
 	locals.section = 'links';
 	locals.filters = {
-		category: req.params.category
+		category: req.params.tag
 	};
 	locals.data = {
 		links: [],
-		categories: []
+		tags: []
 	};
 	
 	// Load all categories
 	view.on('init', function(next) {
 		
-		keystone.list('LinkCategory').model.find().sort('name').exec(function(err, results) {
+		keystone.list('LinkTag').model.find().sort('name').exec(function(err, results) {
 			
 			if (err || !results.length) {
 				return next(err);
 			}
 			
-			locals.data.categories = results;
+			locals.data.tags = results;
 			
 			// Load the counts for each category
-			async.each(locals.data.categories, function(category, next) {
+			async.each(locals.data.tags, function(category, next) {
 				
 				keystone.list('Link').model.count().where('category').in([category.id]).exec(function(err, count) {
-					category.linkCount = count;
+					tag.linkCount = count;
 					next(err);
 				});
 				
@@ -45,9 +45,9 @@ exports = module.exports = function(req, res) {
 	// Load the current category filter
 	view.on('init', function(next) {
 		
-		if (req.params.category) {
-			keystone.list('LinkCategory').model.findOne({ key: locals.filters.category }).exec(function(err, result) {
-				locals.data.category = result;
+		if (req.params.tag) {
+			keystone.list('LinkTag').model.findOne({ key: locals.filters.tag }).exec(function(err, result) {
+				locals.data.tag = result;
 				next(err);
 			});
 		} else {
@@ -59,10 +59,10 @@ exports = module.exports = function(req, res) {
 	// Load the posts
 	view.on('init', function(next) {
 		
-		var q = keystone.list('Link').model.find().where('state', 'published').sort('-publishedDate').populate('author categories');
+		var q = keystone.list('Link').model.find().where('state', 'published').sort('-publishedDate').populate('author tags');
 		
 		if (locals.data.category) {
-			q.where('categories').in([locals.data.category]);
+			q.where('tags').in([locals.data.tag]);
 		}
 		
 		q.exec(function(err, results) {

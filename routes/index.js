@@ -42,7 +42,7 @@ exports = module.exports = function(app) {
 	app.get('/members/:filter(mentors)?', routes.views.members);
 	app.get('/members/organisations', routes.views.organisations);
 	app.get('/links', routes.views.links);
-	app.get('/links/:category?', routes.views.links);
+	app.get('/links/:tag?', routes.views.links);
 	app.get('/links/link/:link', routes.views.link);
 	app.get('/blog/:category?', routes.views.blog);
 	app.get('/blog/post/:post', routes.views.post);

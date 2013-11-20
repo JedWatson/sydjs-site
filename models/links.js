@@ -11,7 +11,7 @@ Link.add({
 	href: { type: Types.Url, required: true, initial: true },
 	description: { type: Types.Markdown, initial: true },
 	state: { type: Types.Select, options: 'draft, published, archived', default: 'draft', index: true },
-	categories: { type: Types.Relationship, ref: 'LinkCategory', many: true },
+	categories: { type: Types.Relationship, ref: 'LinkTag', many: true },
 	author: { type: Types.Relationship, ref: 'User', index: true },
 	publishedDate: { type: Types.Date, index: true }
 });
