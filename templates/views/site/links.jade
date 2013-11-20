@@ -45,7 +45,7 @@ block content
 						a(href=qs_set({ sort: 'name' })) Name
 				if data.tags.length
 					hr
-					h5.text-muted Tags
+					h5.text-muted Filter by tag
 					ul.list-unstyled.tags-list
 						li: a(href='/links', class=!data.tag ? 'active' : false) All
 						each tag in data.tags

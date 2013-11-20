@@ -31,8 +31,8 @@ block content
 			if data.categories.length
 				.col-sm-3.col-sm-offset-1
 					if data.categories.length
-						h5.text-muted Tags
+						h5.text-muted Filter by tag
 						ul.list-unstyled.tags-list
-							li: a(href='/blog', class=!data.category ? 'active' : false) All
+							li: a(href='/blog', class=!data.categories ? 'active' : false) All
 							each tag in data.categories
-								li: a(href='/blog/' + tag.key, class=data.tag && data.tag.id == tag.id ? 'active' : false).list-group-item= tag.name
+								li: a(href='/blog/' + tag.key, class=data.category && data.category.id == tag.id ? 'active' : false).list-group-item= tag.name
