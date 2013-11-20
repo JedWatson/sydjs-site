@@ -6,7 +6,6 @@ html(lang='en')
     meta(charset='utf-8')
     title SydJS — JavaScript in Sydney has a new home
     link(type='text/css', rel='stylesheet', href='/old/style.css')
-    style(type='text/css')
   body.raphael.js
     #content.vevent
       h1.summary Sydney JavaScript Group
@@ -50,7 +49,7 @@ html(lang='en')
         dt Peer Mentoring
         dd
           a#mentoring(href='https://github.com/sydjs/sydjs/wiki/Peer-Mentoring') Peer Mentoring
-    script
+    script.
       document.body.className = document.body.className.replace(/\\bno-js\b/,'js');
     script(src='/old/libs.js')
     script(src='/old/syd.js')
