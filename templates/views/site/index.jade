@@ -15,17 +15,20 @@ block content
 							if nextMeetup.description
 								p!= nextMeetup.description
 							if nextMeetup.talks.length
-								h5.talks__heading With talks about
-								ol.talks
-									each talk in nextMeetup.talks
-										li.talk
-											.talk__heading= talk.name
-											if talk.who.length
-												.talk__speaker by 
-													each user in talk.who
-														= user.name.full + ' '
-														if user.twitter
-															a(href='http://twitter.com/' + user.twitter.replace('@', ''), target='_blank')= user.twitter + ' '
+								.meetup-talks
+									span.meetup-talks__icon.entypo.entypo-large.entypo-comment
+									h4.meetup-talks__heading Talks on the night
+									ul.list-unstyled
+										each talk in nextMeetup.talks
+											li.talk
+												strong.talk__name #{talk.name} 
+												if talk.who.length
+													.talk__speaker
+														| by 
+														each user in talk.who
+															= user.name.full + ' '
+															if user.twitter
+																a(href='http://twitter.com/' + user.twitter.replace('@', ''), target='_blank' data-size="large")= user.twitter + ' '
 						.col-sm-4
 							dl.dl-horizontal.home-meetup__details-list
 								dt

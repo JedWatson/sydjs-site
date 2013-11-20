@@ -25,7 +25,8 @@ keystone.set('500', function(err, req, res, next) {
 
 // Load Routes
 var routes = {
-	views: importRoutes('./views')
+	views: importRoutes('./views'),
+	authentication: importRoutes('./authentication')
 };
 
 // Bind Routes
@@ -45,6 +46,11 @@ exports = module.exports = function(app) {
 	// Session
 	app.all('/:mode(signin|join|forgot|attend)', routes.views.signin);
 	app.get('/signout', routes.views.signout);
+	
+	// Authentication
+	app.get('/authentication/github', routes.authentication.github);
+	app.get('/authentication/twitter', routes.authentication.twitter);
+	app.get('/authentication/facebook', routes.authentication.facebook);
 	
 	// User
 	app.all('/me', routes.views.me);
