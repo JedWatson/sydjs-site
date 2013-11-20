@@ -14,7 +14,6 @@ exports = module.exports = function(req, res) {
 		// handle form
 		var newLink = new Link.model({
 				author: locals.user.id,
-				state: 'published',
 				publishedDate: new Date()
 			}),
 
