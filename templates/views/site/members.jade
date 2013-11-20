@@ -13,21 +13,20 @@ block intro
 block content
 	.container
 		if members.length
-			.row
-				each member in members
-					.col-sm-3
-						h3.mt-0= member.name.full
-						if member.bio.html
-							p!= member.bio.html
-						if member.talks.length
-							h5.text-muted Talks
-							ul.list-unstyled
-								each talk in member.talks
-									li= talk.name
-						if member.posts.length
-							h5.text-muted Posts
-							ul.list-unstyled
-								each post in member.posts
-									li= post.title
+			each member in members
+				h3.mv-0= member.name.full
+				p: a(href='https://twitter.com/' + member.twitter.replace('@', ''), target='_blank')= member.twitter
+				if member.bio.html
+					p!= member.bio.html
+				if member.talks.length
+					h5.text-muted.caps.mv-0: strong Talks
+					ul.list-unstyled
+						each talk in member.talks
+							li= talk.name
+				if member.posts.length
+					h5.text-muted.caps.mv-0: strong Posts
+					ul.list-unstyled
+						each post in member.posts
+							li= post.title
 		else
 			h3.text-muted Oops, nobody's here!
