@@ -49,23 +49,25 @@ block content
 			.row
 				.col-sm-8.col-md-7
 					if meetups.next
-						.meetup-calendar.calendar
-							.calendar__header=meetups.next._.date.format('MMM')
-							.calendar__body
-								.calendar__date=meetups.next._.date.format('DD')
-								.calendar__year=meetups.next._.date.format('YYYY')
-						.meetup-content
-								.text-muted=meetups.next._.date.format('dddd Do MMM YYYY')
-								h2.mt-0=meetups.next.name
-								//- h4=meetups.next.name
-								p!=meetups.next.description
-								p.btn-group.btn-group-justified(data-toggle='buttons')
-									label.btn.btn-default.js-rsvp-attending
-										input(type='radio', name='rsvp', id='rsvp-attending')
-										|  Attending
-									label.btn.btn-default.js-rsvp-decline
-										input(type='radio', name='rsvp', id='rsvp-decline')
-										|  Not Attending
+						#next-meetup(data-id=meetups.next.id)
+							.meetup-calendar.calendar
+								.calendar__header=meetups.next._.date.format('MMM')
+								.calendar__body
+									.calendar__date=meetups.next._.date.format('DD')
+									.calendar__year=meetups.next._.date.format('YYYY')
+							.meetup-content
+									.text-muted=meetups.next._.date.format('dddd Do MMM YYYY')
+									h2.mt-0=meetups.next.name
+									//- h4=meetups.next.name
+									p!=meetups.next.description
+									p.btn-group.btn-group-justified.meetup-status
+										label.btn.btn-default.js-rsvp-checking.disabled
+											|  Checking...
+									p.btn-group.btn-group-justified.meetup-toggle(data-toggle='buttons', style='display: none;')
+										label.btn.btn-default.js-rsvp-attending
+											|  Attending
+										label.btn.btn-default.js-rsvp-decline
+											|  Not Attending
 					else
 						h2.mt-0 No upcoming meetups...
 						p Follow us on Twitter to find out when we anounce the next meetup
@@ -145,15 +147,3 @@ block content
 block js
 	script(src='/js/lib/bootstrap/button.js')
 	script(src='/js/views/me.js')
-	// attending
-	script.
-		jQuery(function($) {
-			$('.js-rsvp-attending').click( function() {
-				$(this).addClass('btn-success');
-				$(this).siblings().removeClass('btn-danger');
-			});
-			$('.js-rsvp-decline').click( function() {
-				$(this).addClass('btn-danger');
-				$(this).siblings().removeClass('btn-success');
-			});
-		});

@@ -25,6 +25,7 @@ keystone.set('500', function(err, req, res, next) {
 
 // Load Routes
 var routes = {
+	api: importRoutes('./api'),
 	views: importRoutes('./views'),
 	authentication: importRoutes('./authentication')
 };
@@ -32,8 +33,11 @@ var routes = {
 // Bind Routes
 exports = module.exports = function(app) {
 	
+	// Old
+	app.get('/', routes.views.old);
+	
 	// Website
-	app.get('/', routes.views.index);
+	app.get('/home', routes.views.index);
 	app.get('/meetups', routes.views.meetups);
 	app.get('/members/:filter(mentors)?', routes.views.members);
 	app.get('/members/organisations', routes.views.organisations);
@@ -58,5 +62,9 @@ exports = module.exports = function(app) {
 	app.all('/me', routes.views.me);
 	app.all('/me/create/post', routes.views.createPost);
 	app.all('/me/create/link', routes.views.createLink);
+	
+	// API
+	app.all('/api*', keystone.initAPI);
+	app.all('/api/me/meetup', routes.api.me.meetup);
 
 }

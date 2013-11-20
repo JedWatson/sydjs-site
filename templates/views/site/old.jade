@@ -1,0 +1,55 @@
+!!! 5
+// saved from url=(0021)http://www.sydjs.com/
+html(lang='en')
+  head
+    meta(http-equiv='Content-Type', content='text/html; charset=UTF-8')
+    meta(charset='utf-8')
+    title SydJS — JavaScript in Sydney has a new home
+    link(type='text/css', rel='stylesheet', href='/old/style.css')
+  body.raphael.js
+    #content.vevent
+      h1.summary Sydney JavaScript Group
+      h2#next Next Meeting:
+      dl
+        dt Title:
+        dd#what “Nodevember”
+        dt When:
+        dd#when.dtstart(title='2013-11-20 18:00:00+1100') Wed Nov 20 2013 18:00:00 GMT+1100 (EST)
+        dt Who:
+        dd
+          dl
+            dt#speaker1
+              a(href='https://twitter.com/JedWatson') Jed Watson
+            dd#topic1
+              a(href='') KeystoneJS – A head-start on the features you need
+            dt#speaker2
+              a(href='https://twitter.com/simon_swain') Simon Swain
+            dd#topic2
+              a(href='') Berzerk – Interactive charting via Backbone
+            dt#speaker3
+              a(href='https://twitter.com/alexdickson') Ben Wong & Alex Dickson
+            dd#topic3
+              a(href='') A node-powered arcade machine
+        dt Where:
+        dd
+          a#where.location(href='https://maps.google.com/maps?q=341+George+Street,+Sydney&hl=en&ll=-33.867262,151.206915&spn=0.004659,0.009613&sll=-33.869471,151.203697&sspn=0.009318,0.019226&t=h&hnear=341+George+St,+Sydney+New+South+Wales+2000,+Australia&z=17') Level 6, 341 George St, Atlassian
+        dt Register:
+        dd
+          a#register.url(href='http://tixi.com.au/sydjs') Attend this meeting
+      h2#group The Group
+      dl
+        dt Twitter:
+        dd
+          a#twitter(href='http://twitter.com/sydjs') Follow Us
+        dt Mailing list:
+        dd
+          a#join.contact(href='mailto:sydjs@librelist.com') Join Mailing List
+        dd
+          a#archive(href='http://librelist.com/browser/sydjs/') Browse Archives
+        dt Peer Mentoring
+        dd
+          a#mentoring(href='https://github.com/sydjs/sydjs/wiki/Peer-Mentoring') Peer Mentoring
+    script.
+      document.body.className = document.body.className.replace(/\\bno-js\b/,'js');
+    script(src='/old/libs.js')
+    script(src='/old/syd.js')

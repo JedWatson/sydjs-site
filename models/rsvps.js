@@ -6,12 +6,14 @@ var RSVP = new keystone.List('RSVP');
 RSVP.add({
 	meetup: { type: Types.Relationship, ref: 'Meetup', required: true, initial: true, index: true },
 	who: { type: Types.Relationship, ref: 'User', required: true, initial: true, index: true },
+	attending: { type: Types.Boolean, index: true },
 	createdAt: { type: Date, noedit: true, collapse: true, default: Date.now },
 	changedAt: { type: Date, noedit: true, collapse: true }
 });
 
 RSVP.schema.pre('save', function(next) {
 	this.changedAt = Date.now();
+	next();
 });
 
 RSVP.schema.post('save', function() {
