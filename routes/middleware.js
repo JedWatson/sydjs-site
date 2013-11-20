@@ -1,4 +1,5 @@
 var _ = require('underscore'),
+	querystring = require('querystring'),
 	keystone = require('keystone');
 
 
