@@ -13,19 +13,29 @@ block intro
 block content
 	.container
 		if members.length
-			each member in members
-				h3= member.name.full
-				if member.bio.html
-					p!= member.bio.html
-				if member.talks.length
-					h4 Talks
-					ul
-					each talk in member.talks
-						li= talk.name
-				if member.posts.length
-					h4 Posts
-					ul
-					each post in member.posts
-						li= post.title
+			.panel.panel-default: table.table.table-striped
+				thead.panel-heading
+					tr
+						th Name
+						th Free
+						th Paid
+						th Swap
+						th.hidden-xs Have
+						th.hidden-xs Want
+						th.hidden-xs Contact
+				tbody
+					each member in members
+						tr
+							td
+								div= member.name.full
+								if member.twitter
+									a(href='https://twitter.com/' + member.twitter.replace('@', ''), target='_blank').text-small= member.twitter
+							td!= member.mentoring.free ? '<span class="entypo entypo-check"></span>' : null
+							td!= member.mentoring.paid ? '<span class="entypo entypo-check"></span>' : null
+							td!= member.mentoring.swap ? '<span class="entypo entypo-check"></span>' : null
+							td.hidden-xs= member.mentoring.have
+							td.hidden-xs= member.mentoring.want
+							td.hidden-xs= member.email.replace('@', ' at ').replace(/\./i, ' dot ')
 		else
-			h3.text-muted Oops, nobody's here!
+			.text-center
+				h3.text-muted Oops, nobody's here!

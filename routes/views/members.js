@@ -9,7 +9,10 @@ exports = module.exports = function(req, res) {
 	
 	locals.section = 'members';
 	
-	var membersQuery = User.model.find().sort('name').where('isPublic', true).populate('organisation');
+	var membersQuery = User.model.find()
+		.sort('name')
+		.where('isPublic', true)
+		.populate('organisation');
 	
 	if (req.params.filter == 'mentors') {
 		membersQuery.where('mentoring.available', true);
