@@ -127,8 +127,10 @@
 // ------------------------------
 @post-image-width: 170px;
 .blog-post {
+	.clearfix();
 	text-align: center;
 	margin-bottom: 40px;
+	
 }
 .blog-post__image {
 	margin-bottom: 20px;
@@ -256,7 +258,7 @@ textarea {
 	position: relative;
 	
 	.meetup-talks__icon {
-		.text-muted();
+		color: mix(@text-color, @body-bg, 30%);
 		display: block;
 		position: absolute;
 		left: 0;
@@ -269,7 +271,15 @@ textarea {
 	.talk {
 		margin-bottom: 15px;
 	}
+	.talk__name {
+		color: @headings-color;
+		font-size: @font-size-large;
+	}
 	.talk__speaker {
+		// .text-muted();
+		margin-bottom: 5px;
+	}
+	.talk__resource {
 		.text-muted();
 	}
 }

@@ -14,7 +14,7 @@ block intro
 block content
 	.container
 		.row
-			.col-sm-9	
+			div(class= data.categories.length ? 'col-sm-9' : 'col-sm-8 col-sm-offset-2')
 				if filters.category && !data.category
 					h3 Invalid Category.
 				else
@@ -28,8 +28,8 @@ block content
 						else
 							h3 There are no posts yet.
 			
-			.col-sm-3
-				if data.categories.length
+			if data.categories.length
+				.col-sm-3
 					//- h2 Categories
 					.list-group(style='margin-top: 70px;')
 						a(href='/blog', class=!data.category ? 'active' : false).list-group-item All Categories
