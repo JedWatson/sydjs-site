@@ -14,17 +14,14 @@ block intro
 
 block content
 	.container
-		//- h2 Next Meetup
-		each meetup in meetups.upcoming
-			+meetup(meetup, 'present')
-			if user
-				.meetup-content
-					a(href='/me').btn.btn-primary Attend
-		
-		hr.line-thick
-		.meetup-content
-			//- h2 Past Meetups
-			//- .text-muted Past Meetups
+		if meetups.upcoming.length
+			each meetup in meetups.upcoming
+				+meetup(meetup, 'present')
+				if user
+					.meetup-content
+						a(href='/me').btn.btn-primary Attend
+			
+			hr.line-thick
 		each meetup, i in meetups.past
 			+meetup(meetup, 'past')
 

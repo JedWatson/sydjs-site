@@ -1,5 +1,7 @@
 extends ../../layouts/default
 
+include ../../mixins/organiser
+
 block intro
 	.page-intro: .container
 		h1 About
@@ -10,43 +12,14 @@ block intro
 				a(href='/join').btn.btn-primary Join SydJS
 			a(href="https://twitter.com/sydjs", class="twitter-follow-button", data-show-count="true" data-size="large") Follow @sydjs
 
-block content	
+block content
 	.container
 		h2 Organisers
 		p.lead Each month the SydJS team works to bring you great presenters in a great venue.
 		.row.about-organisers
-			.col-sm-3
-				.thumbnail.organiser: .caption
-					.organiser__header
-						.img-wrapper
-							img(src='http://twalve.com/bio/sharkie_headshot.png')
-						h4.organiser__name Craig Sharkie
-						p.organiser__twitter: a(href='https://twitter.com/twalve', target='_blank') @twalve
-					p.mv-0 Founder, coordinator, ticket wrangler, emcee, and chief herder
-			.col-sm-3
-				.thumbnail.organiser: .caption
-					.organiser__header
-						.img-wrapper
-							img(src='https://pbs.twimg.com/profile_images/915296275/I_Am_Not_Your_Broom.jpg')
-						h4.organiser__name Gil Davidson
-						p.organiser__twitter: a(href='https://twitter.com/iamnotyourbroom', target='_blank') @iamnotyourbroom
-					p.mv-0 Site coordinator
-			.col-sm-3
-				.thumbnail.organiser: .caption
-					.organiser__header
-						.img-wrapper
-							img(src='https://pbs.twimg.com/profile_images/2850409767/8cf8318d4442d3d4b5d5c0d5d5339dda.jpeg')
-						h4.organiser__name Adam Ahmed
-						p.organiser__twitter: a(href='https://twitter.com/hitsthings', target='_blank') @hitsthings
-					p.mv-0 Atlassian coordinator
-			.col-sm-3
-				.thumbnail.organiser: .caption
-					.organiser__header
-						.img-wrapper
-							img(src='https://pbs.twimg.com/profile_images/378800000248937892/e64d0a9f3b6713f40bb261fe6b451841.jpeg')
-						h4.organiser__name Lachlan Hardy
-						p.organiser__twitter: a(href='https://twitter.com/lachlanhardy', target='_blank') @lachlanhardy
-					p.mv-0 Community coordinator
+			each org in organisers
+				.col-sm-3
+					+organiser(org)
 			
 		
 		//- CODE

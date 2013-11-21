@@ -15,7 +15,8 @@ block content
 		if members.length
 			each member in members
 				h3.mv-0= member.name.full
-				p: a(href='https://twitter.com/' + member.twitter.replace('@', ''), target='_blank')= member.twitter
+				if member.twitter
+					p: a(href='https://twitter.com/' + member.twitter.replace('@', ''), target='_blank') @#{member.twitter.replace('@', '')}
 				if member.bio.html
 					p!= member.bio.html
 				if member.talks && member.talks.length

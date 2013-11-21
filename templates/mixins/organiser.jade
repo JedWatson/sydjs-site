@@ -1,0 +1,8 @@
+mixin organiser(org)
+	.thumbnail.organiser: .caption
+		.organiser__header
+			.img-wrapper
+				img(src=org.image, alt='SydJS organiser - ' + org.name)
+			h4.organiser__name=org.name
+			p.organiser__twitter: a(href='https://twitter.com/' + org.twitter, target='_blank') @#{org.twitter}
+		p.mv-0=org.title
