@@ -53,14 +53,14 @@ block content
 												.media-body
 													p=talk.name
 							if member.posts && member.posts.length
-								.talks
+								.posts
 									h6.text-muted.mt-0 Post
 									ul.list-unstyled
 										each post in member.posts
 											li
 												.text-danger
 													=moment(post.publishedDate).fromNow()
-												p=post.title
+												p: a(href='/blog/post/' + post.slug)=post.title
 		else
 			h3.text-muted Oops, nobody's here!
 
