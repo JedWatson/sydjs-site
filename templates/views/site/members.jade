@@ -12,22 +12,64 @@ block intro
 
 block content
 	.container
+
 		if members.length
-			each member in members
-				h3.mv-0= member.name.full
-				if member.twitter
-					p: a(href='https://twitter.com/' + member.twitter.replace('@', ''), target='_blank') @#{member.twitter.replace('@', '')}
-				if member.bio.html
-					p!= member.bio.html
-				if member.talks && member.talks.length
-					h5.text-muted.caps.mv-0: strong Talks
-					ul.list-unstyled
-						each talk in member.talks
-							li= talk.name
-				if member.posts && member.posts.length
-					h5.text-muted.caps.mv-0: strong Posts
-					ul.list-unstyled
-						each post in member.posts
-							li= post.title
+			ul#members.list-unstyled.members-list
+				each member in members
+					li.item
+						.member
+							.mug-shot
+								img(src=member.photo.exists ? member._.photo.thumbnail(120,120):'/images/placeholders/user-120x120.jpg').img-circle
+							.info
+								.title.text-center
+									h4= member.name.full
+									if member.facebook || member.twitter || member.github
+										p.mv-0.socials
+											if member.facebook
+												a(href='https://facebook.com/' + member.facebook, target='_blank', data-toggle='tooltip', data-title=member.facebook, data-placement='top').is-tooltip
+													span.entypo-social.entypo-facebook
+													//-| @#{member.facebook.replace('@', '')}
+											if member.twitter
+												a(href='https://twitter.com/' + member.twitter.replace('@', ''), target='_blank', data-toggle='tooltip', data-title='@' + member.twitter.replace('@', ''), data-placement='top').is-tooltip
+													span.entypo-social.entypo-twitter
+													//-| @#{member.twitter.replace('@', '')}
+											if member.github
+												a(href='https://github.com/' + member.github, target='_blank', data-toggle='tooltip', data-title=member.github, data-placement='top').is-tooltip
+													span.entypo-social.entypo-github
+													//-| @#{member.github.replace('@', '')}
+								.bio.mt-1
+									if member.bio.html
+										!= member.bio.html
+							if member.talks && member.talks.length
+								.talks
+									h6.text-muted.mt-0 Talks
+									ul.list-unstyled
+										each talk in member.talks
+											li.media(class=moment(talk.meetup.date) < moment(now) ? 'past' : 'present')
+												.pull-left
+													.date
+														small.block=moment(talk.meetup.date).format('MMM')
+														strong.block=moment(talk.meetup.date).format('DD')
+												.media-body
+													p=talk.name
+							if member.posts && member.posts.length
+								.talks
+									h6.text-muted.mt-0 Post
+									ul.list-unstyled
+										each post in member.posts
+											li
+												.text-danger
+													=moment(post.publishedDate).fromNow()
+												p=post.title
 		else
 			h3.text-muted Oops, nobody's here!
+
+block js
+	script(src='/js/lib/bootstrap/transition.js')
+	script(src='/js/lib/bootstrap/tooltip.js')
+	script(src="/js/lib/masonry/masonry.pkgd.min.js")
+	script.
+		jQuery(function($) {
+			$( '#members' ).masonry( { itemSelector: '.item' } );
+			$('.is-tooltip').tooltip();
+		});

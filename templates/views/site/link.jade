@@ -4,7 +4,7 @@ block intro
 	.back-bar
 		.container: .row: .col-sm-10.col-sm-offset-1.col-md-8.col-md-offset-2
 			.xs-right: a(href='/links').text-muted &larr; Back to Links
-	
+
 
 block content
 	.container: .row: .col-sm-10.col-sm-offset-1.col-md-8.col-md-offset-2
@@ -14,11 +14,12 @@ block content
 			else
 				header
 					h1.mb-0= link.label
-					h4.blog-post__author Shared 
-						if link.author
-							| by 
-							a(href='/members', rel='author')=link.author.name.full
+					h4.blog-post__author Shared
 						if link.publishedDate
+							|  on #{moment(link.publishedDate).format('MMMM Do, YYYY')}
+						if link.author
+							|   &middot; by&nbsp;
+							a(href='/members', rel='author')=link.author.name.full
 					//- sharing buttons
 					.share-buttons
 						span.share-button
@@ -32,7 +33,7 @@ block content
 				.post
 					!= link.label
 				hr
-				
+
 				.comments
 					h4=link.comments.length == 0 ? 'Be the first to reply' : plural(link.comments.length, '* comment', '* comments')
 					.comment.mt-1
@@ -40,7 +41,7 @@ block content
 							if comment.author
 								.media
 									.pull-left
-										img(src=comment.author.photo.exists ? comment.author._.photo.thumbnail(60,60) : '/images/placeholders/60x60.jpg', alt=comment.author.name.full, width=40, height=40).media-object.img-circle
+										img(src=comment.author.photo.exists ? comment.author._.photo.thumbnail(60,60) : '/images/placeholders/user-60x60.jpg', alt=comment.author.name.full, width=40, height=40).media-object.img-circle
 									.media-body
 										h5.mt-0
 											=comment.author.name.full
@@ -52,13 +53,13 @@ block content
 						input(type='hidden', name='action', value='create-comment')
 						.media
 							.pull-left
-								img(src=user.photo.exists ? user._.photo.thumbnail(60,60) : '/images/placeholders/60x60.jpg', alt=user.name.full, width=40, height=40).img-responsive.img-circle
+								img(src=user.photo.exists ? user._.photo.thumbnail(60,60) : '/images/placeholders/user-60x60.jpg', alt=user.name.full, width=40, height=40).img-responsive.img-circle
 							.media-body
 								textarea(placeholder='Add your comment...', name='content').form-control
 								.form-inline.mv-5
 									button(type='submit').btn.btn-success Submit
-					
-				
+
+
 
 block js
 	script(src='/js/common/share.js')

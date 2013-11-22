@@ -13,22 +13,22 @@ block content
 			else
 				header
 					h1.mb-0= post.title
-					h4.blog-post__author Posted 
-						if post.publishDate
-							| on #{post._.publishedDate.format('MMMM Do, YYYY')} 
+					h4.blog-post__author Posted
+						if post.publishedDate
+							| on #{moment(post.publishedDate).format('MMMM Do, YYYY')}
 						if post.categories && post.categories.length
-							| in 
+							|  in&nbsp;
 							each cat, cat_i in post.categories
 								a(href='/blog/' + cat.key)= cat.name
 								if cat_i < post.categories.length - 1
-									| , 
+									| ,&nbsp;
 								else
-									|  
+									|&nbsp;
 						if post.author
-							| by 
+							|  &middot; by&nbsp;
 							a(href='/members', rel='author')=post.author.name.full
-				
-				
+
+
 					//- sharing buttons
 					.share-buttons
 						span.share-button
@@ -42,7 +42,7 @@ block content
 						.thumbnail: img(src=post._.image.fit(750,450)).img-responsive
 					!= post.content.full
 				hr
-				
+
 				//- Comment
 				.comments
 					h4=post.comments.length == 0 ? 'Be the first to reply' : plural(post.comments.length, '* comment', '* comments')
@@ -51,7 +51,7 @@ block content
 							if comment.author
 								.media
 									.pull-left
-										img(src=comment.author.photo.exists ? comment.author._.photo.thumbnail(60,60) : '/images/placeholders/60x60.jpg', alt=comment.author.name.full, width=40, height=40).media-object.img-circle
+										img(src=comment.author.photo.exists ? comment.author._.photo.thumbnail(60,60) : '/images/placeholders/user-60x60.jpg', alt=comment.author.name.full, width=40, height=40).media-object.img-circle
 									.media-body
 										h5.mt-0
 											=comment.author.name.full
@@ -63,7 +63,7 @@ block content
 						input(type='hidden', name='action', value='create-comment')
 						.media
 							.pull-left
-								img(src=user.photo.exists ? user._.photo.thumbnail(60,60) : '/images/placeholders/60x60.jpg', alt=user.name.full, width=40, height=40).img-responsive.img-circle
+								img(src=user.photo.exists ? user._.photo.thumbnail(60,60) : '/images/placeholders/user-60x60.jpg', alt=user.name.full, width=40, height=40).img-responsive.img-circle
 							.media-body
 								textarea(placeholder='Add your comment...', name='content').form-control
 								.form-inline.mv-5
