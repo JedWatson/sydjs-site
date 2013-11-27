@@ -1,6 +1,6 @@
 var async = require('async'),
 	keystone = require('keystone');
-facebook
+
 var facebook = require('../../lib/services/facebook');
 
 exports = module.exports = function(req, res, next) {
