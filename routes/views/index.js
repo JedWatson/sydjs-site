@@ -12,12 +12,12 @@ exports = module.exports = function(req, res) {
 	locals.section = 'home';
 	
 	// Load the next meetup
-	// view.query('nextMeetup',
-		// Meetup.model.findOne()
-			// .where('date').gte(moment().startOf('day').toDate())
-			// .where('state', 'published')
-			// .sort('date')
-	// , 'talks[who]');
+	view.query('nextMeetup',
+		Meetup.model.findOne()
+			.where('date').gte(moment().startOf('day').toDate())
+			.where('state', 'published')
+			.sort('date')
+	, 'talks[who]');
 	
 	// Load the last meetup
 	view.query('lastMeetup',
