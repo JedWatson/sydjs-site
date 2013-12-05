@@ -35,7 +35,9 @@ block content
 							td!= member.mentoring.swap ? '<span class="entypo entypo-check"></span>' : null
 							td.hidden-xs= member.mentoring.have
 							td.hidden-xs= member.mentoring.want
-							td.hidden-xs= member.email.replace('@', ' at ').replace(/\./i, ' dot ')
+							td.hidden-xs
+								if member.email
+									= member.email.replace('@', ' at ').replace(/\./i, ' dot ')
 		else
 			.text-center
 				h3.text-muted Oops, nobody's here!
