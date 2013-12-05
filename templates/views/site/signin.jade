@@ -3,17 +3,19 @@ extends ../../layouts/session
 mixin social-signin()
 	p.signin-form-heading Use a social account
 	.social-signup-buttons
-		.signup-button: a(href='/authentication/facebook', title='Sign in with Facebook').btn.btn-facebook.btn-block
-			span.entypo-social.entypo-s-facebook
-			span.signup-button__text  Facebook
-			
-		.signup-button: a(href='/authentication/twitter', title='Sign in with Twitter').btn.btn-twitter.btn-block
-			span.entypo-social.entypo-twitter
-			span.signup-button__text  Twitter
 			
 		.signup-button: a(href='/authentication/github', title='Sign in with Github').btn.btn-github.btn-block
 			span.entypo-social.entypo-github
 			span.signup-button__text  Github
+			
+		.signup-button: a(href='/authentication/twitter', title='Sign in with Twitter').btn.btn-twitter.btn-block
+			span.entypo-social.entypo-twitter
+			span.signup-button__text  Twitter
+		
+		.signup-button: a(href='/authentication/facebook', title='Sign in with Facebook').btn.btn-facebook.btn-block
+			span.entypo-social.entypo-s-facebook
+			span.signup-button__text  Facebook
+		
 	p.signin-form-heading or your email
 
 block content
