@@ -17,7 +17,7 @@ block content
 		if meetups.upcoming.length
 			each meetup in meetups.upcoming
 				+meetup(meetup, 'present')
-				if user
+				if user && meetup.rsvpsAvailable
 					.meetup-content
 						a(href='/me').btn.btn-primary Attend
 			

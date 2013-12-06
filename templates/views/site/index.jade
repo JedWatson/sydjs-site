@@ -52,7 +52,7 @@ block content
 								dd=nextMeetup.place
 							if !lastMeetup
 								.register-btn
-									a(href='/attend').btn.btn-lg.btn-block.btn-register Register
+									a(href='/attend', disabled=!nextMeetup.rsvpsAvailable).btn.btn-lg.btn-block.btn-register= nextMeetup.rsvpsAvailable ? 'Register' : 'Sold out!'
 							hr.line-dashed
 							p: a(href='/meetups').text-muted All our meetups &rarr;
 		.home-meetup-map

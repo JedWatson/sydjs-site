@@ -6,10 +6,12 @@ mixin meetup(meetup, mode)
 				.calendar__date=meetup._.date.format('DD')
 				.calendar__year=meetup._.date.format('YYYY')
 		.meetup-content
-			if mode == 'present'
-				.text-muted Next Meetup
+			.text-muted=meetup._.date.format('dddd Do MMM YYYY')
+				if meetup.time
+					|  from #{meetup.time}
 			h2.mt-0= meetup.name
-			p!= meetup.description
+			if meetup.description
+				p!= meetup.description
 			if meetup.talks.length
 				.meetup-talks
 					span.meetup-talks__icon.entypo.entypo-large.entypo-comment

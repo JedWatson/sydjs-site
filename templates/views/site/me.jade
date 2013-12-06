@@ -56,10 +56,13 @@ block content
 									.calendar__date=meetups.next._.date.format('DD')
 									.calendar__year=meetups.next._.date.format('YYYY')
 							.meetup-content
-									.text-muted=meetups.next._.date.format('dddd Do MMM YYYY')
-									h2.mt-0=meetups.next.name
-									//- h4=meetups.next.name
-									p!=meetups.next.description
+								.text-muted=meetups.next._.date.format('dddd Do MMM YYYY')
+									if meetups.next.time
+										|  from #{meetups.next.time}
+								h2.mt-0=meetups.next.name
+								//- h4=meetups.next.name
+								p!=meetups.next.description
+								if meetups.next.rsvpsAvailable
 									p.btn-group.btn-group-justified.meetup-status
 										label.btn.btn-default.js-rsvp-checking.disabled
 											|  Checking...
@@ -68,6 +71,10 @@ block content
 											|  Attending
 										label.btn.btn-default.js-rsvp-decline
 											|  Not Attending
+								else
+									.alert.alert-warning
+										strong Sold out
+										|  - Damn son, better luck next time!
 					else
 						h2.mt-0 No upcoming meetups...
 						p Follow us on Twitter to find out when we anounce the next meetup
@@ -105,7 +112,12 @@ block content
 						.form-group
 							label.col-sm-2.control-label Photo
 							.col-sm-10
-								input(type='file', name='photo_upload')
+								if user.photo.exists
+									.row
+										.col-sm-3: img(src=user._.photo.thumbnail(120,120)).img-responsive
+										.col-sm-9: input(type='file', name='photo_upload')
+								else
+									input(type='file', name='photo_upload')
 						.form-group
 							label.col-sm-2.control-label Mentoring
 							.col-sm-10
