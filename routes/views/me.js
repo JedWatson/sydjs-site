@@ -1,7 +1,8 @@
 var keystone = require('keystone'),
 	moment = require('moment');
 
-var Meetup = keystone.list('Meetup');
+var Meetup = keystone.list('Meetup'),
+	RSVP = keystone.list('RSVP');
 
 exports = module.exports = function(req, res) {
 	
@@ -81,6 +82,17 @@ exports = module.exports = function(req, res) {
 		
 		});
 	
+	});
+	
+	view.on('render', function(next) {
+		
+		if (locals.meetups && locals.meetups.next) {
+			RSVP.model.findOne().where('meetup', locals.meetups.next.id).where('who', req.user.id).exec(function(err, rsvp) {
+				locals.meetups.nextRSVP = rsvp;
+				next(err);
+			});
+		}
+		
 	});
 	
 	view.render('site/me');

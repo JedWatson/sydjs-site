@@ -62,7 +62,7 @@ block content
 								h2.mt-0=meetups.next.name
 								//- h4=meetups.next.name
 								p!=meetups.next.description
-								if meetups.next.rsvpsAvailable
+								if meetups.next.rsvpsAvailable || meetups.nextRSVP
 									p.btn-group.btn-group-justified.meetup-status
 										label.btn.btn-default.js-rsvp-checking.disabled
 											|  Checking...
