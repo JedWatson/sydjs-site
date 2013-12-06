@@ -18,8 +18,10 @@ block content
 				each member in members
 					li.item
 						.member
-							.mug-shot
-								img(src=member.photo.exists ? member._.photo.thumbnail(120,120):'/images/placeholders/user-120x120.jpg').img-circle
+							if member.photo.exists
+								.mug-shot
+									//- img(src=member.photo.exists ? member._.photo.thumbnail(120,120):'/images/placeholders/user-120x120.jpg').img-circle
+									img(src=member._.photo.thumbnail(120,120)).img-circle
 							.info
 								.title.text-center
 									h4= member.name.full
@@ -37,9 +39,8 @@ block content
 												a(href='https://github.com/' + member.github, target='_blank', data-toggle='tooltip', data-title=member.github, data-placement='top').is-tooltip
 													span.entypo-social.entypo-github
 													//-| @#{member.github.replace('@', '')}
-								.bio.mt-1
-									if member.bio.html
-										!= member.bio.html
+								if member.bio.html
+									.bio.mt-1.text-center!= member.bio.html
 							if member.talks && member.talks.length
 								.talks
 									h6.text-muted.mt-0 Talks
