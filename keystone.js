@@ -9,29 +9,29 @@ var keystone = require('keystone'),
  */
 
 keystone.init({
-	
+
 	'name': 'SydJS',
 	'brand': 'SydJS',
 	'back': '/me',
-	
+
 	'favicon': 'public/favicon.ico',
 	'less': 'public',
 	'static': 'public',
-	
+
 	'views': 'templates/views',
 	'view engine': 'jade',
-	
+
 	'auto update': true,
 	'mongo': process.env.MONGO_URI || 'mongodb://localhost/' + pkg.name,
-	
+
 	'session': true,
 	'auth': true,
 	'user model': 'User',
 	'cookie secret': process.env.COOKIE_SECRET || 'sydjs',
-	
+
 	'google api key': process.env.GOOGLE_BROWSER_KEY,
 	'google server api key': process.env.GOOGLE_SERVER_KEY,
-	
+
 	'ga property': process.env.GA_PROPERTY,
 	'ga domain': process.env.GA_DOMAIN,
 	
