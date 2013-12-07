@@ -15,7 +15,7 @@ block content
 					h1.mb-0= post.title
 					h4.blog-post__author Posted
 						if post.publishedDate
-							| on #{moment(post.publishedDate).format('MMMM Do, YYYY')}
+							|  on #{moment(post.publishedDate).format('MMMM Do, YYYY')}
 						if post.categories && post.categories.length
 							|  in&nbsp;
 							each cat, cat_i in post.categories
