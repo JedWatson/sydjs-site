@@ -3,7 +3,7 @@ mixin post(post)
 		.blog-post__date.illustrative-heading
 			span.illustrative-heading__line
 			span.illustrative-heading__text
-				time(datetime=post._.publishedDate.format('YYYY-MM-DD'), itemprop='datePublished')=post._.publishedDate.format('MMMM Do, YYYY')
+				time(datetime=post._.publishedDate.format('YYYY-MM-DD'), itemprop='datePublished')=post._.publishedDate.format('MMMM D, YYYY')
 		.blog-post__image
 			a(href='/blog/post/' + post.slug)
 				if post.image.exists

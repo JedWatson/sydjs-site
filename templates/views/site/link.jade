@@ -16,7 +16,7 @@ block content
 					h1.mb-0= link.label
 					h4.blog-post__author Shared
 						if link.publishedDate
-							|  on #{moment(link.publishedDate).format('MMMM Do, YYYY')}
+							|  on #{moment(link.publishedDate).format('MMMM D, YYYY')}
 						if link.author
 							|   &middot; by&nbsp;
 							a(href='/members', rel='author')=link.author.name.full
