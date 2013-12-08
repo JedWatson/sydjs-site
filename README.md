@@ -45,7 +45,7 @@ Our images will be missing, but you'll be able to develop and test against your 
 
 ### Running SydJS
 
-Once you've set up your configuration, run `node web` to start the server.
+Once you've set up your configuration, run `node keystone` to start the server.
 
 By default, [Keystone](http://keystonejs.com) will connect to a new local MongoDB database on your localhost called `sydjs`, and create a new Admin user that you can use to log in with using the email address `admin@sydjs.com` and the password `admin`.
 
