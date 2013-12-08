@@ -6,7 +6,7 @@ mixin meetup(meetup, mode)
 				.calendar__date=meetup._.date.format('DD')
 				.calendar__year=meetup._.date.format('YYYY')
 		.meetup-content
-			.text-muted=meetup._.date.format('dddd Do MMM YYYY')
+			.text-muted=meetup._.date.format('dddd D MMM YYYY')
 				if meetup.time
 					|  from #{meetup.time}
 			h2.mt-0= meetup.name

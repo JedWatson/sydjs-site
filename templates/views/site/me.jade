@@ -56,7 +56,7 @@ block content
 									.calendar__date=meetups.next._.date.format('DD')
 									.calendar__year=meetups.next._.date.format('YYYY')
 							.meetup-content
-								.text-muted=meetups.next._.date.format('dddd Do MMM YYYY')
+								.text-muted=meetups.next._.date.format('dddd D MMM YYYY')
 									if meetups.next.time
 										|  from #{meetups.next.time}
 								h2.mt-0=meetups.next.name
