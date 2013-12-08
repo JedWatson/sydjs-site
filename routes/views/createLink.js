@@ -21,6 +21,11 @@ exports = module.exports = function(req, res) {
 				errorMessage: 'There was an error adding your link:'
 			});
 		
+		// automatically pubish posts by admin users
+		if (locals.user.isAdmin) {
+			newLink.state = 'published';
+		}
+		
 		updater.process(req.body, {
 			flashErrors: true,
 			logErrors: true,

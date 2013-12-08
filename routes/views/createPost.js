@@ -21,6 +21,11 @@ exports = module.exports = function(req, res) {
 				errorMessage: 'There was an error creating your new post:'
 			});
 		
+		// automatically pubish posts by admin users
+		if (locals.user.isAdmin) {
+			newPost.state = 'published';
+		}
+		
 		updater.process(req.body, {
 			flashErrors: true,
 			logErrors: true,
