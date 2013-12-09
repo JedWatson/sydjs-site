@@ -16,7 +16,8 @@ var deps = {
 User.add({
 	name: { type: Types.Name, required: true, index: true },
 	email: { type: Types.Email, initial: true, index: true },
-	password: { type: Types.Password, initial: true }
+	password: { type: Types.Password, initial: true },
+	resetPasswordKey: { type: String, hidden: true }
 }, 'Profile', {
 	isPublic: Boolean,
 	organisation: { type: Types.Relationship, ref: 'Organisation' },
@@ -25,6 +26,11 @@ User.add({
 	twitter: { type: String, width: 'short' },
 	website: { type: Types.Url },
 	bio: { type: Types.Markdown }
+}, 'Notifications', {
+	notifications: {
+		posts: Boolean,
+		meetups: Boolean
+	}
 }, 'Mentoring', {
 	mentoring: {
 		available: { type: Boolean, label: 'Is Available', index: true },
@@ -67,14 +73,58 @@ User.add({
 	}
 });
 
+
+/** 
+	Relationships
+	=============
+*/
+
+User.relationship({ ref: 'Post', refPath: 'author', path: 'posts' });
+User.relationship({ ref: 'Talk', refPath: 'who', path: 'talks' });
+User.relationship({ ref: 'RSVP', refPath: 'who', path: 'rsvps' });
+
+
+/**
+	Virtuals
+	========
+*/
+
 // Provide access to Keystone
 User.schema.virtual('canAccessKeystone').get(function() {
 	return this.isAdmin;
 });
 
-User.relationship({ ref: 'Post', refPath: 'author', path: 'posts' });
-User.relationship({ ref: 'Talk', refPath: 'who', path: 'talks' });
-User.relationship({ ref: 'RSVP', refPath: 'who', path: 'rsvps' });
+
+/**
+	Methods
+	=======
+*/
+
+User.schema.methods.resetPassword = function(callback) {
+	
+	var user = this;
+	
+	this.resetPasswordKey = keystone.utils.randomString([16,24]);
+	
+	this.save(function(err) {
+		
+		if (err) return callback(err);
+		
+		new keystone.Email('forgotten-password').send({
+			name: user.name.first || user.name.full,
+			link: 'http://www.sydjs.com/reset-password/' + user.resetPasswordKey,
+			subject: 'Reset your SydJS Password'
+		},{
+			to: user,
+			from: {
+				name: 'SydJS',
+				email: 'contact@sydjs.com'
+			}
+		}, callback);
+		
+	});
+	
+}
 
 User.addPattern('standard meta');
 User.defaultColumns = 'name, email, twitter, isAdmin';

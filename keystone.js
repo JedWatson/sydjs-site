@@ -20,6 +20,9 @@ keystone.init({
 
 	'views': 'templates/views',
 	'view engine': 'jade',
+	
+	'emails': 'templates/emails',
+	'mandrill api key': 'E6GbybG5lBkJEe9LA22Skw',
 
 	'auto update': true,
 	'mongo': process.env.MONGO_URI || 'mongodb://localhost/' + pkg.name,
@@ -56,6 +59,24 @@ keystone.set('locals', {
 	ga_domain: keystone.get('ga domain'),
 	chartbeat_property: keystone.get('chartbeat property'),
 	chartbeat_domain: keystone.get('chartbeat domain')
+});
+
+keystone.set('email locals', {
+	keystoneURL: 'http://www.sydjs.com/keystone',
+	logo: '/images/logo_email.jpg',
+	logo_width: 120,
+	logo_height: 112,
+	theme: {
+		email_bg: '#f9f9f9',
+		link_color: '#2697de'
+	}
+});
+
+keystone.set('email tests', {
+	'forgotten-password': {
+		name: 'User',
+		link: 'http://www.sydjs.com/reset-password/key'
+	}
 });
 
 keystone.set('nav', {
