@@ -1,6 +1,11 @@
 var keystone = require('keystone'),
 	Types = keystone.Field.Types;
 
+/**
+ * RSVPs Model
+ * ===========
+ */
+
 var RSVP = new keystone.List('RSVP');
 
 RSVP.add({
@@ -10,6 +15,12 @@ RSVP.add({
 	createdAt: { type: Date, noedit: true, collapse: true, default: Date.now },
 	changedAt: { type: Date, noedit: true, collapse: true }
 });
+
+
+/**
+ * Hooks
+ * =====
+ */
 
 RSVP.schema.pre('save', function(next) {
 	this.changedAt = Date.now();
@@ -21,6 +32,12 @@ RSVP.schema.post('save', function() {
 		if (meetup) meetup.refreshRSVPs();
 	});
 });
+
+
+/**
+ * Registration
+ * ============
+ */
 
 RSVP.defaultColumns = 'meetup, who, createdAt';
 RSVP.defaultSort = '-createdAt';

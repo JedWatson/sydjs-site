@@ -1,6 +1,11 @@
 var keystone = require('keystone'),
 	Types = keystone.Field.Types;
 
+/**
+ * Links Model
+ * ===========
+ */
+
 var Link = new keystone.List('Link', {
 	map: { name: 'label' },
 	autokey: { path: 'slug', from: 'label', unique: true }
@@ -16,7 +21,19 @@ Link.add({
 	publishedDate: { type: Types.Date, index: true }
 });
 
+
+/**
+ * Relationships
+ * =============
+ */
+
 Link.relationship({ ref: 'LinkComment', refPath: 'link', path: 'comments' });
+
+
+/**
+ * Registration
+ * ============
+ */
 
 Link.addPattern('standard meta');
 Link.defaultColumns = 'label, href, author|20%, state|20%';

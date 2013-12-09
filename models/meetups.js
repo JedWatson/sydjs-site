@@ -1,6 +1,11 @@
 var keystone = require('keystone'),
 	Types = keystone.Field.Types;
 
+/**
+ * Meetups Model
+ * =============
+ */
+
 var Meetup = new keystone.List('Meetup');
 
 Meetup.add({
@@ -14,8 +19,20 @@ Meetup.add({
 	totalRSVPs: { type: Number, noedit: true }
 });
 
+
+/**
+ * Relationships
+ * =============
+ */
+
 Meetup.relationship({ ref: 'Talk', refPath: 'meetup', path: 'talks' });
 Meetup.relationship({ ref: 'RSVP', refPath: 'meetup', path: 'rsvps' });
+
+
+/**
+ * Virtuals
+ * ========
+ */
 
 Meetup.schema.virtual('remainingRSVPs').get(function() {
 	if (!this.maxRSVPs) return -1;
@@ -25,6 +42,12 @@ Meetup.schema.virtual('remainingRSVPs').get(function() {
 Meetup.schema.virtual('rsvpsAvailable').get(function() {
 	return (this.remainingRSVPs != 0);
 });
+
+
+/**
+ * Methods
+ * =======
+ */
 
 Meetup.schema.methods.refreshRSVPs = function(callback) {
 	
@@ -43,6 +66,12 @@ Meetup.schema.methods.refreshRSVPs = function(callback) {
 		});
 	
 }
+
+
+/**
+ * Registration
+ * ============
+ */
 
 Meetup.addPattern('standard meta');
 Meetup.defaultColumns = 'name, state|20%, date|20%';

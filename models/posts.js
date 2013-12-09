@@ -1,6 +1,11 @@
 var keystone = require('keystone'),
 	Types = keystone.Field.Types;
 
+/**
+ * Posts Model
+ * ===========
+ */
+
 var Post = new keystone.List('Post', {
 	map: { name: 'title' },
 	autokey: { path: 'slug', from: 'title', unique: true }
@@ -19,11 +24,28 @@ Post.add({
 	categories: { type: Types.Relationship, ref: 'PostCategory', many: true }
 });
 
+/**
+ * Virtuals
+ * ========
+ */
+
 Post.schema.virtual('content.full').get(function() {
 	return this.content.extended || this.content.brief;
 });
 
+
+/**
+ * Relationships
+ * =============
+ */
+
 Post.relationship({ ref: 'PostComment', refPath: 'post', path: 'comments' });
+
+
+/**
+ * Registration
+ * ============
+ */
 
 Post.addPattern('standard meta');
 Post.defaultColumns = 'title, state|20%, author|20%, publishedDate|20%';

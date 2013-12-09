@@ -1,6 +1,11 @@
 var keystone = require('keystone'),
 	Types = keystone.Field.Types;
 
+/**
+ * Link Comments Model
+ * ===================
+ */
+
 var LinkComment = new keystone.List('LinkComment', {
 	nocreate: true
 });
@@ -11,6 +16,12 @@ LinkComment.add({
 	date: { type: Types.Date, default: Date.now, index: true },
 	content: { type: Types.Markdown }
 });
+
+
+/**
+ * Registration
+ * ============
+ */
 
 LinkComment.defaultColumns = 'author, date|20%';
 LinkComment.register();

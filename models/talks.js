@@ -1,6 +1,11 @@
 var keystone = require('keystone'),
 	Types = keystone.Field.Types;
 
+/**
+ * Talks Model
+ * ===========
+ */
+
 var Talk = new keystone.List('Talk', {
 	sortable: true,
 	sortContext: 'Meetup:talks'
@@ -14,6 +19,12 @@ Talk.add({
 	slides: { type: Types.Url },
 	link: { type: Types.Url }
 });
+
+
+/**
+ * Registration
+ * ============
+ */
 
 Talk.addPattern('standard meta');
 Talk.defaultColumns = 'name, meetup|20%, who|20%';

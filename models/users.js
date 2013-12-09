@@ -1,6 +1,11 @@
 var keystone = require('keystone'),
 	Types = keystone.Field.Types;
 
+/**
+ * Users Model
+ * ===========
+ */
+
 var User = new keystone.List('User', {
 	autokey: { path: 'key', from: 'name', unique: true }
 });
@@ -85,9 +90,9 @@ User.relationship({ ref: 'RSVP', refPath: 'who', path: 'rsvps' });
 
 
 /**
-	Virtuals
-	========
-*/
+ * Virtuals
+ * ========
+ */
 
 // Provide access to Keystone
 User.schema.virtual('canAccessKeystone').get(function() {
@@ -96,8 +101,8 @@ User.schema.virtual('canAccessKeystone').get(function() {
 
 
 /**
-	Methods
-	=======
+ * Methods
+ * =======
 */
 
 User.schema.methods.resetPassword = function(callback) {
@@ -125,6 +130,12 @@ User.schema.methods.resetPassword = function(callback) {
 	});
 	
 }
+
+
+/**
+ * Registration
+ * ============
+*/
 
 User.addPattern('standard meta');
 User.defaultColumns = 'name, email, twitter, isAdmin';
