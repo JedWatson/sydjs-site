@@ -1,0 +1,8 @@
+extends /layouts/default
+
+block body-contents
+	h1 Hi #{name},
+	p #{author} just added a link to SydJS:
+	p= title
+	p Head over to Keystone to approve or reject it.
+	+button({ url: keystoneURL + '/link/' + linkId, label: 'Open Keystone', background_color: '#2697de', border_color: '#1a7cb7', border_width: '1px', border_radius: 4, color: '#fff', height: 40, width: '100%' })
