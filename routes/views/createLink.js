@@ -34,7 +34,7 @@ exports = module.exports = function(req, res) {
 			if (err) {
 				locals.validationErrors = err.errors;
 			} else {
-				req.flash('success', 'Your link has been added successfully.');
+				req.flash('success', 'Your link has been added' + ((newLink.state == 'draft') ? ' and will appear on the site once it\'s been approved' : '') + '.';
 				return res.redirect('/links');
 			}
 			next();
