@@ -1,6 +1,7 @@
 extends ../../layouts/default
 
 include ../../mixins/post
+include ../../mixins/advertisement
 
 block content
 	//- Hero
@@ -55,6 +56,8 @@ block content
 									a(href='/attend', disabled=!nextMeetup.rsvpsAvailable).btn.btn-lg.btn-block.btn-register= nextMeetup.rsvpsAvailable ? 'Register' : 'Sold out!'
 							hr.line-dashed
 							p: a(href='/meetups').text-muted All our meetups &rarr;
+
+							+advertisement()
 		.home-meetup-map
 			#meetup-map.map
 			a(href='https://maps.google.com.au/?daddr=' + nextMeetup.place, target='_blank').directions-button
