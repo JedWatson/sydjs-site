@@ -93,25 +93,30 @@ block content
 			.col-sm-4
 				a(href='/members/organisations').link-icon-badge: span.link-icon.entypo.entypo-globe
 				h2.home-links__heading: a(href='/members/organisations') Organisations
-				p Ju wan jQuery? Keen on Keystone? Looking for Lint? Need NICTA?
+				p Ju wan jQuery? Keen on Keystone? Looking for Lint? Need NICTA? Want a Webstack?
 				p There's a whole range of organisations that just help make your JavaScript life that much easier.
-				p: a(href='/members/organisations') View organisations
 
 			.col-sm-4
 				a(href='/members').link-icon-badge: span.link-icon.entypo.entypo-users
 				h2.home-links__heading: a(href='/members') Members
 				p At SydJS, all members are equal! To misquote Orwell, though, some are more equal than others.
-				p Our member section lists all our presenters and supporters.
-				p Want to raise your profile? Volunteer and we'll add you to the roster! Want to find out who's stepped up?
-				p: a(href='/members') View members
+				p Want to raise your profile? Volunteer and we'll add you to the roster! Want to find out who's stepped up? It's all here.
 
 			.col-sm-4
 				a(href='/links').link-icon-badge: span.link-icon.entypo.entypo-link
 				h2.home-links__heading: a(href='/links') Links
 				p Got a favourite CDN? A favourite library? A micro-library? We do! And you'll find some of them linked here.
-				p You might even find some links to things that _aren't_ JavaScript? That's right! There are some things that aren't JavaScript.
-				p: a(href='/links') View links
+				p You might even find some links to things that _aren't_ JavaScript? That's right! Some things aren't JavaScript.
 
+		.row
+			.col-sm-4
+				p: a(href='/members/organisations', class='home-links-anchor') View organisations
+
+			.col-sm-4
+				p: a(href='/members', class='home-links-anchor') View members
+
+			.col-sm-4
+				p: a(href='/links', class='home-links-anchor') View links
 
 block js
 	// twitter
