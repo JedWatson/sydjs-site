@@ -9,9 +9,18 @@ Initially built in two and a half days by the team at [Thinkmill](http://www.thi
 
 Please use the GitHub Issues to log any ideas you have to improve the site, or problems you may come across.
 
-Pull Requests are welcome! Feel free to ask questions about how it works, if you're getting into the code.
+Or if you're feeling more adventurous, go pick an issue and submit a pull request.
+
+Feel free to ask questions about how it works, if you're getting into the code.
 
 If you are part of another meetup group and want to use our site as a basis for your own, that's great, we'd love to hear about it.
+
+### Coding Guidelines
+
+If you're contributing code, please do your best to follow the conventions established in the codebase already. This makes pull requests much easier to review and merge.
+
+We have generally followed the guidelines set out in [AirBnB's Javascript Style Guide](https://github.com/airbnb/javascript), with the exception of using real tabs for indentation.
+
 
 ## Getting Started
 
