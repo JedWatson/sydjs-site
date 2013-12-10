@@ -50,8 +50,6 @@ The only line you **need** to add to your `.env` file is a valid `CLOUDINARY_URL
 
 	CLOUDINARY_URL=cloudinary://12345:abcde@cloudname
 
-Our images will be missing, but you'll be able to develop and test against your own.
-
 ### Running SydJS
 
 Once you've set up your configuration, run `node keystone` to start the server.
@@ -62,4 +60,14 @@ If you want to run against a different server or database, add a line to your `.
 
 When it's all up and running, you should see the message `SydJS is ready on port 3000` and you'll be able to browse the site on [localhost:3000](http://localhost:3000).
 
-Happy hacking!
+### Here be ~~dragons~~ errors
+
+#### or, how you don't have any content yet
+
+The first time you run the site, the homepage **will** error because it expects there to be at least one meetup, and your database won't have any. Don't freak out, just go to [/keystone](http://localhost:3000/keystone), sign in as the admin user, and create one.
+
+You'll probably want to add some other content too (blog post, members, etc) to get all the pages looking right.
+
+We'll hopefully create a development copy of the database (or improve the init scripts) soon to make this smoother.
+
+... happy hacking!
