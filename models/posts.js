@@ -48,5 +48,6 @@ Post.relationship({ ref: 'PostComment', refPath: 'post', path: 'comments' });
  */
 
 Post.addPattern('standard meta');
+Post.defaultSort = '-publishedDate';
 Post.defaultColumns = 'title, state|20%, author|20%, publishedDate|20%';
 Post.register();
