@@ -34,7 +34,7 @@ exports = module.exports = function(req, res) {
 			if (err) {
 				locals.validationErrors = err.errors;
 			} else {
-				req.flash('success', 'Your post has been added' + ((newLink.state == 'draft') ? ' and will appear on the site once it\'s been approved' : '') + '.');
+				req.flash('success', 'Your post has been added' + ((newPost.state == 'draft') ? ' and will appear on the site once it\'s been approved' : '') + '.');
 				return res.redirect('/blog/post/' + newPost.slug);
 			}
 			next();
