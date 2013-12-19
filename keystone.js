@@ -1,12 +1,17 @@
 // Load .env for development environments
 require('dotenv')().load();
 
-var keystone = require('keystone'),
-	pkg = require('./package.json');
+// Initialise New Relic if an app name and license key exists
+if (process.env.NEW_RELIC_APP_NAME && process.env.NEW_RELIC_LICENSE_KEY) {
+	require('newrelic');
+}
 
 /**
  * Application Initialisation
  */
+
+var keystone = require('keystone'),
+	pkg = require('./package.json');
 
 keystone.init({
 
@@ -22,7 +27,6 @@ keystone.init({
 	'view engine': 'jade',
 	
 	'emails': 'templates/emails',
-	'mandrill api key': 'E6GbybG5lBkJEe9LA22Skw',
 
 	'auto update': true,
 	'mongo': process.env.MONGO_URI || 'mongodb://localhost/' + pkg.name,
@@ -31,6 +35,9 @@ keystone.init({
 	'auth': true,
 	'user model': 'User',
 	'cookie secret': process.env.COOKIE_SECRET || 'sydjs',
+	
+	// the default mandrill api key is a *test* key. it will 'work', but not send emails.
+	'mandrill api key': process.env.MANDRILL_KEY || 'v17RkIoARDkqTqPSbvrmkw',
 
 	'google api key': process.env.GOOGLE_BROWSER_KEY,
 	'google server api key': process.env.GOOGLE_SERVER_KEY,
