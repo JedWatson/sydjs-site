@@ -91,6 +91,8 @@ exports = module.exports = function(req, res) {
 				locals.meetups.nextRSVP = rsvp;
 				next(err);
 			});
+		} else {
+			next();
 		}
 		
 	});
