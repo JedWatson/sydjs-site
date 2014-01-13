@@ -69,5 +69,6 @@ exports = module.exports = function(app) {
 	// API
 	app.all('/api*', keystone.initAPI);
 	app.all('/api/me/meetup', routes.api.me.meetup);
+	app.all('/api/stats', routes.api.stats);
 
 }
