@@ -15,9 +15,9 @@ exports = module.exports = function(req, res) {
 		function(next) {
 			
 			Meetup.model.findOne()
-				.where('date').lt(moment().startOf('day').toDate())
+				.where('date').gte(moment().startOf('day').toDate())
 				.where('state', 'published')
-				.sort('-date')
+				.sort('date')
 				.exec(function(err, meetup) {
 				
 					RSVP.model.count({
