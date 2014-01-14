@@ -18,12 +18,13 @@ exports = module.exports = function(req, res) {
 			.sort('date')
 	, 'talks[who]');
 	
-	view.query('meetups.past',
-		Meetup.model.find()
-			.where('date').lt(moment().subtract('days', 1).endOf('day').toDate())
-			.where('state', 'published')
-			.sort('-date')
-	, 'talks[who]');
+	view.query('rsvps.history',
+		RSVP.model.find()
+			.where('who', req.user)
+			.where('attending', true)
+			.populate('meetup')
+			.sort('-createdAt')
+	);
 	
 	view.on('post', { action: 'profile.top' }, function(next) {
 	

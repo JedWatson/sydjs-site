@@ -80,12 +80,12 @@ block content
 						p Follow us on Twitter to find out when we anounce the next meetup
 						p: a(href="https://twitter.com/sydjs", class="twitter-follow-button", data-show-count="true") Follow @sydjs
 
-				if meetups.past.length
+				if rsvps.history.length
 					.col-sm-4.col-md-push-1
 						h4.mt-0 You've been to...
 						ul
-							each attendedMU in meetups.past
-								li=attendedMU.name
+							each attendedMU in rsvps.history
+								li=attendedMU.meetup.name
 	
 	
 	//- PUBLIC INFO FORM
