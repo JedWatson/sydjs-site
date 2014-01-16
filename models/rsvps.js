@@ -12,6 +12,8 @@ RSVP.add({
 	meetup: { type: Types.Relationship, ref: 'Meetup', required: true, initial: true, index: true },
 	who: { type: Types.Relationship, ref: 'User', required: true, initial: true, index: true },
 	attending: { type: Types.Boolean, index: true },
+	attendingDuckJs : { type: Types.Boolean, index: true },
+	attendingWhiskeyJs : { type: Types.Boolean, index: true },
 	createdAt: { type: Date, noedit: true, collapse: true, default: Date.now },
 	changedAt: { type: Date, noedit: true, collapse: true }
 });

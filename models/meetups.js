@@ -16,7 +16,9 @@ Meetup.add({
 	place: { type: String, required: true, initial: true, width: 'medium', default: 'Level 6, 341 George St (Atlassian) – Enter via the side door in Wynyard Street', note: 'usually Level 6, 341 George St (Atlassian) – Enter via the side door in Wynyard Street' },
 	description: { type: Types.Html, wysiwyg: true },
 	maxRSVPs: { type: Number, default: 100 },
-	totalRSVPs: { type: Number, noedit: true }
+	totalRSVPs: { type: Number, noedit: true },
+	duckJsCount: { type: Number, noedit: true, default: 0  },
+	whiskeyJsCount: { type: Number, noedit: true, default: 0  }
 });
 
 
@@ -64,7 +66,28 @@ Meetup.schema.methods.refreshRSVPs = function(callback) {
 			meetup.save(callback);
 			
 		});
-	
+	keystone.list('RSVP').model.count()
+		.where('meetup').in([meetup.id])
+		.where('attendingDuckJs', true)
+		.exec(function(err, count) {
+			
+			if (err) return callback(err);
+			
+			meetup.duckJsCount = count;
+			meetup.save(callback);
+			
+		});
+	keystone.list('RSVP').model.count()
+		.where('meetup').in([meetup.id])
+		.where('attendingWhiskeyJs', true)
+		.exec(function(err, count) {
+			
+			if (err) return callback(err);
+			
+			meetup.whiskeyJsCount = count;
+			meetup.save(callback);
+			
+		});	
 }
 
 
