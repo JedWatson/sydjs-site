@@ -52,42 +52,41 @@ Meetup.schema.virtual('rsvpsAvailable').get(function() {
  */
 
 Meetup.schema.methods.refreshRSVPs = function(callback) {
-	
+
 	var meetup = this;
-	
-	keystone.list('RSVP').model.count()
-		.where('meetup').in([meetup.id])
-		.where('attending', true)
-		.exec(function(err, count) {
-			
-			if (err) return callback(err);
-			
-			meetup.totalRSVPs = count;
-			meetup.save(callback);
-			
-		});
-	keystone.list('RSVP').model.count()
-		.where('meetup').in([meetup.id])
-		.where('attendingDuckJs', true)
-		.exec(function(err, count) {
-			
-			if (err) return callback(err);
-			
-			meetup.duckJsCount = count;
-			meetup.save(callback);
-			
-		});
-	keystone.list('RSVP').model.count()
-		.where('meetup').in([meetup.id])
-		.where('attendingWhiskeyJs', true)
-		.exec(function(err, count) {
-			
-			if (err) return callback(err);
-			
-			meetup.whiskeyJsCount = count;
-			meetup.save(callback);
-			
-		});	
+
+	async.parallel([
+		function(next) {
+			keystone.list('RSVP').model.count()
+				.where('meetup').in([meetup.id])
+				.where('attending', true)
+				.exec(function(err, count) {
+				if (err) return next(err);
+				meetup.totalRSVPs = count;
+				next();
+		},
+		function(next) {
+			keystone.list('RSVP').model.count()
+				.where('meetup').in([meetup.id])
+				.where('attendingDuckJs', true)
+				.exec(function(err, count) {
+				if (err) return next(err);
+				meetup.duckJsCount = count;
+				next();
+		},
+		function(next) {
+			keystone.list('RSVP').model.count()
+				.where('meetup').in([meetup.id])
+				.where('attendingWhiskeyJs', true)
+				.exec(function(err, count) {
+				if (err) return next(err);
+				meetup.WhiskeyJsCount = count;
+				next();
+		},
+		], function(err) {
+		if (err) return callback(err);
+		meetup.save(callback);
+	});
 }
 
 
