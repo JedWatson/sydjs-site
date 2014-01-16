@@ -15,7 +15,7 @@ Meetup.add({
 	time: { type: String, required: true, initial: true, width: 'short', default: '6pm - 9pm', note: 'e.g. 6pm - 9pm' },
 	place: { type: String, required: true, initial: true, width: 'medium', default: 'Level 6, 341 George St (Atlassian) – Enter via the side door in Wynyard Street', note: 'usually Level 6, 341 George St (Atlassian) – Enter via the side door in Wynyard Street' },
 	description: { type: Types.Html, wysiwyg: true },
-	maxRSVPs: { type: Number },
+	maxRSVPs: { type: Number, default: 100 },
 	totalRSVPs: { type: Number, noedit: true }
 });
 
