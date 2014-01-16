@@ -71,15 +71,31 @@ block content
 											|  Attending
 										label.btn.btn-default.js-rsvp-decline
 											|  Not Attending
+									p
+										| And if you think you're cool enough and we have the numbers..
+
+									p.btn-group.btn-group-justified.meetup-alt-toggle(data-toggle='buttons-2', style='display: none;')
+										label.btn.btn-default.js-rsvp-duck
+											img(src="/images/duck.png")
+											br
+											|  I want DuckJS*
+										label.btn.btn-default.js-rsvp-whiskey
+											img(src="/images/whiskey.png")
+											br
+											|  I want WhiskeyJS*
+									p
+										| *whether we do either/or will depend on
+										br
+										| how many people are willing.
 								else
 									.alert.alert-warning
 										strong Sold out
 										|  - Damn son, better luck next time!
+								hr
 					else
 						h2.mt-0 No upcoming meetups...
 						p Follow us on Twitter to find out when we anounce the next meetup
 						p: a(href="https://twitter.com/sydjs", class="twitter-follow-button", data-show-count="true") Follow @sydjs
-
 				if rsvps.history.length
 					.col-sm-4.col-md-push-1
 						h4.mt-0 You've been to...

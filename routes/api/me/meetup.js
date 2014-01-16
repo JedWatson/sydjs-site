@@ -14,6 +14,7 @@ exports = module.exports = function(req, res) {
 			.where('who', req.user._id)
 			.where('meetup', req.body.meetup)
 			.exec(function(err, data) {
+				console.log(data);
 				rsvp = data;
 				return next();
 			});
@@ -23,19 +24,22 @@ exports = module.exports = function(req, res) {
 	], function(err) {
 	
 		if (req.body.statusOnly) {
-			
+
 			return res.apiResponse({
 				success: true,
 				rsvped: rsvp ? true : false,
-				attending: rsvp && rsvp.attending ? true : false
+				attending: rsvp && rsvp.attending ? true : false,
+				attendingDuckJs:rsvp.attendingDuckJs ? true : false,
+				attendingWhiskeyJs:rsvp.attendingWhiskeyJs ? true : false
 			});
 			
 		} else {
 			
 			if (rsvp) {
-				
 				rsvp.set({
-					attending: req.body.attending
+					attending: req.body.attending,
+					attendingDuckJs: req.body.attendingDuckJs,
+					attendingWhiskeyJs: req.body.attendingWhiskeyJs
 				}).save(function(err) {
 					if (err) return res.apiResponse({ success: false, err: err });
 					return res.apiResponse({ success: true });
@@ -46,7 +50,9 @@ exports = module.exports = function(req, res) {
 				new RSVP.model({
 					meetup: req.body.meetup,
 					who: req.user,
-					attending: req.body.attending
+					attending: req.body.attending,
+					attendingDuckJs: req.body.attendingDuckJs,
+					attendingWhiskeyJs: req.body.attendingWhiskeyJs
 				}).save(function(err) {
 					if (err) return res.apiResponse({ success: false, err: err });
 					return res.apiResponse({ success: true });
