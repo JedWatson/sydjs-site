@@ -119,7 +119,7 @@ User.schema.methods.resetPassword = function(callback) {
 			name: user.name.first || user.name.full,
 			link: 'http://www.sydjs.com/reset-password/' + user.resetPasswordKey,
 			subject: 'Reset your SydJS Password'
-		},{
+		}, {
 			to: user,
 			from: {
 				name: 'SydJS',
