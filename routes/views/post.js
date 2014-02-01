@@ -17,14 +17,21 @@ exports = module.exports = function(req, res) {
 	view.on('init', function(next) {
 
 		Post.model.findOne()
-			.where('state', 'published')
 			.where('slug', locals.filters.post)
 			.populate('author categories')
 			.exec(function(err, post) {
+				
 				if (err) return res.err(err);
 				if (!post) return res.notfound('Post not found');
-				locals.post = post;
-				locals.post.populateRelated('comments[author]', next);
+				
+				// Allow admins or the author to see draft posts
+				if (post.state == 'published' || req.user.isAdmin || (post.author && req.user.id == post.author.id)) {
+					locals.post = post;
+					locals.post.populateRelated('comments[author]', next);
+				} else {
+					return res.notfound('Post not found');
+				}
+				
 			});
 
 	});

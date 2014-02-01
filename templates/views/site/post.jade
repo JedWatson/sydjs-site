@@ -12,6 +12,13 @@ block content
 				h2 Invalid Post.
 			else
 				header
+					
+					if post.state != 'published'
+						.mt-1: .alert.alert-danger This Post has not been published yet. 
+							if user.isAdmin
+								a(href='/keystone/posts/' + post.id).alert-link Open Keystone
+								|  to publish it.
+					
 					h1.mb-0= post.title
 					h4.blog-post__author Posted
 						if post.publishedDate
