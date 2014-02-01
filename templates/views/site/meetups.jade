@@ -22,8 +22,12 @@ block content
 						a(href='/me').btn.btn-primary Attend
 			
 			hr.line-thick
+		
 		each meetup, i in meetups.past
 			+meetup(meetup, 'past')
+		
+		if !meetups.upcoming.length && !meetups.past.length
+			h3.text-muted There are no meetups yet.
 
 block js
 	// twitter

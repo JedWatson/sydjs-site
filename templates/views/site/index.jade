@@ -9,61 +9,69 @@ block content
 		- lastMeetup = false;
 	else
 		- nextMeetup = lastMeetup;
-		
-	section.section.home-meetup
-		.home-meetup-wrapper
-			.container
-				h5= (lastMeetup) ? 'Our last meetup:' : 'Our next meetup:'
-				div(data-ks-editable=editable(user, { list: 'Meetup', id: nextMeetup.id }))
-					h1= nextMeetup.name
-					.row
-						.col-sm-8
-							if nextMeetup.description
-								p!= nextMeetup.description
-							if nextMeetup.talks.length
-								.meetup-talks
-									span.meetup-talks__icon.entypo.entypo-large.entypo-comment
-									h4.meetup-talks__heading Talks on the night
-									ul.list-unstyled
-										each talk in nextMeetup.talks
-											li.talk
-												strong.talk__name #{talk.name} 
-												if talk.who.length
-													.talk__speaker
-														| by 
-														each user, i in talk.who
-															if i
-																| , 
-															= user.name.full + ' '
-															if user.twitter
-																a(href='http://twitter.com/' + user.twitter.replace('@', ''), target='_blank' data-size="large")= user.twitter + ' '
-						.col-sm-4
-							dl.dl-horizontal.home-meetup__details-list
-								dt
-									.sr-only Date
-									span.entypo.entypo-fixed-width.entypo-calendar
-								dd=nextMeetup._.date.format('dddd, DD MMM YYYY')
-								dt
-									.sr-only Time
-									span.entypo.entypo-fixed-width.entypo-clock
-								dd=nextMeetup.time
-								dt
-									.sr-only Place
-									span.entypo.entypo-fixed-width.entypo-location
-								dd=nextMeetup.place
-							if !lastMeetup
-								.register-btn
-									a(href='/attend', disabled=!nextMeetup.rsvpsAvailable).btn.btn-lg.btn-block.btn-register= nextMeetup.rsvpsAvailable ? 'Register' : 'Sold out!'
-							hr.line-dashed
-							p: a(href='/meetups').text-muted All our meetups &rarr;
-
-							+advertisement()
-		.home-meetup-map
-			#meetup-map.map
-			a(href='https://maps.google.com.au/?daddr=' + nextMeetup.place, target='_blank').directions-button
-				span.entypo.entypo-popup
-				|  Get Directions
 	
+	- nextMeetup = false;
+	section.section.home-meetup
+		if !nextMeetup
+			.container
+				h1 Welcome<br>
+				h3 It looks like you've initialised a new database.
+				p.lead Head over to <a href='/keystone'>Keystone</a> and create an upcoming meetup, some members and blog posts to see the site work properly.
+				p.lead A default account has been created for you to sign in with: <strong>admin@keystonejs.com</strong> and the password <strong>admin</strong>.
+		else
+			.home-meetup-wrapper
+				.container
+					h5= (lastMeetup) ? 'Our last meetup:' : 'Our next meetup:'
+					div(data-ks-editable=editable(user, { list: 'Meetup', id: nextMeetup.id }))
+						h1= nextMeetup.name
+						.row
+							.col-sm-8
+								if nextMeetup.description
+									p!= nextMeetup.description
+								if nextMeetup.talks.length
+									.meetup-talks
+										span.meetup-talks__icon.entypo.entypo-large.entypo-comment
+										h4.meetup-talks__heading Talks on the night
+										ul.list-unstyled
+											each talk in nextMeetup.talks
+												li.talk
+													strong.talk__name #{talk.name} 
+													if talk.who.length
+														.talk__speaker
+															| by 
+															each user, i in talk.who
+																if i
+																	| , 
+																= user.name.full + ' '
+																if user.twitter
+																	a(href='http://twitter.com/' + user.twitter.replace('@', ''), target='_blank' data-size="large")= user.twitter + ' '
+							.col-sm-4
+								dl.dl-horizontal.home-meetup__details-list
+									dt
+										.sr-only Date
+										span.entypo.entypo-fixed-width.entypo-calendar
+									dd=nextMeetup._.date.format('dddd, DD MMM YYYY')
+									dt
+										.sr-only Time
+										span.entypo.entypo-fixed-width.entypo-clock
+									dd=nextMeetup.time
+									dt
+										.sr-only Place
+										span.entypo.entypo-fixed-width.entypo-location
+									dd=nextMeetup.place
+								if !lastMeetup
+									.register-btn
+										a(href='/attend', disabled=!nextMeetup.rsvpsAvailable).btn.btn-lg.btn-block.btn-register= nextMeetup.rsvpsAvailable ? 'Register' : 'Sold out!'
+								hr.line-dashed
+								p: a(href='/meetups').text-muted All our meetups &rarr;
+
+								+advertisement()
+			.home-meetup-map
+				#meetup-map.map
+				a(href='https://maps.google.com.au/?daddr=' + nextMeetup.place, target='_blank').directions-button
+					span.entypo.entypo-popup
+					|  Get Directions
+		
 
 	//- About
 	section.section.home-about: .container
@@ -80,13 +88,14 @@ block content
 
 
 	//- Blog
-	section.section.home-blog: .container
-		.blog(itemscope itemtype="http://schema.org/Blog")
-			for post in posts
-				+post(post)
-			hr.line-dashed
-			p(data-ks-editable=editable(user, { list: 'Post' }))
-				a(href='/blog', itemprop='url').text-muted See all SydJS blog posts &rarr;
+	if posts.length
+		section.section.home-blog: .container
+			.blog(itemscope itemtype="http://schema.org/Blog")
+				for post in posts
+					+post(post)
+				hr.line-dashed
+				p(data-ks-editable=editable(user, { list: 'Post' }))
+					a(href='/blog', itemprop='url').text-muted See all SydJS blog posts &rarr;
 
 
 

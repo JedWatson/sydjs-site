@@ -64,10 +64,8 @@ When it's all up and running, you should see the message `SydJS is ready on port
 
 #### or, how you don't have any content yet
 
-The first time you run the site, the homepage **will** error because it expects there to be at least one meetup, and your database won't have any. Don't freak out, just go to [/keystone](http://localhost:3000/keystone), sign in as the admin user, and create one.
+The first time you run the site, the homepage will warn you that it expects there to be at least one meetup, and your database won't have any. Don't freak out, just go to [/keystone](http://localhost:3000/keystone), sign in as the admin user, and create one.
 
 You'll probably want to add some other content too (blog post, members, etc) to get all the pages looking right.
-
-We'll hopefully create a development copy of the database (or improve the init scripts) soon to make this smoother.
 
 ... happy hacking!

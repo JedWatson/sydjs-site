@@ -16,7 +16,7 @@ block intro
 block content
 	.container
 		.row
-			div(class= data.categories.length ? 'col-sm-8' : 'col-sm-8 col-sm-offset-2')
+			div(class= data.categories.length || !data.posts.length ? 'col-sm-8' : 'col-sm-8 col-sm-offset-2')
 				if filters.category && !data.category
 					h3 Invalid Category.
 				else
@@ -26,9 +26,9 @@ block content
 								+post(post)
 					else
 						if data.category
-							h3 No posts in the category #{data.category.name}.
+							h3.text-muted No posts in the category #{data.category.name}.
 						else
-							h3 There are no posts yet.
+							h3.text-muted There are no posts yet.
 			
 			if data.categories.length
 				.col-sm-3.col-sm-offset-1
