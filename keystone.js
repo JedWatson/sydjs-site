@@ -1,5 +1,5 @@
 // Load .env for development environments
-require('dotenv')().load();
+require('dotenv').load();
 
 // Initialise New Relic if an app name and license key exists
 if (process.env.NEW_RELIC_APP_NAME && process.env.NEW_RELIC_LICENSE_KEY) {
