@@ -54,7 +54,7 @@ The only line you **need** to add to your `.env` file is a valid `CLOUDINARY_URL
 
 Once you've set up your configuration, run `node keystone` to start the server.
 
-By default, [Keystone](http://keystonejs.com) will connect to a new local MongoDB database on your localhost called `sydjs`, and create a new Admin user that you can use to log in with using the email address `admin@sydjs.com` and the password `admin`.
+By default, [Keystone](http://keystonejs.com) will connect to a new local MongoDB database on your localhost called `sydjs`, and create a new Admin user that you can use to log in with using the email address `user@keystonejs.com` and the password `admin`.
 
 If you want to run against a different server or database, add a line to your `.env` file to set the `MONGO_URI` environment variable, and restart the site.
 
