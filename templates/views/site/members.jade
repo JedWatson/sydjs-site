@@ -46,11 +46,11 @@ block content
 									h6.text-muted.mt-0 Talks
 									ul.list-unstyled
 										each talk in member.talks
-											li.media(class=moment(talk.meetup.date) < moment(now) ? 'past' : 'present')
+											li.media(class=moment(talk.meetup.date) < moment() ? 'past' : 'present')
 												.pull-left
 													.date
-														small.block=moment(talk.meetup.date).format('MMM')
-														strong.block=moment(talk.meetup.date).format('DD')
+														small.block=talk.meetup._.date.format('MMM')
+														strong.block=talk.meetup._.date.format('DD')
 												.media-body
 													p=talk.name
 							if member.posts && member.posts.length
@@ -59,8 +59,7 @@ block content
 									ul.list-unstyled
 										each post in member.posts
 											li
-												.text-danger
-													=moment(post.publishedDate).fromNow()
+												.text-danger= moment(post.publishedDate).fromNow()
 												p: a(href='/blog/post/' + post.slug)=post.title
 		else
 			h3.text-muted There are no members yet.
