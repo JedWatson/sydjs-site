@@ -7,7 +7,7 @@
     "url": "https://github.com/JedWatson/sydjs-site.git"
   },
   "dependencies": {
-    "keystone": "~0.2.5",
+    "keystone": "~0.2.14",
     "keystone-utils": "~0.1.6",
     "underscore": "~1.6.0",
     "moment": "~2.5.1",
