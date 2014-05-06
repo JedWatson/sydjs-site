@@ -1,4 +1,5 @@
 var async = require('async'),
+	moment = require('moment'),
 	keystone = require('keystone');
 
 var Meetup = keystone.list('Meetup'),
