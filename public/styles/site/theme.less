@@ -1,0 +1,72 @@
+//
+// Theme
+//
+// Use this file to tweak existing Bootstrap components. For major changes
+// consider creating a complimentary LESS file (your-component.less) and
+// possibly removing the offending Bootstrap component to avoid conflicts.
+//
+// ==============================
+
+
+
+
+// Media
+// ------------------------------
+
+a.media {
+	color: @text-color;
+	display: block;
+	
+	&:hover {
+		color: @text-color;
+		text-decoration: none;
+		
+		.media-heading {
+			text-decoration: underline;
+		}
+	}
+}
+.media-heading {
+	font-size: 1em;
+	
+	a {
+		color: @text-color;
+	}
+}
+.media-subheading {
+	color: @gray;
+	font-size: .85em;
+}
+
+
+
+
+// Modals
+// ------------------------------
+
+.modal-backdrop {
+	background-color: white;
+	
+	&.in {
+		opacity: .75;
+	}
+}
+.modal-content {
+	.box-shadow( 0 4px 16px rgba(0,0,0,.2) );
+	border-color: #aaa;
+	border-radius: 2px;
+	padding: 30px 40px;
+	
+	@media (min-width: @grid-float-breakpoint) {
+		margin-top: 2em;
+	}
+}
+.modal-header {
+	padding: 1em 0;
+}
+.modal-body {
+	padding: 1em 0;
+}
+.modal-title {
+	line-height: 1;
+}

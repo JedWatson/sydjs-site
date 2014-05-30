@@ -1,0 +1,71 @@
+// 
+// Session
+// ==============================
+
+
+
+
+// Buttons
+// ------------------------------
+
+.social-signup-buttons {
+	.clearfix();
+	margin-bottom: 20px;
+	margin-left: -5px;
+	margin-right: -5px;
+	
+	.signup-button {
+		float: left;
+		margin: 0;
+		padding-left: 5px;
+		padding-right: 5px;
+		width: 33%;
+		
+		.entypo-social {
+			font-size: 40px;
+			vertical-align: middle;
+		}
+	}
+}
+.signup-button__text {
+	display: none;
+}
+@media (min-width: @screen-md-min) {
+	.signup-button__text {
+		display: inline-block;
+		vertical-align: middle;
+		margin-left: 6px;
+	}
+}
+
+
+// Alternate form style
+// ------------------------------
+
+.auth-form {
+	.form-groups {
+		margin-bottom: 1em;
+	}
+	.form-group {
+		margin-bottom: 0;
+	}
+	.form-control {
+		border-radius: 0;
+		box-shadow: none;
+		height: auto;
+		margin-top: -1px;
+		padding-bottom: .75em;
+		padding-top: .75em;
+		
+		&:focus {
+			box-shadow: 0 0 5px -2px fade(@link-color, 60%), 0 1px 2px @gray-lighter;
+			position: relative;
+		}
+	}
+	.form-control--first {
+		.border-top-radius( 4px );
+	}
+	.form-control--last {
+		.border-bottom-radius( 4px );
+	}
+}

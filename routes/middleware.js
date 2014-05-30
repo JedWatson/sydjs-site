@@ -19,6 +19,11 @@ exports.initLocals = function(req, res, next) {
 	];
 	
 	locals.user = req.user;
+	
+	locals.page = {
+		title: 'SydJS',
+		path: req.url.split("?")[0] // strip the query - handy for redirecting back to the page
+	};
 
 	locals.qs_set = qs_set(req, res);
 	

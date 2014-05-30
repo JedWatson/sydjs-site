@@ -1,0 +1,76 @@
+//-
+	Join
+	------------------------------
+	
+	Args
+	* modal  - boolean
+	* initial [default "join"] - accepts "signin" | "join" | "password"
+	
+mixin form-join(args)
+	.auth-box.modal-pane-join(class=args.modal && args.initial != 'join' ? 'hidden' : null)
+		if args.modal
+			.modal-header
+				button(type="button", class="close", data-dismiss="modal", aria-hidden="true") &times;
+				h4.modal-title Join SydJS
+		div(class=args.modal ? 'modal-body' : null)
+			include ../../includes/social-signin
+			//- p: a(href=args.modal ? '/auth/facebook?type=default-signin' : '/auth/facebook?type=profile-signin').btn.btn-facebook.btn-block
+				span.entypo-social.entypo-btn-align.entypo-s-facebook
+				|  Sign up with Facebook
+			p.text-muted.text-center OR
+			//- p Or use your email, that's okay too:
+			form(method='post', action='/join', autocomplete='off', novalidate).auth-form
+				
+				//- Action
+				input(type='hidden', name='action', value='signup.profile')
+				
+				//- Submitted
+				input(type='hidden', name='submitted', value=!args.modal ? form.submitted ? 'true' : 'false' : null)
+				
+				//- Type
+				input(type='hidden', name='type', value='profile')
+				
+				//- Method
+				input(type='hidden', name='method', value='signup')
+				
+				//- Return users to the address provided or the current page
+				if args.modal
+					input(type='hidden', name='from', value=args.from ? args.from : page.path)
+				else
+					input(type='hidden', name='from', value=form.from)
+				
+				//- Form Error(s)
+				if !args.modal
+					if form.error
+						.flash-messages
+							.alert.alert-danger
+								div!= form.error.message || form.error
+								
+								//- Field Errors
+								if form.error.errors && !_.isEmpty(form.error.errors)
+									ul
+										each error, key in form.error.errors
+											li!= error.msg
+					
+					- var checkFormError = function(key) { return form.error && form.error.errors && form.error.errors[key] ? 'has-error' : null }
+				
+				//- Signin
+				.form-groups
+					.form-group(class=!args.modal ? checkFormError('signup_namefirst') : null)
+						label(for='signup_namefirst').sr-only First name
+						input(type='text', name='signup_namefirst', placeholder='First name', value=!args.modal ? form.signup_namefirst : null).form-control.form-control--first
+					.form-group(class=!args.modal ? checkFormError('signup_namelast') : null)
+						label(for='signup_namelast').sr-only Last name
+						input(type='text', name='signup_namelast', placeholder='Last name', value=!args.modal ? form.signup_namelast : null).form-control
+					.form-group(class=!args.modal ? checkFormError('signup_email') : null)
+						label(for='signup_email').sr-only Email
+						input(type='email', name='signup_email', placeholder='Email', value=!args.modal ? form.signup_email : null).form-control
+					.form-group(class=!args.modal ? checkFormError('signup_password') : null)
+						label(for='signup_password').sr-only Password
+						input(type='password', name='signup_password', placeholder='Password', value=!args.modal ? form.signup_password : null).form-control.form-control--last
+				button(type='submit').btn.btn-block.btn-primary.btn-submit Join
+		
+			hr
+			p.text-center
+				| Already have an account? 
+				a(href=args.modal ? js : '/signin', rel=args.modal ? 'modal-pane' : null, data-modal-pane=args.modal ? 'signin' : null) Sign in

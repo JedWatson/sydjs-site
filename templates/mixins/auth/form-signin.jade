@@ -1,0 +1,35 @@
+//-
+	Sign in
+	------------------------------
+	
+	Args
+	* modal  - boolean
+	* initial [default "join"] - accepts "signin" | "join" | "password"
+	
+mixin form-signin(args)
+	.auth-box.modal-pane-signin(class=args.modal && args.initial != 'signin' ? 'hidden' : null)
+		if args.modal
+			.modal-header
+				button(type="button", class="close", data-dismiss="modal", aria-hidden="true") &times;
+				h4.modal-title Sign into SydJS
+		div(class=args.modal ? 'modal-body' : null)
+			include ../../includes/social-signin
+			p.text-muted.text-center OR
+			form(method='post', action='/signin', role='signin').auth-form
+				input(type='hidden', name='action', value='signin')
+				if args.modal
+					input(type='hidden', name='from', value=args.from ? args.from : page.path)
+				.form-groups
+					.form-group
+						label(for='signin-email').sr-only Email
+						input(type='email', name='email', placeholder='Email', id='signin-email', value=locals.form ? locals.form.email : null).form-control.form-control--first
+					.form-group
+						label(for='signin-password').sr-only Password
+						input(type='password', name='password', placeholder='Password', id='signin-password', value='').form-control.form-control--last
+				button(type='submit').btn.btn-block.btn-primary.btn-submit Sign in
+			a(href=args.modal ? js : '/forgot-password', rel=args.modal ? 'modal-pane' : null, data-modal-pane=args.modal ? 'password' : null).btn.btn-block.btn-link Forgot password?
+			
+			hr
+			p.text-center
+				| Don't have an account? 
+				a(href=args.modal ? js : '/join', rel=args.modal ? 'modal-pane' : null, data-modal-pane=args.modal ? 'join' : null) Join SydJS

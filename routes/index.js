@@ -50,10 +50,11 @@ exports = module.exports = function(app) {
 	app.get('/mentoring', routes.views.mentoring);
 	
 	// Session
-	app.all('/:mode(signin|join|attend)', routes.views.signin);
-	app.get('/signout', routes.views.signout);
-	app.all('/forgot-password', routes.views['forgot-password']);
-	app.all('/reset-password/:key', routes.views['reset-password']);
+	app.all('/join', routes.views.session.join);
+	app.all('/signin', routes.views.session.signin);
+	app.get('/signout', routes.views.session.signout);
+	app.all('/forgot-password', routes.views.session['forgot-password']);
+	app.all('/reset-password/:key', routes.views.session['reset-password']);
 	
 	// Authentication
 	app.get('/authentication/github', routes.authentication.github);

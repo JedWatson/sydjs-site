@@ -39,6 +39,6 @@ exports = module.exports = function(req, res) {
 		
 	});
 	
-	view.render('site/reset-password');
+	view.render('session/reset-password');
 	
 }

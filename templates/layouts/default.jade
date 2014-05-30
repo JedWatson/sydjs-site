@@ -1,4 +1,5 @@
 include ../mixins/flash-messages
+include ../mixins/auth/auth-forms
 
 doctype html
 html
@@ -10,7 +11,7 @@ html
 		meta(charset="utf-8")
 		meta(name="viewport", content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width")
 		
-		title= title || 'SydJS'
+		title= page.title
 		link(rel="shortcut icon", href="/favicon.ico", type="image/x-icon")
 		link(href="/styles/site.min.css", rel="stylesheet")
 		
@@ -42,33 +43,41 @@ html
 								span.visible-xs Sign out
 								span.entypo.entypo-large.entypo-logout.hidden-xs
 						else
-							li: a(href='/signin') SignIn / Join
+							li: a(href='/join', data-from=page.path).js-auth-trigger SignIn / Join
 		
 		
 		//- BODY
-		.site-body
-			
-			block intro
-			
-			+flash-messages(messages)
-			
-			block content
+		block body
+			.site-body
+				block intro
+				block flash-messages
+					+flash-messages(messages)
+				block content
 		
 		
 		//- FOOTER
 		.site-footer: .container
 			p Copyright &copy; 2013 SydJS. Powered by <a href='http://keystonejs.com', target='_blank'>KeystoneJS</a>.
 			p If you run a meetup, please feel free to clone our site and make your own! You can <a href="https://github.com/JedWatson/sydjs-site", target='_blank'>find it on GitHub</a>.
-		
-	//- scripts
+	
+	//- MODALS
+	block modal
+	if !user
+		#modal-auth(tabindex="-1", role="dialog", aria-labelledby="signin", aria-hidden="true").modal
+			.modal-dialog
+				.modal-content
+					+auth-forms({ modal: true, initial: 'signin' })
+	
+	//- JAVASCRIPT
 	script(src='/js/lib/jquery/jquery-1.10.2.min.js')
 	script(src='/js/lib/bootstrap/collapse.js')
 	script(src='/js/lib/bootstrap/dropdown.js')
+	script(src='/js/lib/bootstrap/modal.js')
 	
 	if user && user.canAccessKeystone
 		script(src='/keystone/js/content/editor.js')
 	
-	script(src='/js/site.js')
+	script(src='/js/ui.js')
 	
 	block js
 	

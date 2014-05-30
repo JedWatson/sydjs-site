@@ -23,6 +23,6 @@ exports = module.exports = function(req, res) {
 		
 	});
 	
-	view.render('site/forgot-password');
+	view.render('session/forgot-password');
 	
 }

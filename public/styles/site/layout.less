@@ -3,6 +3,22 @@
 // ==============================
 
 
+
+// Containers
+// ------------------------------
+
+.container-xs,
+.container-sm,
+.container-md {
+	.container-fixed();
+}
+@media (min-width: @screen-sm-min) {
+	.container-xs { width: @screen-xs-min - @grid-gutter-width; }
+	.container-sm { width: @screen-sm-min - @grid-gutter-width; }
+	.container-md { max-width: @screen-md-min - @grid-gutter-width; }
+}
+
+
 // Navbar
 // ------------------------------
 
@@ -103,12 +119,20 @@
 
 
 
-// Footer
+// Body
 // ------------------------------
 
 .site-body {
-	
+	.flash-messages {
+		.container();
+	}
 }
+
+
+
+// Footer
+// ------------------------------
+
 .site-footer {
 	// border-top: 8px solid white;
 	background-color: @brown;
