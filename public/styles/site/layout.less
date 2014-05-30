@@ -132,61 +132,6 @@
 
 
 
-
-// Blog
-// ------------------------------
-
-@post-image-width: 170px;
-.blog-post {
-	.clearfix();
-	text-align: center;
-	margin-bottom: 40px;
-	
-}
-.blog-post__image {
-	margin-bottom: 20px;
-}
-.blog-post__content {
-	text-align: left;
-}
-.blog-post__heading {
-	margin-top: 0;
-	
-	a {
-		color: @headings-color;
-	}
-}
-.blog-post__author {
-	color: mix(@body-bg, @text-color, 50%);
-	font-weight: 200;
-	
-	a {
-		color: mix(@body-bg, @text-color, 50%);
-	}
-}
-
-@media (min-width: @screen-sm-min) {
-	.blog-post__image {
-		float: left;
-		width: @post-image-width;
-	}
-	.blog-post__content {
-		margin-left: @post-image-width + 20;
-		&.link {
-			margin-left: 0;
-		}
-	}
-}
-
-
-// full post
-.full-post {
-	padding-bottom: 40px;
-}
-
-
-
-
 // Links
 // ------------------------------
 
