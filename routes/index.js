@@ -27,7 +27,7 @@ keystone.set('500', function(err, req, res, next) {
 var routes = {
 	api: importRoutes('./api'),
 	views: importRoutes('./views'),
-	authentication: importRoutes('./authentication')
+	auth: importRoutes('./auth')
 };
 
 // Bind Routes
@@ -70,9 +70,9 @@ exports = module.exports = function(app) {
 	app.all('/reset-password/:key', routes.views.session['reset-password']);
 	
 	// Authentication
-	app.get('/authentication/github', routes.authentication.github);
-	app.get('/authentication/twitter', routes.authentication.twitter);
-	app.get('/authentication/facebook', routes.authentication.facebook);
+	// TODO: app.all('/auth/confirm', routes.auth.confirm);
+	// TODO: app.all('/auth/verify', routes.auth.verify);
+	app.get('/auth/:service', routes.auth.service);
 	
 	// User
 	app.all('/me*', middleware.requireUser);
