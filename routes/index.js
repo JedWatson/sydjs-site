@@ -36,6 +36,19 @@ exports = module.exports = function(app) {
 	// Old
 	// app.get('/', routes.views.old);
 	
+	// Allow cross-domain requests (development only)
+	if (process.env.NODE_ENV != 'production') {
+		console.log('------------------------------------------------');
+		console.log('Notice: Enabling CORS for development.');
+		console.log('------------------------------------------------');
+		app.all('*', function(req, res, next) {
+			res.header('Access-Control-Allow-Origin', '*');
+			res.header('Access-Control-Allow-Methods', 'GET, POST');
+			res.header('Access-Control-Allow-Headers', 'Content-Type');
+			next();
+		});
+	}
+	
 	// Website
 	app.get('/', routes.views.index);
 	app.get('/meetups', routes.views.meetups);
@@ -71,5 +84,12 @@ exports = module.exports = function(app) {
 	app.all('/api*', keystone.initAPI);
 	app.all('/api/me/meetup', routes.api.me.meetup);
 	app.all('/api/stats', routes.api.stats);
+	
+	// API - App
+	app.get('/api/app/ping', routes.api.app.ping);
+	app.all('/api/app/status', routes.api.app.status);
+	app.all('/api/app/rsvp', routes.api.app.rsvp);
+	app.all('/api/app/signin', routes.api.app.signin);
+	app.all('/api/app/notify', routes.api.app.notify);
 
 }
