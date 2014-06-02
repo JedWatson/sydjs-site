@@ -128,9 +128,8 @@ User.schema.methods.resetPassword = function(callback) {
 		new keystone.Email('forgotten-password').send({
 			name: user.name.first || user.name.full,
 			link: 'http://www.sydjs.com/reset-password/' + user.resetPasswordKey,
-			subject: 'Reset your SydJS Password'
-		}, {
-			to: user,
+			subject: 'Reset your SydJS Password',
+			to: user.email,
 			from: {
 				name: 'SydJS',
 				email: 'contact@sydjs.com'
