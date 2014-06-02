@@ -23,8 +23,17 @@ block content
 			
 			hr.line-thick
 		
-		each meetup, i in meetups.past
-			+meetup(meetup, 'past')
+		.timeline
+			.timeline-path
+			.timeline-item--offset
+			each meetup, i in meetups.past
+				.timeline-item(class=i % 2 == 1 ? 'timeline-item--even' : 'timeline-item--odd')
+					.timeline-item-node
+					.timeline-item-inner
+						.text-lg.text-muted= meetup._.date.format('MMMM YYYY')
+						h3= meetup.name
+						!=meetup.description
+				//- +meetup(meetup, 'past')
 		
 		if !meetups.upcoming.length && !meetups.past.length
 			h3.text-muted There are no meetups yet.
