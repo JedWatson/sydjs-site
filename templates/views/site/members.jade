@@ -16,51 +16,21 @@ block content
 		if members.length
 			ul#members.list-unstyled.members-list
 				each member in members
-					li.item
+					li.member-item
 						.member
 							if member.photo.exists
-								.mug-shot
-									//- img(src=member.photo.exists ? member._.photo.thumbnail(120,120):'/images/placeholders/user-120x120.jpg').img-circle
-									img(src=member._.photo.thumbnail(120,120)).img-circle
-							.info
-								.title.text-center
-									h4= member.name.full
-									if member.facebook || member.twitter || member.github
-										p.mv-0.socials
-											if member.facebook
-												a(href='https://facebook.com/' + member.facebook, target='_blank', data-toggle='tooltip', data-title=member.facebook, data-placement='top').is-tooltip
-													span.entypo-social.entypo-facebook
-													//-| @#{member.facebook.replace('@', '')}
-											if member.twitter
-												a(href='https://twitter.com/' + member.twitter.replace('@', ''), target='_blank', data-toggle='tooltip', data-title='@' + member.twitter.replace('@', ''), data-placement='top').is-tooltip
-													span.entypo-social.entypo-twitter
-													//-| @#{member.twitter.replace('@', '')}
-											if member.github
-												a(href='https://github.com/' + member.github, target='_blank', data-toggle='tooltip', data-title=member.github, data-placement='top').is-tooltip
-													span.entypo-social.entypo-github
-													//-| @#{member.github.replace('@', '')}
+								.member-section.member__photo
+									img(src=member._.photo.thumbnail(120,120))
+							.member-section.member__info
+								h4.member__title= member.name.full
 								if member.bio.html
-									.bio.mt-1.text-center!= member.bio.html
-							if member.talks && member.talks.length
-								.talks
-									h6.text-muted.mt-0 Talks
-									ul.list-unstyled
-										each talk in member.talks
-											li.media(class=moment(talk.meetup.date) < moment() ? 'past' : 'present')
-												.pull-left
-													.date
-														small.block=talk.meetup._.date.format('MMM')
-														strong.block=talk.meetup._.date.format('DD')
-												.media-body
-													p=talk.name
-							if member.posts && member.posts.length
-								.posts
-									h6.text-muted.mt-0 Post
-									ul.list-unstyled
-										each post in member.posts
-											li
-												.text-danger= moment(post.publishedDate).fromNow()
-												p: a(href='/blog/post/' + post.slug)=post.title
+									.member__bio!= member.bio.html
+								if member.twitter || member.github
+									.member__accounts
+										if member.twitter
+											a(href='https://twitter.com/' + member.twitter.replace('@', ''), target='_blank', data-toggle='tooltip', data-title='@' + member.twitter.replace('@', ''), data-placement='top').member__account.member__account-twitter.entypo-social.entypo-twitter.is-tooltip
+										if member.github
+											a(href='https://github.com/' + member.github, target='_blank', data-toggle='tooltip', data-title=member.github, data-placement='top').member__account.member__account-github.entypo-social.entypo-github.is-tooltip
 		else
 			h3.text-muted There are no members yet.
 
@@ -70,6 +40,6 @@ block js
 	script(src="/js/lib/masonry/masonry.pkgd.min.js")
 	script.
 		jQuery(function($) {
-			$( '#members' ).masonry( { itemSelector: '.item' } );
+			$( '#members' ).masonry( { itemSelector: '.member-item' } );
 			$('.is-tooltip').tooltip();
 		});

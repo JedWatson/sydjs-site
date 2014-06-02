@@ -1,0 +1,99 @@
+// MEMBERS
+// ------------------------------
+
+@member-grid-gutter: 30px;
+
+
+// Box
+
+.member {
+	.box-shadow( 0 1px 1px rgba(0,0,0,0.05) );
+	background-color: white;
+	border-radius: @border-radius-base;
+	margin-bottom: @member-grid-gutter;
+	position: relative;
+	// overflow: hidden;
+}
+
+
+// Sections
+
+.member-section {
+	padding: 1em;
+}
+.member__photo {
+	text-align: center;
+	
+	img {
+		.img-circle();
+		margin-bottom: -1em;
+	}
+}
+.member__info {
+	text-align: center;
+}
+.member__title {}
+.member__account {
+	color: @gray-light;
+	display: inline-block;
+	font-size: 3em;
+	padding: .25em .125em;
+
+	&:hover {
+		text-decoration: none;
+	}
+}
+.member__account--twitter:hover {
+	color: @brand-twitter;
+}
+.member__account--github:hover {
+	color: @brand-github;
+}
+.member__bio {
+	color: @gray;
+	font-weight: 300;
+	padding-top: 1em;
+}
+
+
+
+.talks,.posts {
+	padding: 20px;
+	border-top: 1px solid @gray-lighter;
+	font-size: @font-size-base;
+
+	h6 {
+		text-transform: uppercase;
+	}
+
+	p { margin: 0; }
+	li + li {
+		margin-top: 10px;
+	}
+}
+
+
+
+// Grid
+
+.members-list {
+	.clearfix();
+	margin-left: -(@member-grid-gutter / 2);
+	margin-right: -(@member-grid-gutter / 2);
+}
+.member-item {
+	float: left;
+	padding: 0 (@member-grid-gutter / 2);
+	width: 100%;
+}
+@media (min-width: @screen-sm-min) {
+	.member-item {
+		width: 50%;
+	}
+}
+
+@media (min-width: @screen-md-min) {
+	.member-item {
+		width: 25%;
+	}
+}

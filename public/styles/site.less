@@ -66,8 +66,10 @@
 */
 
 @import "components/meetups.less";
+@import "components/members.less";
 @import "components/blog.less";
 @import "components/calendar.less";
+@import "components/timeline.less";
 
 
 
@@ -91,15 +93,7 @@
 
 // included here to reduce http requests
 @import "site/home.less";
-@import "site/members.less";
 @import "site/me.less";
-
-// larger font on larger devices
-@media (min-width: @screen-sm) {
-	body {
-		font-size: 16px;
-	}
-}
 
 // remove this when ready
 // @import "site/sydjs.less";
