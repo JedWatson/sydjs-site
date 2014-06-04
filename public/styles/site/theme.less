@@ -53,8 +53,11 @@ a.media {
 }
 .modal-content {
 	.box-shadow( 0 4px 16px rgba(0,0,0,.2) );
+	.transition( all 200ms linear );
+	.scale(.8);
 	border-color: #aaa;
 	border-radius: 2px;
+	opacity: 0;
 	padding: 30px 40px;
 	
 	@media (min-width: @grid-float-breakpoint) {
@@ -69,4 +72,10 @@ a.media {
 }
 .modal-title {
 	line-height: 1;
+}
+
+// open
+.modal-open .modal-content {
+	.scale(1);
+	opacity: 1;
 }

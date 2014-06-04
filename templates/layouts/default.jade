@@ -63,7 +63,7 @@ html
 	//- MODALS
 	block modal
 	if !user
-		#modal-auth(tabindex="-1", role="dialog", aria-labelledby="signin", aria-hidden="true").modal
+		#modal-auth(tabindex="-1", role="dialog", aria-labelledby="signin", aria-hidden="true").modal.fade
 			.modal-dialog
 				.modal-content
 					+auth-forms({ modal: true, initial: 'signin' })
