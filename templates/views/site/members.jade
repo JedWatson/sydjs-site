@@ -1,18 +1,15 @@
 extends ../../layouts/default
 
-block intro
-	.page-intro: .container
-		h1 Members
-		p The people and organisations who are part of SydJS. Should you be here? Join us!
-		.buttons
-			if !user
-				a(href='/join').btn.btn-primary Join SydJS
-			a(href='/members/organisations').btn.btn-default View Organisations
-			a(href='/members/mentors').btn.btn-default View Mentors
-
-block content
+block body
 	.container
-
+		.page-intro
+			h1 Members
+			p The people and organisations who are part of SydJS. Should you be here? Join us!
+			.buttons
+				if !user
+					a(href='/join').btn.btn-primary Join SydJS
+				a(href='/members/organisations').btn.btn-default View Organisations
+				a(href='/members/mentors').btn.btn-default View Mentors
 		if members.length
 			ul#members.list-unstyled.members-list
 				each member in members
@@ -20,7 +17,7 @@ block content
 						.member
 							if member.photo.exists
 								.member-section.member__photo
-									img(src=member._.photo.thumbnail(120,120))
+									img(src=member._.photo.thumbnail(240,240), width=120, height=120, alt=member.name.full)
 							.member-section.member__info
 								h4.member__title= member.name.full
 								if member.bio.html
@@ -28,9 +25,9 @@ block content
 								if member.twitter || member.github
 									.member__accounts
 										if member.twitter
-											a(href='https://twitter.com/' + member.twitter.replace('@', ''), target='_blank', data-toggle='tooltip', data-title='@' + member.twitter.replace('@', ''), data-placement='top').member__account.member__account-twitter.entypo-social.entypo-twitter.is-tooltip
+											a(href='https://twitter.com/' + member.twitter.replace('@', ''), target='_blank', data-toggle='tooltip', data-title='@' + member.twitter.replace('@', ''), data-placement='top').member__account.member__account--twitter.entypo-social.entypo-twitter.is-tooltip
 										if member.github
-											a(href='https://github.com/' + member.github, target='_blank', data-toggle='tooltip', data-title=member.github, data-placement='top').member__account.member__account-github.entypo-social.entypo-github.is-tooltip
+											a(href='https://github.com/' + member.github, target='_blank', data-toggle='tooltip', data-title=member.github, data-placement='top').member__account.member__account--github.entypo-social.entypo-github.is-tooltip
 		else
 			h3.text-muted There are no members yet.
 
