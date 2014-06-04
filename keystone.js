@@ -50,7 +50,7 @@ keystone.init({
 	
 });
 
-require('./models');
+keystone.import('models');
 
 keystone.set('routes', require('./routes'));
 
