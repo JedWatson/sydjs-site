@@ -9,21 +9,33 @@
 // ------------------------------
 
 .social-signup-buttons {
-	.clearfix();
+	display: table;
 	margin-bottom: 20px;
 	margin-left: -5px;
 	margin-right: -5px;
+	table-layout: fixed;
+	width: 100%;
 	
 	.signup-button {
-		float: left;
+		display: table-cell;
 		margin: 0;
 		padding-left: 5px;
 		padding-right: 5px;
-		width: 25%;
 		
 		.entypo-social {
 			font-size: 40px;
 			vertical-align: middle;
+		}
+
+		.btn {
+			position: relative;
+		}
+		.btn:hover,
+		.btn:focus {
+			top: -1px;
+		}
+		.btn:active {
+			top: 1px;
 		}
 	}
 }
@@ -36,6 +48,34 @@
 		vertical-align: middle;
 		margin-left: 6px;
 	}
+}
+
+
+// divide social/form
+
+.auth-form-divider {
+	color: @gray-light;
+	margin-bottom: 1.5em;
+	margin-top: 1em;
+	position: relative;
+	text-align: center;
+	text-transform: uppercase;
+
+	&:after {
+		.size(100%,1px);
+		background-color: @hr-border;
+		content: "";
+		left: 0;
+		top: 50%;
+		position: absolute;
+	}
+}
+.auth-form-divider-copy {
+	background-color: white;
+	display: inline-block;
+	padding: 0 1em;
+	position: relative;
+	z-index: 1;
 }
 
 
@@ -56,6 +96,8 @@
 		margin-top: -1px;
 		padding-bottom: .75em;
 		padding-top: .75em;
+		-webkit-appearance: none;
+
 		
 		&:focus {
 			box-shadow: 0 0 5px -2px fade(@link-color, 60%), 0 1px 2px @gray-lighter;

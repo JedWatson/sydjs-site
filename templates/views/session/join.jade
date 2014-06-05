@@ -2,9 +2,11 @@ extends ../../layouts/default
 
 block body
 	.container-xs
-		h1 Join SydJS
-		+flash-messages(messages)
-		+auth-forms({ modal: false, initial: 'join' })
+		.page-intro
+			h1 Join SydJS
+			+flash-messages(messages)
+		.page-content
+			+auth-forms({ modal: false, initial: 'join' })
 
 block js
 	script.

@@ -2,9 +2,11 @@ extends ../../layouts/default
 
 block body
 	.container-xs
-		h1 Sign into SydJS
-		+flash-messages(messages)
-		+auth-forms({ modal: false, initial: 'signin' })
+		.page-intro
+			h1 Sign into SydJS
+			+flash-messages(messages)
+		.page-content
+			+auth-forms({ modal: false, initial: 'signin' })
 
 block js
 	script.

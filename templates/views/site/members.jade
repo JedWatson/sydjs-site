@@ -4,11 +4,12 @@ block body
 	.container
 		.page-intro
 			h1 Members
-			p The people and organisations who are part of SydJS. Should you be here? Join us!
-			.buttons
+			p.lead The people and who are part of SydJS. 
+				a(href='/join').js-auth-trigger Add your tile
+			//- .buttons
 				if !user
 					a(href='/join').btn.btn-primary Join SydJS
-				a(href='/members/organisations').btn.btn-default View Organisations
+				a(href='/organisations').btn.btn-default View Organisations
 				a(href='/members/mentors').btn.btn-default View Mentors
 		if members.length
 			ul#members.list-unstyled.members-list

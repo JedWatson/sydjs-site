@@ -18,7 +18,7 @@ h1, .h1 { font-size: 3em; }
 h2, .h2 { font-size: 2.4em; }
 h3, .h3 { font-size: 1.8em; }
 h4, .h4 { font-size: 1.4em; }
-h5, .h5 { font-size: 1em; }
+h5, .h5 { font-size: 1.1em; }
 h6, .h6 { font-size: .85em; }
 
  
@@ -28,7 +28,7 @@ h6, .h6 { font-size: .85em; }
 	h2, .h2 { font-size: 1.8em; }
 	h3, .h3 { font-size: 1.6em; }
 	h4, .h4 { font-size: 1.4em; }
-	h5, .h5 { font-size: 1em; }
+	h5, .h5 { font-size: 1.2em; }
 	h6, .h6 { font-size: .85em; }
 }
 	
@@ -95,6 +95,10 @@ h6, .h6 {
 	}
 }
 
+h1 {
+	font-weight: bold;
+}
+
 .heading-bordered {
 	border-bottom: 1px solid @gray-lighter;
 	margin-bottom: 1em;
@@ -120,13 +124,13 @@ hr {
 }
 
 .lead {
-	margin-bottom: @line-height-computed;
-	font-size: floor((@font-size-base * 1.15));
+	margin-bottom: .75em;
+	font-size: 1.2em;
 	font-weight: 200;
 	line-height: 1.4;
 
 	@media (min-width: @screen-sm-min) {
-		font-size: (@font-size-base * 1.5);
+		font-size: 1.5em;
 	}
 }
 
@@ -146,6 +150,12 @@ cite    { font-style: normal; }
 .text-right          { text-align: right; }
 .text-center         { text-align: center; }
 .text-justify        { text-align: justify; }
+
+// Fancy
+.text-fancy {
+	font-family: @font-family-serif;
+	font-style: italic;
+}
 
 // Contextual colors
 .text-muted {

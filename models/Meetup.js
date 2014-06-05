@@ -6,7 +6,9 @@ var keystone = require('keystone'),
  * =============
  */
 
-var Meetup = new keystone.List('Meetup');
+var Meetup = new keystone.List('Meetup', {
+	autokey: { path: 'key', from: 'name', unique: true }
+});
 
 Meetup.add({
 	name: { type: String, required: true, initial: true },
@@ -33,6 +35,10 @@ Meetup.relationship({ ref: 'RSVP', refPath: 'meetup', path: 'rsvps' });
  * Virtuals
  * ========
  */
+
+Meetup.schema.virtual('url').get(function() {
+	return '/meetups/' + this.key;
+});
 
 Meetup.schema.virtual('remainingRSVPs').get(function() {
 	if (!this.maxRSVPs) return -1;

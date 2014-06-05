@@ -10,14 +10,14 @@ exports = module.exports = function(req, res) {
 	
 	locals.section = 'meetups';
 	
-	view.query('meetups.upcoming',
-		Meetup.model.find()
+	view.query('upcomingMeetup',
+		Meetup.model.findOne()
 			.where('date').gte(moment().startOf('day').toDate())
 			.where('state', 'published')
 			.sort('-date')
 	, 'talks[who]');
 	
-	view.query('meetups.past',
+	view.query('pastMeetups',
 		Meetup.model.find()
 			.where('date').lt(moment().subtract('days', 1).endOf('day').toDate())
 			.where('state', 'published')

@@ -1,133 +1,102 @@
 extends ../../layouts/default
 
 include ../../mixins/post
+include ../../mixins/meetup-talk
 include ../../mixins/advertisement
 
-block content
-	//- Hero
-	if nextMeetup
-		- lastMeetup = false;
-	else
-		- nextMeetup = lastMeetup;
-	
-	section.section.home-meetup
-		if !nextMeetup
-			.container
-				h1 Welcome<br>
-				h3 It looks like you've initialised a new database.
-				p.lead Head over to <a href='/keystone'>Keystone</a> and create an upcoming meetup, some members and blog posts to see the site work properly.
-				p.lead A default account has been created for you to sign in with: <strong>user@keystonejs.com</strong> and the password <strong>admin</strong>.
-		else
-			.home-meetup-wrapper
-				.container
-					h5= (lastMeetup) ? 'Our last meetup:' : 'Our next meetup:'
-					div(data-ks-editable=editable(user, { list: 'Meetup', id: nextMeetup.id }))
-						h1= nextMeetup.name
-						.row
-							.col-sm-8
-								if nextMeetup.description
-									p!= nextMeetup.description
-								if nextMeetup.talks.length
-									.meetup-talks
-										span.meetup-talks__icon.entypo.entypo-large.entypo-comment
-										h4.meetup-talks__heading Talks on the night
-										ul.list-unstyled
-											each talk in nextMeetup.talks
-												li.talk
-													strong.talk__name #{talk.name} 
-													if talk.who.length
-														.talk__speaker
-															| by 
-															each user, i in talk.who
-																if i
-																	| , 
-																= user.name.full + ' '
-																if user.twitter
-																	a(href='http://twitter.com/' + user.twitter.replace('@', ''), target='_blank' data-size="large")= user.twitter + ' '
-							.col-sm-4
-								dl.dl-horizontal.home-meetup__details-list
-									dt
-										.sr-only Date
-										span.entypo.entypo-fixed-width.entypo-calendar
-									dd=nextMeetup._.date.format('dddd, DD MMM YYYY')
-									dt
-										.sr-only Time
-										span.entypo.entypo-fixed-width.entypo-clock
-									dd=nextMeetup.time
-									dt
-										.sr-only Place
-										span.entypo.entypo-fixed-width.entypo-location
-									dd=nextMeetup.place
-								if !lastMeetup
-									.register-btn
-										a(href='/attend', disabled=!nextMeetup.rsvpsAvailable).btn.btn-lg.btn-block.btn-register= nextMeetup.rsvpsAvailable ? 'Register' : 'Sold out!'
-								hr.line-dashed
-								p: a(href='/meetups').text-muted All our meetups &rarr;
+block body
+	.container
+		.page-intro.page-intro--meetup
+			if nextMeetup
+				- lastMeetup = false;
+			else
+				- nextMeetup = lastMeetup;
+			h5.text-fancy.text-muted= (lastMeetup) ? 'Last Meetup' : 'Next Meetup'
+			div(data-ks-editable=editable(user, { list: 'Meetup', id: nextMeetup.id }))
+				h1= nextMeetup.name
+				h2.lead #{nextMeetup._.date.format('dddd, DD MMM YYYY')} #{nextMeetup.time}
+				h2.lead #{nextMeetup.place} 
+					a(href='https://maps.google.com.au/?daddr=' + nextMeetup.place, target='_blank') (directions)
+				if !lastMeetup
+					.rsvp-button
+						a(href='/attend', disabled=!nextMeetup.rsvpsAvailable).btn.btn-lg= nextMeetup.rsvpsAvailable ? 'RSVP' : 'no more'
 
-								+advertisement()
-			.home-meetup-map
-				#meetup-map.map
-				a(href='https://maps.google.com.au/?daddr=' + nextMeetup.place, target='_blank').directions-button
-					span.entypo.entypo-popup
-					|  Get Directions
-		
+				//- +advertisement()
 
-	//- About
-	section.section.home-about: .container
-		h2 In Sydney and into JavaScript? You need to join SydJS.
-			br
-			br
-			| Every 3rd Wednesday of the month you'll find us talking about what we're doing &mdash; and what's happening around us &mdash; in the world of JavaScript.
-		p
-			a(href='/about') Learn more about SydJS
-			|  &nbsp;&middot;&nbsp; 
-			a(href='/about#code') Read our Code of Conduct
-		p: a(href="https://twitter.com/sydjs", class="twitter-follow-button", data-show-count="true", data-size="large") Follow @sydjs
+		.page-content
+			section.section.home-meetup: .container-md: .row
+				.col-sm-6
+					if nextMeetup.description
+						.text-lg!= nextMeetup.description
+				.col-sm-6
+					if nextMeetup.talks.length
+						ul.meetup-talks
+							each talk in nextMeetup.talks
+								+meetup-talk(talk)
+			if !nextMeetup
+				section.section.home-meetup
+					h1 Welcome<br>
+					h3 It looks like you've initialised a new database.
+					p.lead Head over to <a href='/keystone'>Keystone</a> and create an upcoming meetup, some members and blog posts to see the site work properly.
+					p.lead A default account has been created for you to sign in with: <strong>user@keystonejs.com</strong> and the password <strong>admin</strong>.
+						
+				
+
+			//- About
+			section.section.home-about: .home-about__inner
+				p Are you in Sydney and into JavaScript?
+				p Every 3rd Wednesday of the month you'll find us talking about what we're doing and what's happening around us in the world of JavaScript.
+				ul.home-about__list
+					li: a(href='/join').js-auth-trigger Join SydJS
+					li: a(href='/about') Learn More
+					li: a(href='/meetups') Past Meetups
+					li: a(href='/members') Members
+				//- p.lead: a(href="https://twitter.com/sydjs", class="twitter-follow-button", data-show-count="true", data-size="large") Follow @sydjs
 
 
 
-	//- Blog
-	if posts.length
-		section.section.home-blog: .container
-			.blog(itemscope itemtype="http://schema.org/Blog")
-				for post in posts
-					+post(post)
-				hr.line-dashed
-				p(data-ks-editable=editable(user, { list: 'Post' }))
-					a(href='/blog', itemprop='url').text-muted See all SydJS blog posts &rarr;
+			//- Blog
+			if posts.length
+				section.section.home-blog
+					.blog(itemscope itemtype="http://schema.org/Blog")
+						for post in posts
+							+post(post)
+						hr.line-dashed
+						p(data-ks-editable=editable(user, { list: 'Post' }))
+							a(href='/blog', itemprop='url').text-muted See all SydJS blog posts &rarr;
 
 
 
-	//- Links
-	section.section.home-links: .container
-		.row
-			.col-sm-4
-				a(href='/members/organisations').link-icon-badge: span.link-icon.entypo.entypo-globe
-				h2.home-links__heading: a(href='/members/organisations') Organisations
-				p Ju wan jQuery? Keen on Keystone? Looking for Lint? Need NICTA? Want a Webstack?
-				p There's a whole range of organisations that just help make your JavaScript life that much easier.
+			//- Links
+			//- section.section.home-links
+				.row
+					.col-sm-4
+						a(href='/organisations').link-icon-badge: span.link-icon.entypo.entypo-globe
+						h2.home-links__heading: a(href='/organisations') Organisations
+						p Ju wan jQuery? Keen on Keystone? Looking for Lint? Need NICTA? Want a Webstack?
+						p There's a whole range of organisations that just help make your JavaScript life that much easier.
 
-			.col-sm-4
-				a(href='/members').link-icon-badge: span.link-icon.entypo.entypo-users
-				h2.home-links__heading: a(href='/members') Members
-				p At SydJS, all members are equal! To misquote Orwell, though, some are more equal than others.
-				p Want to raise your profile? Volunteer and we'll add you to the roster! Want to find out who's stepped up? It's all here.
+					.col-sm-4
+						a(href='/members').link-icon-badge: span.link-icon.entypo.entypo-users
+						h2.home-links__heading: a(href='/members') Members
+						p At SydJS, all members are equal! To misquote Orwell, though, some are more equal than others.
+						p Want to raise your profile? Volunteer and we'll add you to the roster! Want to find out who's stepped up? It's all here.
 
-			.col-sm-4
-				a(href='/links').link-icon-badge: span.link-icon.entypo.entypo-link
-				h2.home-links__heading: a(href='/links') Links
-				p Got a favourite CDN? A favourite library? A micro-library? We do! And you'll find some of them linked here.
-				p You might even find some links to things that _aren't_ JavaScript? That's right! Some things aren't JavaScript.
+					.col-sm-4
+						a(href='/links').link-icon-badge: span.link-icon.entypo.entypo-link
+						h2.home-links__heading: a(href='/links') Links
+						p Got a favourite CDN? A favourite library? A micro-library? We do! And you'll find some of them linked here.
+						p You might even find some links to things that _aren't_ JavaScript? That's right! Some things aren't JavaScript.
 
-		.row
-			.col-sm-4
-				p: a(href='/members/organisations', class='home-links-anchor') View organisations
+				.row
+					.col-sm-4
+						p: a(href='/organisations', class='home-links-anchor') View organisations
 
-			.col-sm-4
-				p: a(href='/members', class='home-links-anchor') View members
+					.col-sm-4
+						p: a(href='/members', class='home-links-anchor') View members
 
-			.col-sm-4
-				p: a(href='/links', class='home-links-anchor') View links
+					.col-sm-4
+						p: a(href='/links', class='home-links-anchor') View links
 
 block js
 	// twitter

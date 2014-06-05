@@ -1,0 +1,25 @@
+extends ../../layouts/default
+
+include ../../mixins/meetup
+
+block body
+	//- .container-sm: .page-intro
+		.meetup(class='meetup--past')
+			.meetup-calendar.calendar(class=mode == 'past' ? 'calendar--past' : null)
+				.calendar__header=meetup._.date.format('MMM')
+				.calendar__body
+					.calendar__date=meetup._.date.format('DD')
+					.calendar__year=meetup._.date.format('YYYY')
+			.meetup-content
+				.text-muted=meetup._.date.format('dddd D MMM YYYY')
+					if meetup.time
+						|  from #{meetup.time}
+				h2.mt-0= meetup.name
+				if meetup.description
+					p!= meetup.description
+	if meetup
+		.container-sm
+			.page-intro
+				a(href='/meetups').text-muted &larr; Back to all meetups
+			.page-content
+				+meetup(meetup, 'past')

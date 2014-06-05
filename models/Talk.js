@@ -13,6 +13,7 @@ var Talk = new keystone.List('Talk', {
 
 Talk.add({
 	name: { type: String, required: true, initial: true },
+	isLightningTalk: { type: Boolean },
 	meetup: { type: Types.Relationship, ref: 'Meetup', required: true, initial: true, index: true },
 	who: { type: Types.Relationship, ref: 'User', many: true, index: true },
 	description: { type: Types.Html, wysiwyg: true },

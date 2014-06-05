@@ -44,25 +44,16 @@ a.media {
 // Modals
 // ------------------------------
 
-.modal-backdrop {
-	background-color: white;
-	
-	&.in {
-		opacity: .75;
-	}
-}
+
+
+
+// more luxurious spacing relative to font-size
+
 .modal-content {
 	.box-shadow( 0 4px 16px rgba(0,0,0,.2) );
 	.transition( all 200ms linear );
-	.scale(.8);
 	border-color: #aaa;
 	border-radius: 2px;
-	opacity: 0;
-	padding: 30px 40px;
-	
-	@media (min-width: @grid-float-breakpoint) {
-		margin-top: 2em;
-	}
 }
 .modal-header {
 	padding: 1em 0;
@@ -74,8 +65,35 @@ a.media {
 	line-height: 1;
 }
 
-// open
-.modal-open .modal-content {
-	.scale(1);
-	opacity: 1;
+@media (max-width: @screen-xs-max) {
+	.modal-dialog {
+		box-shadow: none;
+		margin: .5em;
+	}
+	.modal-content {
+		padding: 0 1em;
+	}
+}
+@media (min-width: @screen-sm-min) {
+
+	// do our own animation
+	.modal {
+		&.fade .modal-dialog {
+			.scale(0.9,0.9);
+			opacity: 0;
+			-webkit-transition: opacity 200ms ease, -webkit-transform 200ms ease;
+			   -moz-transition: opacity 200ms ease, -moz-transform 200ms ease;
+				 -o-transition: opacity 200ms ease, -o-transform 200ms ease;
+					transition: opacity 200ms ease, transform 200ms ease;
+		}
+		&.in .modal-dialog {
+			.scale(1,1);
+			opacity: 1;
+		}
+	}
+	.modal-content {
+		margin-top: 2em;
+		padding: 2em 3em;
+	}
+	
 }

@@ -98,15 +98,19 @@
 		&:after {
 			.size(100%,3em);
 			#gradient .vertical( fade(white,0), white );
-			top: 7em;
 			content: "";
 			left: 0;
 			right: 0;
+			pointer-events: none;
 			position: absolute;
+			top: 7em;
 		}
 	}
 }
 @media (min-width: @screen-sm-min) {
+	.member-item {
+		width: 33.3%;
+	}
 	.members-list {
 		margin-left: -(@member-grid-gutter-lg / 2);
 		margin-right: -(@member-grid-gutter-lg / 2);

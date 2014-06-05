@@ -11,8 +11,10 @@
 // Common
 // ------------------------------
 
-@timeline-offset: 50px;
-@timeline-node:   14px;
+@timeline-path:         .25em;
+@timeline-offset:       3em;
+@timeline-node:         1em;
+@timeline-alphaomega:   @timeline-node * 2;
 
 .timeline {
 	.clearfix();
@@ -23,22 +25,39 @@
 
 .timeline-path {
 	bottom: 0;
-	height: 100%;
 	left: 50%;
-	background-color: #ddd;
-	margin-left: -2px;
+	background-color: rgba(0,0,0,0.1);
+	margin-left: -(@timeline-path / 2);
 	position: absolute;
 	top: 0;
-	width: 4px;
+	width: @timeline-path;
 	z-index: 1;
+
+	&:before,
+	&:after {
+		.square( @timeline-alphaomega );
+		background-color: rgba(0,0,0,0.1);
+		border-radius: 50%;
+		content: "";
+		left: 50%;
+		margin-left: -(@timeline-alphaomega / 2);
+		position: absolute;
+		z-index: 3;
+	}
+	&:before {
+		top: -@timeline-alphaomega;
+	}
+	&:after {
+		bottom: -@timeline-alphaomega;
+	}
 }
 
 
 // nodes
 
 .timeline-item-node {
-	.size(20%,1px);
-	background-color: @gray-dull;
+	.size(10%,1px);
+	background-color: rgba(0,0,0,0.1);
 	position: absolute;
 	top: 25px;
 
@@ -46,7 +65,7 @@
 		.box-shadow( 0 0 0 4px @body-bg );
 		.square( @timeline-node );
 		background-color: @body-bg;
-		border: 1px solid darken(@gray-dull, 10%);
+		border: 1px solid rgba(0,0,0,0.2);
 		border-radius: 50%;
 		content: "";
 		margin-top: -(@timeline-node / 2);
@@ -59,8 +78,21 @@
 // items
 
 .timeline-item-inner {
-	border: 1px solid @gray-dull;
-	padding: 15px;
+	.tile-base();
+	color: @gray;
+	display: block;
+	padding: 1em;
+
+	&:hover,
+	&:focus {
+		color: @gray;
+		outline: none;
+		text-decoration: none;
+
+		h3 {
+			text-decoration: underline;
+		}
+	}
 }
 
 
@@ -107,7 +139,7 @@
 	.timeline-item--odd {
 		clear: left;
 		float: left;
-		padding-right: 10%;
+		padding-right: 5%;
 
 		.timeline-item-node {
 			right: 0;
@@ -121,7 +153,7 @@
 	.timeline-item--even {
 		clear: right;
 		float: right;
-		padding-left: 10%;
+		padding-left: 5%;
 
 		.timeline-item-node {
 			left: 0;

@@ -1,11 +1,14 @@
+// 
 // Calendar
 // ------------------------------
 
 @calendar-width:    100px;
+
+
+// base
+
 .calendar {
-	.center-block();
-	background-color: white;
-	border-radius: 4px;
+	.tile-base();
 	text-align: center;
 	text-transform: uppercase;
 	width: @calendar-width;
@@ -17,34 +20,41 @@
 		background-color: mix(black, @body-bg, 30%);
 	}
 }
-	.calendar__header {
-		.border-top-radius( 4px );
-		background-color: @brand-danger;
-		color: white;
-		line-height: 24px;
-		height: 24px;
-	}
-	.calendar__body {
-		.border-bottom-radius( 4px );
-		border-style: solid;
-		border-width: 0 1px 1px;
-		border-color: transparent #eee #d6d6d6;
-		line-height: 1;
-		padding-bottom: 5px;
-		// padding-top: 5px;
-	}
-	.calendar__date {
-		font-size: 48px;
-	}
+
+
+// header
+
+.calendar__header {
+	.border-top-radius( @border-radius-base );
+	background-color: @brand-danger;
+	color: white;
+	line-height: 24px;
+	margin: -1px -1px 0;
+	height: 24px;
+}
+
+
+// body
+
+.calendar__body {
+	line-height: 1;
+	padding-bottom: 5px;
+}
+.calendar__date {
+	font-size: 48px;
+}
+
+
+// specifically on a meetup
 
 .meetup-calendar {
 	margin-bottom: 20px;
 }
-@media (min-width: @screen-sm-min) {
+
+@media (min-width: @screen-md-min) {
 	.meetup-calendar {
-		float: left;
-	}
-	.meetup-content {
-		margin-left: @calendar-width + 20;
+		.translate(-100%,0);
+		left: -@page-padding;
+		position: absolute;
 	}
 }

@@ -14,7 +14,7 @@ mixin form-signin(args)
 				h4.modal-title Sign into SydJS
 		div(class=args.modal ? 'modal-body' : null)
 			include ../../includes/social-signin
-			p.text-muted.text-center OR
+			p.auth-form-divider: span.auth-form-divider-copy or
 			form(method='post', action='/signin', role='signin').auth-form
 				input(type='hidden', name='action', value='signin')
 				if args.modal

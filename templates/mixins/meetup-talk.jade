@@ -1,0 +1,19 @@
+mixin meetup-talk(talk)
+	li.talk
+		.talk__speakers
+			if talk.who.length
+				each speaker, i in talk.who
+					img(src=speaker.photo.exists ? speaker._.photo.thumbnail(120,120) : '/images/avatar.png', width=60, height=60, alt=speaker.name.full, class=talk.who.length > 1 ? 'talk__photo--mini' : null).talk__photo
+			else
+				img(src='/images/avatar.png', width=60, height=60, alt='There is no speaker...').talk__photo
+		.talk__body
+			h4.talk__heading #{talk.name} 
+			if talk.who.length
+				p.talk__subheading
+					| by 
+					each user, i in talk.who
+						if i
+							| , 
+						| #{user.name.full}
+			if talk.description
+				!=talk.description

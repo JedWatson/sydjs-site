@@ -17,7 +17,7 @@ mixin form-join(args)
 			//- p: a(href=args.modal ? '/auth/facebook?type=default-signin' : '/auth/facebook?type=profile-signin').btn.btn-facebook.btn-block
 				span.entypo-social.entypo-btn-align.entypo-s-facebook
 				|  Sign up with Facebook
-			p.text-muted.text-center OR
+			p.auth-form-divider: span.auth-form-divider-copy or
 			//- p Or use your email, that's okay too:
 			form(method='post', action='/join', autocomplete='off', novalidate).auth-form
 				
@@ -70,7 +70,6 @@ mixin form-join(args)
 						input(type='password', name='signup_password', placeholder='Password', value=!args.modal ? form.signup_password : null).form-control.form-control--last
 				button(type='submit').btn.btn-block.btn-primary.btn-submit Join
 		
-			hr
-			p.text-center
+			p.text-center.text-muted.mt-3
 				| Already have an account? 
 				a(href=args.modal ? js : '/signin', rel=args.modal ? 'modal-pane' : null, data-modal-pane=args.modal ? 'signin' : null) Sign in

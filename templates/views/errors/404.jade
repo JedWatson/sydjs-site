@@ -1,7 +1,7 @@
 extends ../../layouts/default
 
 block content
-	.container
+	.container-sm: .pv-2
 		h1!=errorTitle || 'Not found (404)'
 		if 'object' == typeof errorMsg
 			div(style='margin: 30px 0;').debug!= htmlStringify(errorMsg)

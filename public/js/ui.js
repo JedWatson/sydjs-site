@@ -1,5 +1,20 @@
 $(function() {
+
+	// Nav
+	// ------------------------------
 	
+	if ($(window).width() < 768) {
+
+		var mobileNavWidth = 0,
+			mobileNav = $('.navbar-nav');
+
+		mobileNav.find('li').each(function() { mobileNavWidth += $(this).width(); });
+		mobileNav.width( mobileNavWidth + 10 );
+
+		$('.site-nav').append('<span class="mask mask-left"></span><span class="mask mask-right"></span>');
+
+	} 
+	// console.log(mobileNavWidth);
 	
 	
 	
