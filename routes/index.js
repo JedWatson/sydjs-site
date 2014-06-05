@@ -6,6 +6,7 @@ var _ = require('underscore'),
 // Common Middleware
 keystone.pre('routes', middleware.initErrorHandlers);
 keystone.pre('routes', middleware.initLocals);
+keystone.pre('routes', middleware.loadSponsors);
 keystone.pre('render', middleware.flashMessages);
 
 // Handle 404 errors
@@ -52,8 +53,9 @@ exports = module.exports = function(app) {
 	// Website
 	app.get('/', routes.views.index);
 	app.get('/meetups', routes.views.meetups);
+	app.get('/meetups/:meetup', routes.views.meetup);
 	app.get('/members/:filter(mentors)?', routes.views.members);
-	app.get('/members/organisations', routes.views.organisations);
+	app.get('/organisations', routes.views.organisations);
 	app.get('/links', routes.views.links);
 	app.get('/links/:tag?', routes.views.links);
 	app.all('/links/link/:link', routes.views.link);
@@ -70,7 +72,7 @@ exports = module.exports = function(app) {
 	app.all('/reset-password/:key', routes.views.session['reset-password']);
 	
 	// Authentication
-	// TODO: app.all('/auth/confirm', routes.auth.confirm);
+	app.all('/auth/confirm', routes.auth.confirm);
 	// TODO: app.all('/auth/verify', routes.auth.verify);
 	app.get('/auth/:service', routes.auth.service);
 	

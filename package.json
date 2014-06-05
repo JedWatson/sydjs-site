@@ -18,6 +18,7 @@
     "passport-github": "^0.1.5",
     "passport-google-oauth": "^0.1.5",
     "passport-twitter": "^1.0.2",
+    "request": "^2.34.0",
     "underscore": "^1.6.0"
   },
   "engines": {

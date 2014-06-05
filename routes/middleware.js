@@ -12,7 +12,7 @@ exports.initLocals = function(req, res, next) {
 	var locals = res.locals;
 	
 	locals.navLinks = [
-		{ label: 'Home',      key: 'home',      href: '/' },
+		// { label: 'Home',      key: 'home',      href: '/' },
 		{ label: 'Meetups',   key: 'meetups',   href: '/meetups' },
 		{ label: 'Members',   key: 'members',   href: '/members' },
 		{ label: 'Blog',      key: 'blog',      href: '/blog' }
@@ -30,6 +30,22 @@ exports.initLocals = function(req, res, next) {
 	next();
 	
 };
+
+
+/**
+	Make sponsors universally available
+*/
+
+exports.loadSponsors = function(req, res, next) {
+	
+	keystone.list('Organisation').model.find().sort('name').exec(function(err, sponsors) {
+		if (err) return next(err);
+		req.sponsors = sponsors;
+		res.locals.sponsors = sponsors;
+		next();
+	});
+	
+}
 
 
 /**
