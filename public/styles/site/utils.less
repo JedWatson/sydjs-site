@@ -118,3 +118,26 @@
 .pt-0 { padding-top: 0 !important; }
 .pb-0 { padding-bottom: 0 !important; }
 .pv-0 { padding-bottom: 0 !important; padding-top: 0 !important; }
+
+
+
+
+// UI Reveal
+// --------------------------------------------------
+
+// show hidden UI
+.ui-reveal {
+	&.is-revealed {
+		.ui-reveal__hidden {
+			display: block;
+		}
+		.ui-reveal__initial {
+			display: none;
+		}
+	}
+}
+	
+// hide by default
+.ui-reveal__hidden {
+	display: none;
+}

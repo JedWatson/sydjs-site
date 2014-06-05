@@ -1,162 +1,125 @@
 extends ../../layouts/default
 
-block content
-	.section.section-profile-form
-		form(method='post', autocomplete='off').profile-form
-			input(type='hidden', name='action', value='profile.top')
-			if user && user.canAccessKeystone
-				a(href='/keystone', target='_blank').btn.btn-xs.btn-success.pull-right Open the Keystone Admin UI
-			h4.profile-form__heading Your Profile
-			.form-group
-				.row
-					.col-sm-6: input(type='text', name='name.first' value=user.name.first).input.input-xl.input-faded
-					.col-sm-6: input(type='text', name='name.last' value=user.name.last).input.input-xl.input-faded
-			.row
-				.col-sm-6
-					.form-group
-						label.input-label Email
-						input(type='email', name='email' value=user.email).input.input-labelled.input-faded
-				.col-sm-6
-					.form-group
-						label.input-label Website
-						input(type='text', name='website' value=user.website).input.input-labelled.input-faded
-			.row
-				.col-sm-6
-					.form-group
-						label.input-label Twitter
-						input(type='text', name='twitter' value=user.twitter).input.input-labelled.input-faded
-				.col-sm-6
-					.form-group
-						label.input-label Github
-						input(type='text', name='github' value=user.github).input.input-labelled.input-faded
-			.row
-				.col-sm-6
-					.form-group
-						button(type='submit', data-loading-text="Saving...").btn.btn-primary Save profile
-				.col-sm-6
-					.form-group.pull-right
-						a(href='/me/create/post', style='margin-right: 10px;').btn.btn-warning
-							span.entypo.entypo-pencil
-							|   Create a blog post
-						a(href='/me/create/link').btn.btn-warning
-							span.entypo.entypo-link
-							|   Add a link 
-				
-	//- NEXT MEETUP
-	.section.section-next-meetup
-		.row
-			.col-sm-8.col-md-7
-				if meetups.next
-					#next-meetup(data-id=meetups.next.id)
-						.meetup-calendar.calendar
-							.calendar__header=meetups.next._.date.format('MMM')
-							.calendar__body
-								.calendar__date=meetups.next._.date.format('DD')
-								.calendar__year=meetups.next._.date.format('YYYY')
-						.meetup-content
-							.text-muted=meetups.next._.date.format('dddd D MMM YYYY')
-								if meetups.next.time
-									|  from #{meetups.next.time}
-							h2.mt-0=meetups.next.name
-							//- h4=meetups.next.name
-							p!=meetups.next.description
-							if meetups.next.rsvpsAvailable || meetups.nextRSVP
-								p.btn-group.btn-group-justified.meetup-status
-									label.btn.btn-default.js-rsvp-checking.disabled
-										|  Checking...
-								p.btn-group.btn-group-justified.meetup-toggle(data-toggle='buttons', style='display: none;')
-									label.btn.btn-default.js-rsvp-attending
-										|  Attending
-									label.btn.btn-default.js-rsvp-decline
-										|  Not Attending
-							else
-								.alert.alert-warning
-									strong Sold out
-									|  - Damn son, better luck next time!
-				else
-					h2.mt-0 No upcoming meetups...
-					p Follow us on Twitter to find out when we anounce the next meetup
-					p: a(href="https://twitter.com/sydjs", class="twitter-follow-button", data-show-count="true") Follow @sydjs
+block intro
+	h1 Hi #{user.name.first}
+	p.lead These are your settings and profile details
 
-			if rsvps.history.length
-				.col-sm-4.col-md-push-1
-					h4.mt-0 You've been to...
-					ul
-						each attendedMU in rsvps.history
-							li=attendedMU.meetup.name
-	
-	
-	//- PUBLIC INFO FORM
-	.section.section-public-form
-		h2.mt-0 Your profile
-		.row
-			.col-sm-8.col-md-7
-				form(method='post', enctype='multipart/form-data', autocomplete='off', novalidate).form-horizontal
-					input(type='hidden', name='action', value='profile.bottom')
-					h3.mt-0 Public info
-					.form-group
-						.col-sm-10.col-sm-offset-2
-							label.checkbox
-								input(type='checkbox', name='isPublic', value='true', checked=user.isPublic ? 'true' : null)
-								|  Show my profile on the SydJS website
-					.form-group
-						label.col-sm-2.control-label Bio
-							br
-							.text-muted (markdown)
-						.col-sm-10
-							textarea(name='bio', rows=5).form-control=user.bio.md
-					
-					.form-group
-						label.col-sm-2.control-label Photo
-						.col-sm-10
-							if user.photo.exists
-								.row
-									.col-sm-3: img(src=user._.photo.thumbnail(120,120)).img-responsive
-									.col-sm-9: input(type='file', name='photo_upload')
-							else
-								input(type='file', name='photo_upload')
-					.form-group
-						label.col-sm-2.control-label Mentoring
-						.col-sm-10
-							label.checkbox
-								input(type='checkbox', name='mentoring.available', value='true', checked=user.mentoring.available)
-								|  Available as a mentor
-							label.checkbox
-								input(type='checkbox', name='mentoring.free', value='true', checked=user.mentoring.free)
-								|  For Free
-							label.checkbox
-								input(type='checkbox', name='mentoring.paid', value='true', checked=user.mentoring.paid)
-								|  For Payment
-							label.checkbox
-								input(type='checkbox', name='mentoring.swap', value='true', checked=user.mentoring.swap)
-								|  For Swap
-					.form-group
-						label.col-sm-2.control-label I have...
-						.col-sm-10
-							input(type='text', name='mentoring.have', placeholder='', value=user.mentoring.have).form-control
-					.form-group
-						label.col-sm-2.control-label I want...
-						.col-sm-10
-							input(type='text', name='mentoring.want', placeholder='', value= user.mentoring.want).form-control
-					.form-group
-						.col-sm-10.col-sm-offset-2
-							button(type='submit', data-loading-text="Saving...").btn.btn-primary Save profile
-			.col-sm-4.col-md-push-1
-				form(method='post', autocomplete='off')
-					input(type='hidden', name='action', value='profile.password')
-					h3.mt-0 Change password
-					//-
+block flash-messages
+
+block content
+	+flash-messages(messages)
+	.row
+		.col-sm-8
+			form(method='post', enctype='multipart/form-data', autocomplete='off', novalidate).form-horizontal
+				input(type='hidden', name='action', value='profile.details')
+				h3 Private Info
+				.form-group
+					label.col-sm-2.control-label Name
+					.col-sm-10: .form-row
+						.col-xs-6: input(type='text', name='name.first' value=user.name.first).form-control
+						.col-xs-6: input(type='text', name='name.last' value=user.name.last).form-control
+				.form-group
+					label.col-sm-2.control-label Email
+					.col-sm-10: input(type='email', name='email' value=user.email).form-control
+				//- h3.mt-0 Your details
+				hr.mv-2
+				h3 Profile Info
+				.form-group
+					label.col-sm-2 Public
+					.col-sm-10
+						label.checkbox-inline
+							input(type='checkbox', name='isPublic', value='true', checked=user.isPublic ? 'true' : null)
+							|  Show my profile on the SydJS website
+				.form-group
+					label.col-sm-2.control-label Website
+					.col-sm-10: input(type='text', name='website' value=user.website).form-control
+				.form-group
+					label.col-sm-2.control-label Bio
+						br
+						.text-muted (markdown)
+					.col-sm-10
+						textarea(name='bio', rows=5).form-control=user.bio.md
+				
+				.form-group
+					label.col-sm-2.control-label Photo
+					.col-sm-10
+						if user.photo.exists
+							.row
+								.col-sm-3: img(src=user._.photo.thumbnail(120,120)).img-responsive
+								.col-sm-9: input(type='file', name='photo_upload')
+						else
+							input(type='file', name='photo_upload')
+				.form-group
+					label.col-sm-2.control-label Mentoring
+					.col-sm-10
+						.checkbox: label
+							input(type='checkbox', name='mentoring.available', value='true', checked=user.mentoring.available)
+							|  Available as a mentor
+						.checkbox: label
+							input(type='checkbox', name='mentoring.free', value='true', checked=user.mentoring.free)
+							|  For Free
+						.checkbox: label
+							input(type='checkbox', name='mentoring.paid', value='true', checked=user.mentoring.paid)
+							|  For Payment
+						.checkbox: label
+							input(type='checkbox', name='mentoring.swap', value='true', checked=user.mentoring.swap)
+							|  For Swap
+				.form-group
+					label.col-sm-2.control-label I have...
+					.col-sm-10
+						input(type='text', name='mentoring.have', placeholder='', value=user.mentoring.have).form-control
+				.form-group
+					label.col-sm-2.control-label I want...
+					.col-sm-10
+						input(type='text', name='mentoring.want', placeholder='', value= user.mentoring.want).form-control
+				.form-group
+					.col-sm-10.col-sm-offset-2
+						button(type='submit', data-loading-text="Saving...").btn.btn-primary Save profile
+				hr.mv-2
+			.ui-reveal
+				.ui-reveal__initial
+					button(type='button').btn.btn-link.ui-reveal__trigger Change Password
+				.ui-reveal__hidden
+					form(method='post', autocomplete='off')
+						input(type='hidden', name='action', value='profile.password')
+						h3 Change password
 						.form-group
-							label(for='change-password').sr-only Current Password
-							input(type='password', name='currentPassword', placeholder='Password', id='change-password').form-control
-					.form-group
-						label(for='change-passwordNew').sr-only New Password
-						input(type='password', name='password', placeholder='New Password', id='change-passwordNew').form-control
-					.form-group
-						label(for='change-passwordConfirm').sr-only Confirm Password
-						input(type='password', name='password_confirm', placeholder='Confirm Password', id='signin-passwordConfirm').form-control
-					.form-group
-						button(type='submit', data-loading-text="Changing...").btn.btn-primary Change
+							label(for='change-passwordNew').sr-only New Password
+							input(type='password', name='password', placeholder='New Password', id='change-passwordNew').form-control
+						.form-group
+							label(for='change-passwordConfirm').sr-only Confirm Password
+							input(type='password', name='password_confirm', placeholder='Confirm Password', id='signin-passwordConfirm').form-control
+						.form-group
+							button(type='submit', data-loading-text="Changing...").btn.btn-primary Change
+		.col-sm-4
+			if meetups.next
+				#next-meetup(data-id=meetups.next.id)
+					h3 Next Meetup
+					p The next meetup 
+						a(href=meetups.next.url)= meetups.next.name
+						|  is on #{meetups.next._.date.format('dddd D MMM YYYY')} 
+
+					//- p!=meetups.next.description
+					if meetups.next.rsvpsAvailable || meetups.nextRSVP
+						h4 Are you going?
+						.meetup-status
+							label.btn.btn-block.btn-default.js-rsvp-checking.disabled
+								|  Checking...
+						.form-row.meetup-toggle(style='display: none;')
+							.col-xs-6
+								button(type='button').btn.btn-block.btn-default.js-rsvp-attending Yes
+							.col-xs-6
+								button(type='button').btn.btn-block.btn-default.js-rsvp-decline No
+					else
+						.text-muted Sorry, no spots left.
+				hr.mv-2
+			if rsvps.history.length
+				h3 You've been to #{plural(rsvps.history.length, '* meetup', '* meetups')}
+				ul
+					each attendedMU in rsvps.history
+						li=attendedMU.meetup.name
+			else
+				h3.mt-0 You're getting ready for your first SydJS!
 							
 block js
 	script(src='/js/lib/bootstrap/button.js')

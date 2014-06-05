@@ -41,59 +41,26 @@ a.media {
 
 
 
-// Modals
+// Forms
 // ------------------------------
 
 
+// base field
 
-
-// more luxurious spacing relative to font-size
-
-.modal-content {
-	.box-shadow( 0 4px 16px rgba(0,0,0,.2) );
-	.transition( all 200ms linear );
-	border-color: #aaa;
-	border-radius: 2px;
-}
-.modal-header {
-	padding: 1em 0;
-}
-.modal-body {
-	padding: 1em 0;
-}
-.modal-title {
-	line-height: 1;
+.form-control {
+	font-size: inherit;
+	height: auto;
+	-webkit-appearance: none;
 }
 
-@media (max-width: @screen-xs-max) {
-	.modal-dialog {
-		box-shadow: none;
-		margin: .5em;
+// use as an alternative to ".row" for form columns to avoid the _huge_ gap
+
+.form-row {
+	.make-row(10px);
+
+	/// whilst this selector performs poorly it's not a big deal in small apps
+	[class^="col-"] {
+		padding-left: 5px;
+		padding-right: 5px;
 	}
-	.modal-content {
-		padding: 0 1em;
-	}
-}
-@media (min-width: @screen-sm-min) {
-
-	// do our own animation
-	.modal {
-		&.fade .modal-dialog {
-			.scale(0.9,0.9);
-			opacity: 0;
-			-webkit-transition: opacity 200ms ease, -webkit-transform 200ms ease;
-			   -moz-transition: opacity 200ms ease, -moz-transform 200ms ease;
-				 -o-transition: opacity 200ms ease, -o-transform 200ms ease;
-					transition: opacity 200ms ease, transform 200ms ease;
-		}
-		&.in .modal-dialog {
-			.scale(1,1);
-			opacity: 1;
-		}
-	}
-	.modal-content {
-		margin-top: 2em;
-		padding: 2em 3em;
-	}
-	
 }

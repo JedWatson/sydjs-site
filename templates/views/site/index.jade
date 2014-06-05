@@ -19,7 +19,7 @@ block body
 					a(href='https://maps.google.com.au/?daddr=' + nextMeetup.place, target='_blank') (directions)
 				if !lastMeetup
 					.rsvp-button
-						a(href='/attend', disabled=!nextMeetup.rsvpsAvailable).btn.btn-lg= nextMeetup.rsvpsAvailable ? 'RSVP' : 'no more'
+						a(href=nextMeetup.url + '#next-meetup', disabled=!nextMeetup.rsvpsAvailable).btn.btn-lg= nextMeetup.rsvpsAvailable ? 'RSVP' : 'no more'
 
 				//- +advertisement()
 

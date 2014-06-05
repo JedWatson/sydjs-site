@@ -13,8 +13,44 @@ $(function() {
 
 		$('.site-nav').append('<span class="mask mask-left"></span><span class="mask mask-right"></span>');
 
-	} 
-	// console.log(mobileNavWidth);
+	}
+	
+	
+	
+	
+	
+	// Generic confirms
+	// ------------------------------
+	
+	$('.js-cancel-confirm').click(function(e) {
+		if ( !confirm( $(this).data('confirm') || 'Are you sure? You will lose any changes.') )
+			return e.preventDefault();
+	});
+	$('.js-delete-confirm').click(function(e) {
+		if ( !confirm( $(this).data('confirm') || 'Are you sure? This cannot be undone.') )
+			return e.preventDefault();
+	});
+	
+
+	
+	
+	// UI Reveal
+	// ------------------------------
+	
+	$('.ui-reveal__trigger').click( function() {
+		container = $(this).closest('.ui-reveal');
+		
+		container.addClass('is-revealed');
+		
+		//- click ensures browse is envoked on file fields 
+		container.find('input[type!=hidden],textarea').eq(0).click().focus();
+	});
+	
+	$('.ui-reveal__hide').click( function() {
+		container = $(this).closest('.ui-reveal');
+		
+		container.removeClass('is-revealed');
+	});
 	
 	
 	
@@ -68,5 +104,57 @@ $(function() {
 		}
 		
 	});
+	
+	
+	
+	// Handle attendence
+	// ------------------------------
+	
+	var $nextMeetup = $('#next-meetup');
+	if ($nextMeetup.length) {
+		var meetup = $nextMeetup.data();
+		
+		var $attending = $('.js-rsvp-attending'),
+			$decline = $('.js-rsvp-decline');
+		
+		var toggleRSVP = function(attending) {
+			$.ajax({
+				url: '/api/me/meetup',
+				type: 'POST',
+				data: {
+					meetup: meetup.id,
+					attending: attending
+				}
+			});
+		}
+		
+		$attending.click(function() {
+			$attending.addClass('btn-success').closest('.meetup-toggle').find('.js-rsvp-decline').removeClass('btn-danger');
+			toggleRSVP(true);
+		});
+		
+		$decline.click(function() {
+			$decline.addClass('btn-danger').closest('.meetup-toggle').find('.js-rsvp-attending').removeClass('btn-success');
+			toggleRSVP(false);
+		});
+		
+		$.ajax({
+			url: '/api/me/meetup',
+			type: 'POST',
+			data: {
+				statusOnly: true,
+				meetup: meetup.id
+			},
+			success: function(data) {
+				setTimeout(function() {
+					$('.meetup-status').hide();
+					$('.meetup-toggle').show();
+					if (data.rsvped) {
+						data.attending ? $attending.addClass('btn-success') : $decline.addClass('btn-danger')
+					}
+				}, 250);
+			}
+		});
+	}
 
 });

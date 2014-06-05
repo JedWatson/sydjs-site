@@ -1,5 +1,5 @@
-mixin organisations(org)
-	.org.row
+mixin organisation(org)
+	.org.row(id=org.id)
 		.col-sm-3.col-md-2.text-center
 			if org.logo.exists
 				if org.website

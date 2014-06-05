@@ -15,7 +15,7 @@ exports = module.exports = function(req, res) {
 	
 	view.on('post', { action: 'signin' }, function(next) {
 		
-		if (!req.body.signin_email || !req.body.signin_password) {
+		if (!req.body.email || !req.body.password) {
 			req.flash('error', 'Please enter your username and password.');
 			return next();
 		}
@@ -33,7 +33,7 @@ exports = module.exports = function(req, res) {
 			return next();
 		}
 		
-		keystone.session.signin({ email: req.body.signin_email, password: req.body.signin_password }, req, res, onSuccess, onFail);
+		keystone.session.signin({ email: req.body.email, password: req.body.password }, req, res, onSuccess, onFail);
 		
 	});
 	

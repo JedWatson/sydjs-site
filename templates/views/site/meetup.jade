@@ -19,7 +19,21 @@ block body
 					p!= meetup.description
 	if meetup
 		.container-sm
-			.page-intro
+			.page-intro.text-left
 				a(href='/meetups').text-muted &larr; Back to all meetups
 			.page-content
-				+meetup(meetup, 'past')
+				+meetup(meetup, (meetup.date > new Date() ? 'present' : 'past'))
+				if user && meetup.rsvpsAvailable && meetup.date > new Date()
+					#next-meetup(data-id=meetup.id)
+						hr.mv-2
+						h4 Are you going?
+						.meetup-status
+							label.btn.btn-block.btn-default.js-rsvp-checking.disabled
+								|  Checking...
+						.form-row.meetup-toggle(style='display: none;')
+							.col-xs-6
+								button(type='button').btn.btn-block.btn-lg.btn-default.js-rsvp-attending Yes
+							.col-xs-6
+								button(type='button').btn.btn-block.btn-lg.btn-default.js-rsvp-decline No
+						//- h4.text-muted You are going to this meetup. 
+							a(href='javascript:;') Change
