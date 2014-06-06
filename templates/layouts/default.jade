@@ -59,38 +59,6 @@ html
 						+auth-forms({ modal: true, initial: 'signin' })
 
 
-	//-body(class=section ? 'sitesection-' + section : null): .site-wrapper
-		
-		//- HEADER
-		header(role='banner').site-nav
-			nav.navbar(role='navigation'): .container
-				ul.navbar-nav
-					li: a(href='/', title='Back to Home').navbar-logo
-						img(src='/images/logo.svg', alt='SydJS logo', width=155, height=35)
-					each link in navLinks
-						li(class=(section == link.key ? 'nav-item-' + link.key + ' active' : 'nav-item-' + link.key)): a(href=link.href)= link.label
-					if user
-						li: a(href='/me')= user.name.first
-						li: a(href='/signout')
-							span.visible-xs Sign out
-							span.entypo.entypo-large.entypo-logout.hidden-xs
-					else
-						li: a(href='/join', data-from=page.path).js-auth-trigger SignIn / Join
-		
-		
-		//- BODY
-		block body
-			.site-body
-				.page-intro: .container-sm
-					block intro
-				block flash-messages
-					+flash-messages(messages)
-				.container: .page-content
-					block content
-		
-		
-		//- FOOTER
-		include ../includes/site-footer
 		
 		
 		
