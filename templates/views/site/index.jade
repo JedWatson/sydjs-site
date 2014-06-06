@@ -1,16 +1,22 @@
 extends ../../layouts/default
 
+
+//- INCLUDES
 include ../../mixins/post
 include ../../mixins/advertisement
 
-block content
-	//- Hero
-	if nextMeetup
-		- lastMeetup = false;
-	else
-		- nextMeetup = lastMeetup;
-	
-	section.section.home-meetup
+
+//- INIT
+if nextMeetup
+	- lastMeetup = false;
+else
+	- nextMeetup = lastMeetup;
+
+
+//- INTRO
+block intro
+	article#billboard: .container
+	//-section.section.home-meetup
 		if !nextMeetup
 			.container
 				h1 Welcome<br>
@@ -70,67 +76,72 @@ block content
 				a(href='https://maps.google.com.au/?daddr=' + nextMeetup.place, target='_blank').directions-button
 					span.entypo.entypo-popup
 					|  Get Directions
-		
-
-	//- About
-	section.section.home-about: .container
-		h2 In Sydney and into JavaScript? You need to join SydJS.
-			br
-			br
-			| Every 3rd Wednesday of the month you'll find us talking about what we're doing &mdash; and what's happening around us &mdash; in the world of JavaScript.
-		p
-			a(href='/about') Learn more about SydJS
-			|  &nbsp;&middot;&nbsp; 
-			a(href='/about#code') Read our Code of Conduct
-		p: a(href="https://twitter.com/sydjs", class="twitter-follow-button", data-show-count="true", data-size="large") Follow @sydjs
 
 
-
-	//- Blog
-	if posts.length
-		section.section.home-blog: .container
-			.blog(itemscope itemtype="http://schema.org/Blog")
-				for post in posts
-					+post(post)
-				hr.line-dashed
-				p(data-ks-editable=editable(user, { list: 'Post' }))
-					a(href='/blog', itemprop='url').text-muted See all SydJS blog posts &rarr;
+//- CONTENT		
+block content
+	article
+		//- About
+		section.section.home-about: .container
+			h2 In Sydney and into JavaScript? You need to join SydJS.
+				br
+				br
+				| Every 3rd Wednesday of the month you'll find us talking about what we're doing &mdash; and what's happening around us &mdash; in the world of JavaScript.
+			p
+				a(href='/about') Learn more about SydJS
+				|  &nbsp;&middot;&nbsp; 
+				a(href='/about#code') Read our Code of Conduct
+			p: a(href="https://twitter.com/sydjs", class="twitter-follow-button", data-show-count="true", data-size="large") Follow @sydjs
 
 
 
-	//- Links
-	section.section.home-links: .container
-		.row
-			.col-sm-4
-				a(href='/members/organisations').link-icon-badge: span.link-icon.entypo.entypo-globe
-				h2.home-links__heading: a(href='/members/organisations') Organisations
-				p Ju wan jQuery? Keen on Keystone? Looking for Lint? Need NICTA? Want a Webstack?
-				p There's a whole range of organisations that just help make your JavaScript life that much easier.
+		//- Blog
+		if posts.length
+			section.section.home-blog: .container
+				.blog(itemscope itemtype="http://schema.org/Blog")
+					for post in posts
+						+post(post)
+					hr.line-dashed
+					p(data-ks-editable=editable(user, { list: 'Post' }))
+						a(href='/blog', itemprop='url').text-muted See all SydJS blog posts &rarr;
 
-			.col-sm-4
-				a(href='/members').link-icon-badge: span.link-icon.entypo.entypo-users
-				h2.home-links__heading: a(href='/members') Members
-				p At SydJS, all members are equal! To misquote Orwell, though, some are more equal than others.
-				p Want to raise your profile? Volunteer and we'll add you to the roster! Want to find out who's stepped up? It's all here.
 
-			.col-sm-4
-				a(href='/links').link-icon-badge: span.link-icon.entypo.entypo-link
-				h2.home-links__heading: a(href='/links') Links
-				p Got a favourite CDN? A favourite library? A micro-library? We do! And you'll find some of them linked here.
-				p You might even find some links to things that _aren't_ JavaScript? That's right! Some things aren't JavaScript.
 
-		.row
-			.col-sm-4
-				p: a(href='/members/organisations', class='home-links-anchor') View organisations
+		//- Links
+		section.section.home-links: .container
+			.row
+				.col-sm-4
+					a(href='/members/organisations').link-icon-badge: span.link-icon.entypo.entypo-globe
+					h2.home-links__heading: a(href='/members/organisations') Organisations
+					p Ju wan jQuery? Keen on Keystone? Looking for Lint? Need NICTA? Want a Webstack?
+					p There's a whole range of organisations that just help make your JavaScript life that much easier.
 
-			.col-sm-4
-				p: a(href='/members', class='home-links-anchor') View members
+				.col-sm-4
+					a(href='/members').link-icon-badge: span.link-icon.entypo.entypo-users
+					h2.home-links__heading: a(href='/members') Members
+					p At SydJS, all members are equal! To misquote Orwell, though, some are more equal than others.
+					p Want to raise your profile? Volunteer and we'll add you to the roster! Want to find out who's stepped up? It's all here.
 
-			.col-sm-4
-				p: a(href='/links', class='home-links-anchor') View links
+				.col-sm-4
+					a(href='/links').link-icon-badge: span.link-icon.entypo.entypo-link
+					h2.home-links__heading: a(href='/links') Links
+					p Got a favourite CDN? A favourite library? A micro-library? We do! And you'll find some of them linked here.
+					p You might even find some links to things that _aren't_ JavaScript? That's right! Some things aren't JavaScript.
 
+			.row
+				.col-sm-4
+					p: a(href='/members/organisations', class='home-links-anchor') View organisations
+
+				.col-sm-4
+					p: a(href='/members', class='home-links-anchor') View members
+
+				.col-sm-4
+					p: a(href='/links', class='home-links-anchor') View links
+
+
+//- JS
 block js
-	// twitter
+	//- twitter
 	script.
 		!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
 	if google_api_key

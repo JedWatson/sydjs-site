@@ -1,0 +1,26 @@
+//- SITE NAVIGATION
+nav.navbar.navbar-default(role='navigation'): .container
+	
+
+	//- Site logo + site nav trigger button (on mobile)
+	.navbar-header
+		a(href='/', title='Back to Home').site-branding
+			img(src='/images/logo.svg', alt='SydJS logo', width=130, height=119)
+		button.navbar-toggle.navbar-toggle-menu.navbar-toggle-left(type='button', data-toggle='collapse', data-target='.navbar-headernav-collapse')
+			span.sr-only Toggle navigation
+			!='<span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>'
+		
+
+	//- Site nav
+	.navbar-collapse.navbar-headernav-collapse.collapse
+		ul.nav.navbar-nav.navbar-nav--left
+			each link in navLinks
+				li(class=(section == link.key ? 'nav-item-' + link.key + ' active' : 'nav-item-' + link.key)): a(href=link.href)= link.label
+		ul.nav.navbar-nav.navbar-nav--right
+			if user
+				li: a(href='/me')= user.name.first
+				li: a(href='/signout')
+					span.visible-xs Sign out
+					span.entypo.entypo-large.entypo-logout.hidden-xs
+			else
+				li: a(href='/signin') SignIn / Join
