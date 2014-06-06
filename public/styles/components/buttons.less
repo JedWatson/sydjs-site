@@ -1,0 +1,203 @@
+//
+// Buttons
+// ==============================
+
+
+
+
+// Base styles
+// ------------------------------
+
+.btn {
+	.button-size(@padding-base-vertical; @padding-base-horizontal; 1em; 1.6; @border-radius-base);
+	.user-select(none);
+	background-image: none; // Reset unusual Firefox-on-Android default style
+	border: 1px solid transparent; // For input.btn
+	cursor: pointer;
+	display: inline-block;
+	line-height: @line-height-base;
+	margin-bottom: 0; // For input.btn
+	text-align: center;
+	vertical-align: middle;
+	white-space: nowrap;
+	
+	// chubby?
+	font-weight: 500;
+	// text-transform: uppercase;
+	
+
+	&:focus {
+		.tab-focus();
+	}
+
+	&:hover,
+	&:focus {
+		color: @btn-default-color;
+		text-decoration: none;
+	}
+
+	&:active,
+	&.active {
+		outline: 0;
+		background-image: none;
+	}
+
+	&.disabled,
+	&[disabled],
+	fieldset[disabled] & {
+		cursor: not-allowed;
+		pointer-events: none; // Future-proof disabling of clicks
+		.opacity(.65);
+		.box-shadow(none);
+	}
+}
+
+
+// Alternate buttons
+// --------------------------------------------------
+
+.btn-default {
+	.button-base(@btn-default-color; @btn-default-bg; @btn-default-border);
+}
+.btn-primary {
+	.button-base(@btn-primary-color; @btn-primary-bg; @btn-primary-border);
+}
+.btn-success {
+	.button-base(@btn-success-color; @btn-success-bg; @btn-success-border);
+}
+.btn-warning {
+	.button-base(@btn-warning-color; @btn-warning-bg; @btn-warning-border);
+}
+.btn-danger {
+	.button-base(@btn-danger-color; @btn-danger-bg; @btn-danger-border);
+}
+
+// social
+
+.btn-github {
+	.button-base(white; @brand-github; @brand-github);
+}
+.btn-facebook {
+	.button-base(white; @brand-facebook; @brand-facebook);
+}
+.btn-google {
+	.button-base(white; @brand-google; @brand-google);
+}
+.btn-twitter {
+	.button-base(white; @brand-twitter; @brand-twitter);
+}
+
+// social links
+
+.btn-link-github {
+	.btn-link();
+
+	&, &:hover, &:focus {
+		color: @brand-github;
+	}
+}
+.btn-link-facebook {
+	.btn-link();
+
+	&, &:hover, &:focus {
+		color: @brand-facebook;
+	}
+}
+.btn-link-google {
+	.btn-link();
+
+	&, &:hover, &:focus {
+		color: @brand-google;
+	}
+}
+.btn-link-twitter {
+	.btn-link();
+
+	&, &:hover, &:focus {
+		color: @brand-twitter;
+	}
+}
+
+
+// Link buttons
+// -------------------------
+
+// Make a button look and behave like a link
+.btn-link {
+	border-radius: 0;
+	color: @link-color;
+	cursor: pointer;
+	font-weight: normal;
+
+	&,
+	&:active,
+	&[disabled],
+	fieldset[disabled] & {
+		background-color: transparent;
+		.box-shadow(none);
+	}
+	&,
+	&:hover,
+	&:focus,
+	&:active {
+		border-color: transparent;
+	}
+	&:hover,
+	&:focus {
+		background-color: transparent;
+		color: @link-hover-color;
+		text-decoration: underline;
+	}
+	&[disabled],
+	fieldset[disabled] & {
+		&:hover,
+		&:focus {
+			color: @btn-link-disabled-color;
+			text-decoration: none;
+		}
+	}
+}
+
+
+// Button Sizes
+// ------------------------------
+
+.btn-lg {
+	// line-height: ensure even-numbered height of button next to large input
+	.button-size(@padding-large-vertical; @padding-large-horizontal; @font-size-large; @line-height-large; @border-radius-large);
+}
+.btn-sm {
+	// line-height: ensure proper height of button next to small input
+	.button-size(@padding-small-vertical; @padding-small-horizontal; @font-size-small; @line-height-small; @border-radius-small);
+}
+.btn-xs {
+	.button-size(@padding-xs-vertical; @padding-xs-horizontal; @font-size-small; @line-height-small; @border-radius-small);
+}
+
+
+// Block button
+// ------------------------------
+
+.btn-block {
+	display: block;
+	padding-left: 0;
+	padding-right: 0;
+	width: 100%;
+}
+
+
+// skinny buttons
+
+.btn-narrow {
+	line-height: 1;
+}
+
+
+
+
+
+
+
+
+
+

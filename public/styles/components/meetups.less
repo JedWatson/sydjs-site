@@ -1,42 +1,68 @@
+// 
 // Meetups
 // ------------------------------
 
-.meetup {
-	margin-top: 60px;
+
+
+
+.meetup {}
+
+
+
+
+// 
+// Talks
+// ------------------------------
+
+/*ul*/.meetup-talks {
+	.list-unstyled();
 }
-.meetup--present {
-	margin-top: 0;
+
+.talk {
+	margin-bottom: 1em;
+	overflow: hidden;
 }
-.meetup-talks {
-	border-top: 1px dashed @hr-border;
-	font-size: @font-size-base;
-	padding-left: 40px;
-	padding-top: 20px;
+
+
+// speakers
+
+.talk__speakers {
+	float: left;
+	margin-right: 1em;
 	position: relative;
-	
-	.meetup-talks__icon {
-		color: mix(@text-color, @body-bg, 30%);
-		display: block;
-		position: absolute;
-		left: 0;
-		top: 20px;
+	width: 60px;
+}
+.talk__photo {
+	.img-responsive(inline-block);
+	border-radius: 50%;
+	border: 3px solid white;
+}
+.talk__photo--mini {
+	position: relative;
+	width: 40px;
+
+	&:nth-child(2) {
+		left: 20px;
+		top: -20px;
 	}
-	.meetup-talks__heading {
-		.text-muted();
-		margin-top: 0;
+	&:nth-child(3) {
+		top: -40px;
 	}
-	.talk {
-		margin-bottom: 15px;
+	&:nth-child(4) {
+		left: 20px;
+		top: -60px;
 	}
-	.talk__name {
-		color: @headings-color;
-		font-size: @font-size-large;
+	&:nth-child(5) {
+		top: -80px;
 	}
-	.talk__speaker {
-		// .text-muted();
-		margin-bottom: 5px;
-	}
-	.talk__resource {
-		.text-muted();
-	}
+}
+
+
+// body
+
+.talk__body {
+	overflow: hidden;
+}
+.talk__subheading {
+	color: @gray-light;
 }

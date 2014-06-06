@@ -1,0 +1,15 @@
+extends ../../layouts/default
+
+block body
+	.container-xs
+		.page-intro
+			h1 Join SydJS
+			+flash-messages(messages)
+		.page-content
+			+auth-forms({ modal: false, initial: 'join' })
+
+block js
+	script.
+		jQuery(function($) {
+			$('.auth-form').find('.form-control').eq(0).focus().select();
+		});

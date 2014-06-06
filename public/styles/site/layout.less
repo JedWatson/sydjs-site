@@ -3,130 +3,172 @@
 // ==============================
 
 
+
+// Containers
+// ------------------------------
+
+.container-xs,
+.container-sm,
+.container-md {
+	.container-fixed();
+}
+@media (min-width: @screen-sm-min) {
+	.container-xs { width: 600px; }
+	.container-sm { width: @screen-sm-min - @grid-gutter-width; }
+	.container-md { max-width: @screen-md-min - @grid-gutter-width; }
+}
+
+
 // Navbar
 // ------------------------------
 
 @navbar-border-top-width: 4px;
 .navbar {
-	border-top: @navbar-border-top-width solid @navbar-default-link-hover-bg;
-	font-size: @font-size-small;
+	background-color: @navbar-default-bg;
 	font-weight: 500;
+	// height: @navbar-height;
+	line-height: @navbar-height + 10;
 	margin: 0;
-	
-	.container {
-		position: relative;
-	}
 }
-.navbar-nav > li {
-	margin-top: -@navbar-border-top-width;
-	
-	&.active a {
-		border-top-color: @orange;
+.navbar-nav {
+	// font-size: 0;
+	list-style: none;
+	margin-bottom: 0;
+	padding-left: 0;
+
+	> li {
+		// font-size: 16px;
+		display: inline-block;
+		
+		&.active > a {
+			position: relative;
+
+			&:after {
+				border: .5em solid transparent;
+				border-bottom-color: @body-bg;
+				bottom: 0;
+				content: " ";
+				left: 50%;
+				margin-left: -.5em;
+				position: absolute;
+			}
+		}
 	}
-}
-.navbar-nav > li > a {
-	border-top: @navbar-border-top-width solid transparent;
-	padding-bottom: @navbar-padding-vertical + floor(@navbar-border-top-width / 2);
-	padding-left: 20px;
-	padding-right: 20px;
-	text-transform: uppercase;
-	
-	@media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
-		padding-left: 10px;
-		padding-right: 10px;
+	> li > a {
+		.transition( all 200ms ease );
+		// box-shadow: 0 0 0 transparent;
+		color: white;
+		display: block;
+		outline: none;
+		padding-left: 20px;
+		padding-right: 20px;
+
+		&:hover {
+			box-shadow: inset 0 4px 0 @orange;
+		}
 	}
-	@media (min-width: @screen-lg-min) {
-		padding-left: 30px;
-		padding-right: 30px;
+	.navbar-logo {
+		border-top: 0px solid @brand-primary;
+		display: block;
+		margin-right: 2em;
+		padding: 0;
+		z-index: 1;
+
+		img {
+			max-width: 100%;
+		}
 	}
 }
 .navbar-default .navbar-toggle {
 	background-color: @navbar-default-toggle-bg;
 }
-.navbar-logo {
-	.transition( top 0.1s ease-in-out );
-	border-top: 0px solid @brand-primary;
-	display: block;
-	margin-left: (@grid-gutter-width / 2);
-	position: absolute;
-	top: -(@navbar-border-top-width + 2);
-	z-index: 1;
-	
-	img {
-		width: 100%;
+
+@media (max-width: @screen-xs-max) {
+	.navbar-logo {
+		width: 90px;
 	}
-	
-	@media (max-width: @screen-sm-max) {
-		img {
-			.size(90px,80px);
+	.navbar {
+		.scrollable(horizontal);
+		line-height: @navbar-height;
+	}
+	.site-nav {
+		position: relative;
+
+		.mask {
+			.square(@navbar-height);
+			content: "";
+			display: block;
+			line-height: @navbar-height;
+			pointer-events: none;
+			position: absolute;
+			text-align: center;
+			top: 0;
+		}
+		.mask-left {
+			#gradient .horizontal( @brown, fade(@brown, 0) );
+			left: 0;
+		}
+		.mask-right {
+			#gradient .horizontal( fade(@brown, 0), @brown );
+			right: 0;
 		}
 	}
-	@media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
-		.size(90px,80px);
-		left: 50%;
-		margin-left: -45px;
-	}
-	@media (min-width: @screen-md-min) {
-		.size(130px,119px);
-		left: 50%;
-		margin-left: -65px;
-		top: -(@navbar-border-top-width + 4);
-	
-	}
-	&:hover, &.clicked {
-		top: -@navbar-border-top-width;
+}
+
+// draw attention to the mask on the homepage so people don't miss the other nav pages
+.sitesection-home .site-nav {
+	.mask-right:after {
+		.animation( pulse 1s linear infinite );
+		.square(0);
+		.translate3d(0,0,0);
+		border: .5em solid transparent;
+		border-left-color: @orange;
+		content: " ";
+		display: inline-block;
 	}
 }
 
-.navbar-collapse {
-	.box-shadow( none );
-	// why max-height, bootstrap, why???
-	max-height: 1000px;
-	// not sure what the padding is doing on this element...
-	padding-left: 0;
-	padding-right: 0;
-}
-.navbar-nav {
-	margin-left: 0;
-	margin-right: 0;
-}
 
-// hide the home link so it doesn't intersect the logo
-@media (max-width: @screen-xs-max) {
-	.nav-item-home {
-		visibility: hidden;
-	}
-	.navbar-nav .divider {
-		background-color: @navbar-default-toggle-border-color;
-	}
-}
+
+// Body
+// ------------------------------
+
+.site-body {}
 
 
 
 // Footer
 // ------------------------------
 
-.site-body {
-	
-}
 .site-footer {
 	// border-top: 8px solid white;
 	background-color: @brown;
-	color: mix(@brown, white, 50%);
+	color: mix(@brown, white, 40%);
 	font-size: @font-size-small;
-	padding: 20px 0;
+	font-weight: 300;
+	padding: 3em 0;
 	margin-top: 60px;
 	position: relative;
-	text-align: center;
-	// text-transform: uppercase;
-	
+
+	ul, ol {
+		.list-unstyled();
+	}
 	p {
 		margin-bottom: 5px;
 	}
 	a {
-		color: white;
+		color: mix(@brown, white, 20%);
 	}
 	
+}
+.footer-heading {
+	color: mix(@brown, white, 60%);
+}
+.footer-copyright {
+	border-top: 1px solid mix(@brown, white, 80%);
+	margin-top: 2em;
+	padding-top: 2em;
+	text-align: center;
 }
 
 
@@ -221,43 +263,36 @@ textarea {
 
 
 
-// Page intros
+// Page
 // ------------------------------
 
-.back-bar,
-.page-intro {
-	background-color: white;
-	border-bottom: 1px solid darken(desaturate(@body-bg, 30%), 8%);
-}
-.page-intro {
-	padding-bottom: 35px;
-	margin-bottom: 40px;
-	
-	p {
-		
-		font-size: floor(@font-size-base * 1.15);
-		font-weight: 200;
-		line-height: 1.4;
-		margin-bottom: 8px;
 
-		@media (min-width: @screen-sm-min) {
-			font-size: (@font-size-base * 1.5);
-		}
-		
+// intro
+
+.page-intro {
+	padding: @page-padding 0;
+	text-align: center;
+	
+	.buttons > .btn {
+		margin-right: 10px;
 	}
+	.lead {
+		display: inline-block;
+		max-width: @screen-sm-min - @grid-gutter-width;
+	}
+}
+
+
+// content
+
+.page-content {
+	.tile-base();
+	padding: @page-padding / 2;
+	position: relative;
+	z-index: 2;
 	
-	.buttons {
-		min-height: 30px;
-		margin-top: 14px;
-		
-		.btn {
-			margin-right: 10px;
-		}
-	
-		.twitter-follow-button {
-			position: absolute;
-			margin-top: 2px;
-		}
+	@media (min-width: @screen-sm-min) {
+		padding: @page-padding;
 	}
 }
 	
@@ -363,4 +398,56 @@ textarea {
 	.org__logo img {
 		.img-responsive();
 	}
+}
+
+
+
+// Animation
+// ------------------------------
+
+@-moz-keyframes pulse {
+  0% { -moz-transform: scale(1); }
+  50% { -moz-transform: scale(1.4); }
+  100% { -moz-transform: scale(1); }
+}
+@-webkit-keyframes pulse {
+  0% { -webkit-transform: scale(1); }
+  50% { -webkit-transform: scale(1.4); }
+  100% { -webkit-transform: scale(1); }
+}
+@-o-keyframes pulse {
+  0% { -o-transform: scale(1); }
+  50% { -o-transform: scale(1.4); }
+  100% { -o-transform: scale(1); }
+}
+@-ms-keyframes pulse {
+  0% { -ms-transform: scale(1); }
+  50% { -ms-transform: scale(1.4); }
+  100% { -ms-transform: scale(1); }
+}
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.4); }
+  100% { transform: scale(1); }
+}
+
+@-moz-keyframes spin {
+  0% { -moz-transform: rotate(0deg); }
+  100% { -moz-transform: rotate(359deg); }
+}
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(359deg); }
+}
+@-o-keyframes spin {
+  0% { -o-transform: rotate(0deg); }
+  100% { -o-transform: rotate(359deg); }
+}
+@-ms-keyframes spin {
+  0% { -ms-transform: rotate(0deg); }
+  100% { -ms-transform: rotate(359deg); }
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(359deg); }
 }

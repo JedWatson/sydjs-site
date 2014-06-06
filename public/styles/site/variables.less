@@ -7,27 +7,32 @@
 // --------------------------------------------------
 
 
-@brand-primary:         #2697de;
+@brand-primary:         #2e99e5;
 @brand-secondary:       #d55500;
-@brand-success:         #1aaf5e;
+@brand-success:         #2ecc71;
 @brand-warning:         #f0ad4e;
 @brand-danger:          #b50001;
 @brand-info:            #00abec;
 
 @brown:                 #403329;
 @tan:                   #f7f3ea;
-@orange:                #d55500;
+@yellow:                #F0DB4F;
+@orange:                #d35400;
 
 @brand-facebook:        #3b5997;
 @brand-twitter:         #00abec;
 @brand-github:          #333;
+@brand-google:          #3988e5;
 
 // Scaffolding
 // -------------------------
 
 @body-bg:               @tan;
 @text-color:            @brown;
-@text-muted:			mix(white, @brown, 40%);
+@text-muted:            mix(white, @brown, 40%);
+@gray-dull:             #ccc;
+
+@page-padding:          2em;
 
 // Links
 // -------------------------
@@ -37,9 +42,22 @@
 
 // Typography
 // -------------------------
+
 @headings-color:          #222;
 
 @font-family-sans-serif:  "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+@font-size-large:         1.1em; // ~18px
+@font-size-small:         0.9em; // ~12px
+
+
+
+// Components
+// -------------------------
+
+@border-radius-base:        .2em;
+@border-radius-large:       .2em;
+@border-radius-small:       .15em;
 
 
 
@@ -49,6 +67,8 @@
 
 // Navbar
 // -------------------------
+
+@navbar-height:                    50px;
 
 // Basics of a navbar
 @navbar-default-color:             white;
@@ -71,6 +91,15 @@
 
 
 
+// Modals
+// -------------------------
+
+@modal-backdrop-bg:           @body-bg;
+@modal-backdrop-opacity:      .75;
+
+
+
+
 
 // Tables
 // -------------------------
@@ -89,7 +118,7 @@
 // -------------------------
 
 // Hr border color
-@hr-border:                   mix(@tan, @brown, 85%);
+@hr-border:                   rgba(0, 0, 0, 0.1);
 
 // Horizontal forms & lists
 @component-offset-horizontal: 100px;

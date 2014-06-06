@@ -32,7 +32,7 @@ exports = module.exports = function(req, res) {
 		Post.model.find()
 			.where('state', 'published')
 			.sort('-publishedDate')
-			.limit(2)
+			.limit(3)
 			.populate('author categories'));
 	
 	view.render('site/index');

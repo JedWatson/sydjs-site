@@ -1,0 +1,132 @@
+// MEMBERS
+// ------------------------------
+
+@member-grid-gutter: 10px;
+@member-grid-gutter-lg: 30px;
+
+
+// Box
+
+.member {
+	.tile-base();
+	margin-bottom: @member-grid-gutter;
+	position: relative;
+	// overflow: hidden;
+}
+
+
+// Sections
+
+.member-section {
+	padding: 1em;
+}
+.member__photo {
+	padding-left: 2em;
+	padding-right: 2em;
+	text-align: center;
+	
+	img {
+		.img-responsive(inline-block);
+		border-radius: 50%;
+		margin-bottom: -1em;
+	}
+}
+.member__info {
+	text-align: center;
+}
+.member__title > a {
+	color: @text-color;
+}
+.member__accounts > .member__account {
+	color: @gray-light;
+	display: inline-block;
+	font-size: 2.66em;
+	padding: .25em .125em;
+
+	&:hover {
+		text-decoration: none;
+	}
+}
+.member__account--twitter:hover {
+	color: @brand-twitter;
+}
+.member__account--github:hover {
+	color: @brand-github;
+}
+.member__bio {
+	color: @gray;
+	font-weight: 300;
+	padding-top: 1em;
+	word-wrap: break-word;
+}
+
+
+
+.talks,.posts {
+	padding: 20px;
+	border-top: 1px solid @gray-lighter;
+	font-size: @font-size-base;
+
+	h6 {
+		text-transform: uppercase;
+	}
+
+	p { margin: 0; }
+	li + li {
+		margin-top: 10px;
+	}
+}
+
+
+
+// Grid
+
+.members-list {
+	.clearfix();
+	margin-left: -(@member-grid-gutter / 2);
+	margin-right: -(@member-grid-gutter / 2);
+}
+.member-item {
+	float: left;
+	padding: 0 (@member-grid-gutter / 2);
+	width: 50%;
+}
+@media (max-width: @screen-xs-max) {
+	.member__bio {
+		max-height: 10em;
+		overflow: hidden;
+		position: relative;
+
+		&:after {
+			.size(100%,3em);
+			#gradient .vertical( fade(white,0), white );
+			content: "";
+			left: 0;
+			right: 0;
+			pointer-events: none;
+			position: absolute;
+			top: 7em;
+		}
+	}
+}
+@media (min-width: @screen-sm-min) {
+	.member-item {
+		width: 33.3%;
+	}
+	.members-list {
+		margin-left: -(@member-grid-gutter-lg / 2);
+		margin-right: -(@member-grid-gutter-lg / 2);
+	}
+	.member-item {
+		padding-left: @member-grid-gutter-lg / 2;
+	}
+	.member {
+		margin-bottom: @member-grid-gutter-lg;
+	}
+}
+
+@media (min-width: @screen-md-min) {
+	.member-item {
+		width: 25%;
+	}
+}

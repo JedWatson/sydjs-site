@@ -1,0 +1,66 @@
+//
+// Theme
+//
+// Use this file to tweak existing Bootstrap components. For major changes
+// consider creating a complimentary LESS file (your-component.less) and
+// possibly removing the offending Bootstrap component to avoid conflicts.
+//
+// ==============================
+
+
+
+
+// Media
+// ------------------------------
+
+a.media {
+	color: @text-color;
+	display: block;
+	
+	&:hover {
+		color: @text-color;
+		text-decoration: none;
+		
+		.media-heading {
+			text-decoration: underline;
+		}
+	}
+}
+.media-heading {
+	font-size: 1em;
+	
+	a {
+		color: @text-color;
+	}
+}
+.media-subheading {
+	color: @gray;
+	font-size: .85em;
+}
+
+
+
+
+// Forms
+// ------------------------------
+
+
+// base field
+
+.form-control {
+	font-size: inherit;
+	height: auto;
+	-webkit-appearance: none;
+}
+
+// use as an alternative to ".row" for form columns to avoid the _huge_ gap
+
+.form-row {
+	.make-row(10px);
+
+	/// whilst this selector performs poorly it's not a big deal in small apps
+	[class^="col-"] {
+		padding-left: 5px;
+		padding-right: 5px;
+	}
+}

@@ -3,52 +3,50 @@ extends ../../layouts/default
 include ../../mixins/link
 
 block intro
-	.page-intro: .container
-		h1 Links
-		if data.tag
-			p Tutorials, Libraries, Frameworks and blog posts under <strong>#{data.tag.name}</strong>
+	h1 Links
+	if data.tag
+		p.lead Tutorials, Libraries, Frameworks and blog posts under <strong>#{data.tag.name}</strong>
+	else
+		p.lead Tutorials, Libraries, Frameworks and blog posts mentioned in SydJS talks, or just of general usefulness.
+	//- .buttons
+		if !user
+			a(href='/join').btn.btn-primary Join SydJS
+			a(href='/signin').btn.btn-default Sign In
 		else
-			p Tutorials, Libraries, Frameworks and blog posts mentioned in SydJS talks, or just of general usefulness.
-		.buttons
-			if !user
-				a(href='/join').btn.btn-primary Join SydJS
-				a(href='/signin').btn.btn-default Sign In
-			else
-				a(href='/me/create/link').btn.btn-primary Add link
+			a(href='/me/create/link').btn.btn-primary Add link
 
 block content
-	.container
-		.row
-			.col-sm-9
-				if filters.tag && !data.tag
-					h3 Invalid tag.
+	.row
+		.col-sm-9
+			if filters.tag && !data.tag
+				h3 Invalid tag.
+			else
+				if data.links.length
+					.blog
+						each link in data.links
+							+link(link)
 				else
-					if data.links.length
-						.blog
-							each link in data.links
-								+link(link)
+					if data.tag
+						h3.text-muted No links in the tag #{data.tag.name}.
 					else
-						if data.tag
-							h3.text-muted No links in the tag #{data.tag.name}.
-						else
-							h3.text-muted There are no links yet.
-			
-			.col-sm-3
-				h5.text-muted Sort by
-				p: small
-					if current.sort == 'updated'
-						strong Recently added
-					else
-						a(href=qs_set({ sort: undefined })) Recently Updated
-					span.text-muted&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;
-					if current.sort == 'name'
-						strong Name
-					else
-						a(href=qs_set({ sort: 'name' })) Name
-				if data.tags.length
-					hr
-					h5.text-muted Filter by tag
-					ul.list-unstyled.tags-list
-						li: a(href='/links', class=!data.tag ? 'active' : false) All
-						each tag in data.tags
-							li: a(href='/links/' + tag.key, class=data.tag && data.tag.id == tag.id ? 'active' : false).list-group-item= tag.name
+						h3.text-muted There are no links yet.
+		
+		.col-sm-3
+			h5.text-muted Sort by
+			p: small
+				if current.sort == 'updated'
+					strong Recently added
+				else
+					a(href=qs_set({ sort: undefined })) Recently Updated
+				span.text-muted &nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;
+				if current.sort == 'name'
+					strong Name
+				else
+					a(href=qs_set({ sort: 'name' })) Name
+			if data.tags.length
+				hr
+				h5.text-muted Filter by tag
+				ul.list-unstyled.tags-list
+					li: a(href='/links', class=!data.tag ? 'active' : false) All
+					each tag in data.tags
+						li: a(href='/links/' + tag.key, class=data.tag && data.tag.id == tag.id ? 'active' : false).list-group-item= tag.name

@@ -7,7 +7,7 @@ exports = module.exports = function(req, res) {
 		locals = res.locals;
 	
 	locals.section = 'me';
-	locals.title = 'Add a link - SydJS';
+	locals.page.title = 'Add a link - SydJS';
 	
 	view.on('post', { action: 'add-link' }, function(next) {
 

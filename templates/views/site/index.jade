@@ -3,14 +3,8 @@ extends ../../layouts/default
 
 //- INCLUDES
 include ../../mixins/post
+include ../../mixins/meetup-talk
 include ../../mixins/advertisement
-
-
-//- INIT
-if nextMeetup
-	- lastMeetup = false;
-else
-	- nextMeetup = lastMeetup;
 
 
 //- INTRO

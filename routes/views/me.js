@@ -10,6 +10,7 @@ exports = module.exports = function(req, res) {
 		locals = res.locals;
 	
 	locals.section = 'me';
+	locals.page.title = 'Settings - SydJS';
 	
 	view.query('meetups.next',
 		Meetup.model.findOne()
@@ -26,28 +27,10 @@ exports = module.exports = function(req, res) {
 			.sort('-createdAt')
 	);
 	
-	view.on('post', { action: 'profile.top' }, function(next) {
+	view.on('post', { action: 'profile.details' }, function(next) {
 	
 		req.user.getUpdateHandler(req).process(req.body, {
-			fields: 'name,email,twitter,website,github',
-			flashErrors: true
-		}, function(err) {
-		
-			if (err) {
-				return next();
-			}
-			
-			req.flash('success', 'Your changes have been saved.');
-			return next();
-		
-		});
-	
-	});
-	
-	view.on('post', { action: 'profile.bottom' }, function(next) {
-	
-		req.user.getUpdateHandler(req).process(req.body, {
-			fields: 'isPublic,bio,photo,mentoring.available,mentoring.free,mentoring.paid,mentoring.swap,mentoring.have,mentoring.want',
+			fields: 'name, email, website, isPublic, bio, photo, mentoring.available, mentoring.free, mentoring.paid, mentoring.swap, mentoring.have, mentoring.want',
 			flashErrors: true
 		}, function(err) {
 		
