@@ -105,6 +105,11 @@ User.relationship({ ref: 'RSVP', refPath: 'who', path: 'rsvps' });
  * ========
  */
 
+// Link to member
+User.schema.virtual('url').get(function() {
+	return '/member/' + this.key;
+});
+
 // Provide access to Keystone
 User.schema.virtual('canAccessKeystone').get(function() {
 	return this.isAdmin;

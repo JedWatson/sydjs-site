@@ -18,9 +18,9 @@ block body
 						.member
 							if member.photo.exists
 								.member-section.member__photo
-									img(src=member._.photo.thumbnail(240,240), width=120, height=120, alt=member.name.full)
+									a(href=member.url): img(src=member._.photo.thumbnail(240,240), width=120, height=120, alt=member.name.full)
 							.member-section.member__info
-								h4.member__title= member.name.full
+								h4.member__title: a(href=member.url)= member.name.full
 								if member.bio.html
 									.member__bio!= member.bio.html
 								if member.twitter || member.github
