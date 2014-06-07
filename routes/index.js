@@ -75,7 +75,7 @@ exports = module.exports = function(app) {
 	// Authentication
 	app.all('/auth/confirm', routes.auth.confirm);
 	// TODO: app.all('/auth/verify', routes.auth.verify);
-	app.get('/auth/:service', routes.auth.service);
+	app.all('/auth/:service', routes.auth.service);
 	
 	// User
 	app.all('/me*', middleware.requireUser);
@@ -94,5 +94,8 @@ exports = module.exports = function(app) {
 	app.all('/api/app/rsvp', routes.api.app.rsvp);
 	app.all('/api/app/signin', routes.api.app.signin);
 	app.all('/api/app/notify', routes.api.app.notify);
+	
+	app.all('/api/app/service-email', routes.api.app['service-email']);
+	app.all('/api/app/service-confirm', routes.api.app['service-confirm']);
 
 }
