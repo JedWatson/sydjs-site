@@ -8,13 +8,13 @@ var services = {
 	twitter: require('../../lib/auth/twitter')
 }
 
-exports = module.exports = function(req, res) {
+exports = module.exports = function(req, res, next) {
 
 	if (!req.params.service) {
 		console.log('[auth.service] - You must define the service you wish to authenticate with.');
 		return res.redirect('/login');
 	}
 	
-	services[req.params.service].authenticateUser(req, res);
+	services[req.params.service].authenticateUser(req, res, next);
 
 };
