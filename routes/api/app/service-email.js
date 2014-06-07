@@ -5,7 +5,7 @@ var keystone = require('keystone'),
 exports = module.exports = function(req, res) {
 	
 	var locals = {
-		authUser: req.authUser
+		authUser: req.body.authUser
 	}
 	
 	if (locals.authUser.type != 'github') return res.apiResponse({ success: true, email: false });
