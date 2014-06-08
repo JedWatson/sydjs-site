@@ -23,7 +23,7 @@ exports = module.exports = function(req, res) {
 			console.log('[api.app.service-confirm]  - Successfully signed in.');
 			console.log('------------------------------------------------------------');
 			return res.apiResponse({
-				success: true
+				success: true,
 				session: true,
 				date: new Date().getTime(),
 				userId: user.id
@@ -199,7 +199,7 @@ exports = module.exports = function(req, res) {
 				console.log('[api.app.service-confirm]  - Already signed in, skipping sign in.');
 				console.log('------------------------------------------------------------');
 				return res.apiResponse({
-					success: true
+					success: true,
 					session: true,
 					date: new Date().getTime(),
 					userId: user.id
