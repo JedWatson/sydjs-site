@@ -38,7 +38,7 @@ exports = module.exports = function(req, res) {
 		function(next) {
 			if (!req.body.user) return next();
 			keystone.list('RSVP').model.findOne()
-				.where('who', user)
+				.where('who', data.user)
 				.where('meetup', data.meetup)
 				.exec(function(err, rsvp) {
 					data.rsvp = rsvp;
