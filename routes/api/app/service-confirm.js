@@ -22,13 +22,21 @@ exports = module.exports = function(req, res) {
 		var onSuccess = function(user) {
 			console.log('[api.app.service-confirm]  - Successfully signed in.');
 			console.log('------------------------------------------------------------');
-			return res.apiResponse({ success: true });
+			return res.apiResponse({
+				success: true
+				session: true,
+				date: new Date().getTime(),
+				userId: user.id
+			});
 		}
 		
 		var onFail = function(err) {
 			console.log('[api.app.service-confirm]  - Failed signing in.', err);
 			console.log('------------------------------------------------------------');
-			return res.apiResponse({ success: false });
+			return res.apiResponse({
+				success: false,
+				session: false
+			});
 		}
 		
 		keystone.session.signin(String(locals.existingUser._id), req, res, onSuccess, onFail);
@@ -190,7 +198,12 @@ exports = module.exports = function(req, res) {
 			if (req.user) {
 				console.log('[api.app.service-confirm]  - Already signed in, skipping sign in.');
 				console.log('------------------------------------------------------------');
-				return res.apiResponse({ success: true });
+				return res.apiResponse({
+					success: true
+					session: true,
+					date: new Date().getTime(),
+					userId: user.id
+				});
 			}
 			return doSignIn();
 		}
@@ -199,7 +212,10 @@ exports = module.exports = function(req, res) {
 		if (err) {
 			console.log('[api.app.service-confirm]  - Issue signing user in.', err);
 			console.log('------------------------------------------------------------');
-			return res.apiResponse({ success: false });
+			return res.apiResponse({
+				success: false,
+				session: false
+			});
 		}
 	});
 
