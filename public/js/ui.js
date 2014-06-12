@@ -1,10 +1,6 @@
 $(function() {
 	// Disable the headroom effect on mobile
 	// -------------------------------------
-	if ($(window).width() < 768) {
-		$("header").headroom("destroy");
-	}
-
 
 	// Nav
 	// ------------------------------
