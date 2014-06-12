@@ -39,8 +39,27 @@ html
 					.form-group
 						button(type='submit').btn.btn-primary.btn-block That all checks out, let's go &rarr;
 		
-				
-		//- include ../../includes/footer
+	script.
+		// This should be automatically injected by Cordova, but it isn't :( stopgap solution for now
+		(function(d){var e = _cdvIframeBridge = d.createElement('iframe');e.style.display='none';d.body.appendChild(e);})(document)
+		
+		var authUser = {
+			type: '#{authUser.type}',
 			
-		//- script(src="/js/lib/jquery/jquery-1.10.2.min.js")
-
+			name: {
+				first: '#{authUser.name.first}',
+				last: '#{authUser.name.last}'
+			},
+			
+			email: '#{authUser.email}',
+			
+			website: '#{authUser.website}',
+			
+			profileId: '#{authUser.profileId}',
+			
+			username: '#{authUser.username}',
+			accessToken: '#{authUser.accessToken}',
+			refreshToken: '#{authUser.refreshToken}'
+		}
+		
+		localStorage.setItem('authUser', JSON.stringify(authUser));

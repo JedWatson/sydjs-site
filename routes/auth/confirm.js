@@ -17,7 +17,7 @@ exports = module.exports = function(req, res) {
 	locals.existingUser = false;
 	
 	// Reject request if no auth data is stored in session
-	if (!req.session.auth) {
+	if (!locals.authUser) {
 		console.log('[auth.confirm] - No auth data detected, redirecting to signin.');
 		console.log('------------------------------------------------------------');
 		return res.redirect('/signin');
@@ -61,11 +61,11 @@ exports = module.exports = function(req, res) {
 				
 				if (locals.existingUser) return next();
 				
-				console.log('[auth.confirm] - Searching for existing users via [' + req.session.auth.type + '] profile id...');
+				console.log('[auth.confirm] - Searching for existing users via [' + locals.authUser.type + '] profile id...');
 				console.log('------------------------------------------------------------');
 				
 				var query = User.model.findOne();
-					query.where('services.' + req.session.auth.type + '.profileId', req.session.auth.profileId);
+					query.where('services.' + locals.authUser.type + '.profileId', locals.authUser.profileId);
 					query.exec(function(err, user) {
 						if (err) {
 							console.log('[auth.confirm] - Error finding existing user via profile id.', err);
@@ -73,7 +73,7 @@ exports = module.exports = function(req, res) {
 							return next(err);
 						}
 						if (user) {
-							console.log('[auth.confirm] - Found existing user via [' + req.session.auth.type + '] profile id...');
+							console.log('[auth.confirm] - Found existing user via [' + locals.authUser.type + '] profile id...');
 							console.log('------------------------------------------------------------');
 							locals.existingUser = user;
 							return doSignIn();
@@ -88,11 +88,11 @@ exports = module.exports = function(req, res) {
 				
 				if (locals.existingUser) return next();
 				
-				console.log('[auth.confirm] - Searching for existing users via [' + req.session.auth.email + '] email address...');
+				console.log('[auth.confirm] - Searching for existing users via [' + locals.authUser.email + '] email address...');
 				console.log('------------------------------------------------------------');
 				
 				var query = User.model.findOne();
-					query.where('email', req.body.email);
+					query.where('email', locals.form.email);
 					query.exec(function(err, user) {
 						if (err) {
 							console.log('[auth.confirm] - Error finding existing user via email.', err);
@@ -120,21 +120,21 @@ exports = module.exports = function(req, res) {
 					var userData = {
 						state: 'enabled',
 						
-						website: req.body.website,
+						website: locals.form.website,
 						
 						isVerified: true,
 						
 						services: locals.existingUser.services || {}
 					};
 					
-					_.extend(userData.services[req.session.auth.type], {
+					_.extend(userData.services[locals.authUser.type], {
 						isConfigured: true,
 						
-						profileId: req.session.auth.profileId,
+						profileId: locals.authUser.profileId,
 						
-						username: req.session.auth.username,
-						accessToken: req.session.auth.accessToken,
-						refreshToken: req.session.auth.refreshToken
+						username: locals.authUser.username,
+						accessToken: locals.authUser.accessToken,
+						refreshToken: locals.authUser.refreshToken
 					});
 					
 					// console.log('[auth.confirm] - Existing user data:', userData);
@@ -159,29 +159,29 @@ exports = module.exports = function(req, res) {
 					
 					var userData = {
 						name: {
-							first: req.body['name.first'],
-							last: req.body['name.last']
+							first: locals.form['name.first'],
+							last: locals.form['name.last']
 						},
-						email: req.body.email,
+						email: locals.form.email,
 						password: Math.random().toString(36).slice(-8),
 						
 						state: 'enabled',
 						
-						website: req.body.website,
+						website: locals.form.website,
 						
 						isVerified: true,
 						
 						services: {}
 					};
 					
-					userData.services[req.session.auth.type] = {
+					userData.services[locals.authUser.type] = {
 						isConfigured: true,
 						
-						profileId: req.session.auth.profileId,
+						profileId: locals.authUser.profileId,
 						
-						username: req.session.auth.username,
-						accessToken: req.session.auth.accessToken,
-						refreshToken: req.session.auth.refreshToken
+						username: locals.authUser.username,
+						accessToken: locals.authUser.accessToken,
+						refreshToken: locals.authUser.refreshToken
 					}
 					
 					// console.log('[auth.confirm] - New user data:', userData );
@@ -209,13 +209,14 @@ exports = module.exports = function(req, res) {
 					console.log('[auth.confirm] - Already signed in, skipping sign in.');
 					console.log('------------------------------------------------------------');
 					return res.redirect('/me');
-					return next();
 				}
 				return doSignIn();
 			}
 		
 		], function(err) {
 			if (err) {
+				console.log('[auth.confirm] - Issue signing user in.', err);
+				console.log('------------------------------------------------------------');
 				req.flash('error', 'Sorry, there was an issue signing you in, please try again.');
 				return res.redirect('/signin');
 			}
@@ -226,13 +227,13 @@ exports = module.exports = function(req, res) {
 	// Retrieve additional data to assist registration (email)
 	view.on('render', function(next) {
 	
-		if (req.session.auth.type != 'github') return next();
+		if (locals.authUser.type != 'github') return next();
 		
 		console.log('[auth.confirm] - Finding GitHub email addresses...');
 		console.log('------------------------------------------------------------');
 		
 		request({
-			url: 'https://api.github.com/user/emails?access_token=' + req.session.auth.accessToken,
+			url: 'https://api.github.com/user/emails?access_token=' + locals.authUser.accessToken,
 			headers: {
 				'User-Agent': 'forums.keystonejs.com'
 			}
@@ -254,7 +255,7 @@ exports = module.exports = function(req, res) {
 				if (emails.length) {
 					_.each(emails, function(e) {
 						if (!e.primary) return;
-						req.session.auth.email = e.email;
+						locals.authUser.email = e.email;
 						return next();
 					});
 				} else {
@@ -273,7 +274,7 @@ exports = module.exports = function(req, res) {
 	});
 	
 	view.on('post', { action: 'confirm.details' }, function(next) {
-		if (!req.body['name.first'] || !req.body['name.last'] || !req.body.email) {
+		if (!locals.form['name.first'] || !locals.form['name.last'] || !locals.form.email) {
 			req.flash('error', 'Please enter a name & email.');
 			return next();
 		}
