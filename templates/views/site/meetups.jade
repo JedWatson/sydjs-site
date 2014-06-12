@@ -2,18 +2,18 @@ extends ../../layouts/default
 
 include ../../mixins/meetup
 
-block body
-	.container-sm
-		.page-intro
-			h1 Meetups
-			p.lead We usually meet up the 3rd Wednesday of every month. We hope to see you at  
-				a(href='/join').js-auth-trigger our&nbsp;next&nbsp;meetup
-				| . Stay in the loop - 
-				a(href='http://twitter.com/sydjs', target='_blank') follow us on twitter
-			//- .buttons
-				if !user
-					a(href='/join').btn.btn-primary Join SydJS
-				a(href="https://twitter.com/sydjs", class="twitter-follow-button", data-show-count="true" data-size="large") Follow @sydjs
+block intro
+	.page-intro: .container
+		h1 Meetups
+		p.lead We usually meet up the 3rd Wednesday of every month. We hope to see you at  
+			a(href='/join').js-auth-trigger our&nbsp;next&nbsp;meetup
+			| . Stay in the loop - 
+			a(href='http://twitter.com/sydjs', target='_blank') follow us on twitter
+		//- .buttons
+			if !user
+				a(href='/join').btn.btn-primary Join SydJS
+			a(href="https://twitter.com/sydjs", class="twitter-follow-button", data-show-count="true" data-size="large") Follow @sydjs
+
 		if upcomingMeetup
 			.page-content
 				+meetup(upcomingMeetup, 'present')
@@ -31,8 +31,8 @@ block body
 								button(type='button').btn.btn-block.btn-lg.btn-default.js-rsvp-decline No
 						//- h4.text-muted You are going to this meetup. 
 							a(href='javascript:;') Change
-	.container
-		
+block content
+	.page-content: .container
 		.timeline
 			.timeline-path
 			.timeline-item--offset

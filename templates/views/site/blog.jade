@@ -3,36 +3,39 @@ extends ../../layouts/default
 include ../../mixins/post
 
 block intro
-	h1=data.category ? data.category.name : 'Blog'
-	p.lead This is the blog of SydJS, contributed by our members and guest authors. Join to contribute.
-	//- .buttons
-		if !user
-			a(href='/join').btn.btn-primary Join SydJS
-			a(href='/signin').btn.btn-default Sign In
-		else
-			a(href='/me/create/post').btn.btn-primary Add post
+	.page-intro: .container
+		h1=data.category ? data.category.name : 'Blog'
+		p.lead This is the blog of SydJS, contributed by our members and guest authors.
+		p.lead Join to contribute.
+		//- .buttons
+			if !user
+				a(href='/join').btn.btn-primary Join SydJS
+				a(href='/signin').btn.btn-default Sign In
+			else
+				a(href='/me/create/post').btn.btn-primary Add post
 
 block content
-	.row
-		div(class= data.categories.length || !data.posts.length ? 'col-sm-8' : 'col-sm-8 col-sm-offset-2')
-			if filters.category && !data.category
-				h3 Invalid Category.
-			else
-				if data.posts.length
-					.blog
-						each post in data.posts
-							+post(post)
+	.page-content: .container
+		.row
+			div(class= data.categories.length || !data.posts.length ? 'col-sm-8' : 'col-sm-8 col-sm-offset-2')
+				if filters.category && !data.category
+					h3 Invalid Category.
 				else
-					if data.category
-						h3.text-muted No posts in the category #{data.category.name}.
+					if data.posts.length
+						.blog
+							each post in data.posts
+								+post(post)
 					else
-						h3.text-muted There are no posts yet.
-		
-		if data.categories.length
-			.col-sm-3.col-sm-offset-1
-				if data.categories.length
-					h5.text-muted Filter by tag
-					ul.list-unstyled.tags-list
-						li: a(href='/blog', class=!data.categories ? 'active' : false) All
-						each tag in data.categories
-							li: a(href='/blog/' + tag.key, class=data.category && data.category.id == tag.id ? 'active' : false).list-group-item= tag.name
+						if data.category
+							h3.text-muted No posts in the category #{data.category.name}.
+						else
+							h3.text-muted There are no posts yet.
+			
+			if data.categories.length
+				.col-sm-3.col-sm-offset-1
+					if data.categories.length
+						h5.text-muted Filter by tag
+						ul.list-unstyled.tags-list
+							li: a(href='/blog', class=!data.categories ? 'active' : false) All
+							each tag in data.categories
+								li: a(href='/blog/' + tag.key, class=data.category && data.category.id == tag.id ? 'active' : false).list-group-item= tag.name

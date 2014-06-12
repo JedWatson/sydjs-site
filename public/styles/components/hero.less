@@ -1,0 +1,93 @@
+/**
+*
+* Hero
+* 
+*
+**/
+
+// General styles
+#hero {
+	position: relative;
+	margin-top: -(@navbar-height + 11);
+	color: #FFF;
+	text-align: center;
+
+	.hero-background {
+		.ground;
+		position: absolute;
+		top: 0;
+		left: 0;
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+	.hero-content {
+		position: relative;
+		padding: 14em 0 10em;
+		.hero-title {
+			color: currentColor;
+			text-transform: uppercase;
+		}
+		.hero-subtitle {
+			margin-bottom: 1em;
+			color: fade(white, 50%);
+			font-size: @font-size-base * 1.5;
+			font-family: @font-family-serif;
+		}
+		.hero-description {
+			font-size: @font-size-base * 1.5;
+			& + & {
+			}
+		}
+		.hero-button {
+			position: absolute;
+			bottom: 0;
+			width: 100%;
+			a.btn {
+				.box-shadow(0 0 0 5px white);
+				.translate(-50%, -50%);
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				width: 20%;
+			}
+
+			@media (max-width: 1280px) {
+				a.btn {
+					width: 40%;
+				}
+			}
+			@media (max-width: @screen-sm-max) {
+				a.btn {
+					width: 60%;
+				}
+			}
+			@media (max-width: @screen-xs-max) {
+				a.btn {
+					width: 100%;
+				}
+			}
+		}
+
+	}
+}
+
+// Mask
+.hero-content.hero-content--hasmask {
+	//-#gradient .vertical(rgba(0,0,0,0.2), rgba(0,0,0,0.6));
+	background: fade(black, 60%);
+}
+
+// Meet up
+.hero-meetup { }
+
+// Next meet up
+.hero-meetup--next {
+	.hero-background {
+		background: url('/images/placeholders/sydney-1.jpg') no-repeat center center / cover;
+		background-color: black;
+	}
+}
+
+// Last meet up
+.hero-meetup--last { }

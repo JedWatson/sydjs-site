@@ -12,13 +12,16 @@ exports.initLocals = function(req, res, next) {
 	var locals = res.locals;
 	
 	locals.navLinks = [
-		// { label: 'Home',      key: 'home',      href: '/' },
-		{ label: 'Meetups',   key: 'meetups',   href: '/meetups' },
-		{ label: 'Members',   key: 'members',   href: '/members' },
-		{ label: 'Blog',      key: 'blog',      href: '/blog' }
+		{ label: 'Home',		key: 'home',		href: '/' },
+		{ label: 'About',		key: 'about',		href: '/about' },
+		{ label: 'Meetups',		key: 'meetups',		href: '/meetups' },
+		{ label: 'Members',		key: 'members',		href: '/members' },
+		{ label: 'Blog',		key: 'blog',		href: '/blog' }
 	];
 	
 	locals.user = req.user;
+
+	locals.basedir = keystone.get('basedir');
 	
 	locals.page = {
 		title: 'SydJS',

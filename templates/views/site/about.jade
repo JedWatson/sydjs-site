@@ -5,15 +5,15 @@ include ../../mixins/organiser
 block intro
 	.page-intro: .container
 		h1 About
-		p It seems that SydJS has always been with us, and not just since early 2010.
-		p With our very own Mr Speaker, Earle Castledine, set to leave our shores, Craig Sharkie herded the last few cats that allowed them to launch the first SydJS meeting.
+		p.lead It seems that SydJS has always been with us, and not just since early 2010.
+		p.lead With our very own Mr Speaker, Earle Castledine, set to leave our shores, Craig Sharkie herded the last few cats that allowed them to launch the first SydJS meeting.
 		//- .buttons
 			if !user
 				a(href='/join').btn.btn-primary Join SydJS
 			a(href="https://twitter.com/sydjs", class="twitter-follow-button", data-show-count="true" data-size="large") Follow @sydjs
 
 block content
-	.container
+	.page-content: .container
 		h2 Organisers
 		p.lead Each month the SydJS team works to bring you great presenters in a great venue.
 		.row.about-organisers

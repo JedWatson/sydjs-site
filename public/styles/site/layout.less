@@ -1,12 +1,13 @@
 //
 // Layout
 // ==============================
-
+html { .square( 100% ); }
+body { height: 100%; font-weight: 300; }
 
 
 // Containers
 // ------------------------------
-
+/*
 .container-xs,
 .container-sm,
 .container-md {
@@ -17,138 +18,42 @@
 	.container-sm { width: @screen-sm-min - @grid-gutter-width; }
 	.container-md { max-width: @screen-md-min - @grid-gutter-width; }
 }
+*/
 
-
-// Navbar
-// ------------------------------
-
-@navbar-border-top-width: 4px;
-.navbar {
-	background-color: @navbar-default-bg;
-	font-weight: 500;
-	// height: @navbar-height;
-	line-height: @navbar-height + 10;
-	margin: 0;
-}
-.navbar-nav {
-	// font-size: 0;
-	list-style: none;
-	margin-bottom: 0;
-	padding-left: 0;
-
-	> li {
-		// font-size: 16px;
-		display: inline-block;
-		
-		&.active > a {
-			position: relative;
-
-			&:after {
-				border: .5em solid transparent;
-				border-bottom-color: @body-bg;
-				bottom: 0;
-				content: " ";
-				left: 50%;
-				margin-left: -.5em;
-				position: absolute;
-			}
-		}
-	}
-	> li > a {
-		.transition( all 200ms ease );
-		// box-shadow: 0 0 0 transparent;
-		color: white;
-		display: block;
-		outline: none;
-		padding-left: 20px;
-		padding-right: 20px;
-
-		&:hover {
-			box-shadow: inset 0 4px 0 @orange;
-		}
-	}
-	.navbar-logo {
-		border-top: 0px solid @brand-primary;
-		display: block;
-		margin-right: 2em;
-		padding: 0;
-		z-index: 1;
-
-		img {
-			max-width: 100%;
-		}
-	}
-}
-.navbar-default .navbar-toggle {
-	background-color: @navbar-default-toggle-bg;
-}
-
-@media (max-width: @screen-xs-max) {
-	.navbar-logo {
-		width: 90px;
-	}
-	.navbar {
-		.scrollable(horizontal);
-		line-height: @navbar-height;
-	}
-	.site-nav {
-		position: relative;
-
-		.mask {
-			.square(@navbar-height);
-			content: "";
-			display: block;
-			line-height: @navbar-height;
-			pointer-events: none;
-			position: absolute;
-			text-align: center;
-			top: 0;
-		}
-		.mask-left {
-			#gradient .horizontal( @brown, fade(@brown, 0) );
-			left: 0;
-		}
-		.mask-right {
-			#gradient .horizontal( fade(@brown, 0), @brown );
-			right: 0;
-		}
-	}
-}
-
-// draw attention to the mask on the homepage so people don't miss the other nav pages
-.sitesection-home .site-nav {
-	.mask-right:after {
-		.animation( pulse 1s linear infinite );
-		.square(0);
-		.translate3d(0,0,0);
-		border: .5em solid transparent;
-		border-left-color: @orange;
-		content: " ";
-		display: inline-block;
-	}
-}
+// Layers
+// -----------------------------------------------------------
+.floor { position: relative;}
+.ground { z-index: -1; }
+.floor-1 { z-index: 1; }
+.floor-2 { z-index: 10; }
+.floor-3 { z-index: 100; }
+.floor-4 { z-index: 110; }
+.floor-5 { z-index: 120; }
+.floor-6 { z-index: 130; }
+.ceiling { z-index: 1000; }
 
 
 
 // Body
 // ------------------------------
-
-.site-body {}
+.site-body {
+	position: relative;
+	.floor-1;
+	padding-top: @navbar-height + 11;
+}
 
 
 
 // Footer
 // ------------------------------
-
 .site-footer {
-	// border-top: 8px solid white;
-	background-color: @brown;
-	color: mix(@brown, white, 40%);
-	font-size: @font-size-small;
-	font-weight: 300;
-	padding: 3em 0;
-	margin-top: 60px;
 	position: relative;
+	border-top: 1px solid fade(black, 10%);
+	margin-top: 60px;
+	padding: 3em 0;
+	color: @gray;
+	background: #FEFEFE;
+	font-weight: 300;
 
 	ul, ol {
 		.list-unstyled();
@@ -157,18 +62,44 @@
 		margin-bottom: 5px;
 	}
 	a {
-		color: mix(@brown, white, 20%);
+		color: @gray;
 	}
 	
 }
 .footer-heading {
-	color: mix(@brown, white, 60%);
+	color: @gray;
 }
 .footer-copyright {
-	border-top: 1px solid mix(@brown, white, 80%);
 	margin-top: 2em;
 	padding-top: 2em;
+	border-top: 1px solid fade(black, 10%);
 	text-align: center;
+}
+
+// Sticky footer (only on desktop)
+// ------------------------------
+@footerHeight: 280px;
+.site-wrapper.site-wrapper--has-sticky-footer {
+	position: relative;
+	padding-bottom: @footerHeight;
+	min-height: 100%;
+	@media (max-width: @screen-xs-max) {
+		padding-bottom: 0;
+	}
+}
+
+.site-footer.site-footer--sticky {
+	.ground;
+	position: absolute;
+	bottom: 0;
+	display: block;
+	width: 100%;
+	height: @footerHeight;
+	@media (max-width: @screen-xs-max) {
+		position: relative;
+		bottom: auto;
+		height: auto;
+	}
 }
 
 
@@ -186,8 +117,8 @@
 	.byline { margin: 0 0 0 0; }
 	
 	.link {
-		font-size: @font-size-base + 2;
 		margin: 0;
+		font-size: @font-size-base + 2;
 	}
 
 	.tags-list {
@@ -212,16 +143,16 @@
 		margin-bottom: 5px;
 	}
 	a {
-		padding: 2px 10px;
 		display: inline-block;
+		padding: 2px 10px;
 		border-radius: @border-radius-base;
-		font-size: @font-size-base;
 		background-color: @gray-light;
 		color: white;
+		font-size: @font-size-base;
 		
 		&:hover {
-			text-decoration: none;
 			background-color: @link-color;
+			text-decoration: none;
 		}
 		&.active {
 			background-color: @link-color;
@@ -236,30 +167,7 @@
 
 
 
-// Forms
-// ------------------------------
 
-
-// twbs right aligned labels looks weird
-.form-horizontal .control-label {
-	text-align: left;
-}
-
-// labels for checkboxes should look like content
-.checkbox { font-weight: inherit; }
-
-// allow gap between collapsed fields on small devices
-@media (max-width: @screen-xs-max) {
-	.form-group .row > [class^='col-'] {
-		margin-bottom: 10px;
-	}
-}
-
-// assume textarea's have adequate width
-// allow vertical resizing
-textarea {
-	.resizable(vertical);
-}
 
 
 
@@ -277,8 +185,9 @@ textarea {
 		margin-right: 10px;
 	}
 	.lead {
-		display: inline-block;
 		max-width: @screen-sm-min - @grid-gutter-width;
+		margin-left: auto;
+		margin-right: auto;
 	}
 }
 
@@ -286,14 +195,7 @@ textarea {
 // content
 
 .page-content {
-	.tile-base();
-	padding: @page-padding / 2;
-	position: relative;
-	z-index: 2;
-	
-	@media (min-width: @screen-sm-min) {
-		padding: @page-padding;
-	}
+	padding: @page-padding;
 }
 	
 
@@ -303,8 +205,8 @@ textarea {
 // ------------------------------
 
 .back-bar {
-	padding-bottom: 10px;
 	padding-top: 10px;
+	padding-bottom: 10px;
 	
 	p {
 		margin-bottom: 8px;
@@ -322,8 +224,8 @@ textarea {
 	.organiser {
 		.img-wrapper {
 			.square( 40px );
-			overflow: hidden;
 			float: left;
+			overflow: hidden;
 			margin-right: 9px;
 			
 			img {
@@ -335,8 +237,8 @@ textarea {
 		margin: 0;
 	} 
 	.organiser__twitter {
-		font-size: @font-size-base;
 		margin-bottom: 9px;
+		font-size: @font-size-base;
 	} 
 }
 
@@ -354,8 +256,8 @@ textarea {
 			float: right;
 		
 			.share-button {
-				margin-left: 10px;
 				margin-right: 0;
+				margin-left: 10px;
 			}
 		}
 	}
@@ -364,8 +266,8 @@ textarea {
 .share-button {
 	display: inline-block;
 	margin-right: 10px;
-	vertical-align: middle;
 	width: 76px;
+	vertical-align: middle;
 }
 
 
@@ -383,9 +285,9 @@ textarea {
 }
 .org__location-icon {
 	float: left;
-	font-size: 42px;
-	margin-right: 10px;
 	// margin-top: 2px;
+	margin-right: 10px;
+	font-size: 42px;
 }
 .org__location-address {
 	display: table;

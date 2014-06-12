@@ -1,16 +1,18 @@
 extends ../../layouts/default
 
-block body
+
+block intro
+	.page-intro: .container
+		h1 Members
+		p.lead The people and who are part of SydJS. 
+			a(href='/join').js-auth-trigger Add your tile
+		//- .buttons
+			if !user
+				a(href='/join').btn.btn-primary Join SydJS
+			a(href='/organisations').btn.btn-default View Organisations
+			a(href='/members/mentors').btn.btn-default View Mentors
+block content
 	.container
-		.page-intro
-			h1 Members
-			p.lead The people and who are part of SydJS. 
-				a(href='/join').js-auth-trigger Add your tile
-			//- .buttons
-				if !user
-					a(href='/join').btn.btn-primary Join SydJS
-				a(href='/organisations').btn.btn-default View Organisations
-				a(href='/members/mentors').btn.btn-default View Mentors
 		if members.length
 			ul#members.list-unstyled.members-list
 				each member in members

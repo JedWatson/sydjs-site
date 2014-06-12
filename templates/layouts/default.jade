@@ -19,35 +19,32 @@ html
 		
 		if user && user.canAccessKeystone
 			link(href="/keystone/styles/content/editor.min.css", rel="stylesheet")
-		
+
 		block css
 		block head
-	
-	
-	
-	//- HTML BODY
-	body: .site-wrapper
 
-		
-		//- SITE HEADER
-		block header
-			include ../includes/layout/nav
-		
-		
-		//- SITE BODY
-		block body
-			main.site-body(role='main')
-				
-				block intro
-				
-				+flash-messages(messages)
-				
-				block content
-		
-		
-		//- SITE FOOTER
-		block footer
-			include ../includes/layout/footer
+	//- HTML BODY
+	body(class=section ? 'sitesection-' + section : null)
+		.site-wrapper.site-wrapper--has-sticky-footer
+			
+			//- SITE HEADER
+			block header
+				header(id='header', role='banner', class=(section == 'home' ? 'header--home' : null)).header--fixed
+					include ../includes/layout/header
+			
+			//- SITE BODY
+			block body
+				main.site-body(role='main')
+
+					block intro
+
+					+flash-messages(messages)
+
+					block content
+			
+			//- SITE FOOTER
+			block footer
+				include ../includes/layout/footer
 
 
 		//- MODALS
@@ -57,57 +54,24 @@ html
 				.modal-dialog
 					.modal-content
 						+auth-forms({ modal: true, initial: 'signin' })
-
-
-	//-body(class=section ? 'sitesection-' + section : null): .site-wrapper
-		
-		//- HEADER
-		header(role='banner').site-nav
-			nav.navbar(role='navigation'): .container
-				ul.navbar-nav
-					li: a(href='/', title='Back to Home').navbar-logo
-						img(src='/images/logo.svg', alt='SydJS logo', width=155, height=35)
-					each link in navLinks
-						li(class=(section == link.key ? 'nav-item-' + link.key + ' active' : 'nav-item-' + link.key)): a(href=link.href)= link.label
-					if user
-						li: a(href='/me')= user.name.first
-						li: a(href='/signout')
-							span.visible-xs Sign out
-							span.entypo.entypo-large.entypo-logout.hidden-xs
-					else
-						li: a(href='/join', data-from=page.path).js-auth-trigger SignIn / Join
-		
-		
-		//- BODY
-		block body
-			.site-body
-				.page-intro: .container-sm
-					block intro
-				block flash-messages
-					+flash-messages(messages)
-				.container: .page-content
-					block content
-		
-		
-		//- FOOTER
-		include ../includes/site-footer
-		
-		
-		
+	
 	//- JAVASCRIPT
 	script(src='/js/lib/jquery/jquery-1.10.2.min.js')
 	script(src='/js/lib/bootstrap/collapse.js')
 	script(src='/js/lib/bootstrap/dropdown.js')
 	script(src='/js/lib/bootstrap/modal.js')
-	
+
+	//- Headroom
+	script(src="//cdn.jsdelivr.net/headroomjs/0.5.0/headroom.min.js")
+	script(src="//cdn.jsdelivr.net/headroomjs/0.5.0/jQuery.headroom.min.js")
+	script(src='/js/common/header.js')
+
 	if user && user.canAccessKeystone
 		script(src='/keystone/js/content/editor.js')
 	
 	script(src='/js/ui.js')
-	
 
+	
 	//- GOOGLE ANALYTICS
 	include ../includes/layout/js-ga
-
-
 	block js

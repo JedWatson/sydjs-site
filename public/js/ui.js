@@ -1,19 +1,18 @@
 $(function() {
-
 	// Nav
 	// ------------------------------
-	
-	if ($(window).width() < 768) {
+	$('#site-nav-toggle').click(function () {
+		$(this).toggleClass('open');
+		$('#site-nav').toggleClass('open');
+		$('body').toggleClass('no-touch-scrolling');
 
-		var mobileNavWidth = 0,
-			mobileNav = $('.navbar-nav');
-
-		mobileNav.find('li').each(function() { mobileNavWidth += $(this).width(); });
-		mobileNav.width( mobileNavWidth + 10 );
-
-		$('.site-nav').append('<span class="mask mask-left"></span><span class="mask mask-right"></span>');
-
-	}
+		// Disable hardware scrolling on mobile
+		if ($('body').is('.no-touch-scrolling')) {
+			document.ontouchmove = function(e){ e.preventDefault(); }
+		} else {
+			document.ontouchmove = function(e){ return true; }
+		};
+	});
 	
 	
 	
