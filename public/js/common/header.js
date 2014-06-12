@@ -7,7 +7,6 @@ $(function() {
 			"tolerance": 20,
 			"offset": 0,
 			"classes": {
-				"initial": "animated",
 				"pinned": "slideDown",
 				"unpinned": "slideUp",
 				"top": "headroom--top",
