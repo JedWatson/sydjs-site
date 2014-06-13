@@ -1,142 +1,46 @@
+// HOME PAGE
+// ------------------------------------------------------
 
-// coverall
-.section {
-	padding-bottom: @page-padding;
-	padding-top: @page-padding;
-}
-
-
-// intro
-
-.page-intro--meetup {
-	padding-bottom: 3em;
-	position: relative;
-	text-align: center;
-}
-
-// big ass button
-
-.rsvp-button {
-	.translate(-50%,50%);
-	// background-color: white;
-	border-radius: .5em;
-	bottom: 0;
-	// box-shadow: 0 -1px 0 rgba(0,0,0,0.16);
-	left: 50%;
-	padding: 10px;
-	position: absolute;
-	width: 50%;
-	z-index: 3;
-
-	> .btn {
-		background-color: @brand-primary;
-		border-radius: .25em;
-		box-shadow: inset 0 -2px rgba(0, 0, 0, 0.1);
-		color: white;
-		font-size: 1.2em;
-		display: block;
-		outline: none;
-		position: relative;
-
-		&:hover,
-		&:focus {
-			background-color: lighten(@brand-primary, 3.5%);
-		}
-		&:active {
-			box-shadow: inset 0 -1px rgba(0, 0, 0, 0.1);
-			top: 1px;
-		}
-	}
-}
-
-
-
-
-// NEXT MEETUP
-.home-meetup {
-	.btn-register {
-		background-color: @orange;
-		border-color: @orange;
-		border-bottom-color: mix(@orange, black, 85%);
-		border-bottom-width: 2px;
-		color: white;
-		padding-bottom: 15px;
-		padding-top: 15px;
-		font-weight: bold;
-		position: relative;
-		text-transform: uppercase;
-		
-		&:hover,
-		&:focus {
-			background-color: mix(@orange, white, 90%);
-			border-color: @orange;
-			border-bottom-color: mix(@orange, black, 90%);
-			outline: 0 none;
-		}
-		&:active {
-			box-shadow: none;
-			background-color: @orange;
-			border-bottom-color: @orange;
-			top: 2px;
-		}
-	}
-}
-
-
-
-
-// ABOUT
+// About
 // ------------------------------
 
 .home-about {
-	background: url( "/images/group-photo.jpg" ) center bottom no-repeat @gray-light;
+	background: url( "/images/group-photo.jpg" ) center center no-repeat @gray-lighter;
 	background-size: cover;
-	// border-bottom: 8px solid mix(white, @brand-primary, 20%);
-	// border-top: 8px solid mix(white, @brand-primary, 20%);
-	margin-left: -@page-padding;
-	margin-right: -@page-padding;
-	padding-bottom: @page-padding * 2;
-	padding-top: @page-padding * 2;
+	background-color: @gray-lighter;
 	overflow: hidden;
 	position: relative;
 	text-align: center;
-
-	&:after {
-		.fill-space(0,-33%,-20%,-10%);
-		.rotate(-10deg);
-		#gradient .vertical(fade(@yellow,0), fade(@yellow,50%), 50%, 100%);
-		content: "";
-		pointer-events: none;
-		z-index: 1;
-	}
 }
-.home-about__inner {
-	.container-fixed();
-	color: white;
-	font-size: 1.8em;
-	font-weight: 200;
-	max-width: 768px;
-	position: relative;
-	z-index: 2;
 
-	a {
-		border-bottom: 1px dotted rgba(255, 255, 255, 0.5);
-		color: white;
+// LINKS
+.home-links {
+	text-align: center;
+	.home-links__heading a {
+		color: @headings-color;
 
-		&:hover {
-			color: white;
-			border-bottom-color: white;
-			border-bottom-style: solid;
-			text-decoration: none;
+	}
+	
+	.link-icon-badge {
+		.square( 90px );
+		border-radius: 50%;
+		display: inline-block;
+		line-height: 90px;
+		text-align: center;
+	}
+	.link-icon {
+		color: @text-color;
+		display: inline-block;
+		font-size: 80px;
+		margin-top: -4px;
+		vertical-align: middle;
+	}
+	@media (min-width: @screen-sm-min) {
+		.link-icon-badge {
+			margin-left: 0;
+			margin-right: 0;
 		}
 	}
-}
-.home-about__list {
-	.list-inline();
-	border-top: 1px solid rgba(255, 255, 255, 0.5);
-	font-size: .7em;
-	margin-top: 2em;
-	padding-top: 2em;
 }
 
 
@@ -160,41 +64,5 @@
 
 
 
-// LINKS
-.home-links {
-	border-top: 8px solid mix(black, @body-bg, 10%);
-	
-	.home-links__heading a {
-		color: @headings-color;
-	}
-	
-	.link-icon-badge {
-		.square( 90px );
-		background-color: @brand-primary;
-		border-radius: 50%;
-		display: block;
-		line-height: 90px;
-		margin-left: auto;
-		margin-right: auto;
-		text-align: center;
-		
-		&:hover {
-			background-color: @link-hover-color;
-			text-decoration: none;
-		}
-	}
-	.link-icon {
-		color: white;
-		display: inline-block;
-		font-size: 80px;
-		margin-top: -4px;
-		vertical-align: middle;
-	}
-	@media (min-width: @screen-sm-min) {
-		.link-icon-badge {
-			margin-left: 0;
-			margin-right: 0;
-		}
-	}
-}
+
 

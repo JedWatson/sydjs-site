@@ -1,6 +1,6 @@
 $(function() {
 	$("#header").headroom({
-		"tolerance": 20,
+		"tolerance": 30,
 		"offset": 0,
 		"classes": {
 			"initial": "animated",

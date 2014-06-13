@@ -2,7 +2,7 @@
 // Layout
 // ==============================
 html { .square( 100% ); }
-body { height: 100%; font-weight: 300; }
+body { height: 100%; font-weight: 500; }
 
 
 // Containers
@@ -20,18 +20,6 @@ body { height: 100%; font-weight: 300; }
 }
 */
 
-// Layers
-// -----------------------------------------------------------
-.floor { position: relative;}
-.ground { z-index: -1; }
-.floor-1 { z-index: 1; }
-.floor-2 { z-index: 10; }
-.floor-3 { z-index: 100; }
-.floor-4 { z-index: 110; }
-.floor-5 { z-index: 120; }
-.floor-6 { z-index: 130; }
-.ceiling { z-index: 1000; }
-
 
 
 // Body
@@ -39,7 +27,10 @@ body { height: 100%; font-weight: 300; }
 .site-body {
 	position: relative;
 	.floor-1;
-	padding-top: @navbar-height + 11;
+	padding-top: @navbar-height + 10;
+	@media (max-width: @screen-xs-max) {
+		padding-top: 0;
+	}
 }
 
 
@@ -48,12 +39,11 @@ body { height: 100%; font-weight: 300; }
 // ------------------------------
 .site-footer {
 	position: relative;
-	border-top: 1px solid fade(black, 10%);
+	//border-top: 1px solid fade(black, 10%);
 	margin-top: 60px;
 	padding: 3em 0;
 	color: @gray;
-	background: #FEFEFE;
-	font-weight: 300;
+	background: @gray-lighter;
 
 	ul, ol {
 		.list-unstyled();
@@ -66,23 +56,22 @@ body { height: 100%; font-weight: 300; }
 	}
 	
 }
-.footer-heading {
-	color: @gray;
-}
 .footer-copyright {
 	margin-top: 2em;
 	padding-top: 2em;
+	padding-bottom: 2em;
 	border-top: 1px solid fade(black, 10%);
 	text-align: center;
 }
 
 // Sticky footer (only on desktop)
 // ------------------------------
-@footerHeight: 280px;
+@footerHeight: 340px;
 .site-wrapper.site-wrapper--has-sticky-footer {
 	position: relative;
 	padding-bottom: @footerHeight;
 	min-height: 100%;
+	background: @body-bg;
 	@media (max-width: @screen-xs-max) {
 		padding-bottom: 0;
 	}
@@ -173,9 +162,7 @@ body { height: 100%; font-weight: 300; }
 // Page
 // ------------------------------
 
-
-// intro
-
+// Secondary page intro
 .page-intro {
 	padding: @page-padding 0;
 	text-align: center;
@@ -191,12 +178,34 @@ body { height: 100%; font-weight: 300; }
 }
 
 
-// content
-
+// Page content
 .page-content {
-	padding: @page-padding;
+	//padding: @page-padding 0;
+	min-height: 1000px;
+	.floor;
+	.floor-1;
 }
-	
+
+// Page section
+.section {
+	padding-bottom: @page-padding * 1.5;
+	padding-top: @page-padding * 1.5;
+}
+.section--featured {
+	padding-bottom: @page-padding * 1;
+	padding-top: @page-padding * 2.5;
+}
+
+
+@media (max-width: @screen-xs-max) {
+	.row {
+		[class^="col-sm"] + [class^="col-sm"],
+		[class^="col-md"] + [class^="col-md"],
+		[class^="col-lg"] + [class^="col-lg"] {
+			margin-top: @page-padding;
+		}
+	}
+}
 
 
 

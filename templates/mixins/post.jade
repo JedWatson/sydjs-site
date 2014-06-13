@@ -1,5 +1,17 @@
 mixin post(post)
-	article(role="article", itemscope itemtype="http://schema.org/BlogPosting").blog-post
+	.col-sm-4
+		article(role="article", itemscope itemtype="http://schema.org/BlogPosting").post-card
+			if post.image.exists
+				a(href='/blog/post/' + post.slug).post-image: img(src=post._.image.thumbnail(600,320), alt=post.title).img-responsive
+			.post-summary
+				.post-byline
+					.post-author: a(href='/blog/post/' + post.slug)=post.author.name.full
+					.date-stamp: em=moment(post.publishedDate).fromNow()
+
+				h4(itemprop='name').post-title.mv-1
+					a(href='/blog/post/' + post.slug, itemprop='url')=post.title
+				.post-content-brief(itemprop='description')!= post.content.brief
+	//-article(role="article", itemscope itemtype="http://schema.org/BlogPosting").blog-post
 		.blog-post__date.illustrative-heading
 			span.illustrative-heading__line
 			span.illustrative-heading__text

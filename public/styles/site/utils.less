@@ -141,3 +141,36 @@
 .ui-reveal__hidden {
 	display: none;
 }
+
+// Layers
+// -----------------------------------------------------------
+.floor { position: relative;}
+.ground { z-index: -1; }
+.floor-1 { z-index: 1; }
+.floor-2 { z-index: 10; }
+.floor-3 { z-index: 100; }
+.floor-4 { z-index: 110; }
+.floor-5 { z-index: 120; }
+.floor-6 { z-index: 130; }
+.ceiling { z-index: 1000; }
+
+// Positioning
+// --------------------------------------------------
+.hv-centered {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	.translate(-50%,-50%);
+}
+
+.h-centered {
+	position: absolute;
+	left: 50%;
+	.translate(-50%,0);
+}
+
+.v-centered {
+	position: absolute;
+	top: 50%;
+	.translate(-50%,0);
+}

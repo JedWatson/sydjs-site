@@ -9,15 +9,137 @@ include ../../mixins/advertisement
 
 //- INTRO
 block intro
+
+	//- HERO
 	article#hero.hero-meetup.hero-meetup--next
-		.hero-background 
-		section.hero-content.hero-content--hasmask
-			h5.hero-subtitle: em Next meet up
-			h1.hero-title May the fourth (+17) be with you
-			p.hero-description #{moment().format('ddd, DD MMM YYYY')} &#8212; 6-9pm
-			p.hero-description Level 6, 341 George St (Atlassian) &#8212; Directions
+		
+		//- Intro
+		section.hero-intro.hero-intro--hasmask
+			.hero-background
+				//-img(src='/images/placeholders/sydney-1.jpg')
+			.hero-intro-content
+				h5.subtitle Next meet up
+				h1.title May the fourth (+17) be with you
+				p.byline #{moment().format('ddd, DD MMM YYYY')} &#8212; 6-9pm
+				p.byline Level 6, 341 George St (Atlassian) &#8212; Directions
 			.hero-button
 				a(href=js).btn.btn-primary.btn-lg.btn-block RSVP NOW
+		
+		//- Details
+		section.hero-details: .container
+			.row: .col-sm-10.col-sm-offset-1: .row
+				
+				//- Description
+				.col-sm-5
+					h3.mb-1 The meetup
+					.description
+						p We're ditching the balloons and streamers and decking the halls with some fantastic presentations instead. We've had 47 great meetings already, and we're not going to stop now.
+
+						p As a special treat, we're lucky enough have very special speakers. I spoke alongside onet at RESPOND earlier in the year. Another runs a growing Developer community here in Sydney. The last is reprising his presentation from JSConfAU last week. I don't know about you, but I'm certainly glad I've got a ticket!
+
+				//- Talks
+				.col-sm-6.col-sm-offset-1
+					h3.mb-1 The talks
+					ul.list-unstyled.talks-list
+						li.row
+							.col-xs-3
+								.talkers
+									img(src='http://fillmurray.com/100/100').img-circle
+									img(src='http://fillmurray.com/90/90').img-circle
+							.col-xs-9
+								.talk-summary
+									h5.title Design Hacks for Developers
+									p.subtitle.mb-1 by Georgi Knox <a href="#">CatRapture</a>, Cathy Lill <a href="#">CatRapture</a>
+									p.summary Learn some Design 101 tips and tricks - perfect for Back-end Developers who're finding themselves doing more and more Front-end work&hellip; <a href='#'>more</a>
+						li.row
+							.col-xs-3
+								.talkers
+									img(src='http://fillmurray.com/100/100').img-circle
+							.col-xs-9
+								.talk-summary
+									h5.title Design Hacks for Developers
+									p.subtitle.mb-1 by Georgi Knox <a href="#">CatRapture</a>
+									p.summary
+										| Learn some Design 101 tips and tricks - perfect for Back-end Developers who're finding themselves doing more and more Front-end work&hellip; <a href='#'>more</a>
+						li.row
+							.col-xs-3
+								.talkers
+									img(src='http://fillmurray.com/150/150').img-circle
+									img(src='http://fillmurray.com/80/80').img-circle
+							.col-xs-9
+								.talk-summary
+									h5.title Design Hacks for Developers
+									p.subtitle.mb-1 by Georgi Knox <a href="#">CatRapture</a>, Cathy Lill <a href="#">CatRapture</a>
+									p.summary Learn some Design 101 tips and tricks - perfect for Back-end Developers who're finding themselves doing more and more Front-end work&hellip; <a href='#'>more</a>
+			//- Attending
+			section.attending
+				h3.heading-with-line 168 people are attending
+				ul.list-unstyled.list-inline.text-center.attendees-list
+					- for (var i = 0; i < 60; i ++)
+						li: a(href='#')
+							img(src='http://fillmurray.com/40/40').img-circle
+				.row: .col-sm-4.col-sm-offset-4
+					a(href='#').btn.btn-link.btn-block.text-muted.mt-3 Show all 168 people &#8250;
+//- BODY
+block content
+	.page-content
+		
+		//- About
+		article.section.section--featured.home-about: .container
+			h2 In Sydney and into JavaScript? You need to join SydJS!
+			.row: .col-sm-8.col-sm-offset-2
+				h4 Every 3rd Wednesday of the month you'll find us talking about what we're doing &mdash; and what's happening around us &mdash; in the world of JavaScript.
+			.row: .col-sm-4.col-sm-offset-4
+				a(href='#').btn.btn-lg.btn-block.btn-success.mv-1
+					span.text-caps Join SydJS now
+			p.mt-1
+				a(href='/about') Learn more about SydJS
+				|  &nbsp;&middot;&nbsp; 
+				a(href='/about#code') Read our Code of Conduct
+			p.mt-1: a(href="https://twitter.com/sydjs", class="twitter-follow-button", data-show-count="true", data-size="large") Follow @sydjs
+		.container
+			//- Links
+			article.section.home-links
+				.row
+					.col-sm-4
+						.link-icon-badge: span.link-icon.entypo.entypo-globe
+						h3.home-links__heading Organisations
+						p.text-left Ju wan jQuery? Keen on Keystone? Looking for Lint? Need NICTA? Want a Webstack?
+						p.text-left.mt-1 There's a whole range of organisations that just help make your JavaScript life that much easier.
+						p.text-left.mt-1: a(href='/members/organisations', class='home-links-anchor') View organisations &#8250;
+
+					.col-sm-4
+						.link-icon-badge: span.link-icon.entypo.entypo-users
+						h3.home-links__heading Members
+						p.text-left At SydJS, all members are equal! To misquote Orwell, though, some are more equal than others.
+						p.text-left.mt-1 Want to raise your profile? Volunteer and we'll add you to the roster! Want to find out who's stepped up? It's all here.
+						p.text-left.mt-1: a(href='/members', class='home-links-anchor') View members &#8250;
+
+					.col-sm-4
+						.link-icon-badge: span.link-icon.entypo.entypo-link
+						h3.home-links__heading Links
+						p.text-left Got a favourite CDN? A favourite library? A micro-library? We do! You'll find some of them linked here.
+						p.text-left.mt-1 You might even find some links to things that _aren't_ JavaScript? That's right! Some things aren't JavaScript.
+						p.text-left.mt-1: a(href='/links', class='home-links-anchor') View links &#8250;
+
+
+			//- Blog
+			if posts.length
+				section.section.home-blog
+					h2.heading-with-line.mb-2 Latest Posts
+					.post-cards.row(itemscope itemtype="http://schema.org/Blog")
+						each post in posts
+							+post(post)
+
+					.row: .col-sm-4.col-sm-offset-4
+						a(href='/blog').btn.btn-link.btn-block.text-muted.mt-3 See all posts &#8250;
+
+
+
+						//-hr.line-dashed
+						//-p(data-ks-editable=editable(user, { list: 'Post' }))
+							a(href='/blog', itemprop='url').text-muted See all SydJS blog posts &rarr;
+
 
 	//-section.section.home-meetup
 		if !nextMeetup
@@ -79,67 +201,6 @@ block intro
 				a(href='https://maps.google.com.au/?daddr=' + nextMeetup.place, target='_blank').directions-button
 					span.entypo.entypo-popup
 					|  Get Directions
-
-
-//- CONTENT		
-block content
-	article
-		//- About
-		//-section.section.home-about: .container
-			h2 In Sydney and into JavaScript? You need to join SydJS.
-				br
-				br
-				| Every 3rd Wednesday of the month you'll find us talking about what we're doing &mdash; and what's happening around us &mdash; in the world of JavaScript.
-			p
-				a(href='/about') Learn more about SydJS
-				|  &nbsp;&middot;&nbsp; 
-				a(href='/about#code') Read our Code of Conduct
-			p: a(href="https://twitter.com/sydjs", class="twitter-follow-button", data-show-count="true", data-size="large") Follow @sydjs
-
-
-
-		//- Blog
-		//-if posts.length
-			section.section.home-blog: .container
-				.blog(itemscope itemtype="http://schema.org/Blog")
-					for post in posts
-						+post(post)
-					hr.line-dashed
-					p(data-ks-editable=editable(user, { list: 'Post' }))
-						a(href='/blog', itemprop='url').text-muted See all SydJS blog posts &rarr;
-
-
-
-		//- Links
-		//-section.section.home-links: .container
-			.row
-				.col-sm-4
-					a(href='/members/organisations').link-icon-badge: span.link-icon.entypo.entypo-globe
-					h2.home-links__heading: a(href='/members/organisations') Organisations
-					p Ju wan jQuery? Keen on Keystone? Looking for Lint? Need NICTA? Want a Webstack?
-					p There's a whole range of organisations that just help make your JavaScript life that much easier.
-
-				.col-sm-4
-					a(href='/members').link-icon-badge: span.link-icon.entypo.entypo-users
-					h2.home-links__heading: a(href='/members') Members
-					p At SydJS, all members are equal! To misquote Orwell, though, some are more equal than others.
-					p Want to raise your profile? Volunteer and we'll add you to the roster! Want to find out who's stepped up? It's all here.
-
-				.col-sm-4
-					a(href='/links').link-icon-badge: span.link-icon.entypo.entypo-link
-					h2.home-links__heading: a(href='/links') Links
-					p Got a favourite CDN? A favourite library? A micro-library? We do! And you'll find some of them linked here.
-					p You might even find some links to things that _aren't_ JavaScript? That's right! Some things aren't JavaScript.
-
-			.row
-				.col-sm-4
-					p: a(href='/members/organisations', class='home-links-anchor') View organisations
-
-				.col-sm-4
-					p: a(href='/members', class='home-links-anchor') View members
-
-				.col-sm-4
-					p: a(href='/links', class='home-links-anchor') View links
 
 
 //- JS
