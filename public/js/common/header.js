@@ -1,7 +1,7 @@
 $(function() {
 	$("#header").headroom({
-		"tolerance": 30,
-		"offset": 0,
+		"tolerance": 0,
+		"offset": 80,
 		"classes": {
 			"initial": "animated",
 			"pinned": "slideDown",

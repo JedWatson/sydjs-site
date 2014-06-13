@@ -1,6 +1,4 @@
 $(function() {
-	// Disable the headroom effect on mobile
-	// -------------------------------------
 
 	// Nav
 	// ------------------------------

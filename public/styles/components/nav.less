@@ -5,8 +5,6 @@
 .navbar {
 	.clearfix();
 	margin: 0;
-	background-color: @navbar-default-bg;
-	background-color: fade(@navbar-default-bg, 98%);
 	line-height: @navbar-height + 7;
 	font-weight: 500;
 }
@@ -28,6 +26,11 @@
 	> svg {
 		width: 100%;
 		height: @navbar-height + 10;
+		.transition( all linear 0.3s );
+	}
+
+	&:hover {
+		svg { .scale(1.05);}
 	}
 }
 
@@ -52,7 +55,9 @@ nav {
 		padding-left: 15px;
 		outline: none;
 		color: @gray-light;
+		color: fade(white, 60%);
 		text-transform: uppercase;
+		font-weight: 300;
 
 		&:hover {
 			color: white;
@@ -77,6 +82,24 @@ nav {
 	float: right;
 }
 
+// Navbar on home page
+.header--home {
+	&.headroom--top .navbar {
+		background-color: transparent;
+		.transition( all linear 0.2s );
+	}
+	&.headroom--not-top.slideDown .navbar {
+		background-color: fade(@navbar-default-bg, 98%);
+	}
+}
+
+// Navbar on other page
+.header--page {
+	.navbar {
+		background-color: fade(@navbar-default-bg, 98%);
+	}
+}
+
 // Mobile styles
 @media (max-width: @screen-sm-max) {
 	.site-branding {
@@ -86,7 +109,8 @@ nav {
 		}
 	}
 	.navbar-header {
-		position: relative;
+		.floor;
+		.ceiling;
 		float: none;
 		width: 100%;
 		height: @navbar-height;
