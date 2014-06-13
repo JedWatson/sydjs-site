@@ -70,7 +70,7 @@ exports = module.exports = function(req, res) {
 						if (err) {
 							console.log('[auth.confirm] - Error finding existing user via profile id.', err);
 							console.log('------------------------------------------------------------');
-							return next(err);
+							return next({ message: 'Sorry, there was an error processing your information, please try again.' });
 						}
 						if (user) {
 							console.log('[auth.confirm] - Found existing user via [' + locals.authUser.type + '] profile id...');
@@ -97,12 +97,12 @@ exports = module.exports = function(req, res) {
 						if (err) {
 							console.log('[auth.confirm] - Error finding existing user via email.', err);
 							console.log('------------------------------------------------------------');
-							return next(err);
+							return next({ message: 'Sorry, there was an error processing your information, please try again.' });
 						}
 						if (user) {
 							console.log('[auth.confirm] - Found existing user via email address...');
 							console.log('------------------------------------------------------------');
-							locals.existingUser = user;
+							return next({ message: 'There\'s already an account with that email address, please sign-in instead.' });
 						}
 						return next();
 					});
@@ -145,7 +145,7 @@ exports = module.exports = function(req, res) {
 						if (err) {
 							console.log('[auth.confirm] - Error saving existing user.', err);
 							console.log('------------------------------------------------------------');
-							return next(err);
+							return next({ message: 'Sorry, there was an error processing your account, please try again.' });
 						}
 						console.log('[auth.confirm] - Saved existing user.');
 						console.log('------------------------------------------------------------');
@@ -192,7 +192,7 @@ exports = module.exports = function(req, res) {
 						if (err) {
 							console.log('[auth.confirm] - Error saving new user.', err);
 							console.log('------------------------------------------------------------');
-							return next(err);
+							return next({ message: 'Sorry, there was an error processing your account, please try again.' });
 						}
 						console.log('[auth.confirm] - Saved new user.');
 						console.log('------------------------------------------------------------');
@@ -217,56 +217,12 @@ exports = module.exports = function(req, res) {
 			if (err) {
 				console.log('[auth.confirm] - Issue signing user in.', err);
 				console.log('------------------------------------------------------------');
-				req.flash('error', 'Sorry, there was an issue signing you in, please try again.');
+				req.flash('error', err.message || 'Sorry, there was an issue signing you in, please try again.');
 				return res.redirect('/signin');
 			}
 		});
 	
 	}
-	
-	// Retrieve additional data to assist registration (email)
-	view.on('render', function(next) {
-	
-		if (locals.authUser.type != 'github') return next();
-		
-		console.log('[auth.confirm] - Finding GitHub email addresses...');
-		console.log('------------------------------------------------------------');
-		
-		request({
-			url: 'https://api.github.com/user/emails?access_token=' + locals.authUser.accessToken,
-			headers: {
-				'User-Agent': 'forums.keystonejs.com'
-			}
-		}, function(err, data) {
-		
-			if (err) {
-				console.log(err);
-				console.log('[auth.confirm] - Error retrieving GitHub email addresses.');
-				console.log('------------------------------------------------------------');
-				return next();
-				
-			} else {
-				
-				console.log('[auth.confirm] - Retrieved GitHub email addresses...');
-				console.log('------------------------------------------------------------');
-				
-				var emails = JSON.parse(data.body);
-				
-				if (emails.length) {
-					_.each(emails, function(e) {
-						if (!e.primary) return;
-						locals.authUser.email = e.email;
-						return next();
-					});
-				} else {
-					return next();
-				}
-				
-			}
-			
-		});
-	
-	});
 	
 	view.on('init', function(next) {
 		if (req.user) return checkAuth();

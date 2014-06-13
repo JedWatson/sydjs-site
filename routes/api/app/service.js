@@ -60,7 +60,7 @@ exports = module.exports = function(req, res) {
 					if (err) {
 						console.log('[api.app.service]  - Error finding existing user via profile id.', err);
 						console.log('------------------------------------------------------------');
-						return next(err);
+						return next({ message: 'Sorry, there was an error processing your information, please try again.' });
 					}
 					if (user) {
 						console.log('[api.app.service]  - Found existing user via [' + locals.authUser.type + '] profile id...');
@@ -87,12 +87,12 @@ exports = module.exports = function(req, res) {
 					if (err) {
 						console.log('[api.app.service]  - Error finding existing user via email.', err);
 						console.log('------------------------------------------------------------');
-						return next(err);
+						return next({ message: 'Sorry, there was an error processing your information, please try again.' });
 					}
 					if (user) {
 						console.log('[api.app.service]  - Found existing user via email address...');
 						console.log('------------------------------------------------------------');
-						locals.existingUser = user;
+						return next({ message: 'There\'s already an account with that email address, please sign-in instead.' });
 					}
 					return next();
 				});
@@ -182,7 +182,7 @@ exports = module.exports = function(req, res) {
 					if (err) {
 						console.log('[api.app.service]  - Error saving new user.', err);
 						console.log('------------------------------------------------------------');
-						return next(err);
+						return next({ message: 'Sorry, there was an error processing your account, please try again.' });
 					}
 					console.log('[api.app.service]  - Saved new user.');
 					console.log('------------------------------------------------------------');
@@ -214,7 +214,8 @@ exports = module.exports = function(req, res) {
 			console.log('------------------------------------------------------------');
 			return res.apiResponse({
 				success: false,
-				session: false
+				session: false,
+				message: err.message || 'Sorry, there was an issue signing you in, please try again.'
 			});
 		}
 	});
