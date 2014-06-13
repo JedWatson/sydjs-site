@@ -16,11 +16,11 @@ exports = module.exports = function(req, res) {
 	// Function to handle signin
 	var doSignIn = function() {
 	
-		console.log('[api.app.service-confirm]  - Signing in user...');
+		console.log('[api.app.service]  - Signing in user...');
 		console.log('------------------------------------------------------------');
 		
 		var onSuccess = function(user) {
-			console.log('[api.app.service-confirm]  - Successfully signed in.');
+			console.log('[api.app.service]  - Successfully signed in.');
 			console.log('------------------------------------------------------------');
 			return res.apiResponse({
 				success: true,
@@ -31,7 +31,7 @@ exports = module.exports = function(req, res) {
 		}
 		
 		var onFail = function(err) {
-			console.log('[api.app.service-confirm]  - Failed signing in.', err);
+			console.log('[api.app.service]  - Failed signing in.', err);
 			console.log('------------------------------------------------------------');
 			return res.apiResponse({
 				success: false,
@@ -51,19 +51,19 @@ exports = module.exports = function(req, res) {
 			
 			if (locals.existingUser) return next();
 			
-			console.log('[api.app.service-confirm]  - Searching for existing users via [' + locals.authUser.type + '] profile id...');
+			console.log('[api.app.service]  - Searching for existing users via [' + locals.authUser.type + '] profile id...');
 			console.log('------------------------------------------------------------');
 			
 			var query = User.model.findOne();
 				query.where('services.' + locals.authUser.type + '.profileId', locals.authUser.profileId);
 				query.exec(function(err, user) {
 					if (err) {
-						console.log('[api.app.service-confirm]  - Error finding existing user via profile id.', err);
+						console.log('[api.app.service]  - Error finding existing user via profile id.', err);
 						console.log('------------------------------------------------------------');
 						return next(err);
 					}
 					if (user) {
-						console.log('[api.app.service-confirm]  - Found existing user via [' + locals.authUser.type + '] profile id...');
+						console.log('[api.app.service]  - Found existing user via [' + locals.authUser.type + '] profile id...');
 						console.log('------------------------------------------------------------');
 						locals.existingUser = user;
 						return doSignIn();
@@ -78,19 +78,19 @@ exports = module.exports = function(req, res) {
 			
 			if (locals.existingUser) return next();
 			
-			console.log('[api.app.service-confirm]  - Searching for existing users via [' + locals.authUser.email + '] email address...');
+			console.log('[api.app.service]  - Searching for existing users via [' + locals.authUser.email + '] email address...');
 			console.log('------------------------------------------------------------');
 			
 			var query = User.model.findOne();
 				query.where('email', locals.form.email);
 				query.exec(function(err, user) {
 					if (err) {
-						console.log('[api.app.service-confirm]  - Error finding existing user via email.', err);
+						console.log('[api.app.service]  - Error finding existing user via email.', err);
 						console.log('------------------------------------------------------------');
 						return next(err);
 					}
 					if (user) {
-						console.log('[api.app.service-confirm]  - Found existing user via email address...');
+						console.log('[api.app.service]  - Found existing user via email address...');
 						console.log('------------------------------------------------------------');
 						locals.existingUser = user;
 					}
@@ -104,7 +104,7 @@ exports = module.exports = function(req, res) {
 		
 			if (locals.existingUser) {
 			
-				console.log('[api.app.service-confirm]  - Existing user found, updating...');
+				console.log('[api.app.service]  - Existing user found, updating...');
 				console.log('------------------------------------------------------------');
 				
 				var userData = {
@@ -127,24 +127,24 @@ exports = module.exports = function(req, res) {
 					refreshToken: locals.authUser.refreshToken
 				});
 				
-				// console.log('[api.app.service-confirm]  - Existing user data:', userData);
+				// console.log('[api.app.service]  - Existing user data:', userData);
 				
 				locals.existingUser.set(userData);
 				
 				locals.existingUser.save(function(err) {
 					if (err) {
-						console.log('[api.app.service-confirm]  - Error saving existing user.', err);
+						console.log('[api.app.service]  - Error saving existing user.', err);
 						console.log('------------------------------------------------------------');
 						return next(err);
 					}
-					console.log('[api.app.service-confirm]  - Saved existing user.');
+					console.log('[api.app.service]  - Saved existing user.');
 					console.log('------------------------------------------------------------');
 					return next();
 				});
 			
 			} else {
 			
-				console.log('[api.app.service-confirm]  - Creating new user...');
+				console.log('[api.app.service]  - Creating new user...');
 				console.log('------------------------------------------------------------');
 				
 				var userData = {
@@ -174,17 +174,17 @@ exports = module.exports = function(req, res) {
 					refreshToken: locals.authUser.refreshToken
 				}
 				
-				// console.log('[api.app.service-confirm]  - New user data:', userData );
+				// console.log('[api.app.service]  - New user data:', userData );
 				
 				locals.existingUser = new User.model(userData);
 				
 				locals.existingUser.save(function(err) {
 					if (err) {
-						console.log('[api.app.service-confirm]  - Error saving new user.', err);
+						console.log('[api.app.service]  - Error saving new user.', err);
 						console.log('------------------------------------------------------------');
 						return next(err);
 					}
-					console.log('[api.app.service-confirm]  - Saved new user.');
+					console.log('[api.app.service]  - Saved new user.');
 					console.log('------------------------------------------------------------');
 					return next();
 				});
@@ -196,7 +196,7 @@ exports = module.exports = function(req, res) {
 		// Session
 		function() {
 			if (req.user) {
-				console.log('[api.app.service-confirm]  - Already signed in, skipping sign in.');
+				console.log('[api.app.service]  - Already signed in, skipping sign in.');
 				console.log('------------------------------------------------------------');
 				return res.apiResponse({
 					success: true,
@@ -210,7 +210,7 @@ exports = module.exports = function(req, res) {
 	
 	], function(err) {
 		if (err) {
-			console.log('[api.app.service-confirm]  - Issue signing user in.', err);
+			console.log('[api.app.service]  - Issue signing user in.', err);
 			console.log('------------------------------------------------------------');
 			return res.apiResponse({
 				success: false,
