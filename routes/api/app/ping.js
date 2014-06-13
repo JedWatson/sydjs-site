@@ -6,7 +6,7 @@ exports = module.exports = function(req, res) {
 				compatibility: '1.0.0',
 				production: '1.0.0'
 			},
-			killSwitch: false // Disables app completely (blocks all user interaction with app)
+			killSwitch: false
 		}
 	});
 }

@@ -12,7 +12,7 @@ exports = module.exports = function(req, res, next) {
 
 	if (!req.params.service) {
 		console.log('[auth.service] - You must define the service you wish to authenticate with.');
-		return res.redirect('/login');
+		return res.redirect('/signin');
 	}
 	
 	services[req.params.service].authenticateUser(req, res, next);
