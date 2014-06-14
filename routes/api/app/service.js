@@ -78,7 +78,7 @@ exports = module.exports = function(req, res) {
 			
 			if (locals.existingUser) return next();
 			
-			console.log('[api.app.service]  - Searching for existing users via [' + locals.authUser.email + '] email address...');
+			console.log('[api.app.service]  - Searching for existing users via [' + locals.form.email + '] email address...');
 			console.log('------------------------------------------------------------');
 			
 			var query = User.model.findOne();
