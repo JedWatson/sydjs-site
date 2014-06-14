@@ -161,6 +161,11 @@ exports = module.exports = function(req, res) {
 					
 					isVerified: true,
 					
+					notifications: {
+						posts: locals.form.alertsNotifications,
+						meetups: locals.form.alertsNotifications
+					},
+					
 					services: {}
 				};
 				
