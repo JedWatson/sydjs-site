@@ -1,19 +1,20 @@
 extends ../../layouts/default
 	
 block content
-	h1!=errorTitle || 'Error (500)'
-	if 'object' == typeof errorMsg
-		div(style='margin: 30px 0;').debug!= htmlStringify(errorMsg)
-	else
-		p!= utils.textToHTML(errorMsg) || 'Sorry, the server encountered an error.<br><br>Please try again shortly, or contact us if the problem continues.'
-	if err
-		hr.mv-2
-		h3 Error Details
-		pre.mb-2: code
-			if 'string' == typeof err
-				!= utils.textToHTML(err)
-			else
-				!= htmlStringify(err)
+	.container-sm: .pv-2
+		h1!=errorTitle || 'Error (500)'
+		if 'object' == typeof errorMsg
+			div(style='margin: 30px 0;').debug!= htmlStringify(errorMsg)
+		else
+			p!= utils.textToHTML(errorMsg) || 'Sorry, the server encountered an error.<br><br>Please try again shortly, or contact us if the problem continues.'
+		if err
+			hr.mv-2
+			h3 Error Details
+			pre.mb-2: code
+				if 'string' == typeof err
+					!= utils.textToHTML(err)
+				else
+					!= htmlStringify(err)
 
-	p If you're seeing this error often please 
-		a(href='https://github.com/JedWatson/sydjs-site/issues', target='_blank') let us know.
+		p If you're seeing this error often please 
+			a(href='https://github.com/JedWatson/sydjs-site/issues', target='_blank') let us know.

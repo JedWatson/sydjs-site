@@ -17,12 +17,12 @@ block intro
 block content
 	.page-content: .container
 		.row
-			div(class= data.categories.length || !data.posts.length ? 'col-sm-8' : 'col-sm-8 col-sm-offset-2')
+			div(class= data.categories.length || !data.posts.length ? 'col-sm-9' : 'col-sm-9 col-sm-offset-2')
 				if filters.category && !data.category
 					h3 Invalid Category.
 				else
 					if data.posts.length
-						.blog
+						.post-cards.row(itemscope itemtype="http://schema.org/Blog")
 							each post in data.posts
 								+post(post)
 					else
@@ -32,7 +32,7 @@ block content
 							h3.text-muted There are no posts yet.
 			
 			if data.categories.length
-				.col-sm-3.col-sm-offset-1
+				.col-sm-3
 					if data.categories.length
 						h5.text-muted Filter by tag
 						ul.list-unstyled.tags-list
