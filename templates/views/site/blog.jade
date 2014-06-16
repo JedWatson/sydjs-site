@@ -19,9 +19,8 @@ block content
 				else
 					if data.posts.length
 						.post-cards.row(itemscope itemtype="http://schema.org/Blog")
-							-for (var i = 1; i < 20; i++)
-								each post in data.posts
-									+post(post)
+							each post in data.posts
+								+post(post)
 					else
 						if data.category
 							h3.text-muted No posts in the category #{data.category.name}.
