@@ -4,8 +4,9 @@ extends ../../layouts/default
 block intro
 	.page-intro: .container
 		h1 Members
-		p.lead The people and who are part of SydJS. 
-			a(href='/join').js-auth-trigger Add your tile
+		p.lead The people and who make up SydJS. 
+			if !user
+				a(href='/join').js-auth-trigger Add your tile
 		//- .buttons
 			if !user
 				a(href='/join').btn.btn-primary Join SydJS

@@ -6,8 +6,11 @@ block intro
 	.container-sm
 		.page-intro
 			h1 Meetups
-			p.lead We usually meet up the 3rd Wednesday of every month. We hope to see you at  
-				a(href='/join').js-auth-trigger our&nbsp;next&nbsp;meetup
+			p.lead We usually meet up the 3rd Wednesday of every month. We hope to see you at 
+				if !user
+					a(href='/join').js-auth-trigger our&nbsp;next&nbsp;meetup
+				else
+					| our next meetup
 				| . Stay in the loop - 
 				a(href='http://twitter.com/sydjs', target='_blank') follow us on twitter
 
