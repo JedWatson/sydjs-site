@@ -96,7 +96,7 @@ keystone.set('email tests', {
 });
 
 keystone.set('nav', {
-	'meetups': ['meetups', 'talks'],
+	'meetups': ['meetups', 'talks', 'rsvps'],
 	'members': ['users', 'organisations'],
 	'posts': ['posts', 'post-categories', 'post-comments'],
 	'links': ['links', 'link-tags', 'link-comments']

@@ -3,10 +3,9 @@ extends ../../layouts/default
 include ../../mixins/meetup
 
 block content
-	- var today = new Date();
 	.container-sm
 		.page-intro.text-left
 			a(href='/meetups').text-muted &larr; Back to all meetups
 		.page-content
-			+meetup(meetup, (meetup.date > today ? 'present' : 'past'))
+			+meetup(meetup, (meetup.date > new Date() ? 'present' : 'past'))
 may-the-fourth-(+17)-be-with-you

@@ -122,13 +122,13 @@ block content
 									button(type='button').btn.btn-block.btn-default.js-rsvp-decline No
 						else
 							.text-muted Sorry, no spots left.
-					hr.mv-2
 				if rsvps.history.length
+					hr.mv-2
 					h3 You've been to #{plural(rsvps.history.length, '* meetup', '* meetups')}
 					ul
 						each attendedMU in rsvps.history
 							li=attendedMU.meetup.name
-				else
+				//- else
 					h3.mt-0 You're getting ready for your first SydJS!
 							
 block js

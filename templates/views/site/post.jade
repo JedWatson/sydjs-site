@@ -3,7 +3,7 @@ extends ../../layouts/default
 block content
 	.container-sm
 		a(href='/blog').text-muted &larr; Back to the blog
-		article.full-post
+		article.full-post.tile
 			if !post
 				h2 Invalid Post.
 			else

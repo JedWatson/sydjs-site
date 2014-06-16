@@ -1,40 +1,37 @@
 extends ../../layouts/default
 
 block intro
-	h1 Mentors
-	p The mentors who are part of SydJS. Should you be here? Join us!
-	//- .buttons
-		if !user
-			a(href='/join').btn.btn-primary Join SydJS
-		a(href='/members').btn.btn-default View Members
-		a(href='/organisations').btn.btn-default View Organisations
+	.page-intro: .container
+		h1 Mentors
+		p The mentors who are part of SydJS. Should you be here? Join us!
 
 block content
-	if members.length
-		table.table.table-striped
-			thead.panel-heading
-				tr
-					th Name
-					th Free
-					th Paid
-					th Swap
-					th.hidden-xs Have
-					th.hidden-xs Want
-					th.hidden-xs Contact
-			tbody
-				each member in members
+	.page-intro: .container
+		if members.length
+			table.table.table-striped
+				thead.panel-heading
 					tr
-						td
-							div= member.name.full
-							if member.twitter
-								a(href='https://twitter.com/' + member.twitter.replace('@', ''), target='_blank').text-sm= member.twitter
-						td!= member.mentoring.free ? '<span class="entypo entypo-check"></span>' : null
-						td!= member.mentoring.paid ? '<span class="entypo entypo-check"></span>' : null
-						td!= member.mentoring.swap ? '<span class="entypo entypo-check"></span>' : null
-						td.hidden-xs= member.mentoring.have
-						td.hidden-xs= member.mentoring.want
-						td.hidden-xs
-							if member.email
-								= member.email.replace('@', ' at ').replace(/\./i, ' dot ')
-	else
-		h3.text-muted There are no mentors yet.
+						th Name
+						th Free
+						th Paid
+						th Swap
+						th.hidden-xs Have
+						th.hidden-xs Want
+						th.hidden-xs Contact
+				tbody
+					each member in members
+						tr
+							td
+								div= member.name.full
+								if member.twitter
+									a(href='https://twitter.com/' + member.twitter.replace('@', ''), target='_blank').text-sm= member.twitter
+							td!= member.mentoring.free ? '<span class="entypo entypo-check"></span>' : null
+							td!= member.mentoring.paid ? '<span class="entypo entypo-check"></span>' : null
+							td!= member.mentoring.swap ? '<span class="entypo entypo-check"></span>' : null
+							td.hidden-xs= member.mentoring.have
+							td.hidden-xs= member.mentoring.want
+							td.hidden-xs
+								if member.email
+									= member.email.replace('@', ' at ').replace(/\./i, ' dot ')
+		else
+			h3.text-muted There are no mentors yet.
