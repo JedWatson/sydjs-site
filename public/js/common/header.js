@@ -14,7 +14,7 @@ $(function() {
 		if ($(window).width() > 979) {
 			$("#header").addClass('header--fixed animated');
 		} else {
-			$("#header").removeClass();
+			$("#header").removeClass('header--fixed animated');
 		}
 	});
 
@@ -22,7 +22,7 @@ $(function() {
 		if ($(window).width() > 979) {
 			$("#header").addClass('header--fixed animated');
 		} else {
-			$("#header").removeClass();
+			$("#header").removeClass('header--fixed animated');
 		}
 	});
 
