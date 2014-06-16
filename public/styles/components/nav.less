@@ -86,9 +86,10 @@ nav {
 .header--home {
 	&.headroom--top .navbar {
 		background-color: transparent;
-		.transition( all linear 0.2s );
+		.transition( all linear 0.2s 0.4s );
 	}
-	&.headroom--not-top.slideDown .navbar {
+	&.headroom--not-top.slideDown .navbar,
+	&.headroom--not-top.headroom--middle.slideUp .navbar {
 		background-color: fade(@navbar-default-bg, 98%);
 	}
 }
