@@ -34,8 +34,8 @@ User.add({
 	bio: { type: Types.Markdown }
 }, 'Notifications', {
 	notifications: {
-		posts: Boolean,
-		meetups: Boolean
+		posts: { type: Boolean },
+		meetups: { type: Boolean, default: true }
 	}
 }, 'Mentoring', {
 	mentoring: {

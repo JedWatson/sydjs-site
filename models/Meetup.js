@@ -22,19 +22,19 @@ Meetup.add({
 });
 
 
-/**
- * Relationships
- * =============
- */
+
+
+// Relationships
+// ------------------------------
 
 Meetup.relationship({ ref: 'Talk', refPath: 'meetup', path: 'talks' });
 Meetup.relationship({ ref: 'RSVP', refPath: 'meetup', path: 'rsvps' });
 
 
-/**
- * Virtuals
- * ========
- */
+
+
+// Virtuals
+// ------------------------------
 
 Meetup.schema.virtual('url').get(function() {
 	return '/meetups/' + this.key;
@@ -50,10 +50,23 @@ Meetup.schema.virtual('rsvpsAvailable').get(function() {
 });
 
 
-/**
- * Methods
- * =======
- */
+
+// Pre-Save
+// ------------------------------
+
+Meetup.schema.pre('save', function(next) {
+	
+	this.wasNew = this.isNew;
+	
+	next();
+	
+});
+
+
+
+
+// Methods
+// ------------------------------
 
 Meetup.schema.methods.refreshRSVPs = function(callback) {
 	
@@ -70,6 +83,35 @@ Meetup.schema.methods.refreshRSVPs = function(callback) {
 			meetup.save(callback);
 			
 		});
+	
+}
+
+Meetup.schema.methods.notifySubscribers = function(req, res, next) {
+	
+	var meetup = this;
+	
+	keystone.list('User').model.find().where('notifications.meetups', true).exec(function(err, subscribers) {
+
+		if (err) return next(err);
+		
+		if (!subscribers.length) {
+			next();
+		} else {
+			subscribers.forEach(function(subscriber) {
+				new keystone.Email('new-meetup').send({
+					subscriber: subscriber,
+					meetup: meetup,
+					subject: 'New meetup: ' + meetup.name,
+					to: subscriber.email,
+					from: {
+						name: 'SydJS',
+						email: 'system@sydjs.com'
+					}
+				}, next);
+			});
+		}
+		
+	});
 	
 }
 
