@@ -5,44 +5,37 @@ include ../../mixins/organiser
 block intro
 	.page-intro: .container
 		h1 About
-		p.lead It seems that SydJS has always been with us, and not just since early 2010.
-		p.lead With our very own Mr Speaker, Earle Castledine, set to leave our shores, Craig Sharkie herded the last few cats that allowed them to launch the first SydJS meeting.
-		//- .buttons
-			if !user
-				a(href='/join').btn.btn-primary Join SydJS
-			a(href="https://twitter.com/sydjs", class="twitter-follow-button", data-show-count="true" data-size="large") Follow @sydjs
+		p.lead Every 3rd Wednesday of the month you'll find us talking about what we're doing and what's happening around us in the world of JavaScript.
+		p.lead SydJS wouldn't be possible without our organisers:
 
 block content
-	.page-content: .container
-		h2 Organisers
-		p.lead Each month the SydJS team works to bring you great presenters in a great venue.
-		.row.about-organisers
-			each org in organisers
-				.col-sm-3
-					+organiser(org)
+	.page-content
+		.section.highlight: .container
+			//- h2 Organisers
+			//- p.lead Each month the SydJS team works to bring you great presenters in a great venue.
+			.row.about-organisers
+				each org in organisers
+					.col-sm-3
+						+organiser(org)
 			
 		
 		//- CODE
-		a(name='code')
-		h2 Code of Conduct
-		.row
-			.col-sm-9.col-md-8
-				h3 We choose to share JavaScript's good parts; and we choose to share our own.
-				p The Sydney JavaScript community is full of wonderful people from a diverse range of backgrounds, and we want to ensure it remains a welcoming and safe environment to all who wish to be a part of it.
-				p Whenever we come together as a community, our shared spaces are opportunities to showcase the best of what we can be. We are there to support our peers - to build each other up, to accept each other for who they are, and to encourage each other to become the people they want to be.
-				p With that in mind, if you are present at any SydJS event, whether as an attendee, organiser, sponsor, or speaker, we take it as given that you agree to follow this code of conduct:
-				p The SydJS community is dedicated to providing harassment-free experiences at events and conferences for everyone regardless of who they are or what they believe. We do not tolerate harassment in any form.
-				p All communication should be appropriate for a professional audience including people of many different backgrounds.
-				p Be kind and respectful towards others. Remember that harassment and exclusionary jokes are not appropriate for events supported by SydJS.
-				p Anyone violating these rules at events may be asked to leave the event without a refund at the sole discretion of the organisers.
-				p If you or someone else is subject to harassment, or you have a concern, please contact the event organisers (who will introduce themselves at the beginning of the event).
-				p The SydJS community is a welcoming and friendly place – thank you for being a part of it.
-				p If you believe in building people, communities, and software, then you are a part of us.
-			
-			.col-sm-3.col-md-offset-1
-				hr.visible-xs
-				h3 Thank you
-				p This Code of Conduct has learned and borrowed much from others - especially <a href='http://ruby.org.au/code-of-conduct.html'>rubyaustralia</a>, <a href='http://jsconf.com/codeofconduct.html'>JSConf</a>, and <a href='https://gist.github.com/jcasimir/6992184'>Jeff Casimir</a>. Thank you to all who provided inspiration and feedback.
+		.section: .container-sm
+			h2 Code of Conduct
+			p: strong We choose to share JavaScript's good parts; and we choose to share our own.
+			p The Sydney JavaScript community is full of wonderful people from a diverse range of backgrounds, and we want to ensure it remains a welcoming and safe environment to all who wish to be a part of it.
+			p Whenever we come together as a community, our shared spaces are opportunities to showcase the best of what we can be. We are there to support our peers - to build each other up, to accept each other for who they are, and to encourage each other to become the people they want to be.
+			p With that in mind, if you are present at any SydJS event, whether as an attendee, organiser, sponsor, or speaker, we take it as given that you agree to follow this code of conduct:
+			p The SydJS community is dedicated to providing harassment-free experiences at events and conferences for everyone regardless of who they are or what they believe. We do not tolerate harassment in any form.
+			p All communication should be appropriate for a professional audience including people of many different backgrounds.
+			p Be kind and respectful towards others. Remember that harassment and exclusionary jokes are not appropriate for events supported by SydJS.
+			p Anyone violating these rules at events may be asked to leave the event without a refund at the sole discretion of the organisers.
+			p If you or someone else is subject to harassment, or you have a concern, please contact the event organisers (who will introduce themselves at the beginning of the event).
+			p The SydJS community is a welcoming and friendly place – thank you for being a part of it.
+			p If you believe in building people, communities, and software, then you are a part of us.
+			hr
+			p: strong Thank you
+			p This Code of Conduct has learned and borrowed much from others - especially <a href='http://ruby.org.au/code-of-conduct.html'>rubyaustralia</a>, <a href='http://jsconf.com/codeofconduct.html'>JSConf</a>, and <a href='https://gist.github.com/jcasimir/6992184'>Jeff Casimir</a>. Thank you to all who provided inspiration and feedback.
 
 block js
 	// twitter
