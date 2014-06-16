@@ -5,26 +5,23 @@ include ../../mixins/post
 block intro
 	.page-intro: .container
 		h1=data.category ? data.category.name : 'Blog'
-		p.lead This is the blog of SydJS, contributed by our members and guest authors.
-		p.lead Join to contribute.
-		//- .buttons
-			if !user
-				a(href='/join').btn.btn-primary Join SydJS
-				a(href='/signin').btn.btn-default Sign In
-			else
-				a(href='/me/create/post').btn.btn-primary Add post
+		p.lead
+			| This is the blog of SydJS, contributed by our members and guest authors.&nbsp;
+			a(href='/join').js-auth-trigger Join now
+			| &nbsp;to contribute.
 
 block content
 	.page-content: .container
 		.row
-			div(class= data.categories.length || !data.posts.length ? 'col-sm-9' : 'col-sm-9 col-sm-offset-2')
+			div(class= data.categories.length || !data.posts.length ? 'col-sm-10' : 'col-sm-10 col-sm-offset-1')
 				if filters.category && !data.category
 					h3 Invalid Category.
 				else
 					if data.posts.length
 						.post-cards.row(itemscope itemtype="http://schema.org/Blog")
-							each post in data.posts
-								+post(post)
+							-for (var i = 1; i < 20; i++)
+								each post in data.posts
+									+post(post)
 					else
 						if data.category
 							h3.text-muted No posts in the category #{data.category.name}.
@@ -32,7 +29,7 @@ block content
 							h3.text-muted There are no posts yet.
 			
 			if data.categories.length
-				.col-sm-3
+				.col-sm-2
 					if data.categories.length
 						h5.text-muted Filter by tag
 						ul.list-unstyled.tags-list

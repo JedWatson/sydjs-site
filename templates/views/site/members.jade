@@ -40,6 +40,10 @@ block js
 	script(src="/js/lib/masonry/masonry.pkgd.min.js")
 	script.
 		jQuery(function($) {
-			$( '#members' ).masonry( { itemSelector: '.member-item' } );
+			var $container = $('#members').masonry({ itemSelector: '.member-item' });
+			// layout Masonry again after all images have loaded
+			$container.imagesLoaded( function() {
+				$container.masonry();
+			});
 			$('.is-tooltip').tooltip();
 		});
