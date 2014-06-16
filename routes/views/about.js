@@ -9,7 +9,7 @@ exports = module.exports = function(req, res) {
 	
 	locals.organisers = [
 		{ name: 'Craig Sharkie', image: '/images/organiser-craig_sharkie.jpg', twitter: 'twalve',       title: 'Founder, MC, coordinator' },
-		{ name: 'The Thinkmill', image: '/images/organiser-thinkmill.jpg',     twitter: 'thethinkmill', title: 'Site coordinator' },
+		{ name: 'Thinkmill', image: '/images/organiser-thinkmill.jpg',     twitter: 'thethinkmill', title: 'Site coordinator' },
 		{ name: 'Adam Ahmed',    image: '/images/organiser-adam_ahmed.jpg',    twitter: 'hitsthings',   title: 'Atlassian coordinator' },
 		{ name: 'Lachlan Hardy', image: '/images/organiser-lachlan_hardy.jpg', twitter: 'lachlanhardy', title: 'Community coordinator' }
 	]

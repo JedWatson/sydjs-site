@@ -3,20 +3,22 @@ extends ../../layouts/default
 include ../../mixins/organisation
 
 block intro
-	h1 Organisations
-	p.lead The organisations and people who are part of SydJS. Should you be here? Join us!
-	//- .buttons
-		if !user
-			a(href='/join').btn.btn-primary Join SydJS
-		a(href='/members').btn.btn-default View Members
-		a(href='/members/mentors').btn.btn-default View Mentors
+	.page-intro: .container
+		h1 Organisations
+		p.lead The organisations and people who are part of SydJS. Should you be here? Join us!
+		//- .buttons
+			if !user
+				a(href='/join').btn.btn-primary Join SydJS
+			a(href='/members').btn.btn-default View Members
+			a(href='/members/mentors').btn.btn-default View Mentors
 
 block content
-	.organisations
-		if organisations.length
-			each org, i in organisations
-				if i
-					hr
-				+organisation(org)
-		else
-			h3.text-muted There are no organisations yet.
+	.page-content: .container
+		.organisations
+			if organisations.length
+				each org, i in organisations
+					if i
+						hr
+					+organisation(org)
+			else
+				h3.text-muted There are no organisations yet.

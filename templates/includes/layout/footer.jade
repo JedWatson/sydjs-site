@@ -11,9 +11,10 @@ footer.site-footer.site-footer--sticky: .container
 					h4.footer-heading Members
 					ul
 						li: a(href='/members') Members
-						li: a(href='/members/mentoring') Mentoring
+						li: a(href='/mentoring') Mentoring
 						li: a(href='/members/mentors') Mentors
-						li: a(href='/join').js-auth-trigger Become a Member
+						if !user
+							li: a(href='/join').js-auth-trigger Become a Member
 				.col-xs-4
 					h4.footer-heading Resources
 					ul

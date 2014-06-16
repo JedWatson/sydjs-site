@@ -28,9 +28,7 @@ html
 		.site-wrapper.site-wrapper--has-sticky-footer
 			
 			//- SITE HEADER
-			block header
-				header(id='header', role='banner', class=(section == 'home' ? 'header--home' : 'header--page')).header--fixed
-					include ../includes/layout/header
+			include ../includes/layout/header
 			
 			//- SITE BODY
 			block body

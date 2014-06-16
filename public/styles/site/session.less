@@ -70,12 +70,16 @@
 		position: absolute;
 	}
 }
-.auth-form-divider-copy {
-	background-color: white;
+.auth-form-divider-text {
+	background-color: @body-bg;
 	display: inline-block;
 	padding: 0 1em;
 	position: relative;
 	z-index: 1;
+
+	.modal & {
+		background-color: white;
+	}
 }
 
 

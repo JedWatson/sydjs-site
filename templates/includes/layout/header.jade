@@ -1,22 +1,24 @@
 //- HEADER
-nav.navbar(role='navigation'): .container
-	//- Site logo + site nav trigger button (on mobile)
-	.navbar-header
-		a(href='/', title='Back to Home').site-branding
-			include /public/images/logo.svg
-		a#site-nav-toggle(href='javascript:;').site-nav-toggle
-			.patty
-			
-	#site-nav
-		nav(role='navigation')
-			ul.navbar-nav.navbar-nav--left
-				each link in navLinks
-					li(class=(section == link.key ? 'nav-item-' + link.key + ' active' : 'nav-item-' + link.key)): a(href=link.href)= link.label
-			ul.navbar-nav.navbar-nav--right
-				if user
-					li: a(href='/me')= user.name.first
-					li: a(href='/signout')
-						span.visible-xs Sign out
-						span.entypo.entypo-large.entypo-logout.hidden-xs
-				else
-					li: a(href='/join', data-from=page.path).js-auth-trigger Sign in / Join
+header(id='header', role='banner', class=(section == 'home' ? 'header--home' : 'header--page')).header--fixed
+	nav.navbar(role='navigation'): .container
+		//- Site logo + site nav trigger button (on mobile)
+		.navbar-header
+			a(href='/', title='Back to Home').site-branding
+				include /public/images/logo.svg
+			a#site-nav-toggle(href='javascript:;').site-nav-toggle
+				.patty
+				
+		#site-nav
+			nav(role='navigation')
+				ul.navbar-nav.navbar-nav--left
+					each link in navLinks
+						li(class=(section == link.key ? 'nav-item-' + link.key + ' active' : 'nav-item-' + link.key)): a(href=link.href)= link.label
+				ul.navbar-nav.navbar-nav--right
+					if user
+						li: a(href='/me')= user.name.first
+						li: a(href='/signout')
+							span.visible-xs Sign out
+							span.entypo.entypo-large.entypo-logout.hidden-xs
+					else
+						li: a(href='/join', data-from=page.path).js-auth-trigger Sign in / Join
+.header-placeholder
