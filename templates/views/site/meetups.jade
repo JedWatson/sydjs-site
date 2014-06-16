@@ -3,34 +3,16 @@ extends ../../layouts/default
 include ../../mixins/meetup
 
 block intro
-	.page-intro: .container
-		h1 Meetups
-		p.lead We usually meet up the 3rd Wednesday of every month. We hope to see you at  
-			a(href='/join').js-auth-trigger our&nbsp;next&nbsp;meetup
-			| . Stay in the loop - 
-			a(href='http://twitter.com/sydjs', target='_blank') follow us on twitter
-		//- .buttons
-			if !user
-				a(href='/join').btn.btn-primary Join SydJS
-			a(href="https://twitter.com/sydjs", class="twitter-follow-button", data-show-count="true" data-size="large") Follow @sydjs
+	.container-sm
+		.page-intro
+			h1 Meetups
+			p.lead We usually meet up the 3rd Wednesday of every month. We hope to see you at  
+				a(href='/join').js-auth-trigger our&nbsp;next&nbsp;meetup
+				| . Stay in the loop - 
+				a(href='http://twitter.com/sydjs', target='_blank') follow us on twitter
 
 		if upcomingMeetup
-			.page-content
-				+meetup(upcomingMeetup, 'present')
-				if user && upcomingMeetup.rsvpsAvailable
-					#next-meetup(data-id=upcomingMeetup.id)
-						hr.mv-2
-						h4 Are you going?
-						.meetup-status
-							label.btn.btn-block.btn-default.js-rsvp-checking.disabled
-								|  Checking...
-						.form-row.meetup-toggle(style='display: block;')
-							.col-xs-6
-								button(type='button').btn.btn-block.btn-lg.btn-default.js-rsvp-attending Yes
-							.col-xs-6
-								button(type='button').btn.btn-block.btn-lg.btn-default.js-rsvp-decline No
-						//- h4.text-muted You are going to this meetup. 
-							a(href='javascript:;') Change
+			+meetup(upcomingMeetup, 'present')
 block content
 	.page-content: .container
 		.timeline

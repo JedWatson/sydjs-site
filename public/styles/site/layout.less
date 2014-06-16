@@ -23,9 +23,11 @@ body { height: 100%; font-weight: 300; }
 // Body
 // ------------------------------
 .site-body {
-	position: relative;
 	.floor-1;
+	padding-bottom: @navbar-height + 10;
 	padding-top: @navbar-height + 10;
+	position: relative;
+
 	@media (max-width: @screen-xs-max) {
 		padding-top: 0;
 	}

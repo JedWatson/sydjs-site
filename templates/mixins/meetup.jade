@@ -19,25 +19,48 @@ mixin meetup(meetup, mode)
 				ul.meetup-talks
 					each talk in meetup.talks
 						+meetup-talk(talk)
-				//- ul.list-unstyled
-					each talk in meetup.talks
-						li.talk
-							h5.talk__name= talk.name
-								|  
-							if talk.who.length
-								.talk__speaker
-									| by 
-									each user in talk.who
-										= user.name.full + ' '
-										if user.twitter
-											a(href='http://twitter.com/' + user.twitter.replace('@', ''), target='_blank' data-size="large")= user.twitter + ' '
-							if talk.slides
-								.talk__resource
-									span.entypo.entypo-docs
-									|  Slides - 
-									a(href=talk.slides, target='_blank', title='View the slides from this talk').talk__resource-anchor=talk.slides
-							if talk.link
-								.talk__resource
-									span.entypo.entypo-link
-									|  Website - 
-									a(href=talk.link, target='_blank', title='View the website for this talk').talk__resource-anchor=talk.link
+
+		if meetup.date > today
+			if user
+				if meetup.rsvpsAvailable
+					hr.mv-2
+					.ui-reveal
+						.ui-reveal__initial
+							button(type='button').btn.btn-primary.btn-lg.btn-block.ui-reveal__trigger RSVP Now
+						.ui-reveal__hidden
+							h4 Are you going?
+							#next-meetup(data-id=meetup.id)
+								.meetup-status
+									label.btn.btn-block.btn-default.js-rsvp-checking.disabled
+										|  Checking...
+								.form-row.meetup-toggle(style='display: none;')
+									.col-xs-6
+										button(type='button').btn.btn-lg.btn-block.btn-default.js-rsvp-attending Yes
+									.col-xs-6
+										button(type='button').btn.btn-lg.btn-block.btn-default.js-rsvp-decline No
+						//- h4.text-muted You are going to this meetup. 
+							a(href='javascript:;') Change
+				else
+
+			else
+				#next-meetup(data-id=meetup.id)
+					hr.mv-2
+					h4 Are you going?
+					a(href='/join', data-from=page.path).btn.btn-primary.btn-lg.btn-block.js-auth-trigger RSVP Now
+		else if meetup.totalRSVPs
+			hr
+			.text-center
+				.h2: .entypo.entypo-users.text-muted
+				p There were #{meetup.totalRSVPs} awesome folks who attended this meetup
+		//- if user && meetup.rsvpsAvailable
+			#next-meetup(data-id=meetup.id)
+				hr.mv-2
+				h4 Are you going?
+				.meetup-status
+					label.btn.btn-block.btn-default.js-rsvp-checking.disabled
+						|  Checking...
+				.form-row.meetup-toggle(style='display: block;')
+					.col-xs-6
+						button(type='button').btn.btn-block.btn-lg.btn-default.js-rsvp-attending Yes
+					.col-xs-6
+						button(type='button').btn.btn-block.btn-lg.btn-default.js-rsvp-decline No

@@ -1,7 +1,6 @@
 var keystone = require('keystone'),
-	moment = require('moment');
-
-var Meetup = keystone.list('Meetup');
+	moment = require('moment'),
+	Meetup = keystone.list('Meetup');
 
 exports = module.exports = function(req, res) {
 	
@@ -10,10 +9,22 @@ exports = module.exports = function(req, res) {
 	
 	locals.section = 'meetups';
 
-	view.query('meetup',
+
+	// LOAD the Meetup
+
+	view.on('init', function(next) {
 		Meetup.model.findOne()
 			.where('key', req.params.meetup)
-	, 'talks[who]');
+			.exec(function(err, meetup) {
+				
+				if (err) return res.err(err);
+				if (!meetup) return res.notfound('Post not found');
+				
+				locals.meetup = meetup;
+				locals.meetup.populateRelated('talks[who]', next);
+
+			});
+	});
 	
 	view.render('site/meetup');
 	

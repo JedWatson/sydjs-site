@@ -19,11 +19,31 @@ block intro
 				//-img(src='/images/placeholders/sydney-1.jpg')
 			.hero-intro-content
 				h5.subtitle Next meet up
-				h1.title May the fourth (+17) be with you
+				h1.title=nextMeetup.name
 				p.byline #{moment().format('ddd, DD MMM YYYY')} &#8212; 6-9pm
 				p.byline Level 6, 341 George St (Atlassian) &#8212; Directions
 			.hero-button
-				a(href=js).btn.btn-primary.btn-lg.btn-block RSVP NOW
+				if user
+					if nextMeetup.rsvpsAvailable
+						.ui-reveal
+							.ui-reveal__initial
+								button(type='button').btn.btn-primary.btn-lg.btn-block.ui-reveal__trigger RSVP Now
+							.ui-reveal__hidden
+								#next-meetup(data-id=nextMeetup.id)
+									.meetup-status
+										label.btn.btn-block.btn-default.js-rsvp-checking.disabled
+											|  Checking...
+									.form-row.meetup-toggle(style='display: none;')
+										.col-xs-6
+											button(type='button').btn.btn-lg.btn-block.btn-default.js-rsvp-attending Yes
+										.col-xs-6
+											button(type='button').btn.btn-lg.btn-block.btn-default.js-rsvp-decline No
+					else
+						.alert.alert-success.mb-0.text-center No more tickets...
+
+				else
+					#next-meetup(data-id=nextMeetup.id)
+						a(href='/join', data-from=page.path).btn.btn-primary.btn-lg.btn-block.js-auth-trigger RSVP Now
 		
 		//- Details
 		section.hero-details: .container

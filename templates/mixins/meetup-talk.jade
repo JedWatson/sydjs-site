@@ -8,12 +8,23 @@ mixin meetup-talk(talk)
 				img(src='/images/avatar.png', width=60, height=60, alt='There is no speaker...').talk__photo
 		.talk__body
 			h4.talk__heading #{talk.name} 
+				if talk.slides
+					a(href=talk.slides, target='_blank', title='View the slides from this talk').text-muted.text-thin
+						|  (view slides)
+						//- span.entypo.entypo-chevron-small-right
 			if talk.who.length
 				p.talk__subheading
-					| by 
+					| #{utils.plural(talk.who.length, 'speaker', 'speakers')} 
 					each user, i in talk.who
 						if i
 							| , 
-						| #{user.name.full}
+						if user.isPublic
+							a(href=user.url)= user.name.full
+						else
+							| #{user.name.full}
 			if talk.description
 				!=talk.description
+			if talk.link
+				a(href=talk.link, target='_blank', title='View the website for this talk')
+					| #{talk.link} 
+					span.entypo.entypo-chevron-small-right

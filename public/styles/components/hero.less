@@ -52,32 +52,17 @@
 			}
 		}
 		.hero-button {
-			position: absolute;
+			.translate(-50%, 50%);
+			background-color: white;
+			border-radius: .75em;
 			bottom: 0;
-			width: 100%;
-			a.btn {
-				.box-shadow(0 0 0 2px white);
-				.translate(-50%, -50%);
-				position: absolute;
-				top: 50%;
-				left: 50%;
-				width: 30%;
-			}
+			left: 50%;
+			padding: .5em;
+			position: absolute;
+			width: 50%;
 
-			@media (max-width: 1280px) {
-				a.btn {
-					width: 40%;
-				}
-			}
-			@media (max-width: @screen-sm-max) {
-				a.btn {
-					width: 60%;
-				}
-			}
 			@media (max-width: @screen-xs-max) {
-				a.btn {
-					width: 90%;
-				}
+				width: 90%;
 			}
 		}
 

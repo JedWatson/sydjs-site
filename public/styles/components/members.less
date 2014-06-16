@@ -53,11 +53,27 @@
 .member__account--github:hover {
 	color: @brand-github;
 }
+
+// crop user bios
 .member__bio {
 	color: @gray;
 	font-weight: 300;
+	max-height: 10em;
+	overflow: hidden;
 	padding-top: 1em;
+	position: relative;
 	word-wrap: break-word;
+
+	&:after {
+		.size(100%,3em);
+		#gradient .vertical( fade(white,0), white );
+		content: "";
+		left: 0;
+		right: 0;
+		pointer-events: none;
+		position: absolute;
+		top: 7em;
+	}
 }
 
 
@@ -91,24 +107,11 @@
 	padding: 0 (@member-grid-gutter / 2);
 	width: 50%;
 }
-@media (max-width: @screen-xs-max) {
-	.member__bio {
-		max-height: 10em;
-		overflow: hidden;
-		position: relative;
 
-		&:after {
-			.size(100%,3em);
-			#gradient .vertical( fade(white,0), white );
-			content: "";
-			left: 0;
-			right: 0;
-			pointer-events: none;
-			position: absolute;
-			top: 7em;
-		}
-	}
-}
+// tiny screens only
+@media (max-width: @screen-xs-max) {}
+
+// sm and up screens
 @media (min-width: @screen-sm-min) {
 	.member-item {
 		width: 33.3%;
@@ -125,6 +128,7 @@
 	}
 }
 
+// md and up screens
 @media (min-width: @screen-md-min) {
 	.member-item {
 		width: 25%;

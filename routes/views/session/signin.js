@@ -23,6 +23,8 @@ exports = module.exports = function(req, res) {
 		var onSuccess = function() {
 			if (req.query && req.query.from) {
 				res.redirect(req.query.from);
+			} else if (req.body.from.length) {
+				res.redirect(req.body.from);
 			} else {
 				res.redirect('/me');
 			}
