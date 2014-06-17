@@ -132,13 +132,27 @@ $(function() {
 		}
 		
 		$attending.click(function() {
-			$attending.addClass('btn-success').closest('.meetup-toggle').find('.js-rsvp-decline').removeClass('btn-danger');
-			toggleRSVP(true);
+			$attending.addClass('btn-success').closest('.meetup-toggle')
+				.find('.js-rsvp-decline')
+				.removeClass('btn-danger')
+				.removeClass('active')
+				.addClass('btn-default');
+			if (!$attending.hasClass('active')) {
+				$attending.addClass('active');
+				toggleRSVP(true);
+			}
 		});
 		
 		$decline.click(function() {
-			$decline.addClass('btn-danger').closest('.meetup-toggle').find('.js-rsvp-attending').removeClass('btn-success');
-			toggleRSVP(false);
+			$decline.addClass('btn-danger').closest('.meetup-toggle')
+				.find('.js-rsvp-attending')
+				.removeClass('btn-success')
+				.removeClass('active')
+				.addClass('btn-default');
+			if (!$decline.hasClass('active')) {
+				$decline.addClass('active');
+				toggleRSVP(false);
+			}
 		});
 		
 		$.ajax({
