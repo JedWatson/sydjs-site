@@ -11,7 +11,9 @@ include ../../mixins/advertisement
 block intro
 
 	//- HERO
-	if meetup
+	if !meetup
+		h2.text-center You've just deployed a new site! Go add some data :)
+	else
 		article#hero.hero-meetup.hero-meetup--next
 			
 			//- Intro
@@ -35,9 +37,9 @@ block intro
 										|  Checking...
 								.form-row.meetup-toggle(style='display: none;')
 									.col-xs-6
-										button(type='button').btn.btn-lg.btn-block.btn-default.js-rsvp-attending Yes
+										button(type='button').btn.btn-lg.btn-block.btn-success.js-rsvp-attending Yes
 									.col-xs-6
-										button(type='button').btn.btn-lg.btn-block.btn-default.js-rsvp-decline No
+										button(type='button').btn.btn-lg.btn-block.btn-danger.js-rsvp-decline No
 						else
 							.alert.alert-success.mb-0.text-center No more tickets...
 

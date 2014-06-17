@@ -46,7 +46,10 @@ exports = module.exports = function(req, res) {
 	view.on('render', function(next) {
 
 		locals.meetup = locals.activeMeetup || locals.pastMeetup;
-		locals.meetup.populateRelated('talks[who] rsvps[who]', next);
+		if (locals.meetup) {
+			locals.meetup.populateRelated('talks[who] rsvps[who]', next);
+		}
+		
 	});
 	
 	view.render('site/index');
