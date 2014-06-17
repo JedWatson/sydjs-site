@@ -16,9 +16,13 @@ block content
 				if member.twitter || member.github
 					.member__accounts
 						if member.twitter
-							a(href='https://twitter.com/' + member.twitter.replace('@', ''), target='_blank', data-toggle='tooltip', data-title='@' + member.twitter.replace('@', ''), data-placement='top').member__account.member__account--twitter.entypo-social.entypo-twitter.is-tooltip
+							a(href='https://twitter.com/' + member.twitter.replace('@', ''), target='_blank', data-toggle='tooltip', title='@' + member.twitter.replace('@', ''), data-placement='top').member__account.member__account--twitter
+								span.entypo-social.entypo-twitter
+								|  #{member.twitter.replace('@', '')}
 						if member.github
-							a(href='https://github.com/' + member.github, target='_blank', data-toggle='tooltip', data-title=member.github, data-placement='top').member__account.member__account--github.entypo-social.entypo-github.is-tooltip
+							a(href='https://github.com/' + member.github, target='_blank', data-toggle='tooltip', title=member.github, data-placement='top').member__account.member__account--github
+								span.entypo-social.entypo-github
+								|  #{member.github.replace('@', '')}
 				if member.bio.html
 					.member__bio.text-left.pl-2.pr-2.pb-1!= member.bio.html
 		if member.talks && member.talks.length

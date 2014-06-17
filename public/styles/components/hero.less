@@ -56,7 +56,8 @@
 		.byline {
 			font-weight: 500;
 			font-size: @font-size-base * 1.5;
-			& + & {
+			a {
+				color: inherit;
 			}
 		}
 
@@ -93,7 +94,7 @@
 }
 .hero-button {
 	.translate(-50%, 50%);
-	background-color: @body-bg;
+	background-color: white;
 	border-radius: .75em;
 	bottom: 0;
 	left: 50%;
@@ -106,13 +107,15 @@
 	}
 }
 .hero-button-title {
-	.translateY(-150%);
+	.transition( all 200ms linear );
+	.translateY(-200%);
 	color: white;
 	position: absolute;
 	text-align: center;
 	top: 0;
 	width: 100%;
 }
+
 
 // Mask
 .hero-intro.hero-intro--hasmask {

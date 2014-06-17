@@ -1,4 +1,5 @@
 var keystone = require('keystone'),
+	moment = require('moment'),
 	Types = keystone.Field.Types;
 
 /**
@@ -12,11 +13,14 @@ var Meetup = new keystone.List('Meetup', {
 
 Meetup.add({
 	name: { type: String, required: true, initial: true },
-	state: { type: Types.Select, options: 'draft, published, archived', default: 'draft', index: true },
+	publishedDate: { type: Types.Date, index: true },
+	
+	state: { type: Types.Select, options: 'draft, scheduled, active, past', noedit: true },
 	date: { type: Types.Date, required: true, initial: true, index: true },
 	time: { type: String, required: true, initial: true, width: 'short', default: '6pm - 9pm', note: 'e.g. 6pm - 9pm' },
 	place: { type: String, required: true, initial: true, width: 'medium', default: 'Level 6, 341 George St (Atlassian) – Enter via the side door in Wynyard Street', note: 'usually Level 6, 341 George St (Atlassian) – Enter via the side door in Wynyard Street' },
 	description: { type: Types.Html, wysiwyg: true },
+	
 	maxRSVPs: { type: Number, default: 100 },
 	totalRSVPs: { type: Number, noedit: true }
 });
@@ -51,15 +55,28 @@ Meetup.schema.virtual('rsvpsAvailable').get(function() {
 
 
 
-// Pre-Save
+
+// Pre Save
 // ------------------------------
 
 Meetup.schema.pre('save', function(next) {
 	
-	this.wasNew = this.isNew;
+	var meetup = this;
 	
+	// If no published date, it's a draft meetup
+	if (!meetup.publishedDate) meetup.state = 'draft';
+	
+	// If meetup date is after today, it's an past meetup
+	else if (moment().isAfter(moment(meetup.date))) meetup.state = 'past';
+	
+	// If publish date is after today, it's an active meetup
+	else if (moment().isAfter(meetup.publishedDate)) meetup.state = 'active';
+	
+	// If publish date is before today, it's a scheduled meetup
+	else if (moment().isBefore(moment(meetup.publishedDate))) meetup.state = 'scheduled';
+
 	next();
-	
+
 });
 
 
@@ -123,5 +140,5 @@ Meetup.schema.methods.notifySubscribers = function(req, res, next) {
 
 Meetup.addPattern('standard meta');
 Meetup.defaultSort = '-date';
-Meetup.defaultColumns = 'name, state|20%, date|20%';
+Meetup.defaultColumns = 'name, state|10%, date|15%, publishedDate|15%';
 Meetup.register();

@@ -10,30 +10,44 @@ exports = module.exports = function(req, res) {
 		locals = res.locals;
 	
 	locals.section = 'home';
+	locals.meetup = false;
 	
-	// Load the next meetup
-	view.query('nextMeetup',
+	
+	// Load the first, NEXT meetup
+	
+	view.on('init', function(next) {
 		Meetup.model.findOne()
-			.where('date').gte(moment().startOf('day').toDate())
-			.where('state', 'published')
-			.sort('date')
-	, 'talks[who]');
+			.where('state', 'active')
+			.sort('publishedDate')
+			.exec(function(err, activeMeetup) {
+				locals.activeMeetup = activeMeetup;
+				next();
+			});
+
+	});
 	
-	// Load the last meetup
-	view.query('lastMeetup',
+	
+	// Load the first, PAST meetup
+	
+	view.on('init', function(next) {
 		Meetup.model.findOne()
-			.where('date').lt(moment().startOf('day').toDate())
-			.where('state', 'published')
-			.sort('-date')
-	, 'talks[who]');
-	
-	// Load recent posts
-	view.query('posts',
-		Post.model.find()
-			.where('state', 'published')
-			.sort('-publishedDate')
-			.limit(3)
-			.populate('author categories'));
+			.where('state', 'past')
+			.sort('publishedDate')
+			.exec(function(err, pastMeetup) {
+				locals.pastMeetup = pastMeetup;
+				next();
+			});
+
+	});
+
+
+	// Decide which to render
+
+	view.on('render', function(next) {
+
+		locals.meetup = locals.activeMeetup || locals.pastMeetup;
+		locals.meetup.populateRelated('talks[who]', next);
+	});
 	
 	view.render('site/index');
 	
