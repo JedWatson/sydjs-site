@@ -47,11 +47,9 @@ exports = module.exports = function(req, res) {
 
 		locals.meetup = locals.activeMeetup || locals.pastMeetup;
 		if (locals.meetup) {
-			locals.meetup.populateRelated('talks[who] rsvps[who]');
+			locals.meetup.populateRelated('talks[who] rsvps[who]', next);
 		}
-		else {
-			next();
-		}
+		next();
 		
 	});
 	
