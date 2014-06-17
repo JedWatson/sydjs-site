@@ -68,12 +68,19 @@ nav {
 		}
 		&:active,
 		&:focus {
-			color: @gray;
+			color: fade(white, 40%);
+			text-decoration: none;
 		}
 	}
 	> li.active > a {
 		//background: mix(@navbar-default-bg, black, 95%);
 		color: white;
+	}
+	> li > a.user {
+		text-transform: none;
+		img {
+			margin-right: 5px;
+		}
 	}
 }
 
@@ -118,6 +125,13 @@ nav {
 		float: none;
 		width: 100%;
 		height: @navbar-height;
+
+		.user {
+			position: absolute;
+			right: 40px;
+			top: 50%;
+			.translate(0,-50%);
+		}
 	}
 
 	// Site nav toggle

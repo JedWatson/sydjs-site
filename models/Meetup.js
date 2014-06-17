@@ -15,7 +15,7 @@ Meetup.add({
 	name: { type: String, required: true, initial: true },
 	publishedDate: { type: Types.Date, index: true },
 	
-	state: { type: Types.Select, options: 'draft, scheduled, active, past', noedit: true },
+	state: { type: Types.Select, options: 'draft, scheduled, active, past', noedit: false },
 	date: { type: Types.Date, required: true, initial: true, index: true },
 	time: { type: String, required: true, initial: true, width: 'short', default: '6pm - 9pm', note: 'e.g. 6pm - 9pm' },
 	place: { type: String, required: true, initial: true, width: 'medium', default: 'Level 6, 341 George St (Atlassian) – Enter via the side door in Wynyard Street', note: 'usually Level 6, 341 George St (Atlassian) – Enter via the side door in Wynyard Street' },
