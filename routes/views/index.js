@@ -47,7 +47,10 @@ exports = module.exports = function(req, res) {
 
 		locals.meetup = locals.activeMeetup || locals.pastMeetup;
 		if (locals.meetup) {
-			locals.meetup.populateRelated('talks[who] rsvps[who]', next);
+			locals.meetup.populateRelated('talks[who] rsvps[who]');
+		}
+		else {
+			next();
 		}
 		
 	});
