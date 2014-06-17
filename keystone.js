@@ -32,6 +32,7 @@ keystone.init({
 	'mongo': process.env.MONGO_URI || 'mongodb://localhost/' + pkg.name,
 
 	'session': true,
+	'session store': 'mongo',
 	'auth': true,
 	'user model': 'User',
 	'cookie secret': process.env.COOKIE_SECRET || 'sydjs',
