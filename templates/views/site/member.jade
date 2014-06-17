@@ -6,30 +6,35 @@ block content
 			.text-left: a(href='/members').text-muted &larr; back to all members
 			//- hr
 			//- code=JSON.stringify(member)
-		.member
-			if member.photo.exists
-				.member-section.member__photo
-					img(src=member._.photo.thumbnail(360,360), width=180, height=180, alt=member.name.full, style='margin-top: -3em;')
+		.member.member--profile
+			.member-section.member__photo
+				img(src=(member.photo.exists ? member._.photo.thumbnail(600,600) : 'http://fillmurray.com/600/600'), alt=member.name.full)
 			.member-section.member__info
-				h1= member.name.full
-				p.lead Member since #{moment(member.createdOn).format('MMMM YYYY')}
 				if member.twitter || member.github
 					.member__accounts
 						if member.twitter
-							a(href='https://twitter.com/' + member.twitter.replace('@', ''), target='_blank', data-toggle='tooltip', data-title='@' + member.twitter.replace('@', ''), data-placement='top').member__account.member__account--twitter.entypo-social.entypo-twitter.is-tooltip
+							a(href='https://twitter.com/' + member.twitter.replace('@', ''), target='_blank', data-toggle='tooltip', data-title='@' + member.twitter.replace('@', ''), data-placement='top').member__account.member__account--twitter.btn.btn-default.btn-sm
+								span.entypo-social.entypo-twitter
+								=member.twitter
 						if member.github
-							a(href='https://github.com/' + member.github, target='_blank', data-toggle='tooltip', data-title=member.github, data-placement='top').member__account.member__account--github.entypo-social.entypo-github.is-tooltip
+							a(href='https://github.com/' + member.github, target='_blank', data-toggle='tooltip', data-title=member.github, data-placement='top').member__account.member__account--github.btn.btn-default.btn-sm
+								span.entypo-social.entypo-github
+								=member.github
+				h1.member__title= member.name.full
+				p.member__byline.text-muted Member since #{moment(member.createdOn).format('MMMM YYYY')}
+				
 				if member.bio.html
-					.member__bio.text-left.pl-2.pr-2.pb-1!= member.bio.html
-		if member.talks && member.talks.length
-			h3.text-muted.mt-0 Talks
-			ul.list-unstyled
-				each talk in member.talks
-					li.media(class=moment(talk.meetup.date) < moment(now) ? 'past' : 'present')
-						.pull-left
-							.date
-								small.block=moment(talk.meetup.date).format('MMM')
-								strong.block=moment(talk.meetup.date).format('DD')
-						.media-body
-							h4=talk.name
-							!=talk.description
+					.member__bio!= member.bio.html
+			if member.talks && member.talks.length
+				.member-section.member__additional-info
+					h5.text-caps Talks
+					ul.list-unstyled.mt-1
+						each talk in member.talks
+							li.media
+								.pull-left
+									.date(class=moment(talk.meetup.date) < moment(now) ? 'date--past' : 'date--present')
+										small.block=moment(talk.meetup.date).format('MMM')
+										strong.block=moment(talk.meetup.date).format('DD')
+								.media-body
+									h5.mb-0=talk.name
+									!=talk.description
