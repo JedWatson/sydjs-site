@@ -112,6 +112,9 @@ $(function() {
 	
 	var $nextMeetup = $('#next-meetup');
 	if ($nextMeetup.length) {
+		
+		if (!$('.meetup-toggle').length) return;
+		
 		var meetup = $nextMeetup.data();
 		
 		var $attending = $('.js-rsvp-attending'),
