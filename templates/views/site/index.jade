@@ -26,27 +26,28 @@ block intro
 					p.byline #{meetup._.date.format('ddd, DD MMM YYYY')} &#8212; #{meetup.time}
 					p.byline #{meetup.place} &#8212; 
 						a(href='http://maps.google.com.au/?daddr=' + meetup.place, target='_blank') Directions
-				.hero-button
-					if user
-						if meetup.rsvpsAvailable
-							h4.hero-button-title Are you coming? 
-								span.text-thin (#{plural(meetup.remainingRSVPs, '* spot left', '* spots left')})
-							#next-meetup(data-id=meetup.id)
-								.meetup-status
-									label.btn.btn-block.btn-default.js-rsvp-checking.disabled
-										|  Checking...
-								.form-row.meetup-toggle(style='display: none;')
-									.col-xs-6
-										button(type='button').btn.btn-lg.btn-block.btn-success.js-rsvp-attending Yes
-									.col-xs-6
-										button(type='button').btn.btn-lg.btn-block.btn-danger.js-rsvp-decline No
-						else
-							.alert.alert-success.mb-0.text-center No more tickets...
+				if meetup.state == 'active'
+					.hero-button
+						if user
+							if meetup.rsvpsAvailable
+								h4.hero-button-title Are you coming? 
+									span.text-thin (#{plural(meetup.remainingRSVPs, '* spot left', '* spots left')})
+								#next-meetup(data-id=meetup.id)
+									.meetup-status
+										label.btn.btn-block.btn-default.js-rsvp-checking.disabled
+											|  Checking...
+									.form-row.meetup-toggle(style='display: none;')
+										.col-xs-6
+											button(type='button').btn.btn-lg.btn-block.btn-success.js-rsvp-attending Yes
+										.col-xs-6
+											button(type='button').btn.btn-lg.btn-block.btn-danger.js-rsvp-decline No
+							else
+								.alert.alert-success.mb-0.text-center No more tickets...
 
-					else
-						#next-meetup(data-id=meetup.id)
-							a(href='/join', data-from=page.path).btn.btn-primary.btn-lg.btn-block.js-auth-trigger RSVP Now 
-								span.text-thin (#{plural(meetup.remainingRSVPs, '* spot left', '* spots left')})
+						else
+							#next-meetup(data-id=meetup.id)
+								a(href='/join', data-from=page.path).btn.btn-primary.btn-lg.btn-block.js-auth-trigger RSVP Now 
+									span.text-thin (#{plural(meetup.remainingRSVPs, '* spot left', '* spots left')})
 			
 			//- Details
 			section.hero-details: .container
