@@ -29,6 +29,7 @@ html
 					//- h3.profile-form__heading Confirm Details
 					p.lead.mb-2 Thanks for joining! Please confirm your details:
 					+flash-messages(messages)
+					//- TODO Gravatar / Optional image
 					.form-group.form-row
 						.col-xs-6: input(type='text' name='name.first' placeholder='First Name (required)' value=authUser.name.first).form-control
 						.col-xs-6: input(type='text' name='name.last' placeholder='Last Name (required)' value=authUser.name.last).form-control

@@ -82,6 +82,9 @@ exports = module.exports = function(app) {
 	app.all('/me', routes.views.me);
 	app.all('/me/create/post', routes.views.createPost);
 	app.all('/me/create/link', routes.views.createLink);
+
+	// Tools
+	app.all('/nofitication-center', routes.views.tools['nofitication-center']);
 	
 	// API
 	app.all('/api*', keystone.initAPI);

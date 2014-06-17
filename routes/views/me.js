@@ -12,10 +12,9 @@ exports = module.exports = function(req, res) {
 	locals.section = 'me';
 	locals.page.title = 'Settings - SydJS';
 	
-	view.query('meetups.next',
+	view.query('nextMeetup',
 		Meetup.model.findOne()
-			.where('date').gte(moment().startOf('day').toDate())
-			.where('state', 'published')
+			.where('state', 'active')
 			.sort('date')
 	, 'talks[who]');
 	
@@ -66,19 +65,6 @@ exports = module.exports = function(req, res) {
 		
 		});
 	
-	});
-	
-	view.on('render', function(next) {
-		
-		if (locals.meetups && locals.meetups.next) {
-			RSVP.model.findOne().where('meetup', locals.meetups.next.id).where('who', req.user.id).exec(function(err, rsvp) {
-				locals.meetups.nextRSVP = rsvp;
-				next(err);
-			});
-		} else {
-			next();
-		}
-		
 	});
 	
 	view.render('site/me');

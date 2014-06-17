@@ -107,9 +107,10 @@ block content
 			h4 In Sydney and into JavaScript? You need to join SydJS!
 			.row: .col-sm-8.col-sm-offset-2
 				h3 Every 3rd Wednesday of the month you'll find us talking about what we're doing and what's happening around us in the world of JavaScript.
-			.row: .col-sm-4.col-sm-offset-4
-				a(href='#').btn.btn-lg.btn-block.btn-primary.mv-1
-					span.text-caps Join SydJS now
+			if !user
+				.row: .col-sm-4.col-sm-offset-4
+					a(href='/join', data-from=page.path).js-auth-trigger.btn.btn-lg.btn-block.btn-primary.mv-1
+						span.text-caps Join SydJS now
 			p.mt-1
 				a(href='/about') Learn more about SydJS
 				|  &nbsp;&middot;&nbsp; 
