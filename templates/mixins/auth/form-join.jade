@@ -14,9 +14,6 @@ mixin form-join(args)
 				h4.modal-title Join SydJS
 		div(class=args.modal ? 'modal-body' : null)
 			include ../../includes/social-signin
-			//- p: a(href=args.modal ? '/auth/facebook?type=default-signin' : '/auth/facebook?type=profile-signin').btn.btn-facebook.btn-block
-				span.entypo-social.entypo-btn-align.entypo-s-facebook
-				|  Sign up with Facebook
 			p.auth-form-divider: span.auth-form-divider-text or
 			//- p Or use your email, that's okay too:
 			form(method='post', action='/join', autocomplete='off', novalidate).auth-form
