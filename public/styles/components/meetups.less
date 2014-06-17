@@ -26,17 +26,13 @@
 
 .talk {
 	margin-bottom: 1em;
-	overflow: hidden;
 }
 
 
 // speakers
 
 .talk__speakers {
-	float: left;
-	margin-right: 1em;
 	position: relative;
-	width: 60px;
 }
 .talk__photo {
 	.img-responsive(inline-block);
@@ -44,22 +40,22 @@
 	border: 3px solid white;
 }
 .talk__photo--mini {
-	position: relative;
-	width: 40px;
+	position: absolute;
+	width: 60%;
 
 	&:nth-child(2) {
-		left: 20px;
-		top: -20px;
+		right: 0;
+		.translateY(50%);
 	}
 	&:nth-child(3) {
-		top: -40px;
+		.translateY(100%);
 	}
 	&:nth-child(4) {
-		left: 20px;
-		top: -60px;
+		right: 0;
+		.translateY(150%);
 	}
 	&:nth-child(5) {
-		top: -80px;
+		.translateY(200%);
 	}
 }
 

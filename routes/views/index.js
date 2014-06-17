@@ -18,7 +18,7 @@ exports = module.exports = function(req, res) {
 	view.on('init', function(next) {
 		Meetup.model.findOne()
 			.where('state', 'active')
-			.sort('publishedDate')
+			.sort('date')
 			.exec(function(err, activeMeetup) {
 				locals.activeMeetup = activeMeetup;
 				next();
@@ -32,7 +32,7 @@ exports = module.exports = function(req, res) {
 	view.on('init', function(next) {
 		Meetup.model.findOne()
 			.where('state', 'past')
-			.sort('publishedDate')
+			.sort('date')
 			.exec(function(err, pastMeetup) {
 				locals.pastMeetup = pastMeetup;
 				next();
@@ -46,7 +46,7 @@ exports = module.exports = function(req, res) {
 	view.on('render', function(next) {
 
 		locals.meetup = locals.activeMeetup || locals.pastMeetup;
-		locals.meetup.populateRelated('talks[who]', next);
+		locals.meetup.populateRelated('talks[who] rsvps[who]', next);
 	});
 	
 	view.render('site/index');

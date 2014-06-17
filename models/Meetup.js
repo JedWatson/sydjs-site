@@ -82,6 +82,20 @@ Meetup.schema.pre('save', function(next) {
 
 
 
+// Post Save
+// ------------------------------
+
+Meetup.schema.post('save', function(next) {
+
+	var meetup = this;
+
+	meetup.refreshRSVPs();
+
+});
+
+
+
+
 // Methods
 // ------------------------------
 

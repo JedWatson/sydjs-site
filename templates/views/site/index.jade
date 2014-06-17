@@ -19,7 +19,7 @@ block intro
 				.hero-background
 					//-img(src='/images/placeholders/sydney-1.jpg')
 				.hero-intro-content
-					h5.subtitle #{meetup.state == 'active' ? 'Next' : 'Last'} meet up
+					h5.subtitle #{meetup.state == 'active' ? 'Next' : 'Last'} Meetup
 					h1.title= meetup.name
 					p.byline #{meetup._.date.format('ddd, DD MMM YYYY')} &#8212; #{meetup.time}
 					p.byline #{meetup.place} &#8212; 
@@ -27,7 +27,8 @@ block intro
 				.hero-button
 					if user
 						if meetup.rsvpsAvailable
-							h4.hero-button-title Are you coming?
+							h4.hero-button-title Are you coming? 
+								span.text-thin (#{plural(meetup.remainingRSVPs, '* spot left', '* spots left')})
 							#next-meetup(data-id=meetup.id)
 								.meetup-status
 									label.btn.btn-block.btn-default.js-rsvp-checking.disabled
@@ -42,76 +43,77 @@ block intro
 
 					else
 						#next-meetup(data-id=meetup.id)
-							a(href='/join', data-from=page.path).btn.btn-primary.btn-lg.btn-block.js-auth-trigger RSVP Now
+							a(href='/join', data-from=page.path).btn.btn-primary.btn-lg.btn-block.js-auth-trigger RSVP Now 
+								span.text-thin (#{plural(meetup.remainingRSVPs, '* spot left', '* spots left')})
 			
 			//- Details
 			section.hero-details: .container
 				.row: .col-sm-10.col-sm-offset-1: .row
 					
 					//- Description
-					.col-sm-5
-						h3.mb-1 The meetup
+					.col-md-5
+						//- h3.mb-1 The meetup
 						.description!= meetup.description
 
 					//- Talks
-					.col-sm-6.col-sm-offset-1
-						h3.mb-1 The talks
-						ul.list-unstyled.talks-list
-							li.row
-								.col-xs-3
-									.talkers
-										img(src='http://fillmurray.com/100/100').img-circle
-										img(src='http://fillmurray.com/90/90').img-circle
-								.col-xs-9
-									.talk-summary
-										h5.title Design Hacks for Developers
-										p.subtitle.mb-1 by Georgi Knox <a href="#">CatRapture</a>, Cathy Lill <a href="#">CatRapture</a>
-										p.summary Learn some Design 101 tips and tricks - perfect for Back-end Developers who're finding themselves doing more and more Front-end work&hellip; <a href='#'>more</a>
-							li.row
-								.col-xs-3
-									.talkers
-										img(src='http://fillmurray.com/100/100').img-circle
-								.col-xs-9
-									.talk-summary
-										h5.title Design Hacks for Developers
-										p.subtitle.mb-1 by Georgi Knox <a href="#">CatRapture</a>
-										p.summary
-											| Learn some Design 101 tips and tricks - perfect for Back-end Developers who're finding themselves doing more and more Front-end work&hellip; <a href='#'>more</a>
-							li.row
-								.col-xs-3
-									.talkers
-										img(src='http://fillmurray.com/150/150').img-circle
-										img(src='http://fillmurray.com/80/80').img-circle
-								.col-xs-9
-									.talk-summary
-										h5.title Design Hacks for Developers
-										p.subtitle.mb-1 by Georgi Knox <a href="#">CatRapture</a>, Cathy Lill <a href="#">CatRapture</a>
-										p.summary Learn some Design 101 tips and tricks - perfect for Back-end Developers who're finding themselves doing more and more Front-end work&hellip; <a href='#'>more</a>
+					.col-md-6.col-md-offset-1
+						if meetup.talks.length
+							//- h3.mb-1 The talks
+							.meetup-talks
+								ul.list-unstyled.talks-list
+									each talk in meetup.talks
+										li.talk.row
+											.col-xs-3
+												.talk__speakers
+													if talk.who.length
+														each speaker, i in talk.who
+															img(src=speaker.photo.exists ? speaker._.photo.thumbnail(320,320) : '/images/avatar.png', width=160, height=160, alt=speaker.name.full, class=talk.who.length > 1 ? 'talk__photo--mini' : null).talk__photo
+													else
+														img(src='/images/avatar.png', width=160, height=160, alt='There is no speaker...').talk__photo
+												//- if talk.who.length
+													.talkers
+														for photo in talk.who
+															img(src='http://fillmurray.com/100/100').img-circle
+											.col-xs-9
+												.talk-summary
+													h5.title= talk.name
+													p.subtitle.mb-1 by 
+														each speaker, i in talk.who
+															if i
+																| , 
+															if speaker.isPublic 
+																a(href=speaker.url)=speaker.name.full
+															else
+																=speaker.name.full
+													.summary!= talk.description
 				//- Attending
 				section.attending
-					h3.heading-with-line 168 people are attending
+					h3.heading-with-line #{meetup.totalRSVPs} people are attending
 					ul.list-unstyled.list-inline.text-center.attendees-list
-						- for (var i = 0; i < 60; i ++)
-							li: a(href='#')
-								img(src='http://fillmurray.com/40/40').img-circle
-					.row: .col-sm-4.col-sm-offset-4
-						a(href='#').btn.btn-link.btn-block.text-muted.mt-3 Show all attendees &#8250;
+						for rsvp in meetup.rsvps
+							if rsvp.who
+								- var attendee = rsvp.who;
+								if attendee.isPublic
+									li: a(href=attendee.url, title=attendee.name.full)
+										img(src=attendee.photo.exists ? attendee._.photo.thumbnail(80,80) : '/images/avatar.png', width=40, height=40, alt=attendee.name.full).img-circle
+								else
+									li(title=attendee.name.full): img(src=attendee.photo.exists ? attendee._.photo.thumbnail(80,80) : '/images/avatar.png', width=40, height=40, alt=attendee.name.full).img-circle
 //- BODY
 block content
 	.page-content
 		
 		//- About
 		article.section.section--featured.home-about: .container
-			h2 In Sydney and into JavaScript? You need to join SydJS!
+			h4 In Sydney and into JavaScript? You need to join SydJS!
 			.row: .col-sm-8.col-sm-offset-2
-				h4 Every 3rd Wednesday of the month you'll find us talking about what we're doing &mdash; and what's happening around us &mdash; in the world of JavaScript.
+				h3 Every 3rd Wednesday of the month you'll find us talking about what we're doing and what's happening around us in the world of JavaScript.
 			.row: .col-sm-4.col-sm-offset-4
-				a(href='#').btn.btn-lg.btn-block.btn-success.mv-1
+				a(href='#').btn.btn-lg.btn-block.btn-primary.mv-1
 					span.text-caps Join SydJS now
 			p.mt-1
 				a(href='/about') Learn more about SydJS
 				|  &nbsp;&middot;&nbsp; 
-				a(href='/about#code') Read our Code of Conduct
+				a(href='/members') Find your friends in SydJS
 			p.mt-1: a(href="https://twitter.com/sydjs", class="twitter-follow-button", data-show-count="true", data-size="large") Follow @sydjs
 		.container
 			//- Links
@@ -222,4 +224,3 @@ block js
 	if google_api_key
 		script(src!='https://maps.googleapis.com/maps/api/js?key=' + google_api_key + '&sensor=false&libraries=places')
 		script(src='/js/views/index.js')
-			

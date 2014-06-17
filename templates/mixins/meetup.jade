@@ -5,16 +5,16 @@ mixin meetup(meetup, mode)
 	- var today = new Date();
 
 	.meetup(class='meetup--'+mode)
-		.meetup-calendar.calendar(class=mode == 'past' ? 'calendar--past' : null)
+		.meetup-calendar.calendar.hidden-xs.hidden-sm(class=mode == 'past' ? 'calendar--past' : null)
 			.calendar__header=meetup._.date.format('MMM')
 			.calendar__body
 				.calendar__date=meetup._.date.format('DD')
 				.calendar__year=meetup._.date.format('YYYY')
 		.meetup-content
-			.text-muted=meetup._.date.format('dddd D MMM YYYY')
+			h2.mt-0= meetup.name
+			.lead.text-muted=meetup._.date.format('dddd D MMM YYYY')
 				if meetup.time
 					|  from #{meetup.time}
-			h2.mt-0= meetup.name
 			if meetup.description
 				p!= meetup.description
 			if meetup.talks.length
@@ -25,10 +25,11 @@ mixin meetup(meetup, mode)
 
 		if meetup.date > today
 			hr.mv-2
-			h4 Are you going?
-			#next-meetup(data-id=meetup.id)
-				if user
-					if meetup.rsvpsAvailable
+			if user
+				if meetup.rsvpsAvailable
+					h4 Are you coming? 
+						span.text-thin (#{plural(meetup.remainingRSVPs, '* spot left', '* spots left')})
+					#next-meetup(data-id=meetup.id)
 						.meetup-status
 							label.btn.btn-block.btn-default.js-rsvp-checking.disabled
 								|  Checking...
@@ -37,11 +38,13 @@ mixin meetup(meetup, mode)
 								button(type='button').btn.btn-lg.btn-block.btn-default.js-rsvp-attending Yes
 							.col-xs-6
 								button(type='button').btn.btn-lg.btn-block.btn-default.js-rsvp-decline No
-					else
-						.alert.alert-success.mb-0.text-center No more tickets...
-
 				else
-					a(href='/join', data-from=page.path).btn.btn-primary.btn-lg.btn-block.js-auth-trigger RSVP Now
+					.alert.alert-success.mb-0.text-center No more tickets...
+
+			else
+				#next-meetup(data-id=meetup.id)
+					a(href='/join', data-from=page.path).btn.btn-primary.btn-lg.btn-block.js-auth-trigger RSVP Now 
+						span.text-thin (#{plural(meetup.remainingRSVPs, '* spot left', '* spots left')})
 		else if meetup.totalRSVPs
 			hr
 			.text-center

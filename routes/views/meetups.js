@@ -12,15 +12,13 @@ exports = module.exports = function(req, res) {
 	
 	view.query('upcomingMeetup',
 		Meetup.model.findOne()
-			.where('date').gte(moment().startOf('day').toDate())
-			.where('state', 'published')
+			.where('state', 'active')
 			.sort('-date')
 	, 'talks[who]');
 	
 	view.query('pastMeetups',
 		Meetup.model.find()
-			.where('date').lt(moment().subtract('days', 1).endOf('day').toDate())
-			.where('state', 'published')
+			.where('state', 'past')
 			.sort('-date')
 	, 'talks[who]');
 	
