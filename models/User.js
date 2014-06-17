@@ -137,7 +137,8 @@ User.schema.virtual('canAccessKeystone').get(function() {
 // Pull out gravatar image
 User.schema.virtual('gravatarUrl').get(function() {
 	if (!this.gravatar) return false;
-	return 'http://www.gravatar.com/avatar/' + this.gravatar + '?d=mm&r=pg';
+	// TODO: Update default image URL to live URL when site is released
+	return 'http://www.gravatar.com/avatar/' + this.gravatar + '?d=http%3A%2F%2Fsydjs-beta.herokuapp.com%2Fimages%2Favatar.png&r=pg';
 });
 
 
