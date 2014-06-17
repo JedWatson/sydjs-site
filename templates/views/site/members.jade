@@ -15,8 +15,7 @@ block content
 					li.member-item
 						.member.member--card
 							.member-section.member__photo
-								//- todo: tom/joss - replace the bill murray placeholder
-								a(href=member.url): img(src=(member.photo.exists ? member._.photo.thumbnail(300,240) : 'http://fillmurray.com/300/240'), alt=member.name.full)
+								a(href=member.url): img(src=(member.photo.exists ? member._.photo.thumbnail(300,240) : '/images/avatar.png'), alt=member.name.full)
 							.member-section.member__info
 								if member.twitter || member.github
 									.member__accounts
