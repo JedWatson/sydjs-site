@@ -1,4 +1,5 @@
 var keystone = require('keystone'),
+	crypto = require('crypto'),
 	Types = keystone.Field.Types;
 
 /**
@@ -31,7 +32,8 @@ User.add({
 	github: { type: String, width: 'short' },
 	twitter: { type: String, width: 'short' },
 	website: { type: Types.Url },
-	bio: { type: Types.Markdown }
+	bio: { type: Types.Markdown },
+	gravatar: { type: String, noedit: true }
 }, 'Notifications', {
 	notifications: {
 		posts: { type: Boolean },
@@ -90,6 +92,23 @@ User.add({
 	}
 });
 
+
+/** 
+	Pre-save
+	=============
+*/
+
+User.schema.pre('save', function(next) {
+	
+	if (!this.email) return next();
+
+	this.gravatar = crypto.createHash('md5').update(this.email.toLowerCase().trim()).digest('hex');
+	
+	return next();
+
+});
+
+
 /** 
 	Relationships
 	=============
@@ -113,6 +132,12 @@ User.schema.virtual('url').get(function() {
 // Provide access to Keystone
 User.schema.virtual('canAccessKeystone').get(function() {
 	return this.isAdmin;
+});
+
+// Pull out gravatar image
+User.schema.virtual('gravatarUrl').get(function() {
+	if (!this.gravatar) return false;
+	return 'http://www.gravatar.com/avatar/' + this.gravatar + '?d=mm&r=pg';
 });
 
 
