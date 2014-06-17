@@ -8,7 +8,7 @@ block content
 			//- code=JSON.stringify(member)
 		.member.member--profile
 			.member-section.member__photo
-				img(src=(member.photo.exists ? member._.photo.thumbnail(600,600) : '/images/avatar.png'), alt=member.name.full)
+				img(src=(member.photo.exists ? member._.photo.thumbnail(600,600) : member.gravatarUrl || '/images/avatar.png'), alt=member.name.full)
 			.member-section.member__info
 				if member.twitter || member.github
 					.member__accounts
