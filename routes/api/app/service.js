@@ -123,6 +123,8 @@ exports = module.exports = function(req, res) {
 					profileId: locals.authUser.profileId,
 					
 					username: locals.authUser.username,
+					avatar: locals.authUser.avatar,
+					
 					accessToken: locals.authUser.accessToken,
 					refreshToken: locals.authUser.refreshToken
 				});
@@ -175,6 +177,8 @@ exports = module.exports = function(req, res) {
 					profileId: locals.authUser.profileId,
 					
 					username: locals.authUser.username,
+					avatar: locals.authUser.avatar,
+					
 					accessToken: locals.authUser.accessToken,
 					refreshToken: locals.authUser.refreshToken
 				}

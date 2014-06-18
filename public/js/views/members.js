@@ -1,5 +1,5 @@
 $( function() {
-	var $container = $('#members');
+	var $container = $('.members-list');
 	$container.imagesLoaded( function() {
 		$container.masonry({ itemSelector: '.member-item' });
 	});
