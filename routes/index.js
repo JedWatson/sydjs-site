@@ -34,10 +34,6 @@ var routes = {
 // Bind Routes
 exports = module.exports = function(app) {
 	
-	if (process.env.NODE_ENV == 'production') {
-		app.all('/*', middleware.restrictSite);
-	}
-	
 	// Allow cross-domain requests (development only)
 	if (process.env.NODE_ENV != 'production') {
 		console.log('------------------------------------------------');
