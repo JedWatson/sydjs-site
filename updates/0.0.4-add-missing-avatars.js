@@ -41,4 +41,4 @@ exports = module.exports = function(done) {
 
 };
 
-exports.__defer__ = true;
+exports.__defer__ = false;
