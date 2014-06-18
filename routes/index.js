@@ -75,7 +75,6 @@ exports = module.exports = function(app) {
 	
 	// Authentication
 	app.all('/auth/confirm', routes.auth.confirm);
-	// TODO: app.all('/auth/verify', routes.auth.verify);
 	app.all('/auth/:service', routes.auth.service);
 	
 	// User

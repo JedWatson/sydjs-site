@@ -127,26 +127,28 @@ User.schema.pre('save', function(next) {
 	=============
 */
 
-User.schema.post('save', function(next) {
+User.schema.post('save', function() {
 
 	var member = this;
 
 	keystone.list('Talk').model.count({ who: member.id }).exec(function(err, count) {
 		
-		if (err) return next(err);
+		if (err) return console.error('===== Error counting user talks =====');
+		if (err) return console.error(err);
 		
 		member.talkCount = count;
-		member.save(next);
+		member.save();
 		
 	});
 
 	keystone.list('RSVP').model.findOne({ who: member.id }).sort('changedAt').exec(function(err, rsvp) {
 		
-		if (err) return next(err);
-		if (!rsvp) return next();
+		if (err) return console.error("===== Error setting user last RSVP date =====");
+		if (err) return console.error(err);
+		if (!rsvp) return;
 		
 		member.lastRSVP = rsvp.changedAt;
-		member.save(next);
+		member.save();
 		
 	});
 

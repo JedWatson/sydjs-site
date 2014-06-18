@@ -4,7 +4,7 @@ var keystone = require('keystone'),
 exports = module.exports = function(req, res) {
 	
 	if (req.user) {
-		return res.redirect('/me');
+		return res.redirect(req.cookies.target || '/me');
 	}
 	
 	var view = new keystone.View(req, res),
@@ -21,10 +21,9 @@ exports = module.exports = function(req, res) {
 		}
 		
 		var onSuccess = function() {
-			if (req.query && req.query.from) {
-				res.redirect(req.query.from);
-			} else if (req.body.from) {
-				res.redirect(req.body.from);
+			if (req.body.target && !/join|signin/.test(req.body.target)) {
+				console.log('[signin] - Set target as [' + req.body.target + '].');
+				res.redirect(req.body.target);
 			} else {
 				res.redirect('/me');
 			}
