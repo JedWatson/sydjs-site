@@ -8,6 +8,7 @@ exports = module.exports = function(req, res) {
 		locals = res.locals;
 	
 	locals.section = 'members';
+	locals.page.title = 'Members - SydJS';
 	
 	var membersQuery = User.model.find()
 		.sort('name')

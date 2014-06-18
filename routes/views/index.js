@@ -11,6 +11,7 @@ exports = module.exports = function(req, res) {
 	
 	locals.section = 'home';
 	locals.meetup = false;
+	locals.page.title = 'Welcome to SydJS';
 	
 	
 	// Load the first, NEXT meetup
