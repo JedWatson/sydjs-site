@@ -75,9 +75,6 @@ Meetup.schema.pre('save', function(next) {
 	// If publish date is before today, it's a scheduled meetup
 	else if (moment().isBefore(moment(meetup.publishedDate))) meetup.state = 'scheduled';
 	
-	// Refresh the RSVP count
-	meetup.refreshRSVPs();
-	
 	next();
 
 });
