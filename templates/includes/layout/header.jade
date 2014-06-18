@@ -22,7 +22,7 @@ header(id='header', role='banner', class=(section == 'home' ? 'header--home' : '
 				ul.navbar-nav.navbar-nav--right
 					if user
 						li: a(href='/me').user.hidden-xs
-								img(src=(user.photo.exists ? user._.photo.thumbnail(27,27) : user.gravatarUrl || '/images/avatar.png'), width=27).img-circle
+								img(src=(user.photo.exists ? user._.photo.thumbnail(27,27) : user.avatarUrl || '/images/avatar.png'), width=27).img-circle
 								=user.name.first
 						li: a(href='/signout')
 							span.visible-xs Sign out

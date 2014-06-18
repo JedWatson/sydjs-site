@@ -16,19 +16,19 @@ block content
 						.member.member--card
 							.member-section.member__photo
 								//- todo: tom/joss - replace the bill murray placeholder
-								a(href=member.url): img(src=(member.photo.exists ? member._.photo.thumbnail(300,240) : member.gravatarUrl || '/images/avatar.png'), alt=member.name.full)
+								a(href=member.url): img(src=(member.photo.exists ? member._.photo.thumbnail(300,240) : member.avatarUrl || '/images/avatar.png'), alt=member.name.full)
 							.member-section.member__info
+								h5.member__title: a(href=member.url)= member.name.full
+								if member.bio.html
+									.member__bio.hidden-xs!= member.bio.html
 								if member.twitter || member.github
-									.member__accounts
+									.member__accounts.hidden-xs
 										if member.twitter
 											a(href='https://twitter.com/' + member.twitter.replace('@', ''), target='_blank', data-toggle='tooltip', data-title='@' + member.twitter.replace('@', ''), data-placement='top', data-container='#members').member__account.member__account--twitter.is-tooltip
 												span.entypo-social.entypo-twitter
 										if member.github
 											a(href='https://github.com/' + member.github, target='_blank', data-toggle='tooltip', data-title=member.github, data-placement='top', data-container='#members').member__account.member__account--github.is-tooltip
 												span.entypo-social.entypo-github
-								h4.member__title: a(href=member.url)= member.name.full
-								if member.bio.html
-									.member__bio!= member.bio.html
 		
 		else
 			h3.text-muted There are no members yet.

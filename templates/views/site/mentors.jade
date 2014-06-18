@@ -23,7 +23,7 @@ block content
 						tr
 							td
 								a(href=member.url).media
-									.pull-left: img(src=member.photo.exists ? member._.photo.thumbnail(80,80) : member.gravatarUrl || '/images/avatar.png', width=40, height=40, alt=member.name.ful).img-responsive.img-circle
+									.pull-left: img(src=member.photo.exists ? member._.photo.thumbnail(80,80) : member.avatarUrl || '/images/avatar.png', width=40, height=40, alt=member.name.ful).img-responsive.img-circle
 									.media-body= member.name.full
 							td= member.mentoring.have
 							td= member.mentoring.want

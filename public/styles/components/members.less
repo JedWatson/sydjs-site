@@ -26,13 +26,11 @@
 		width: 100%;
 	}
 }
-.member__info {
-}
 .member__title {
 	margin: 0;
-}
-.member__title > a {
-	color: @text-color;
+	> a {
+		color: @headings-color;
+	}
 }
 
 // crop user bios
@@ -91,18 +89,26 @@
 	width: 100%;
 }
 
-.grid-sizer { width: 100%; }
+.grid-sizer,
+.member-item {
+	width: 33%;
+}
 
 // tiny screens only
 @media (max-width: @screen-xs-max) {
-	.grid-sizer { width: 50%; }
+	.member__info {
+		padding: .5em;
+	}
+	.member__title {
+		font-size: 1em;
+	}
 }
 
 // sm and up screens
 @media (min-width: @screen-sm-min) {
-	.grid-sizer { width: 33%; }
+	.grid-sizer,
 	.member-item {
-		width: 33.3%;
+		width: 25%;
 	}
 	.members-list {
 		margin-right: -(@member-grid-gutter-lg / 2);
@@ -118,25 +124,32 @@
 
 // md and up screens
 @media (min-width: @screen-md-min) {
-	.grid-sizer { width: 25%; }
+	.grid-sizer,
 	.member-item {
-		width: 25%;
+		width: 20%;
+	}
+}
+
+// large screens
+@media (min-width: @screen-lg-min) {
+	.grid-sizer,
+	.member-item {
+		width: 16.667%;
 	}
 }
 
 // Member Card
 .member.member--card {
 	.member__accounts {
-		float: right;
+		// float: right;
 		a {
-			margin-left: 5px;
+			margin-right: 5px;
 			padding: 2px;
 			color: lighten(@gray-light, 5%);
 			text-align: center;
-			font-size: @font-size-base * 1.25;
+			font-size: @font-size-base * 1.5;
 		}
 	}
-
 	.member__account--twitter:hover {
 		color: @brand-twitter;
 	}
@@ -177,7 +190,7 @@
 		margin: 0.5em 0 0 0;
 	}
 	.member__accounts {
-		float: right;
+		// float: right;
 		margin-top: 1em;
 		.btn {
 			border-radius: @border-radius-large;
