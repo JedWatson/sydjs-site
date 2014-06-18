@@ -58,6 +58,7 @@ body { height: 100%; font-weight: 300; }
 	text-align: center;
 }
 
+
 // Sticky footer (only on desktop)
 // ------------------------------
 @footerHeight: 300px;
@@ -89,7 +90,6 @@ body { height: 100%; font-weight: 300; }
 
 // Links
 // ------------------------------
-
 .links-list {
 	h3 {
 		margin: 5px 0 0 0;
@@ -149,10 +149,6 @@ body { height: 100%; font-weight: 300; }
 
 
 
-
-
-
-
 // Page
 // ------------------------------
 
@@ -190,7 +186,7 @@ body { height: 100%; font-weight: 300; }
 	padding-top: @page-padding * 2.5;
 }
 
-
+// Add space at the top on tiny screens
 @media (max-width: @screen-sm-max) {
 	.row {
 		[class^="col-md"] + [class^="col-md"] {
@@ -211,7 +207,6 @@ body { height: 100%; font-weight: 300; }
 
 // Misc
 // ------------------------------
-
 .back-bar {
 	padding-top: 10px;
 	padding-bottom: 10px;
@@ -226,8 +221,7 @@ body { height: 100%; font-weight: 300; }
 
 
 
-
-// organisers
+// Organisers
 .about-organisers {
 	.organiser {
 		.img-wrapper {
@@ -252,8 +246,7 @@ body { height: 100%; font-weight: 300; }
 
 
 
-
-// organisations
+// Organisations
 .org__heading {
 	margin-top: 0;
 	
@@ -266,7 +259,6 @@ body { height: 100%; font-weight: 300; }
 }
 .org__location-icon {
 	float: left;
-	// margin-top: 2px;
 	margin-right: 10px;
 	font-size: 42px;
 }
@@ -277,6 +269,7 @@ body { height: 100%; font-weight: 300; }
 	display: block;
 	margin-bottom: 20px;
 }
+
 @media (min-width: @screen-sm-min) {
 	.org__logo img {
 		.img-responsive();
@@ -287,7 +280,6 @@ body { height: 100%; font-weight: 300; }
 
 // Animation
 // ------------------------------
-
 @-moz-keyframes pulse {
   0% { -moz-transform: scale(1); }
   50% { -moz-transform: scale(1.4); }
