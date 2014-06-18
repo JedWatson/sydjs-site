@@ -115,7 +115,7 @@ User.schema.pre('save', function(next) {
 
 	var member = this;
 	
-	async.series([
+	async.parallel([
 		
 		function(done) {
 			
