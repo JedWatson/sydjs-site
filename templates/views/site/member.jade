@@ -2,7 +2,7 @@ extends ../../layouts/default
 
 block content
 	.container-sm
-		if !member
+		if !member.isPublic
 			.lead.text-center
 				.h2.mb-0.text-muted: span.entypo.entypo-user
 				br

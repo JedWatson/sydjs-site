@@ -1,5 +1,8 @@
 extends ../../layouts/default
 
+block flash-messages
+	//- !!! intentionally left blank
+
 block intro
 	.page-intro: .container
 		h1.page-title Members
@@ -29,6 +32,7 @@ mixin member(member)
 								span.entypo-social.entypo-github
 block content
 	.container
+		+flash-messages(messages)
 		if organisers.length
 			.members-group
 				h3.text-caps.mb-1 Organisers

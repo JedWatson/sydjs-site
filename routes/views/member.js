@@ -12,12 +12,31 @@ exports = module.exports = function(req, res) {
 	locals.moment = moment;
 
 
-	view.query('member', User.model.findOne()
-		.where('key', req.params.member)
-		.where('isPublic', true),
-	'posts talks[meetup]');
+	// Load the Member
 
-	locals.page.title = 'Members - SydJS'
+	view.on('init', function(next) {
+		User.model.findOne()
+		.where('key', req.params.member)
+		.exec(function(err, member) {
+			if (err) return res.err(err);
+			if (!member) {
+				req.flash('info', 'Sorry, we couldn\'t find a matching member');
+				return res.redirect('/members')
+			}
+			locals.member = member;
+			next();
+		});
+	});
+
+	
+	// Set the page title and populate related documents
+	
+	view.on('render', function(next) {
+		if (locals.member) {
+			locals.page.title = locals.member.name.full + ' - SydJS';
+			locals.member.populateRelated('posts talks[meetup]', next);
+		}
+	});
 	
 	view.render('site/member');
 
