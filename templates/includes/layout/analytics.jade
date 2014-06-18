@@ -9,6 +9,7 @@ if env == 'production' && ga_property && ga_domain
 		ga('create', '#{ga_property}', '#{ga_domain}');
 		ga('send', 'pageview');
 
+//- CHARTBEAT
 if env == 'production' && chartbeat_property && chartbeat_domain
 	script.
 		var _sf_async_config = { uid: #{chartbeat_property}, domain: '#{chartbeat_domain}', useCanonical: true };
