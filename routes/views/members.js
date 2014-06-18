@@ -9,10 +9,10 @@ exports = module.exports = function(req, res) {
 		locals = res.locals;
 	
 	locals.section = 'members';
+	locals.page.title = 'Members - SydJS';
 
 
 	// Load Organisers
-	
 	view.on('init', function(next) {
 		User.model.find()
 		.sort('name.first')

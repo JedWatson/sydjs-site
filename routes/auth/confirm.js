@@ -51,37 +51,37 @@ exports = module.exports = function(req, res) {
 	
 	}
 	
+	// Function to check if a user already exists for this profile id (and sign them in)
+	var checkExisting = function(next) {
+	
+		if (locals.existingUser) return checkAuth();
+		
+		console.log('[auth.confirm] - Searching for existing users via [' + locals.authUser.type + '] profile id...');
+		console.log('------------------------------------------------------------');
+		
+		var query = User.model.findOne();
+			query.where('services.' + locals.authUser.type + '.profileId', locals.authUser.profileId);
+			query.exec(function(err, user) {
+				if (err) {
+					console.log('[auth.confirm] - Error finding existing user via profile id.', err);
+					console.log('------------------------------------------------------------');
+					return next({ message: 'Sorry, there was an error processing your information, please try again.' });
+				}
+				if (user) {
+					console.log('[auth.confirm] - Found existing user via [' + locals.authUser.type + '] profile id...');
+					console.log('------------------------------------------------------------');
+					locals.existingUser = user;
+					return doSignIn();
+				}
+				return next();
+			});
+	
+	}
+	
 	// Function to handle data confirmation process
 	var checkAuth = function() {
 	
 		async.series([
-		
-			// Check for user by profile id (only if not signed in)
-			function(next) {
-				
-				if (locals.existingUser) return next();
-				
-				console.log('[auth.confirm] - Searching for existing users via [' + locals.authUser.type + '] profile id...');
-				console.log('------------------------------------------------------------');
-				
-				var query = User.model.findOne();
-					query.where('services.' + locals.authUser.type + '.profileId', locals.authUser.profileId);
-					query.exec(function(err, user) {
-						if (err) {
-							console.log('[auth.confirm] - Error finding existing user via profile id.', err);
-							console.log('------------------------------------------------------------');
-							return next({ message: 'Sorry, there was an error processing your information, please try again.' });
-						}
-						if (user) {
-							console.log('[auth.confirm] - Found existing user via [' + locals.authUser.type + '] profile id...');
-							console.log('------------------------------------------------------------');
-							locals.existingUser = user;
-							return doSignIn();
-						}
-						return next();
-					});
-			
-			},
 			
 			// Check for user by email (only if not signed in)
 			function(next) {
@@ -229,8 +229,7 @@ exports = module.exports = function(req, res) {
 	}
 	
 	view.on('init', function(next) {
-		if (req.user) return checkAuth();
-		return next();
+		return checkExisting(next);
 	});
 	
 	view.on('post', { action: 'confirm.details' }, function(next) {

@@ -18,7 +18,7 @@ header(id='header', role='banner', class=(section == 'home' ? 'header--home' : '
 				ul.navbar-nav.navbar-nav--left
 					each link in navLinks
 						li(class=(section == link.key ? 'nav-item-' + link.key + ' active' : 'nav-item-' + link.key)): a(href=link.href)= link.label
-					li: a(href='mailto:') Contact
+					li: a(href='mailto:craig.sharkie+sydjs@gmail.com') Contact
 				ul.navbar-nav.navbar-nav--right
 					if user
 						li: a(href='/me').user.hidden-xs

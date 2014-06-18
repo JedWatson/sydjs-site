@@ -11,10 +11,13 @@ exports = module.exports = function(req, res) {
 	locals.section = 'members';
 	locals.moment = moment;
 
+
 	view.query('member', User.model.findOne()
 		.where('key', req.params.member)
 		.where('isPublic', true),
 	'posts talks[meetup]');
+
+	locals.page.title = 'Members - SydJS'
 	
 	view.render('site/member');
 

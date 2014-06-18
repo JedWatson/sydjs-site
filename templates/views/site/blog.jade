@@ -13,7 +13,7 @@ block intro
 block content
 	.page-content: .container
 		.row
-			div(class= data.categories.length || !data.posts.length ? 'col-sm-10' : 'col-sm-10 col-sm-offset-1')
+			div(class= data.categories.length || !data.posts.length ? 'col-md-10' : 'col-md-10 col-md-offset-1')
 				if filters.category && !data.category
 					h3 Invalid Category.
 				else
@@ -28,7 +28,7 @@ block content
 							h3.text-muted There are no posts yet.
 			
 			if data.categories.length
-				.col-sm-2
+				.col-md-2
 					if data.categories.length
 						h5.text-muted Filter by tag
 						ul.list-unstyled.tags-list

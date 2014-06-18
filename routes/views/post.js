@@ -28,6 +28,7 @@ exports = module.exports = function(req, res) {
 				if (post.state == 'published' || req.user.isAdmin || (post.author && req.user.id == post.author.id)) {
 					locals.post = post;
 					locals.post.populateRelated('comments[author]', next);
+					locals.page.title = post.title + ' - Blog - SydJS';
 				} else {
 					return res.notfound('Post not found');
 				}
