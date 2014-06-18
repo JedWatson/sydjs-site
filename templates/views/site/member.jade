@@ -7,23 +7,25 @@ block content
 			//- hr
 			//- code=JSON.stringify(member)
 		.member.member--profile
-			.member-section.member__photo
-				img(src=(member.photo.exists ? member._.photo.thumbnail(600,600) : member.gravatarUrl || '/images/avatar.png'), alt=member.name.full)
 			.member-section.member__info
-				if member.twitter || member.github
-					.member__accounts
-						if member.twitter
-							a(href='https://twitter.com/' + member.twitter.replace('@', ''), target='_blank', data-toggle='tooltip', data-title='@' + member.twitter.replace('@', ''), data-placement='top').member__account.member__account--twitter.btn.btn-default.btn-sm
-								span.entypo-social.entypo-twitter
-								=member.twitter
-						if member.github
-							a(href='https://github.com/' + member.github, target='_blank', data-toggle='tooltip', data-title=member.github, data-placement='top').member__account.member__account--github.btn.btn-default.btn-sm
-								span.entypo-social.entypo-github
-								=member.github
-				h1.member__title= member.name.full
-				p.member__byline.text-muted Member since #{moment(member.createdOn).format('MMMM YYYY')}
-				if member.bio.html
-					.member__bio!= member.bio.html
+				.row
+					.col-sm-3
+						img(src=(member.photo.exists ? member._.photo.thumbnail(600,600) : member.gravatarUrl || '/images/avatar.png'), alt=member.name.full).img-responsive
+					.col-sm-9
+						h1.member__title= member.name.full
+						p.text-muted.mv-1 Member since #{moment(member.createdOn).format('MMMM YYYY')}
+						if member.twitter || member.github
+							.member__accounts.mb-1
+								if member.twitter
+									a(href='https://twitter.com/' + member.twitter.replace('@', ''), target='_blank', data-toggle='tooltip', data-title='@' + member.twitter.replace('@', ''), data-placement='top').member__account.member__account--twitter.btn.btn-default
+										span.entypo-social.entypo-twitter
+										=member.twitter
+								if member.github
+									a(href='https://github.com/' + member.github, target='_blank', data-toggle='tooltip', data-title=member.github, data-placement='top').member__account.member__account--github.btn.btn-default
+										span.entypo-social.entypo-github
+										=member.github
+						if member.bio.html
+							!= member.bio.html
 			if member.talks && member.talks.length
 				.member-section.member__additional-info
 					h5.text-caps Talks
@@ -35,5 +37,5 @@ block content
 										small.block=moment(talk.meetup.date).format('MMM')
 										strong.block=moment(talk.meetup.date).format('DD')
 								.media-body
-									h5.mb-0=talk.name
+									h5: a(href=talk.meetup.url)=talk.name
 									!=talk.description
