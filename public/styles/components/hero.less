@@ -60,8 +60,8 @@
 			margin-bottom: 1em;
 		}
 		.byline {
-			font-weight: 400;
-			font-size: @font-size-base * 1.5;
+			font-weight: 300;
+			font-size: @font-size-base * 1.75;
 			a {
 				color: inherit;
 			}
@@ -69,6 +69,10 @@
 			strong {
 				font-weight: 700;
 			}
+		}
+
+		.byline + .byline {
+			font-size: @font-size-base * 1.25;
 		}
 
 	}
@@ -94,6 +98,9 @@
 			}
 			.byline {
 				font-size: @font-size-base * 1.2;
+			}
+			.byline + .byline {
+				font-size: @font-size-base;
 			}
 		}
 		.hero-details {
