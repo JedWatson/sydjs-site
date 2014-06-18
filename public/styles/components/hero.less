@@ -17,6 +17,11 @@
 		text-align: center;
 		margin-top: -(@navbar-height + 10) * 2;
 
+		//- Increase the height on big screens
+		@media (min-width: 1600px) {
+			height: @hero-intro-height-sm * 1.7;
+		}
+
 		.hero-background {
 			.ground;
 			position: absolute;
@@ -24,7 +29,7 @@
 			left: 0;
 			display: block;
 			width: 100%;
-			height: @hero-intro-height-sm;
+			height: 100%;
 			img {
 				width: 100%;
 			}
@@ -39,6 +44,7 @@
 		}
 		.hero-intro-content {
 			.hv-centered;
+			top: 42%;
 			width: 90%;
 		}
 		.title {
@@ -127,8 +133,8 @@
 
 // Mask
 .hero-intro.hero-intro--hasmask {
-	#gradient .vertical(rgba(0,0,0,0.2), rgba(0,0,0,0.6));
-	box-shadow: inset 0 0 20em rgba(0,0,0,0.3);
+	#gradient .vertical(rgba(0,0,0,0.3), rgba(0,0,0,0.6));
+	//box-shadow: inset 0 0 20em rgba(0,0,0,0.3);
 }
 
 // Meet up
@@ -137,8 +143,8 @@
 // Next meet up
 .hero-meetup--next {
 	.hero-background {
-		background: url('/images/placeholders/sydney-1.jpg') no-repeat center center / cover;
-		background-color: black;
+		background: url('/images/placeholders/sydney-4.jpg') no-repeat center center / cover;
+		background-color: @gray-dark;
 	}
 }
 
