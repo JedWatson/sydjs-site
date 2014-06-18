@@ -163,13 +163,12 @@ $(function() {
 				meetup: meetup.id
 			},
 			success: function(data) {
-				setTimeout(function() {
-					$('.meetup-status').hide();
-					$('.meetup-toggle').show();
-					if (data.rsvped) {
-						data.attending ? $attending.addClass('btn-success') : $decline.addClass('btn-danger')
-					}
-				}, 250);
+				if (data.rsvped) {
+					data.attending ? $attending.addClass('btn-success active') : $decline.addClass('btn-danger active')
+				} else {
+					$attending.addClass('btn-success');
+					$decline.addClass('btn-danger');
+				}
 			}
 		});
 	}

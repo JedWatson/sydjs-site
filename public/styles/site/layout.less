@@ -44,11 +44,14 @@ body {
 // ------------------------------
 .site-footer {
 	background-color: darken(@body-bg, 3.5%);
-	color: @gray;
+	color: @gray-light;
 	padding: 3em 0 0;
 	font-size: @font-size-base * 1.1;
 	position: relative;
 
+	.footer-heading {
+		color: @gray;
+	}
 	ul, ol {
 		.list-unstyled();
 	}
@@ -56,7 +59,7 @@ body {
 		margin-bottom: 5px;
 	}
 	a {
-		color: @link-color;
+		color: @gray;
 	}
 	
 }
