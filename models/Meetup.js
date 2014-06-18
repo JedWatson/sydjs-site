@@ -18,7 +18,7 @@ Meetup.add({
 	state: { type: Types.Select, options: 'draft, scheduled, active, past', noedit: false },
 	date: { type: Types.Date, required: true, initial: true, index: true },
 	time: { type: String, required: true, initial: true, width: 'short', default: '6pm - 9pm', note: 'e.g. 6pm - 9pm' },
-	place: { type: String, required: true, initial: true, width: 'medium', default: 'Level 6, 341 George St (Atlassian) – Enter via the side door in Wynyard Street', note: 'usually Level 6, 341 George St (Atlassian) – Enter via the side door in Wynyard Street' },
+	place: { type: String, required: true, initial: true, width: 'medium', default: 'Level 6, 341 George St (Atlassian)', note: 'Usually Atlassian – Level 6, 341 George St' },
 	description: { type: Types.Html, wysiwyg: true },
 	
 	maxRSVPs: { type: Number, default: 100 },
@@ -67,7 +67,7 @@ Meetup.schema.pre('save', function(next) {
 	if (!meetup.publishedDate) meetup.state = 'draft';
 	
 	// If meetup date is after today, it's an past meetup
-	else if (moment().isAfter(moment(meetup.date))) meetup.state = 'past';
+	else if (moment().isAfter(moment(meetup.date).add('day', 1))) meetup.state = 'past';
 	
 	// If publish date is after today, it's an active meetup
 	else if (moment().isAfter(meetup.publishedDate)) meetup.state = 'active';
