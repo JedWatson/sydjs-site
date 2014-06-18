@@ -7,4 +7,4 @@ block content
 		.page-intro.text-left
 			a(href='/meetups').text-muted &larr; Back to all meetups
 		.page-content
-			+meetup(meetup, (meetup.date > new Date() ? 'present' : 'past'))
+			+meetup(meetup)

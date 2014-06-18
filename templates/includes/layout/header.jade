@@ -28,5 +28,6 @@ header(id='header', role='banner', class=(section == 'home' ? 'header--home' : '
 							span.visible-xs Sign out
 							span.entypo.entypo-large.entypo-logout.hidden-xs
 					else
-						li: a(href='/join', data-from=page.path).js-auth-trigger Sign in / Join
+						li: a(href='/signin', data-from=page.path, data-initial='signin').js-auth-trigger Sign in
+						li: a(href='/join', data-from=page.path).js-auth-trigger Join
 //-.header-placeholder

@@ -1,11 +1,11 @@
 include meetup-talk
 
-mixin meetup(meetup, mode)
+mixin meetup(meetup)
 
 	- var today = new Date();
 
-	.meetup(class='meetup--'+mode)
-		.meetup-calendar.calendar.hidden-xs.hidden-sm(class=mode == 'past' ? 'calendar--past' : null)
+	.tile.ph-2.pv-2
+		.meetup-calendar.calendar.hidden-xs.hidden-sm(class=meetup.state == 'past' ? 'calendar--past' : null)
 			.calendar__header=meetup._.date.format('MMM')
 			.calendar__body
 				.calendar__date=meetup._.date.format('DD')
@@ -49,4 +49,14 @@ mixin meetup(meetup, mode)
 			hr
 			.text-center
 				.h1.text-muted.mb-0= meetup.totalRSVPs
-				.lead.text-muted people #{meetup.state == 'active' ? "are attending" : "attended"}
+				.lead.text-muted people #{meetup.state == 'active' ? "are attending" : "attended"} this meetup
+			if meetup.state == 'past'
+				ul.list-unstyled.list-inline.text-center
+					for rsvp in meetup.rsvps
+						if rsvp.who
+							- var attendee = rsvp.who;
+							if attendee.isPublic
+								li: a(href=attendee.url, title=attendee.name.full)
+									img(src=attendee.photo.exists ? attendee._.photo.thumbnail(80,80) : attendee.avatarUrl || '/images/avatar.png', width=40, height=40, alt=attendee.name.full).img-circle
+							else
+								li(title=attendee.name.full): img(src=attendee.photo.exists ? attendee._.photo.thumbnail(80,80) : attendee.avatarUrl || '/images/avatar.png', width=40, height=40, alt=attendee.name.full).img-circle

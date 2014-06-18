@@ -22,7 +22,7 @@ exports = module.exports = function(req, res) {
 				if (!meetup) return res.notfound('Post not found');
 				
 				locals.meetup = meetup;
-				locals.meetup.populateRelated('talks[who]', next);
+				locals.meetup.populateRelated('talks[who] rsvps[who]', next);
 
 			});
 	});
