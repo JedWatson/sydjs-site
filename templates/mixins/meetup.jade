@@ -49,4 +49,4 @@ mixin meetup(meetup, mode)
 			hr
 			.text-center
 				.h1.text-muted.mb-0= meetup.totalRSVPs
-				.lead.text-muted Awesome folks attended this meetup
+				.lead.text-muted people #{meetup.state == 'active' ? "are attending" : "attended"}
