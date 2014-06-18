@@ -11,8 +11,8 @@ mixin meetup(meetup)
 				.calendar__date=meetup._.date.format('DD')
 				.calendar__year=meetup._.date.format('YYYY')
 		.meetup-content
-			h2.mt-0= meetup.name
-			.lead.text-muted=meetup._.date.format('dddd D MMM YYYY')
+			h2.mv-5= meetup.name
+			h5.mb-1=meetup._.date.format('dddd D MMM YYYY')
 				if meetup.time
 					|  from #{meetup.time}
 			if meetup.description

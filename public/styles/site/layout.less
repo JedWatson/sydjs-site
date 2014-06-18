@@ -67,6 +67,7 @@ body {
 	text-align: center;
 }
 
+
 // Sticky footer (only on desktop)
 // ------------------------------
 @footerHeight: 300px;
@@ -98,7 +99,6 @@ body {
 
 // Links
 // ------------------------------
-
 .links-list {
 	h3 {
 		margin: 5px 0 0 0;
@@ -158,10 +158,6 @@ body {
 
 
 
-
-
-
-
 // Page
 // ------------------------------
 
@@ -169,7 +165,9 @@ body {
 .page-intro {
 	padding-bottom: @page-padding;
 	text-align: center;
-	
+	h1 {
+		margin-bottom: 0.25em;
+	}
 	.buttons > .btn {
 		margin-right: 10px;
 	}
@@ -197,7 +195,7 @@ body {
 	padding-top: @page-padding * 2.5;
 }
 
-
+// Add space at the top on tiny screens
 @media (max-width: @screen-sm-max) {
 	.row {
 		[class^="col-md"] + [class^="col-md"] {
@@ -218,7 +216,6 @@ body {
 
 // Misc
 // ------------------------------
-
 .back-bar {
 	padding-top: 10px;
 	padding-bottom: 10px;
@@ -233,8 +230,7 @@ body {
 
 
 
-
-// organisers
+// Organisers
 .about-organisers {
 	.organiser {
 		.img-wrapper {
@@ -259,8 +255,7 @@ body {
 
 
 
-
-// organisations
+// Organisations
 .org__heading {
 	margin-top: 0;
 	
@@ -273,7 +268,6 @@ body {
 }
 .org__location-icon {
 	float: left;
-	// margin-top: 2px;
 	margin-right: 10px;
 	font-size: 42px;
 }
@@ -284,6 +278,7 @@ body {
 	display: block;
 	margin-bottom: 20px;
 }
+
 @media (min-width: @screen-sm-min) {
 	.org__logo img {
 		.img-responsive();
@@ -294,7 +289,6 @@ body {
 
 // Animation
 // ------------------------------
-
 @-moz-keyframes pulse {
   0% { -moz-transform: scale(1); }
   50% { -moz-transform: scale(1.4); }

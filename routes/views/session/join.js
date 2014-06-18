@@ -4,7 +4,7 @@ var keystone = require('keystone'),
 exports = module.exports = function(req, res) {
 	
 	if (req.user) {
-		return res.redirect('/me');
+		return res.redirect(req.cookies.target || '/me');
 	}
 	
 	var view = new keystone.View(req, res),
@@ -19,13 +19,8 @@ exports = module.exports = function(req, res) {
 			
 			function(cb) {
 				
-				if (!req.body.join_name || !req.body.join_email || !req.body.join_password) {
+				if (!req.body.firstname || !req.body.lastname || !req.body.email || !req.body.password) {
 					req.flash('error', 'Please enter a name, email and password.');
-					return cb(true);
-				}
-				
-				if (req.body.join_password != req.body.join_passwordConfirm) {
-					req.flash('error', 'Passwords must match.');
 					return cb(true);
 				}
 				
@@ -35,7 +30,7 @@ exports = module.exports = function(req, res) {
 			
 			function(cb) {
 				
-				keystone.list('User').model.findOne({ email: req.body.join_email }, function(err, user) {
+				keystone.list('User').model.findOne({ email: req.body.email }, function(err, user) {
 					
 					if (err || user) {
 						req.flash('error', 'User already exists with that email address.');
@@ -50,19 +45,15 @@ exports = module.exports = function(req, res) {
 			
 			function(cb) {
 			
-				var splitName = req.body.join_name.split(' '),
-					firstName = splitName[0],
-					lastName = splitName[1];
-				
 				var userData = {
 					name: {
-						first: firstName,
-						last: lastName
+						first: req.body.firstname,
+						last: req.body.lastname,
 					},
-					email: req.body.join_email,
-					password: req.body.join_password,
+					email: req.body.email,
+					password: req.body.password,
 					
-					twitter: req.body.join_twitter
+					website: req.body.website
 				};
 				
 				var User = keystone.list('User').model,
@@ -79,7 +70,12 @@ exports = module.exports = function(req, res) {
 			if (err) return next();
 			
 			var onSuccess = function() {
-				return res.redirect('/me');
+				if (req.body.target && !/join|signin/.test(req.body.target)) {
+					console.log('[join] - Set target as [' + req.body.target + '].');
+					res.redirect(req.body.target);
+				} else {
+					res.redirect('/me');
+				}
 			}
 			
 			var onFail = function(e) {
@@ -87,7 +83,7 @@ exports = module.exports = function(req, res) {
 				return next();
 			}
 			
-			keystone.session.signin({ email: req.body.join_email, password: req.body.join_password }, req, res, onSuccess, onFail);
+			keystone.session.signin({ email: req.body.email, password: req.body.password }, req, res, onSuccess, onFail);
 			
 		});
 		

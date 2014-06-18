@@ -15,6 +15,11 @@ exports = module.exports = function(req, res, next) {
 		return res.redirect('/signin');
 	}
 	
+	if (req.query.target) {
+		console.log('[auth.service] - Set target as [' + req.query.target + '].');
+		res.cookie('target', req.query.target);
+	}
+	
 	services[req.params.service].authenticateUser(req, res, next);
 
 };

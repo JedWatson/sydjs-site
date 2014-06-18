@@ -13,9 +13,9 @@ mixin member(member)
 			.member-section.member__photo
 				a(href=member.url): img(src=(member.photo.exists ? member._.photo.thumbnail(360,360) : member.avatarUrl || '/images/avatar.png'), alt=member.name.full, width=180, height=180)
 			.member-section.member__info
-				h5.member__title: a(href=member.url)= member.name.full
+				h5.member__title(class=(member.bio.html ? null : 'member__title-only')): a(href=member.url)= member.name.full
 				if member.bio.html
-					.member__bio.hidden-xs!= member.bio.html
+					.member__bio!=utils.cropString( utils.htmlToText(member.bio.html), 100, '...', true )
 				if member.twitter || member.github
 					.member__accounts.hidden-xs
 						if member.twitter
@@ -27,25 +27,26 @@ mixin member(member)
 block content
 	.container
 		if organisers.length
-			h2 Organisers
-			ul.list-unstyled.members-list
-				li.grid-sizer
-				each organiser in organisers
-					+member(organiser)
+			.members-group
+				h4.text-caps.mb-1 Organisers
+				ul.list-unstyled.members-list
+					li.grid-sizer
+					each organiser in organisers
+						+member(organiser)
 		if speakers.length
-			hr.mv-3
-			h2 Speakers
-			ul.list-unstyled.members-list
-				li.grid-sizer
-				each speaker in speakers
-					+member(speaker)
+			.members-group
+				h4.text-caps.mb-1 Speakers
+				ul.list-unstyled.members-list
+					li.grid-sizer
+					each speaker in speakers
+						+member(speaker)
 		if community.length
-			hr.mv-3
-			h2 Community
-			ul.list-unstyled.members-list
-				li.grid-sizer
-				each member in community
-					+member(member)
+			.members-group
+				h4.text-caps.mb-1 Community
+				ul.list-unstyled.members-list
+					li.grid-sizer
+					each member in community
+						+member(member)
 		
 		if !organisers.length && !speakers.length && !community.length
 			h3.text-muted There are no members yet.

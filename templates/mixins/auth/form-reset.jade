@@ -25,11 +25,6 @@ mixin form-reset(args)
 					type='hidden'
 					name='action'
 					value='reset-password')
-				if args.modal
-					input(
-						type='hidden'
-						name='from'
-						value=args.from ? args.from : page.path)
 				.form-control-box
 					label.sr-only(for='signin-password') New password
 					input.form-control.form-control--last(
