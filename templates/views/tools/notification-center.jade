@@ -17,7 +17,7 @@ html
 			.confirm-page__logo { display: inline-block; opacity: .25; }
 			.confirm-page__logo img { max-width: 100%; }
 
-	body.confirm-page
+	body.confirm-page: .site-body
 		.container-xs
 			.page-intro
 				.confirm-page__logo
@@ -25,16 +25,35 @@ html
 			
 			.page-content
 				h1 Notification Center
-				form(method='post', autocomplete='off', novalidate).form-horizontal
-					input(type='hidden', name='action', value='confirm.details')
-					//- h3.profile-form__heading Confirm Details
-					p.lead.mb-2 Be careful!
-					+flash-messages(messages)
-					.form-group
-						label.col-sm-3 Push Notification
-						.col-sm-9: textarea(name='push').form-control
-					.form-group
-						label.col-sm-3 Email Copy
-						.col-sm-9: textarea(name='email').form-control
-					.mt-1
-						button(type='submit').btn.btn-danger.btn-lg.btn-block Send
+				.tile.ph-2.pv-2.mv-1
+					h4 Notifications for Next Meetup
+					p.mb-2.text-muted This will go out to all "#{nextMeetup.name}" attendees
+					form(method='post', autocomplete='off', novalidate)
+						input(type='hidden', name='action', value='notify.subscribers')
+						+flash-messages(messages)
+						.form-group
+							label.sr-only Push Notification
+							textarea(name='push', placeholder='Push Notification' rows=2).form-control
+						.form-group
+							label.sr-only Email Copy
+							textarea(name='email', placeholder='Email Copy' rows=5).form-control
+						button(type='submit', data-confirm='Are you sure?').js-confirm.btn.btn-primary Send to #{nextMeetup.rsvps.length} attendees
+				.tile.ph-2.pv-2
+					h4 Notifications for all SydJS subscribers
+					form(method='post', autocomplete='off', novalidate)
+						input(type='hidden', name='action', value='notify.subscribers')
+						+flash-messages(messages)
+						.form-group
+							label.sr-only Push Notification
+							textarea(name='push', placeholder='Push Notification' rows=2).form-control
+						.form-group
+							label.sr-only Email Copy
+							textarea(name='email', placeholder='Email Copy' rows=5).form-control
+						button(type='submit', data-confirm='Are you sure?').js-confirm.btn.btn-danger Send to #{subscribersCount} subscribers
+
+	script(src='/js/lib/jquery/jquery-1.10.2.min.js')
+	script.
+		$('.js-confirm').click(function(e) {
+			if ( !confirm( $(this).data('confirm') || 'Are you sure? This cannot be undone.') )
+				return e.preventDefault();
+		});
