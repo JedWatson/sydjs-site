@@ -8,6 +8,9 @@ block intro
 				a(href='/join').js-auth-trigger Add your tile
 
 mixin member(member)
+	- var twitterUsername = member.twitterUsername || (member.twitter ? member.twitter.replace('@', ''): '');
+	- var githubUsername = member.githubUsername || (member.github ? member.github.replace('@', '') : '');
+
 	li.member-item
 		.member.member--card
 			.member-section.member__photo
@@ -16,33 +19,33 @@ mixin member(member)
 				h5.member__title(class=(member.bio.html ? null : 'member__title-only')): a(href=member.url)= member.name.full
 				if member.bio.html
 					.member__bio!=utils.cropString( utils.htmlToText(member.bio.html), 100, '...', true )
-				if member.twitter || member.github
+				if twitterUsername || member.github
 					.member__accounts.hidden-xs
-						if member.twitter
-							a(href='https://twitter.com/' + member.twitter.replace('@', ''), target='_blank', data-toggle='tooltip', data-title='@' + member.twitter.replace('@', ''), data-placement='top', data-container='#members').member__account.member__account--twitter.is-tooltip
+						if twitterUsername
+							a(href='https://twitter.com/' + twitterUsername, target='_blank', data-toggle='tooltip', data-title='@' + twitterUsername, data-placement='top', data-container='#members').member__account.member__account--twitter.is-tooltip
 								span.entypo-social.entypo-twitter
-						if member.github
-							a(href='https://github.com/' + member.github, target='_blank', data-toggle='tooltip', data-title=member.github, data-placement='top', data-container='#members').member__account.member__account--github.is-tooltip
+						if githubUsername
+							a(href='https://github.com/' + githubUsername, target='_blank', data-toggle='tooltip', data-title=githubUsername, data-placement='top', data-container='#members').member__account.member__account--github.is-tooltip
 								span.entypo-social.entypo-github
 block content
 	.container
 		if organisers.length
 			.members-group
-				h4.text-caps.mb-1 Organisers
+				h3.text-caps.mb-1 Organisers
 				ul.list-unstyled.members-list
 					li.grid-sizer
 					each organiser in organisers
 						+member(organiser)
 		if speakers.length
 			.members-group
-				h4.text-caps.mb-1 Speakers
+				h3.text-caps.mt-2.mb-1 Speakers
 				ul.list-unstyled.members-list
 					li.grid-sizer
 					each speaker in speakers
 						+member(speaker)
 		if community.length
 			.members-group
-				h4.text-caps.mb-1 Community
+				h3.text-caps.mt-2.mb-1 Community
 				ul.list-unstyled.members-list
 					li.grid-sizer
 					each member in community
