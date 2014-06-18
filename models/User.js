@@ -59,6 +59,8 @@ User.add({
 			profileId: { type: String, label: 'Profile ID', dependsOn: deps.github },
 			
 			username: { type: String, label: 'Username', dependsOn: deps.github },
+			avatar: { type: String, label: 'Image', dependsOn: deps.github },
+			
 			accessToken: { type: String, label: 'Access Token', dependsOn: deps.github },
 			refreshToken: { type: String, label: 'Refresh Token', dependsOn: deps.github }
 		},
@@ -68,6 +70,8 @@ User.add({
 			profileId: { type: String, label: 'Profile ID', dependsOn: deps.facebook },
 			
 			username: { type: String, label: 'Username', dependsOn: deps.facebook },
+			avatar: { type: String, label: 'Image', dependsOn: deps.facebook },
+			
 			accessToken: { type: String, label: 'Access Token', dependsOn: deps.facebook },
 			refreshToken: { type: String, label: 'Refresh Token', dependsOn: deps.facebook }
 		},
@@ -77,6 +81,8 @@ User.add({
 			profileId: { type: String, label: 'Profile ID', dependsOn: deps.google },
 			
 			username: { type: String, label: 'Username', dependsOn: deps.google },
+			avatar: { type: String, label: 'Image', dependsOn: deps.google },
+			
 			accessToken: { type: String, label: 'Access Token', dependsOn: deps.google },
 			refreshToken: { type: String, label: 'Refresh Token', dependsOn: deps.google }
 		},
@@ -86,6 +92,8 @@ User.add({
 			profileId: { type: String, label: 'Profile ID', dependsOn: deps.twitter },
 			
 			username: { type: String, label: 'Username', dependsOn: deps.twitter },
+			avatar: { type: String, label: 'Image', dependsOn: deps.twitter },
+			
 			accessToken: { type: String, label: 'Access Token', dependsOn: deps.twitter },
 			refreshToken: { type: String, label: 'Refresh Token', dependsOn: deps.twitter }
 		}
@@ -101,7 +109,7 @@ User.add({
 User.schema.pre('save', function(next) {
 	
 	if (!this.email) return next();
-
+	
 	this.gravatar = crypto.createHash('md5').update(this.email.toLowerCase().trim()).digest('hex');
 	
 	return next();
