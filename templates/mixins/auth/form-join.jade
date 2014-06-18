@@ -19,10 +19,6 @@ mixin form-join(args)
 			form(method='post', action='/join', autocomplete='off', novalidate).auth-form
 				input(type='hidden', name='action', value='join')
 				input(type='hidden', name='target', value=!args.modal ? form.target : page.path)
-				
-				input(type='hidden', name='submitted', value=!args.modal ? form.submitted ? 'true' : 'false' : null)
-				
-				//- Form Error(s)
 				if !args.modal
 					if form.error
 						.flash-messages
@@ -36,8 +32,6 @@ mixin form-join(args)
 											li!= error.msg
 					
 					- var checkFormError = function(key) { return form.error && form.error.errors && form.error.errors[key] ? 'has-error' : null }
-				
-				//- Signin
 				.form-groups
 					.form-group(class=!args.modal ? checkFormError('firstname') : null)
 						label(for='firstname').sr-only First name
