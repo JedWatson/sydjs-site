@@ -27,6 +27,7 @@ User.add({
 	resetPasswordKey: { type: String, hidden: true }
 }, 'Profile', {
 	isPublic: Boolean,
+	isOrganiser: Boolean,
 	organisation: { type: Types.Relationship, ref: 'Organisation' },
 	photo: { type: Types.CloudinaryImage },
 	github: { type: String, width: 'short' },
@@ -90,6 +91,9 @@ User.add({
 			refreshToken: { type: String, label: 'Refresh Token', dependsOn: deps.twitter }
 		}
 	}
+}, 'Meta', {
+	talkCount: { type: Number, default: 0, noedit: true },
+	lastRSVP: { type: Date, noedit: true }
 });
 
 
@@ -99,12 +103,45 @@ User.add({
 */
 
 User.schema.pre('save', function(next) {
-	
-	if (!this.email) return next();
 
-	this.gravatar = crypto.createHash('md5').update(this.email.toLowerCase().trim()).digest('hex');
-	
+	var member = this;
+
+	// get member gravatar
+	if (!member.email) return next();
+	member.gravatar = crypto.createHash('md5').update(member.email.toLowerCase().trim()).digest('hex');
+
 	return next();
+
+});
+
+
+/** 
+	Post-save
+	=============
+*/
+
+User.schema.post('save', function(next) {
+
+	var member = this;
+
+	keystone.list('Talk').model.count({ who: member.id }).exec(function(err, count) {
+		
+		if (err) return next(err);
+		
+		member.talkCount = count;
+		member.save(next);
+		
+	});
+
+	keystone.list('RSVP').model.findOne({ who: member.id }).sort('changedAt').exec(function(err, rsvp) {
+		
+		if (err) return next(err);
+		if (!rsvp) return next();
+		
+		member.lastRSVP = rsvp.changedAt;
+		member.save(next);
+		
+	});
 
 });
 
