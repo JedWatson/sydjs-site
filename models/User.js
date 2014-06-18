@@ -193,6 +193,14 @@ User.schema.virtual('avatarUrl').get(function() {
 	
 });
 
+// Usernames
+User.schema.virtual('twitterUsername').get(function() {
+	return (this.services.twitter && this.services.twitter.isConfigured) ? this.services.twitter.username : '';
+});
+User.schema.virtual('githubUsername').get(function() {
+	return (this.services.github && this.services.github.isConfigured) ? this.services.github.username : '';
+});
+
 
 /**
  * Methods
