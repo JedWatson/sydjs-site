@@ -142,11 +142,17 @@ User.schema.virtual('canAccessKeystone').get(function() {
 	return this.isAdmin;
 });
 
-// Pull out gravatar image
-User.schema.virtual('gravatarUrl').get(function() {
-	if (!this.gravatar) return false;
+// Pull out avatar image
+User.schema.virtual('avatarUrl').get(function() {
+	
+	if (this.services.github.isConfigured && this.services.github.avatar) return this.services.github.avatar;
+	if (this.services.facebook.isConfigured && this.services.facebook.avatar) return this.services.facebook.avatar;
+	if (this.services.google.isConfigured && this.services.google.avatar) return this.services.google.avatar;
+	if (this.services.twitter.isConfigured && this.services.twitter.avatar) return this.services.twitter.avatar;
+	
 	// TODO: Update default image URL to live URL when site is released
-	return 'http://www.gravatar.com/avatar/' + this.gravatar + '?d=http%3A%2F%2Fsydjs-beta.herokuapp.com%2Fimages%2Favatar.png&r=pg';
+	if (this.gravatar) return 'http://www.gravatar.com/avatar/' + this.gravatar + '?d=http%3A%2F%2Fsydjs-beta.herokuapp.com%2Fimages%2Favatar.png&r=pg';
+	
 });
 
 

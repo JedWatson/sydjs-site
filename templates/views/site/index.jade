@@ -70,7 +70,7 @@ block intro
 												.talk__speakers
 													if talk.who.length
 														each speaker, i in talk.who
-															img(src=speaker.photo.exists ? speaker._.photo.thumbnail(320,320) : speaker.gravatarUrl || '/images/avatar.png', width=160, height=160, alt=speaker.name.full, class=talk.who.length > 1 ? 'talk__photo--mini' : null).talk__photo
+															img(src=speaker.photo.exists ? speaker._.photo.thumbnail(320,320) : speaker.avatarUrl || '/images/avatar.png', width=160, height=160, alt=speaker.name.full, class=talk.who.length > 1 ? 'talk__photo--mini' : null).talk__photo
 													else
 														img(src='/images/avatar.png', width=160, height=160, alt='There is no speaker...').talk__photo
 												//- if talk.who.length
@@ -98,9 +98,9 @@ block intro
 								- var attendee = rsvp.who;
 								if attendee.isPublic
 									li: a(href=attendee.url, title=attendee.name.full)
-										img(src=attendee.photo.exists ? attendee._.photo.thumbnail(80,80) : attendee.gravatarUrl || '/images/avatar.png', width=40, height=40, alt=attendee.name.full).img-circle
+										img(src=attendee.photo.exists ? attendee._.photo.thumbnail(80,80) : attendee.avatarUrl || '/images/avatar.png', width=40, height=40, alt=attendee.name.full).img-circle
 								else
-									li(title=attendee.name.full): img(src=attendee.photo.exists ? attendee._.photo.thumbnail(80,80) : attendee.gravatarUrl || '/images/avatar.png', width=40, height=40, alt=attendee.name.full).img-circle
+									li(title=attendee.name.full): img(src=attendee.photo.exists ? attendee._.photo.thumbnail(80,80) : attendee.avatarUrl || '/images/avatar.png', width=40, height=40, alt=attendee.name.full).img-circle
 //- BODY
 block content
 	.page-content
