@@ -63,7 +63,7 @@ block content
 								|  Connect your Google account
 				if !user.services.facebook.isConfigured
 					.form-group
-						label.col-sm-2.control-label Google
+						label.col-sm-2.control-label Facebook
 						.col-sm-10
 							a(href='/auth/facebook', title='Connect your Google account').btn.btn-facebook
 								span.entypo-social.entypo-facebook
@@ -72,7 +72,7 @@ block content
 				
 				//- Configured Services
 				
-				if user.services.twitter.isConfigured || user.services.github.isConfigured || user.services.google.isConfigured
+				if user.services.github.isConfigured || user.services.twitter.isConfigured || user.services.google.isConfigured || user.services.facebook.isConfigured
 					hr.line-dashed
 				if user.services.github.isConfigured
 					.form-group
@@ -93,15 +93,15 @@ block content
 						label.col-sm-2.control-label Google
 						.col-sm-10.text-muted.faux-label
 							span.entypo-social.entypo-google-circles
-							|  Your disconnect is connected. 
-							a(href='?deauth=google', title='Revoke authorization of your Google account') Disconnect
+							|  Your account is connected. 
+							a(href='?disconnect=google', title='Revoke authorization of your Google account') Disconnect
 				if user.services.facebook.isConfigured
 					.form-group
 						label.col-sm-2.control-label Facebook
 						.col-sm-10.text-muted.faux-label
 							span.entypo-social.entypo-facebook
-							|  Your disconnect is connected. 
-							a(href='?deauth=facebook', title='Revoke authorization of your Facebook account') Disconnect
+							|  Your account is connected. 
+							a(href='?disconnect=facebook', title='Revoke authorization of your Facebook account') Disconnect
 				
 
 				//- Public Info

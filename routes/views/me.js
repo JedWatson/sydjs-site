@@ -1,4 +1,5 @@
 var keystone = require('keystone'),
+	_ = require('underscore'),
 	moment = require('moment');
 
 var Meetup = keystone.list('Meetup'),
@@ -39,6 +40,34 @@ exports = module.exports = function(req, res) {
 			
 			req.flash('success', 'Your changes have been saved.');
 			return next();
+		
+		});
+	
+	});
+	
+	view.on('init', function(next) {
+	
+		if (!_.has(req.query, 'disconnect')) return next();
+		
+		var serviceName = '';
+		
+		switch(req.query.disconnect)
+		{
+			case 'github': req.user.services.github.isConfigured = null; serviceName = 'GitHub'; break;
+			case 'facebook': req.user.services.facebook.isConfigured = null; serviceName = 'Facebook'; break;
+			case 'google': req.user.services.google.isConfigured= null; serviceName = 'Google'; break;
+			case 'twitter': req.user.services.twitter.isConfigured = null; serviceName = 'Twitter'; break;
+		}
+		
+		req.user.save(function(err) {
+		
+			if (err) {
+				req.flash('success', 'The service could not be disconnected, please try again.');
+				return next();
+			}
+			
+			req.flash('success', serviceName + ' has been successfully disconnected.');
+			return res.redirect('/me');
 		
 		});
 	
