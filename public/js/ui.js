@@ -22,11 +22,7 @@ $(function() {
 	// Generic confirms
 	// ------------------------------
 	
-	$('.js-cancel-confirm').click(function(e) {
-		if ( !confirm( $(this).data('confirm') || 'Are you sure? You will lose any changes.') )
-			return e.preventDefault();
-	});
-	$('.js-delete-confirm').click(function(e) {
+	$('.js-confirm').click(function(e) {
 		if ( !confirm( $(this).data('confirm') || 'Are you sure? This cannot be undone.') )
 			return e.preventDefault();
 	});
