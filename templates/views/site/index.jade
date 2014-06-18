@@ -23,7 +23,7 @@ block intro
 				.hero-intro-content
 					h5.subtitle #{meetup.state == 'active' ? 'Next' : 'Last'} Meetup
 					h1.title= meetup.name
-					p.byline #{meetup._.date.format('ddd, DD MMM YYYY')} &#8212; #{meetup.time}
+					p.byline: strong #{meetup._.date.format('ddd, DD MMM YYYY')} &#8212; #{meetup.time}
 					p.byline #{meetup.place} &#8212; 
 						a(href='http://maps.google.com.au/?daddr=' + meetup.place, target='_blank') Directions
 				if meetup.state == 'active'
@@ -107,9 +107,9 @@ block content
 		
 		//- About
 		article.section.section--featured.home-about: .container
-			h4 In Sydney and into JavaScript? You need to join SydJS!
+			h2 In Sydney and into JavaScript? You need to join SydJS!
 			.row: .col-sm-8.col-sm-offset-2
-				h3 Every 3rd Wednesday of the month you'll find us talking about what we're doing and what's happening around us in the world of JavaScript.
+				p.lead Every 3rd Wednesday of the month you'll find us talking about what we're doing and what's happening around us in the world of JavaScript.
 			if !user
 				.row: .col-sm-4.col-sm-offset-4
 					a(href='/join', data-from=page.path).js-auth-trigger.btn.btn-lg.btn-block.btn-primary.mv-1

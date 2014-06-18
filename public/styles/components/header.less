@@ -1,11 +1,42 @@
-// Navbar
+// Header
 // ------------------------------
+#header {
+	line-height: @navbar-height + 7;
+	background-color: @navbar-default-bg;
+	.floor;
+	.ceiling;
+}
+
+// Header on home page
+#header.header--home {
+	background-color: transparent;
+}
+
+/*
+// Navbar on home page
+#header.header--home {
+	&.headroom--top .navbar {
+		background-color: transparent;
+	}
+	&.headroom--not-top.slideDown .navbar,
+	&.headroom--not-top.headroom--middle.slideUp .navbar {
+		
+	}
+}
+
+// Navbar on other page
+#header.header--page {
+	.navbar {
+		background-color: fade(@navbar-default-bg, 98%);
+	}
+}
+ */
+
 
 // General styles
 .navbar {
 	.clearfix();
 	margin: 0;
-	line-height: @navbar-height + 7;
 	font-weight: 500;
 }
 
@@ -26,11 +57,6 @@
 	> svg {
 		width: 100%;
 		height: @navbar-height + 10;
-		.transition( all linear 0.3s );
-	}
-
-	&:hover {
-		svg { .scale(1.05);}
 	}
 }
 
@@ -61,6 +87,7 @@ nav {
 		color: fade(white, 60%);
 		text-transform: uppercase;
 		font-weight: 300;
+		font-size: @font-size-base * 1.1;
 
 		&:hover {
 			color: white;
@@ -90,25 +117,6 @@ nav {
 
 .navbar-nav.navbar-nav--right {
 	float: right;
-}
-
-// Navbar on home page
-.header--home {
-	&.headroom--top .navbar {
-		background-color: transparent;
-		.transition( all linear 0.2s 0.4s );
-	}
-	&.headroom--not-top.slideDown .navbar,
-	&.headroom--not-top.headroom--middle.slideUp .navbar {
-		background-color: fade(@navbar-default-bg, 98%);
-	}
-}
-
-// Navbar on other page
-.header--page {
-	.navbar {
-		background-color: fade(@navbar-default-bg, 98%);
-	}
 }
 
 // Mobile styles
