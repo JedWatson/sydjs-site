@@ -18,3 +18,5 @@ exports = module.exports = function(done) {
 	});
 	
 };
+
+exports.__defer__ = true;

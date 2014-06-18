@@ -1,4 +1,5 @@
 var keystone = require('keystone'),
+	async = require('async'),
 	crypto = require('crypto'),
 	Types = keystone.Field.Types;
 
@@ -113,44 +114,58 @@ User.add({
 User.schema.pre('save', function(next) {
 
 	var member = this;
-
-	// get member gravatar
-	if (!member.email) return next();
-	member.gravatar = crypto.createHash('md5').update(member.email.toLowerCase().trim()).digest('hex');
-	return next();
-
-});
-
-
-/** 
-	Post-save
-	=============
-*/
-
-User.schema.post('save', function() {
-
-	var member = this;
-
-	keystone.list('Talk').model.count({ who: member.id }).exec(function(err, count) {
+	
+	async.series([
 		
-		if (err) return console.error('===== Error counting user talks =====');
-		if (err) return console.error(err);
+		function(done) {
+			
+			if (!member.email) return done();
+			
+			member.gravatar = crypto.createHash('md5').update(member.email.toLowerCase().trim()).digest('hex');
+			
+			return done();
+			
+		},
 		
-		member.talkCount = count;
-		member.save();
+		function(done) {
 		
-	});
-
-	keystone.list('RSVP').model.findOne({ who: member.id }).sort('changedAt').exec(function(err, rsvp) {
+			keystone.list('Talk').model.count({ who: member.id }).exec(function(err, count) {
+				
+				if (err) {
+					console.error('===== Error counting user talks =====');
+					console.error(err);
+					return done();
+				}
+				
+				member.talkCount = count;
+				
+				return done();
+				
+			});
 		
-		if (err) return console.error("===== Error setting user last RSVP date =====");
-		if (err) return console.error(err);
-		if (!rsvp) return;
+		},
 		
-		member.lastRSVP = rsvp.changedAt;
-		member.save();
+		function(done) {
 		
-	});
+			keystone.list('RSVP').model.findOne({ who: member.id }).sort('changedAt').exec(function(err, rsvp) {
+				
+				if (err) {
+					console.error("===== Error setting user last RSVP date =====");
+					console.error(err);
+					return done();
+				}
+				
+				if (!rsvp) return done();
+				
+				member.lastRSVP = rsvp.changedAt;
+				
+				return done();
+			
+			});
+		
+		}
+		
+	], next);
 
 });
 
