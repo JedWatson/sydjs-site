@@ -34,9 +34,6 @@ var routes = {
 // Bind Routes
 exports = module.exports = function(app) {
 	
-	// Old
-	// app.get('/', routes.views.old);
-	
 	// Allow cross-domain requests (development only)
 	if (process.env.NODE_ENV != 'production') {
 		console.log('------------------------------------------------');
