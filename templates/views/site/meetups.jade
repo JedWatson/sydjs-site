@@ -25,8 +25,8 @@ block content
 				.timeline-item(class=i % 2 == 1 ? 'timeline-item--even' : 'timeline-item--odd')
 					.timeline-item-node
 					a(href=meetup.url).timeline-item-inner
-						.text-lg.text-muted= meetup._.date.format('MMMM YYYY')
-						h3= meetup.name
+						h6.text-caps.text-danger= meetup._.date.format('YYYY - MMMM ')
+						h4= meetup.name
 						!=utils.cropString( utils.htmlToText(meetup.description), 240, '...', true )
 						//- !=utils.htmlToText(meetup.description)
 		

@@ -12,7 +12,7 @@ block content
 					.col-sm-3
 						img(src=(member.photo.exists ? member._.photo.thumbnail(600,600) : member.avatarUrl || '/images/avatar.png'), alt=member.name.full).img-responsive.img-rounded
 					.col-sm-9
-						h1.member__title= member.name.full
+						h1.mb-0= member.name.full
 						p.text-muted.mv-1 Member since #{moment(member.createdOn).format('MMMM YYYY')}
 						if member.twitter || member.github
 							.member__accounts.mb-1

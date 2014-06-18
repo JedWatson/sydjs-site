@@ -14,7 +14,7 @@
 @timeline-path:         .25em;
 @timeline-offset:       3em;
 @timeline-node:         1em;
-@timeline-alphaomega:   @timeline-node * 2;
+@timeline-alphaomega:   @timeline-node;
 
 .timeline {
 	.clearfix();
@@ -32,7 +32,6 @@
 	top: 0;
 	width: @timeline-path;
 	z-index: 1;
-
 	&:before,
 	&:after {
 		.square( @timeline-alphaomega );
