@@ -34,6 +34,10 @@ var routes = {
 // Bind Routes
 exports = module.exports = function(app) {
 	
+	if (process.env.NODE_ENV == 'production') {
+		app.all('/*', middleware.restrictSite);
+	}
+	
 	// Allow cross-domain requests (development only)
 	if (process.env.NODE_ENV != 'production') {
 		console.log('------------------------------------------------');
@@ -82,6 +86,9 @@ exports = module.exports = function(app) {
 
 	// Tools
 	app.all('/notification-center', routes.views.tools['notification-center']);
+	
+	// Maintenace
+	app.all('/maintenance', routes.views.maintenance);
 	
 	// API
 	app.all('/api*', keystone.initAPI);

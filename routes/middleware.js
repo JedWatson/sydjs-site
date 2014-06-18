@@ -113,6 +113,20 @@ exports.requireUser = function(req, res, next) {
 	
 }
 
+/**
+	Prevents people from accessing the site while it's been updated
+ */
+
+exports.restrictSite = function(req, res, next) {
+	
+	if (!req.user) {
+		if (req.url != '/maintenance') return res.redirect('/maintenance');
+		next();
+	} else {
+		next();
+	}
+	
+}
 
 /**
 	Returns a closure that can be used within views to change a parameter in the query string
