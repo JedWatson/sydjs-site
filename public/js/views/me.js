@@ -2,11 +2,13 @@ $(function() {
 	
 	// Only reveal mentoring fields when appropriate
 	
-	var mentoringFields = $('.mentoring-fields');
+	var mentoringFields = $('.mentoring-fields'),
+		mentoringCheck = $('input[name="mentoring.available"]');
 
-	mentoringFields.hide();
-	
-	$('input[name="mentoring.available"]').change(function() {
+	mentoringCheck.change(function() {
 		mentoringFields[$(this).prop('checked') ? 'show' : 'hide']();
 	});
+	if (!mentoringCheck.prop('checked')) {
+		mentoringFields.hide();
+	}
 });
