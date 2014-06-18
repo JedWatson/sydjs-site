@@ -6,8 +6,8 @@
 **/
 
 // General styles
-@hero-intro-height-sm: 500 + @navbar-height + 10;
-@hero-intro-height-xs: 380px;
+@hero-intro-height-sm: 540px;
+@hero-intro-height-xs: 420px;
 #hero {
 	position: relative;
 	.hero-intro {
@@ -15,7 +15,7 @@
 		height: @hero-intro-height-sm;
 		color: #FFF;
 		text-align: center;
-		margin-top: -( @navbar-height + 10);
+		margin-top: -(@navbar-height + 10) * 2;
 
 		.hero-background {
 			.ground;
@@ -51,13 +51,17 @@
 			font-family: @font-family-serif;
 			font-size: 1.25em;
 			font-style: italic;
-			margin-bottom: 2em;
+			margin-bottom: 1em;
 		}
 		.byline {
-			font-weight: 500;
+			font-weight: 400;
 			font-size: @font-size-base * 1.5;
 			a {
 				color: inherit;
+			}
+
+			strong {
+				font-weight: 700;
 			}
 		}
 
@@ -100,7 +104,11 @@
 	left: 50%;
 	padding: .5em;
 	position: absolute;
-	width: 50%;
+	width: 35%;
+
+	@media (max-width: @screen-md-max) {
+		width: 60%;
+	}
 
 	@media (max-width: @screen-xs-max) {
 		width: 90%;
@@ -180,19 +188,22 @@
 			margin-bottom: 0.25em;
 		}
 		.subtitle {
-			font-size: 85%;
+			font-size: @font-size-base;
 		}
-		.summary { }
+		.summary {
+			font-size: @font-size-base * 1.1;
+		}
 	}
 }
 
 // Attending list
 .attending {
-	margin-top: 6em;
+	margin-top: 4em;
 }
 .heading-with-line {
 	position: relative;
 	overflow: hidden;
+	line-height: 1.5;
 	text-align: center;
 	&:after,&:before {
 		position: relative;

@@ -25,7 +25,7 @@ html
 
 	//- HTML BODY
 	body(class=section ? 'sitesection-' + section : null)
-		.site-wrapper.site-wrapper--has-sticky-footer
+		.site-wrapper
 			
 			//- SITE HEADER
 			include ../includes/layout/header
@@ -61,9 +61,9 @@ html
 	script(src='/js/lib/bootstrap/modal.js')
 
 	//- Headroom
-	script(src="//cdn.jsdelivr.net/headroomjs/0.5.0/headroom.min.js")
-	script(src="//cdn.jsdelivr.net/headroomjs/0.5.0/jQuery.headroom.min.js")
-	script(src='/js/common/header.js')
+	//-script(src="//cdn.jsdelivr.net/headroomjs/0.5.0/headroom.min.js")
+	//-script(src="//cdn.jsdelivr.net/headroomjs/0.5.0/jQuery.headroom.min.js")
+	//-script(src='/js/common/header.js')
 
 	if user && user.canAccessKeystone
 		script(src='/keystone/js/content/editor.js')

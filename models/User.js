@@ -60,6 +60,8 @@ User.add({
 			profileId: { type: String, label: 'Profile ID', dependsOn: deps.github },
 			
 			username: { type: String, label: 'Username', dependsOn: deps.github },
+			avatar: { type: String, label: 'Image', dependsOn: deps.github },
+			
 			accessToken: { type: String, label: 'Access Token', dependsOn: deps.github },
 			refreshToken: { type: String, label: 'Refresh Token', dependsOn: deps.github }
 		},
@@ -69,6 +71,8 @@ User.add({
 			profileId: { type: String, label: 'Profile ID', dependsOn: deps.facebook },
 			
 			username: { type: String, label: 'Username', dependsOn: deps.facebook },
+			avatar: { type: String, label: 'Image', dependsOn: deps.facebook },
+			
 			accessToken: { type: String, label: 'Access Token', dependsOn: deps.facebook },
 			refreshToken: { type: String, label: 'Refresh Token', dependsOn: deps.facebook }
 		},
@@ -78,6 +82,8 @@ User.add({
 			profileId: { type: String, label: 'Profile ID', dependsOn: deps.google },
 			
 			username: { type: String, label: 'Username', dependsOn: deps.google },
+			avatar: { type: String, label: 'Image', dependsOn: deps.google },
+			
 			accessToken: { type: String, label: 'Access Token', dependsOn: deps.google },
 			refreshToken: { type: String, label: 'Refresh Token', dependsOn: deps.google }
 		},
@@ -87,6 +93,8 @@ User.add({
 			profileId: { type: String, label: 'Profile ID', dependsOn: deps.twitter },
 			
 			username: { type: String, label: 'Username', dependsOn: deps.twitter },
+			avatar: { type: String, label: 'Image', dependsOn: deps.twitter },
+			
 			accessToken: { type: String, label: 'Access Token', dependsOn: deps.twitter },
 			refreshToken: { type: String, label: 'Refresh Token', dependsOn: deps.twitter }
 		}
@@ -109,7 +117,6 @@ User.schema.pre('save', function(next) {
 	// get member gravatar
 	if (!member.email) return next();
 	member.gravatar = crypto.createHash('md5').update(member.email.toLowerCase().trim()).digest('hex');
-
 	return next();
 
 });
@@ -171,11 +178,17 @@ User.schema.virtual('canAccessKeystone').get(function() {
 	return this.isAdmin;
 });
 
-// Pull out gravatar image
-User.schema.virtual('gravatarUrl').get(function() {
-	if (!this.gravatar) return false;
+// Pull out avatar image
+User.schema.virtual('avatarUrl').get(function() {
+	
+	if (this.services.github.isConfigured && this.services.github.avatar) return this.services.github.avatar;
+	if (this.services.facebook.isConfigured && this.services.facebook.avatar) return this.services.facebook.avatar;
+	if (this.services.google.isConfigured && this.services.google.avatar) return this.services.google.avatar;
+	if (this.services.twitter.isConfigured && this.services.twitter.avatar) return this.services.twitter.avatar;
+	
 	// TODO: Update default image URL to live URL when site is released
-	return 'http://www.gravatar.com/avatar/' + this.gravatar + '?d=http%3A%2F%2Fsydjs-beta.herokuapp.com%2Fimages%2Favatar.png&r=pg';
+	if (this.gravatar) return 'http://www.gravatar.com/avatar/' + this.gravatar + '?d=http%3A%2F%2Fsydjs-beta.herokuapp.com%2Fimages%2Favatar.png&r=pg';
+	
 });
 
 
