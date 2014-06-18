@@ -33,7 +33,7 @@ block content
 						each talk in member.talks
 							li.media
 								.pull-left
-									.date(class=moment(talk.meetup.date) < moment(now) ? 'date--past' : 'date--present')
+									.date(class=moment(talk.meetup.date) < moment(now).subtract('d', 1) ? 'date--past' : 'date--present')
 										small.block=moment(talk.meetup.date).format('MMM')
 										strong.block=moment(talk.meetup.date).format('DD')
 								.media-body
