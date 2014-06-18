@@ -7,12 +7,15 @@ block flash-messages
 block content
 	.container-sm
 		.page-intro
-			p.lead Hi #{user.name.first}, these are your settings and profile details
-			+flash-messages(messages)
-		.page-content.tile.ph-2.pv-2.mb-2
-			if nextMeetup
-				.alert.alert-info The next meetup has been announced - 
+			p.lead Hi #{user.name.first}, these are your settings and 
+				a(href=user.url) profile details
+			//- if nextMeetup
+				.alert.alert-info 
+					span.entypo.entypo-calendar
+					|  The next meetup has been announced - 
 					a(href=nextMeetup.url).alert-link= nextMeetup._.date.format('dddd D MMM YYYY')
+		.page-content.tile.ph-2.pv-2.mb-2
+			+flash-messages(messages)
 			form(method='post', enctype='multipart/form-data', autocomplete='off', novalidate).form-horizontal
 				input(type='hidden', name='action', value='profile.details')
 				h3 Private Info
