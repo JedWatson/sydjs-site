@@ -27,7 +27,7 @@ User.add({
 	password: { type: Types.Password, initial: true },
 	resetPasswordKey: { type: String, hidden: true }
 }, 'Profile', {
-	isPublic: Boolean,
+	isPublic: { type: Boolean, default: true },
 	isOrganiser: Boolean,
 	organisation: { type: Types.Relationship, ref: 'Organisation' },
 	photo: { type: Types.CloudinaryImage },
