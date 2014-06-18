@@ -37,7 +37,7 @@ exports = module.exports = function(req, res) {
 		var onSuccess = function(user) {
 			console.log('[auth.confirm] - Successfully signed in.');
 			console.log('------------------------------------------------------------');
-			return res.redirect('/me');
+			return res.redirect(req.cookies.target || '/me');
 		}
 		
 		var onFail = function(err) {
@@ -212,7 +212,7 @@ exports = module.exports = function(req, res) {
 				if (req.user) {
 					console.log('[auth.confirm] - Already signed in, skipping sign in.');
 					console.log('------------------------------------------------------------');
-					return res.redirect('/me');
+					return res.redirect(req.cookies.target || '/me');
 				}
 				return doSignIn();
 			}

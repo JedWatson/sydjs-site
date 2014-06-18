@@ -20,15 +20,17 @@ exports.initLocals = function(req, res, next) {
 	];
 	
 	locals.user = req.user;
-
+	
 	locals.basedir = keystone.get('basedir');
 	
 	locals.page = {
 		title: 'SydJS',
 		path: req.url.split("?")[0] // strip the query - handy for redirecting back to the page
 	};
-
+	
 	locals.qs_set = qs_set(req, res);
+	
+	if (req.cookies.target && req.cookies.target == locals.page.path) res.clearCookie('target');
 	
 	next();
 	
