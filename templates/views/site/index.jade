@@ -25,7 +25,7 @@ block intro
 					h1.title= meetup.name
 					p.byline: strong #{meetup._.date.format('ddd, DD MMM YYYY')} &#8212; #{meetup.time}
 					p.byline #{meetup.place} &#8212; 
-						a(href='http://maps.google.com.au/?daddr=' + meetup.place, target='_blank') Directions
+						a(href='http://maps.google.com.au/?daddr=' + (meetup.map || meetup.place), target='_blank') Directions
 				if meetup.state == 'active'
 					.hero-button
 						if user
