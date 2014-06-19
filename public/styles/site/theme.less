@@ -1,0 +1,159 @@
+//
+// Theme
+//
+// Use this file to tweak existing Bootstrap components. For major changes
+// consider creating a complimentary LESS file (your-component.less) and
+// possibly removing the offending Bootstrap component to avoid conflicts.
+//
+// ==============================
+
+
+
+
+// Media
+// ------------------------------
+
+a.media {
+	color: @text-color;
+	display: block;
+	
+	&:hover {
+		color: @text-color;
+		text-decoration: none;
+		
+		.media-heading {
+			text-decoration: underline;
+		}
+	}
+}
+.media-heading {
+	font-size: 1em;
+	
+	a {
+		color: @text-color;
+	}
+}
+.media-subheading {
+	color: @gray;
+	font-size: .85em;
+}
+
+
+
+
+// Modals
+// ------------------------------
+
+
+
+
+// more luxurious spacing relative to font-size
+
+.modal-content {
+	.box-shadow( 0 4px 16px rgba(0,0,0,.2) );
+	.transition( all 200ms linear );
+	border-color: #aaa;
+	border-radius: 2px;
+}
+.modal-header {
+	padding: 1em 0;
+}
+.modal-body {
+	padding: 1em 0;
+}
+.modal-title {
+	line-height: 1;
+}
+
+@media (max-width: @screen-xs-max) {
+	.modal-dialog {
+		box-shadow: none;
+		margin: .5em;
+	}
+	.modal-content {
+		padding: 0 1em;
+	}
+}
+@media (min-width: @screen-sm-min) {
+
+	// do our own animation
+	.modal {
+		&.fade .modal-dialog {
+			.scale(0.9,0.9);
+			opacity: 0;
+			-webkit-transition: opacity 200ms ease, -webkit-transform 200ms ease;
+			   -moz-transition: opacity 200ms ease, -moz-transform 200ms ease;
+				 -o-transition: opacity 200ms ease, -o-transform 200ms ease;
+					transition: opacity 200ms ease, transform 200ms ease;
+		}
+		&.in .modal-dialog {
+			.scale(1,1);
+			opacity: 1;
+		}
+	}
+	.modal-content {
+		margin-top: 2em;
+		padding: 2em 3em;
+	}
+
+}
+
+
+
+
+// Forms
+// ------------------------------
+
+
+// base field
+
+.form-control {
+	font-size: inherit;
+	height: auto;
+	-webkit-appearance: none;
+}
+
+// use as an alternative to ".row" for form columns to avoid the _huge_ gap
+
+.form-row {
+	.make-row(10px);
+
+	/// whilst this selector performs poorly it's not a big deal in small apps
+	[class^="col-"] {
+		padding-left: 5px;
+		padding-right: 5px;
+	}
+
+	@media (max-width: @screen-xs-max) {
+		[class^="col-sm"] + [class^="col-sm"],
+		[class^="col-md"] + [class^="col-md"],
+		[class^="col-lg"] + [class^="col-lg"] {
+			margin-top: 10px;
+		}
+	}
+}
+
+
+
+
+// Misc
+// ------------------------------
+
+
+// sections
+
+.section {
+	padding-bottom: 2em;
+	padding-top: 2em;
+
+	&.highlight {
+		background-color: white;
+		border-bottom: 1px solid @gray-lighter;
+		border-top: 1px solid @gray-lighter;
+		margin-bottom: -1px;
+		margin-top: -1px;
+	}
+}
+
+
+

@@ -1,0 +1,263 @@
+// MEMBERS
+// ------------------------------
+
+@member-grid-gutter: 10px;
+@member-grid-gutter-lg: 30px;
+
+
+// Box
+.member {
+	.tile-base();
+	position: relative;
+	overflow: hidden;
+	margin-bottom: @member-grid-gutter;
+}
+
+
+// Sections
+.member-section {
+	padding: 1em;
+}
+.member__photo img {
+	border-radius: 50%;
+	display: inline-block;
+	height: auto;
+	max-width: 100%;
+}
+.member__title {
+	margin: 0;
+	> a {
+		color: @headings-color;
+	}
+}
+
+.member__bio {
+	margin-top: 0.5em;
+	color: @gray;
+	font-size: @font-size-base;
+	/*
+	&:after {
+		.size(100%,3em);
+		position: absolute;
+		top: 7em;
+		right: 0;
+		left: 0;
+		content: "";
+		pointer-events: none;
+		#gradient .vertical( fade(white,0), white );
+	}
+	*/
+}
+
+
+.talks,.posts {
+	padding: 20px;
+	border-top: 1px solid @gray-lighter;
+	font-size: @font-size-base;
+
+	h6 {
+		text-transform: uppercase;
+	}
+
+	p { margin: 0; }
+	li + li {
+		margin-top: 10px;
+	}
+}
+
+
+
+// Grid
+.members-list {
+	.clearfix();
+	margin-right: -(@member-grid-gutter / 2);
+	margin-left: -(@member-grid-gutter / 2);
+}
+.member-item {
+	float: left;
+	padding: 0 (@member-grid-gutter / 2);
+	width: 100%;
+}
+
+.grid-sizer,
+.member-item {
+	width: 33%;
+}
+
+.members-group + .members-group {
+	margin-top: 2em;
+}
+
+// Member Card
+.member.member--card {
+	.member__accounts {
+		// float: right;
+		margin-top: 1em;
+		a {
+			margin-right: 5px;
+			padding: 2px;
+			color: lighten(@gray-light, 5%);
+			text-align: center;
+			font-size: @font-size-base * 1.5;
+		}
+	}
+	.member__account--twitter:hover {
+		color: @brand-twitter;
+	}
+	.member__account--github:hover {
+		color: @brand-github;
+	}
+}
+// Member Profile
+.member.member--profile {
+	.member__info {
+		padding: 1.5em;
+	}
+	.member__byline {
+		margin: 0.5em 0 0 0;
+	}
+	.member__accounts {
+		margin-top: 1em;
+		.btn {
+			border-radius: @border-radius-large;
+			background: white;
+			color: @text-color;
+			span {
+				margin-right: 5px;
+			}
+		}
+		.btn + .btn {
+			margin-left: 5px;
+		}
+		.member__account--twitter span {
+			color: @brand-twitter;
+		}
+		.member__account--github span {
+			color: @brand-github;
+		}
+	}
+	.member__bio {
+		font-size: @font-size-base * 1.25;
+	}
+	.member__additional-info {
+		margin-top: 1em;
+		padding: 1.5em;
+		border-top: 1px solid @gray-lighter;
+	}
+
+	.date {
+		overflow: hidden;
+		margin-right: 10px;
+		width: 40px;
+		border: 1px solid @gray-light;
+		border-radius: @border-radius-base;
+		color: @gray-light;
+		text-align: center;
+
+		small {
+			background-color: @gray-light;
+			color: white;
+			text-transform: uppercase;
+			font-size: @font-size-base * 0.85;
+		}
+		strong {
+
+		}
+	}
+	.date.date--present {
+		border-color: @brand-danger;
+		color: @brand-danger;
+		small {
+			background-color: @brand-danger;
+		}
+		strong {
+			color: @text-color;
+		}
+	}
+}
+
+// tiny screens
+@media (max-width: @screen-xs-max) {
+	.member__info {
+		padding: .5em;
+	}
+	.member__title {
+		font-size: 1em;
+	}
+
+	.grid-sizer,.member-item { width: 100%; }
+	.member-item {
+		.clearfix();
+		.member {
+			background: none;
+			.box-shadow(none);
+			margin: 0;
+			padding: 5px 0;
+		}
+		.member-section {
+			padding: 0;
+		}
+		.member__photo {
+			float: left;
+			width: 50px;
+			border-radius: 50%;
+			overflow: hidden;
+		}
+		.member__info {
+			margin-left: 65px;
+			padding: 5px 0;
+
+			.member__title.member__title-only {
+				margin: 0.75em 0 0;
+			}
+		}
+	}
+	.member-item + .member-item {
+		border-top: 1px solid lighten(@gray-light, 25%);
+	}
+	.member.member--profile {
+		.member__accounts {
+			.btn {
+				display: block;
+				width: 100%;
+			}
+			.btn + .btn {
+				margin: 10px 0 0 0;
+			}
+		}
+	}
+}
+
+// sm and up screens
+@media (min-width: @screen-sm-min) {
+	.grid-sizer,
+	.member-item {
+		width: 25%;
+	}
+	.members-list {
+		margin-right: -(@member-grid-gutter-lg / 2);
+		margin-left: -(@member-grid-gutter-lg / 2);
+	}
+	.member-item {
+		padding-left: @member-grid-gutter-lg / 2;
+	}
+	.member {
+		margin-bottom: @member-grid-gutter-lg / 2;
+	}
+}
+
+// md and up screens
+@media (min-width: @screen-md-min) {
+	.grid-sizer,
+	.member-item {
+		width: 20%;
+	}
+}
+
+// large screens
+@media (min-width: @screen-lg-min) {
+	.grid-sizer,
+	.member-item {
+		width: 16.667%;
+	}
+}

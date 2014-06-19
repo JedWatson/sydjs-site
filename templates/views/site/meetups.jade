@@ -1,35 +1,38 @@
 extends ../../layouts/default
-
 include ../../mixins/meetup
 
 block intro
-	.page-intro: .container
-		h1 Meetups
-		p We usually meet up the 3rd Wednesday of every month. To stay in the loop, follow us on twitter.
-		.buttons
-			if !user
-				a(href='/join').btn.btn-primary Join SydJS
-			a(href="https://twitter.com/sydjs", class="twitter-follow-button", data-show-count="true" data-size="large") Follow @sydjs
+	.container-sm
+		.page-intro
+			h1.page-title Meetups
+			p.lead We usually meet up the 3rd Wednesday of every month. We hope to see you at 
+				if !user
+					a(href='/join').js-auth-trigger our&nbsp;next&nbsp;meetup
+				else
+					| our next meetup
+				| . Stay in the loop - 
+				a(href='http://twitter.com/sydjs', target='_blank') follow us on twitter
 
-
+		if upcomingMeetup
+			+meetup(upcomingMeetup)
 block content
-	.container
-		if meetups.upcoming.length
-			each meetup in meetups.upcoming
-				+meetup(meetup, 'present')
-				if user && meetup.rsvpsAvailable
-					.meetup-content
-						a(href='/me').btn.btn-primary Attend
-			
-			hr.line-thick
+	.page-content: .container
+		.timeline
+			.timeline-path
+			.timeline-item--offset
+			each meetup, i in pastMeetups
+				.timeline-item(class=i % 2 == 1 ? 'timeline-item--even' : 'timeline-item--odd')
+					.timeline-item-node
+					a(href=meetup.url).timeline-item-inner
+						h6.text-caps.text-danger= meetup._.date.format('YYYY - MMMM ')
+						h4= meetup.name
+						!=utils.cropString( utils.htmlToText(meetup.description), 240, '...', true )
+						//- !=utils.htmlToText(meetup.description)
 		
-		each meetup, i in meetups.past
-			+meetup(meetup, 'past')
-		
-		if !meetups.upcoming.length && !meetups.past.length
+		if !upcomingMeetup && !pastMeetups.length
 			h3.text-muted There are no meetups yet.
 
-block js
+//- block js
 	// twitter
 	script.
 		!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");

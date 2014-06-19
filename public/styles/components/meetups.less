@@ -1,0 +1,74 @@
+// 
+// Meetups
+// ------------------------------
+
+
+
+
+.meetup,
+.tile {
+	.tile-base();
+	padding: 1em;
+	position: relative;
+	z-index: 2;
+}
+
+.meetup--present {
+	padding: 1em;
+}
+
+
+
+
+// 
+// Talks
+// ------------------------------
+
+/*ul*/.meetup-talks {
+	.list-unstyled();
+}
+
+.talk {
+	margin-bottom: 1em;
+}
+
+
+// speakers
+
+.talk__speakers {
+	position: relative;
+}
+.talk__photo {
+	.img-responsive(inline-block);
+	border-radius: 50%;
+	border: 3px solid white;
+}
+.talk__photo--mini {
+	position: absolute;
+	width: 60%;
+
+	&:nth-child(2) {
+		right: 0;
+		.translateY(50%);
+	}
+	&:nth-child(3) {
+		.translateY(100%);
+	}
+	&:nth-child(4) {
+		right: 0;
+		.translateY(150%);
+	}
+	&:nth-child(5) {
+		.translateY(200%);
+	}
+}
+
+
+// body
+
+.talk__body {
+	overflow: hidden;
+}
+.talk__subheading {
+	color: @gray-light;
+}

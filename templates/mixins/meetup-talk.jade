@@ -1,0 +1,34 @@
+mixin meetup-talk(talk)
+	li.row.talk
+		.col-xs-3.col-sm-2
+			.talk__speakers
+				if talk.who.length
+					each speaker, i in talk.who
+						img(src=speaker.photo.exists ? speaker._.photo.thumbnail(320,320) : speaker.avatarUrl || '/images/avatar.png', width=160, height=160, alt=speaker.name.full, class=talk.who.length > 1 ? 'talk__photo--mini' : null).talk__photo
+				else
+					img(src='/images/avatar.png', width=160, height=160, alt='There is no speaker...').talk__photo
+			//- if talk.who.length
+				.talkers
+					for photo in talk.who
+						img(src='http://fillmurray.com/100/100').img-circle
+		.col-xs-9.col-sm-10
+			.talk-summary
+				h4.title #{talk.name} 
+					if talk.slides
+						a(href=talk.slides, target='_blank', title='View the slides from this talk').text-muted.text-thin
+							|  (view&nbsp;slides)
+				if talk.who.length
+					p.subtitle.mb-1 by 
+						each speaker, i in talk.who
+							if i
+								| , 
+							if speaker.isPublic 
+								a(href=speaker.url)=speaker.name.full
+							else
+								=speaker.name.full
+				if talk.description
+					!=talk.description
+				if talk.link
+					a(href=talk.link, target='_blank', title='View the website for this talk')
+						| #{talk.link} 
+						span.entypo.entypo-chevron-small-right

@@ -1,0 +1,33 @@
+//- HEADER
+header(id='header', role='banner', class=(section == 'home' ? 'header--home' : 'header--page'))
+	nav.navbar(role='navigation'): .container
+		//- Site logo + site nav trigger button (on mobile)
+		.navbar-header
+			a(href='/', title='Back to Home').site-branding
+				include /public/images/logo.svg
+			//- User avatar
+			if user
+				a(href='/me').user.visible-xs
+					img(src=(user.photo.exists ? user._.photo.thumbnail(60,60) : user.gravatarUrl || '/images/avatar.png'), width=27).img-circle
+			//- Patty
+			a#site-nav-toggle(href='javascript:;').site-nav-toggle
+				.patty
+				
+		#site-nav
+			nav(role='navigation')
+				ul.navbar-nav.navbar-nav--left
+					each link in navLinks
+						li(class=(section == link.key ? 'nav-item-' + link.key + ' active' : 'nav-item-' + link.key)): a(href=link.href)= link.label
+					li: a(href='mailto:craig.sharkie+sydjs@gmail.com') Contact
+				ul.navbar-nav.navbar-nav--right
+					if user
+						li: a(href='/me').user.hidden-xs
+								img(src=(user.photo.exists ? user._.photo.thumbnail(27,27) : user.avatarUrl || '/images/avatar.png'), width=27).img-circle
+								=user.name.first
+						li: a(href='/signout')
+							span.visible-xs Sign out
+							span.entypo.entypo-large.entypo-logout.hidden-xs
+					else
+						li: a(href='/signin', data-from=page.path, data-initial='signin').js-auth-trigger Sign in
+						li: a(href='/join', data-from=page.path).js-auth-trigger Join
+//-.header-placeholder

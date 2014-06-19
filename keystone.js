@@ -32,6 +32,7 @@ keystone.init({
 	'mongo': process.env.MONGO_URI || 'mongodb://localhost/' + pkg.name,
 
 	'session': true,
+	'session store': 'mongo',
 	'auth': true,
 	'user model': 'User',
 	'cookie secret': process.env.COOKIE_SECRET || 'sydjs',
@@ -46,11 +47,13 @@ keystone.init({
 	'ga domain': process.env.GA_DOMAIN,
 	
 	'chartbeat property': process.env.CHARTBEAT_PROPERTY,
-	'chartbeat domain': process.env.CHARTBEAT_DOMAIN
+	'chartbeat domain': process.env.CHARTBEAT_DOMAIN,
+
+	'basedir': __dirname
 	
 });
 
-require('./models');
+keystone.import('models');
 
 keystone.set('routes', require('./routes'));
 
@@ -77,7 +80,13 @@ keystone.set('email locals', {
 	theme: {
 		email_bg: '#f9f9f9',
 		link_color: '#2697de'
-	}
+	},
+	utils: keystone.utils,
+	host: (function() {
+		if (keystone.get('env') === 'staging') return 'http://sydjs-beta.herokuapp.com';
+		if (keystone.get('env') === 'production') return 'http://www.sydjs.com';
+		return (keystone.get('host') || 'http://localhost:') + (keystone.get('port') || '3000');
+	})()
 });
 
 keystone.set('email tests', {
@@ -88,7 +97,7 @@ keystone.set('email tests', {
 });
 
 keystone.set('nav', {
-	'meetups': ['meetups', 'talks'],
+	'meetups': ['meetups', 'talks', 'rsvps'],
 	'members': ['users', 'organisations'],
 	'posts': ['posts', 'post-categories', 'post-comments'],
 	'links': ['links', 'link-tags', 'link-comments']

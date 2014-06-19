@@ -1,12 +1,8 @@
 extends ../../layouts/default
 
-block intro
-	.back-bar
-		.container: .row: .col-sm-10.col-sm-offset-1.col-md-8.col-md-offset-2
-			.xs-right: a(href='/blog').text-muted &larr; Back to the blog
-
 block content
-	.container: .row: .col-sm-10.col-sm-offset-1.col-md-8.col-md-offset-2
+	.container-sm
+		a(href='/blog').text-muted &larr; Back to the blog
 		article.full-post
 			if !post
 				h2 Invalid Post.
@@ -17,8 +13,11 @@ block content
 							a(href='/keystone/posts/' + post.id).alert-link Open Keystone
 							|  to publish it.
 					
-					h1.mb-0= post.title
-					h4.blog-post__author Posted
+					h1.blog-post__title= post.title
+					p.blog-post__byline Posted
+						if post.author
+							|  by&nbsp;
+							a(href='/members', rel='author')=post.author.name.full
 						if post.publishedDate
 							|  on #{post._.publishedDate.format('MMMM D, YYYY')}
 						if post.categories && post.categories.length
@@ -29,11 +28,7 @@ block content
 									| ,&nbsp;
 								else
 									|&nbsp;
-						if post.author
-							|  &middot; by&nbsp;
-							a(href='/members', rel='author')=post.author.name.full
-
-
+					
 					//- sharing buttons
 					.share-buttons
 						span.share-button
@@ -42,26 +37,23 @@ block content
 							a(href="https://twitter.com/share", data-via="SydJS", data-hashtags="sydjs", data-count="button", data-dnt="true").twitter-share-button Tweet
 						span.share-button
 							.g-plusone(data-size="medium")
-				.post
-					if post.image.exists
-						.thumbnail: img(src=post._.image.fit(750,450)).img-responsive
-					!= post.content.full
-				hr
+				if post.image.exists
+					.post-image.mv-3: img(src=post._.image.fit(720,420)).img-responsive.img-thumbnail
+				!= post.content.full
 
 				//- Comment
 				.comments
-					h4=post.comments.length == 0 ? 'Be the first to reply' : plural(post.comments.length, '* comment', '* comments')
-					.comment.mt-1
-						for comment in post.comments
-							if comment.author
-								.media
-									.pull-left
-										img(src=comment.author.photo.exists ? comment.author._.photo.thumbnail(60,60) : '/images/placeholders/user-60x60.jpg', alt=comment.author.name.full, width=40, height=40).media-object.img-circle
-									.media-body
-										h5.mt-0
-											=comment.author.name.full
-											span.text-muted  &middot; #{moment(comment.publishedOn).fromNow()}
-										!=comment.content.html
+					h4.mb-1=post.comments.length == 0 ? 'Be the first to reply' : plural(post.comments.length, '* comment', '* comments')
+					for comment in post.comments
+						if comment.author
+							.comment.media
+								.pull-left
+									img(src=comment.author.photo.exists ? comment.author._.photo.thumbnail(60,60) : '/images/placeholders/user-60x60.jpg', alt=comment.author.name.full, width=40, height=40).media-object.img-circle
+								.media-body
+									h6.mt-0
+										=comment.author.name.full
+										span.text-muted  &middot; #{moment(comment.publishedOn).fromNow()}
+									!=comment.content.html
 				if user
 					//- Reply form
 					form(method='post').comment-form.mt-5
@@ -71,7 +63,7 @@ block content
 								img(src=user.photo.exists ? user._.photo.thumbnail(60,60) : '/images/placeholders/user-60x60.jpg', alt=user.name.full, width=40, height=40).img-responsive.img-circle
 							.media-body
 								textarea(placeholder='Add your comment...', name='content').form-control
-								.form-inline.mv-5
+								.mv-1
 									button(type='submit').btn.btn-success Submit
 block js
 	script(src='/js/common/share.js')

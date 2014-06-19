@@ -1,0 +1,117 @@
+// 
+// Session
+// ==============================
+
+
+
+
+// Buttons
+// ------------------------------
+
+.social-signup-buttons {
+	display: table;
+	margin-bottom: 20px;
+	margin-left: -5px;
+	margin-right: -5px;
+	table-layout: fixed;
+	width: 100%;
+	
+	.signup-button {
+		display: table-cell;
+		margin: 0;
+		padding-left: 5px;
+		padding-right: 5px;
+		
+		.entypo-social {
+			font-size: 40px;
+			vertical-align: middle;
+		}
+
+		.btn {
+			position: relative;
+		}
+		.btn:hover,
+		.btn:focus {
+			top: -1px;
+		}
+		.btn:active {
+			top: 1px;
+		}
+	}
+}
+.signup-button__text {
+	display: none;
+}
+@media (min-width: @screen-md-min) {
+	.signup-button__text {
+		display: inline-block;
+		vertical-align: middle;
+		margin-left: 6px;
+	}
+}
+
+
+// divide social/form
+
+.auth-form-divider {
+	color: @gray-light;
+	margin-bottom: 1.5em;
+	margin-top: 1em;
+	position: relative;
+	text-align: center;
+	text-transform: uppercase;
+
+	&:after {
+		.size(100%,1px);
+		background-color: @hr-border;
+		content: "";
+		left: 0;
+		top: 50%;
+		position: absolute;
+	}
+}
+.auth-form-divider-text {
+	background-color: @body-bg;
+	display: inline-block;
+	padding: 0 1em;
+	position: relative;
+	z-index: 1;
+
+	.modal & {
+		background-color: white;
+	}
+}
+
+
+// Alternate form style
+// ------------------------------
+
+.auth-form {
+	.form-groups {
+		margin-bottom: 1em;
+	}
+	.form-group {
+		margin-bottom: 0;
+	}
+	.form-control {
+		border-radius: 0;
+		box-shadow: none;
+		height: auto;
+		margin-top: -1px;
+		padding-bottom: .75em;
+		padding-top: .75em;
+		-webkit-appearance: none;
+
+		
+		&:focus {
+			box-shadow: 0 0 5px -2px fade(@link-color, 60%), 0 1px 2px @gray-lighter;
+			position: relative;
+		}
+	}
+	.form-control--first {
+		.border-top-radius( 4px );
+	}
+	.form-control--last {
+		.border-bottom-radius( 4px );
+	}
+}

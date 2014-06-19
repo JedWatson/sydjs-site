@@ -1,0 +1,49 @@
+extends ../../layouts/default
+
+block content
+	.container-sm
+		if !member.isPublic
+			.lead.text-center
+				.h2.mb-0.text-muted: span.entypo.entypo-user
+				br
+				.text-muted This member has a private profile.
+		else
+			- var twitterUsername = member.twitterUsername || (member.twitter ? member.twitter.replace('@', ''): '');
+			- var githubUsername = member.githubUsername || (member.github ? member.github.replace('@', '') : '');
+			.page-intro
+				.text-left: a(href='/members').text-muted &larr; back to all members
+				//- hr
+				//- code=JSON.stringify(member)
+			.member.member--profile
+				.member-section.member__info
+					.row
+						.col-sm-3
+							img(src=(member.photo.exists ? member._.photo.thumbnail(600,600) : member.avatarUrl || '/images/avatar.png'), alt=member.name.full).img-responsive.img-rounded
+						.col-sm-9
+							h1.mb-0= member.name.full
+							p.text-muted.mv-1 Member since #{moment(member.createdOn).format('MMMM YYYY')}
+							if twitterUsername || githubUsername
+								.member__accounts.mb-1
+									if twitterUsername
+										a(href='https://twitter.com/' + twitterUsername, target='_blank', data-toggle='tooltip', data-title='@' + twitterUsername, data-placement='top').member__account.member__account--twitter.btn.btn-default
+											span.entypo-social.entypo-twitter
+											=twitterUsername
+									if githubUsername
+										a(href='https://github.com/' + githubUsername, target='_blank', data-toggle='tooltip', data-title=githubUsername, data-placement='top').member__account.member__account--github.btn.btn-default
+											span.entypo-social.entypo-github
+											=githubUsername
+							if member.bio.html
+								!= member.bio.html
+				if member.talks && member.talks.length
+					.member-section.member__additional-info
+						h5.text-caps Talks
+						ul.list-unstyled.mt-1
+							each talk in member.talks
+								li.media
+									.pull-left
+										.date(class=talk.meetup.state == 'past' ? 'date--past' : 'date--present')
+											small.block=moment(talk.meetup.date).format('MMM')
+											strong.block=moment(talk.meetup.date).format('DD')
+									.media-body
+										h5: a(href=talk.meetup.url)=talk.name
+										!=talk.description

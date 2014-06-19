@@ -12,22 +12,45 @@ exports.initLocals = function(req, res, next) {
 	var locals = res.locals;
 	
 	locals.navLinks = [
-		{ label: 'Home',      key: 'home',      href: '/',          layout: 'left' },
-		{ label: 'Meetups',   key: 'meetups',   href: '/meetups',   layout: 'left' },
-		{ label: 'Members',   key: 'members',   href: '/members',   layout: 'left' },
-		{ label: 'Links',     key: 'links',     href: '/links',     layout: 'left' },
-		{ label: 'Blog',      key: 'blog',      href: '/blog',      layout: 'right' },
-		{ label: 'About',     key: 'about',     href: '/about',     layout: 'right' },
-		{ label: 'Mentoring', key: 'mentoring', href: '/mentoring', layout: 'right' }
+		{ label: 'Home',		key: 'home',		href: '/' },
+		{ label: 'About',		key: 'about',		href: '/about' },
+		{ label: 'Meetups',		key: 'meetups',		href: '/meetups' },
+		{ label: 'Members',		key: 'members',		href: '/members' },
+		{ label: 'Blog',		key: 'blog',		href: '/blog' }
 	];
 	
 	locals.user = req.user;
-
+	
+	locals.basedir = keystone.get('basedir');
+	
+	locals.page = {
+		title: 'SydJS',
+		path: req.url.split("?")[0] // strip the query - handy for redirecting back to the page
+	};
+	
 	locals.qs_set = qs_set(req, res);
+	
+	if (req.cookies.target && req.cookies.target == locals.page.path) res.clearCookie('target');
 	
 	next();
 	
 };
+
+
+/**
+	Make sponsors universally available
+*/
+
+exports.loadSponsors = function(req, res, next) {
+	
+	keystone.list('Organisation').model.find().sort('name').exec(function(err, sponsors) {
+		if (err) return next(err);
+		req.sponsors = sponsors;
+		res.locals.sponsors = sponsors;
+		next();
+	});
+	
+}
 
 
 /**
@@ -90,6 +113,20 @@ exports.requireUser = function(req, res, next) {
 	
 }
 
+/**
+	Prevents people from accessing the site while it's been updated
+ */
+
+exports.restrictSite = function(req, res, next) {
+	
+	if (!req.user) {
+		if (req.url != '/maintenance') return res.redirect('/maintenance');
+		next();
+	} else {
+		next();
+	}
+	
+}
 
 /**
 	Returns a closure that can be used within views to change a parameter in the query string

@@ -65,55 +65,6 @@
 	border-top: 8px solid mix(@body-bg, black, 90%);
 }
 
-// calendar
-@calendar-width:    100px;
-.calendar {
-	.center-block();
-	background-color: white;
-	border-radius: 4px;
-	text-align: center;
-	text-transform: uppercase;
-	width: @calendar-width;
-}
-.calendar--past {
-	color: @gray-light;
-
-	.calendar__header {
-		background-color: mix(black, @body-bg, 30%);
-	}
-}
-	.calendar__header {
-		.border-top-radius( 4px );
-		background-color: @brand-danger;
-		color: white;
-		line-height: 24px;
-		height: 24px;
-	}
-	.calendar__body {
-		.border-bottom-radius( 4px );
-		border-style: solid;
-		border-width: 0 1px 1px;
-		border-color: transparent #eee #d6d6d6;
-		line-height: 1;
-		padding-bottom: 5px;
-		// padding-top: 5px;
-	}
-	.calendar__date {
-		font-size: 48px;
-	}
-
-.meetup-calendar {
-	margin-bottom: 20px;
-}
-@media (min-width: @screen-sm-min) {
-	.meetup-calendar {
-		float: left;
-	}
-	.meetup-content {
-		margin-left: @calendar-width + 20;
-	}
-}
-
 //- Create form
 .create-form {
 	.label-icon {

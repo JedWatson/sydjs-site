@@ -1,144 +1,390 @@
-// TYPE SETTING
-// ------------------------------
+//
+// TYPE
+// ==============================
+
+
+
+
+// Headings
+// -------------------------
+
+
+// sizing
+html { font-size: 100%; }
+body { font-size: 100%; }
+
+h1, .h1 { font-size: 3.4em; font-weight: 900; }
+h2, .h2 { font-size: 2.4em; }
+h3, .h3 { font-size: 1.8em; }
+h4, .h4 { font-size: 1.4em; }
+h5, .h5 { font-size: 1.2em; }
+h6, .h6 { font-size: .85em; }
+
+h1,.h1,h2,.h2,h3,.h3 { color: @gray-darker; letter-spacing: -0.5px; }
+ 
+@media (max-width: @screen-md-max) {
+	h1, .h1 { font-size: 2.8em; }
+	h2, .h2 { font-size: 1.8em; }
+	h3, .h3 { font-size: 1.6em; }
+	h4, .h4 { font-size: 1.4em; }
+	h5, .h5 { font-size: 1.2em; }
+	h6, .h6 { font-size: .85em; }
+}
+	
+ 
+@media (max-width: @screen-sm-max) {
+	body { font-size: 95%; }
+	h1, .h1 { font-size: 2.4em; }
+	h2, .h2 { font-size: 1.8em; }
+	h3, .h3 { font-size: 1.6em; }
+	h4, .h4 { font-size: 1.2em; }
+	h5, .h5 { font-size: 1em; }
+	h6, .h6 { font-size: .85em; }
+}
+
+
+// format
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+	font-weight: @headings-font-weight;
+	line-height: @headings-line-height;
+	color: @headings-color;
+	margin-top: 0;
+	margin-bottom: .66em;
+
+	small,
+	.small {
+		font-weight: normal;
+		line-height: 1;
+		color: @headings-small-color;
+	}
+}
+
+h1, .h1,
+h2, .h2,
+h3, .h3 {
+	font-family: @headings-font-family;
+
+	small,
+	.small {
+		font-size: 65%;
+	}
+}
+h4, .h4 {
+	font-family: @headings-font-family;
+}
+h4, .h4,
+h5, .h5,
+h6, .h6 {
+
+	small,
+	.small {
+		font-size: 75%;
+	}
+}
+
+h1 {
+	font-weight: bold;
+}
+
+.heading-bordered {
+	border-bottom: 1px solid @gray-lighter;
+	margin-bottom: 1em;
+	padding-bottom: 1em;
+}
+
+
+
+// Body text
+// -------------------------
+
+
 
 // general
+
 p {
-	line-height: 1.5;
-	margin: 0 0 20px;
+	margin: 0 0 (@line-height-computed / 2);
 }
-h1, .h1 {
-	font-size: 36px;
-	font-weight: 200;
-	line-height: 36px;
-	margin: 30px 0 20px;
-	
+
+hr {
+	margin-bottom: 1em;
+	margin-top: 1em;
+}
+
+.lead {
+	margin-bottom: .75em;
+	font-size: 1.2em;
+	font-weight: 300;
+	line-height: 1.4;
+
 	@media (min-width: @screen-sm-min) {
-		font-size: 48px;
-		line-height: 48px;
+		font-size: 1.5em;
 	}
 }
-h2, .h2 {
-	font-size: 24px;
-	line-height: 30px;
-	font-weight: 200;
-	margin: 20px 0;
+
+
+// Emphasis & misc
+// -------------------------
+
+// Ex: 14px base font * 85% = about 12px
+small,
+.small  { font-size: 85%; }
+
+// Undo browser default styling
+cite    { font-style: normal; }
+
+// Alignment
+.text-left           { text-align: left; }
+.text-right          { text-align: right; }
+.text-center         { text-align: center; }
+.text-justify        { text-align: justify; }
+
+// Fancy
+.text-fancy {
+	font-family: @font-family-serif;
+	font-style: italic;
+}
+
+// Contextual colors
+.text-muted {
+	color: @text-muted;
 	
-	@media (min-width: @screen-sm-min) {
-		font-size: 36px;
-		line-height: 40px;
+	a& {
+		color: @text-muted;
 	}
 }
-h3, .h3 {
-	font-size: 18px;
-	line-height: 18px;
-	margin: 40px 0 20px;
-	
-	@media (min-width: @screen-sm-min) {
-		font-size: 24px;
-		line-height: 24px;
-	}
+.text-primary {
+	.text-emphasis-variant(@brand-primary);
 }
-h5 {
-	font-weight: normal;
+.text-success {
+	.text-emphasis-variant(@state-success-text);
 }
-
-/*a:hover {
-	text-decoration: none;
-}*/
-
-.control-label .text-muted {
-	font-weight: normal;
+.text-info {
+	.text-emphasis-variant(@state-info-text);
+}
+.text-warning {
+	.text-emphasis-variant(@state-warning-text);
+}
+.text-danger {
+	.text-emphasis-variant(@state-danger-text);
 }
 
-// Flash messages
-#flash-messages {
-	margin-top: 30px;
-}
-
-
-
-
-// helpers
-.caps       { text-transform: uppercase; }
-.text-small { font-size: @font-size-small; }
-.text-large { font-size: @font-size-large; }
-
-
-
-
-
-// horizontal description list
-@media (min-width: @screen-sm-min) {
-	.dl-horizontal {
-		dt {
-			text-align: left;
-			width: 100px;
+.text-confirm {
+	&,
+	&button,
+	&a,
+	&.btn-link {
+		color: @gray-light;
+		
+		&:hover,
+		&:focus {
+			color: @brand-danger;
 		}
-		dd {
-			margin-left: 100px;
-		}
 	}
+}
+
+// Contextual backgrounds
+// For now we'll leave these alongside the text classes until v4 when we can
+// safely shift things around (per SemVer rules).
+.bg-primary {
+	// Given the contrast here, this is the only class to have its color inverted
+	// automatically.
+	color: #fff;
+	.bg-variant(@brand-primary);
+}
+.bg-success {
+	.bg-variant(@state-success-bg);
+}
+.bg-info {
+	.bg-variant(@state-info-bg);
+}
+.bg-warning {
+	.bg-variant(@state-warning-bg);
+}
+.bg-danger {
+	.bg-variant(@state-danger-bg);
 }
 
 
 
 
+// Lists
+// --------------------------------------------------
 
-// illustrative heading
-@illustrative-heading-size: 20px;
-.illustrative-heading {
-	font-size: 20px;
-	line-height: 1;
-	margin-bottom: 20px;
-	position: relative;
-	text-align: center;
-}
-	.illustrative-heading__line {
-		border-top: 3px double mix(@body-bg, @brown, 85%);
-		height: 0;
-		left: 0;
-		position: absolute;
-		top: @illustrative-heading-size / 2;
-		width: 100%;
-		z-index: 1;
+
+// Unordered and Ordered lists
+ul,
+ol {
+	margin-top: 0;
+	margin-bottom: (@line-height-computed / 2);
+	ul,
+	ol {
+		margin-bottom: 0;
 	}
-	.illustrative-heading__text {
-		background-color: @body-bg;
-		display: inline-block;
-		font-family: @font-family-serif;
-		font-style: italic;
-		padding: 0 20px;
+}
+
+
+// Minidot is a less intrusive bullet style list
+.list-minidot {
+	.list-unstyled();
+	
+	li {
+		padding-left: 1.5em;
 		position: relative;
-		z-index: 2;
+		
+		&:before {
+			content: "\00b7";
+			color: @gray-light;
+			font-weight: 500;
+			left: .5em;
+			margin-right: .5em;
+			position: absolute;
+		}
 	}
+}
 
 
+// Unstyled keeps list items block level, just removes default browser padding and list-style
+.list-unstyled {
+	margin-bottom: 0;
+	padding-left: 0;
+	list-style: none;
+}
 
 
-// horizontal rule
-.line-dashed { border-top: 1px dashed @hr-border; }
-.line-dotted { border-top: 1px dotted @hr-border; }
-.line-solid  { border-top: 1px solid @hr-border; }
+// Inline turns list items into inline-block
+.list-inline {
+	.list-unstyled();
 
-// more border needs more gap
-.line-thick  {
-	border-top: 6px solid @hr-border;
-	margin-top:    @line-height-computed * 2;
-	margin-bottom: @line-height-computed * 2;
+	> li {
+		display: inline-block;
+		padding-left: 5px;
+		padding-right: 5px;
+
+		&:first-child {
+			padding-left: 0;
+		}
+	}
+}
+
+
+// Description Lists
+dl {
+	margin-top: 0; // Remove browser default
+	margin-bottom: @line-height-computed;
+
+	&:last-child {
+		margin-bottom: 0;
+	}
+}
+dt,
+dd {
+	line-height: @line-height-base;
+}
+dt {
+	font-weight: bold;
+}
+dd {
+	margin-left: 0; // Undo browser default
+}
+
+// Horizontal description lists
+
+.dl-horizontal {
+	dt {
+		.text-overflow();
+		clear: left;
+		float: left;
+		width: (@component-offset-horizontal - 20);
+	}
+	dd {
+		&:extend(.clearfix all); // Clear the floated `dt` if an empty `dd` is present
+		margin-left: @component-offset-horizontal;
+		text-align: right;
+	}
 }
 
 
 
 
-// utilities
-.block { display: block; }
-.inline-block { display: inline-block; }
+// MISC
+// ------------------------------
 
-.mb-0 { margin-bottom: 0; }
-.mt-0 { margin-top: 0; }
-.mv-0 { margin-bottom: 0; margin-top: 0; }
+// Abbreviations and acronyms
+abbr[title],
+// Add data-* attribute to help out our tooltip plugin, per https://github.com/twbs/bootstrap/issues/5257
+abbr[data-original-title] {
+	cursor: help;
+	border-bottom: 1px dotted @abbr-border-color;
+}
+.initialism {
+	font-size: 90%;
+	text-transform: uppercase;
+}
 
-@media (max-width: @screen-xs-max) {
-	.xs-left { float: left; }
-	.xs-right { float: right; }
+// Blockquotes
+blockquote {
+	padding: (@line-height-computed / 2) @line-height-computed;
+	margin: 0 0 @line-height-computed;
+	font-size: (@font-size-base * 1.25);
+	border-left: 5px solid @blockquote-border-color;
+
+	p,
+	ul,
+	ol {
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+
+	// Note: Deprecated small and .small as of v3.1.0
+	// Context: https://github.com/twbs/bootstrap/issues/11660
+	footer,
+	small,
+	.small {
+		display: block;
+		font-size: 80%; // back to default font-size
+		line-height: @line-height-base;
+		color: @blockquote-small-color;
+
+		&:before {
+			content: '\2014 \00A0'; // em dash, nbsp
+		}
+	}
+}
+
+// Opposite alignment of blockquote
+//
+// Heads up: `blockquote.pull-right` has been deprecated as of v3.1.0.
+.blockquote-reverse,
+blockquote.pull-right {
+	padding-right: 15px;
+	padding-left: 0;
+	border-right: 5px solid @blockquote-border-color;
+	border-left: 0;
+	text-align: right;
+
+	// Account for citation
+	footer,
+	small,
+	.small {
+		&:before { content: ''; }
+		&:after {
+			content: '\00A0 \2014'; // nbsp, em dash
+		}
+	}
+}
+
+// Quotes
+blockquote:before,
+blockquote:after {
+	content: "";
+}
+
+// Addresses
+address {
+	margin-bottom: @line-height-computed;
+	font-style: normal;
+	line-height: @line-height-base;
 }

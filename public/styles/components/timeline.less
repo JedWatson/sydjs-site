@@ -1,0 +1,166 @@
+//
+// Timeline
+// ==============================
+
+
+.page-about .iy-body {
+	padding-bottom: 0;
+}
+
+
+// Common
+// ------------------------------
+
+@timeline-path:         .25em;
+@timeline-offset:       3em;
+@timeline-node:         1em;
+@timeline-alphaomega:   @timeline-node;
+
+.timeline {
+	.clearfix();
+	padding-bottom: @timeline-offset * 2;
+	padding-top: @timeline-offset;
+	position: relative;
+}
+
+.timeline-path {
+	bottom: 0;
+	left: 50%;
+	background-color: rgba(0,0,0,0.1);
+	margin-left: -(@timeline-path / 2);
+	position: absolute;
+	top: 0;
+	width: @timeline-path;
+	z-index: 1;
+	&:before,
+	&:after {
+		.square( @timeline-alphaomega );
+		background-color: rgba(0,0,0,0.1);
+		border-radius: 50%;
+		content: "";
+		left: 50%;
+		margin-left: -(@timeline-alphaomega / 2);
+		position: absolute;
+		z-index: 3;
+	}
+	&:before {
+		top: -@timeline-alphaomega;
+	}
+	&:after {
+		bottom: -@timeline-alphaomega;
+	}
+}
+
+
+// nodes
+
+.timeline-item-node {
+	.size(10%,1px);
+	background-color: rgba(0,0,0,0.1);
+	position: absolute;
+	top: 25px;
+
+	&:after {
+		.box-shadow( 0 0 0 4px @body-bg );
+		.square( @timeline-node );
+		background-color: @body-bg;
+		border: 1px solid rgba(0,0,0,0.2);
+		border-radius: 50%;
+		content: "";
+		margin-top: -(@timeline-node / 2);
+		position: absolute;
+		z-index: 3;
+	}
+}
+
+
+// items
+
+.timeline-item-inner {
+	.tile-base();
+	color: @gray;
+	display: block;
+	padding: 1em;
+
+	&:hover,
+	&:focus {
+		color: @gray;
+		outline: none;
+		text-decoration: none;
+
+		h3 {
+			text-decoration: underline;
+		}
+	}
+}
+
+
+// small screens
+
+@media (max-width: @screen-xs-max) {
+
+	.timeline-path {
+		left: 5px;
+	}
+	.timeline-item {
+		margin-top: @grid-gutter-width;
+		position: relative;
+		float: right;
+		margin-left: 5px;
+		padding-left: 20px;
+
+		.timeline-item-node {
+			left: 0;
+			width: 20px;
+			
+			&:after {
+				margin-left: -(@timeline-node / 2);
+			}
+		}
+	}
+
+}
+
+
+// large screens
+
+@media (min-width: @screen-sm-min) {
+	.timeline-item--offset {
+		float: right;
+		height: @timeline-offset * 2;
+		width: 40%;
+	}
+	.timeline-item {
+		margin-top: @timeline-offset;
+		position: relative;
+		width: 50%;
+	}
+	.timeline-item--odd {
+		clear: left;
+		float: left;
+		padding-right: 5%;
+
+		.timeline-item-node {
+			right: 0;
+			
+			&:after {
+				margin-right: -(@timeline-node / 2);
+				right: 0;
+			}
+		}
+	}
+	.timeline-item--even {
+		clear: right;
+		float: right;
+		padding-left: 5%;
+
+		.timeline-item-node {
+			left: 0;
+			
+			&:after {
+				margin-left: -(@timeline-node / 2);
+			}
+		}
+	}
+
+}

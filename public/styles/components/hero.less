@@ -1,0 +1,239 @@
+/**
+*
+* Hero
+* 
+*
+**/
+
+// General styles
+@hero-intro-height-sm: 540px;
+@hero-intro-height-xs: 420px;
+#hero {
+	position: relative;
+	.hero-intro {
+		position: relative;
+		height: @hero-intro-height-sm;
+		color: #FFF;
+		text-align: center;
+		margin-top: -(@navbar-height + 10) * 2;
+
+		//- Increase the height on big screens
+		@media (min-width: 1600px) {
+			height: @hero-intro-height-sm * 1.7;
+		}
+
+		.hero-background {
+			.ground;
+			position: absolute;
+			top: 0;
+			left: 0;
+			display: block;
+			width: 100%;
+			height: 100%;
+			img {
+				width: 100%;
+			}
+
+			// Scrolling effect
+			&.position-fixed {
+				position: fixed;
+			}
+			&.position-absolute {
+				position: absolute;
+			}
+		}
+		.hero-intro-content {
+			.hv-centered;
+			top: 42%;
+			width: 90%;
+		}
+		.title {
+			color: currentColor;
+			text-transform: uppercase;
+			font-weight: 900;
+		}
+		.subtitle {
+			color: fade(white, 50%);
+			font-family: @font-family-serif;
+			font-size: 1.25em;
+			font-style: italic;
+			margin-bottom: 1em;
+		}
+		.byline {
+			font-weight: 300;
+			font-size: @font-size-base * 1.75;
+			a {
+				color: inherit;
+			}
+
+			strong {
+				font-weight: 700;
+			}
+		}
+
+		.byline + .byline {
+			font-size: @font-size-base * 1.25;
+		}
+
+	}
+
+	//- Details
+	.hero-details {
+		padding: 6em 0;
+		background: white;
+		.description {
+			font-size: @font-size-base * 1.4;
+			p + p {
+				margin-top: 1.5em;
+			}
+		}
+	}
+
+	//- Mobile
+	@media (max-width: @screen-xs-max) {
+		.hero-intro {
+			height: @hero-intro-height-xs;
+			.subtitle {
+				font-size: @font-size-base * 1.2;
+			}
+			.byline {
+				font-size: @font-size-base * 1.2;
+			}
+			.byline + .byline {
+				font-size: @font-size-base;
+			}
+		}
+		.hero-details {
+			padding: 5em 0;
+			p { font-size: @font-size-base; }
+		}
+	}
+}
+.hero-button {
+	.translate(-50%, 50%);
+	background-color: white;
+	border-radius: .75em;
+	bottom: 0;
+	left: 50%;
+	padding: .5em;
+	position: absolute;
+	width: 35%;
+
+	@media (max-width: @screen-md-max) {
+		width: 60%;
+	}
+
+	@media (max-width: @screen-xs-max) {
+		width: 90%;
+	}
+}
+.hero-button-title {
+	.transition( all 200ms linear );
+	.translateY(-200%);
+	color: white;
+	position: absolute;
+	text-align: center;
+	top: 0;
+	width: 100%;
+}
+
+
+// Mask
+.hero-intro.hero-intro--hasmask {
+	#gradient .vertical(rgba(0,0,0,0.3), rgba(0,0,0,0.6));
+	//box-shadow: inset 0 0 20em rgba(0,0,0,0.3);
+}
+
+// Meet up
+.hero-meetup { }
+
+// Next meet up
+.hero-meetup--next {
+	.hero-background {
+		background: url('/images/placeholders/sydney-4.jpg') no-repeat center center / cover;
+		background-color: @gray-dark;
+	}
+}
+
+// Last meet up
+.hero-meetup--last { }
+
+
+// Talks list
+.talks-list {
+	li {
+	}
+	li + li {
+		margin-top: 1em;
+	}
+	.talkers {
+		position: relative;
+		display: block;
+		width: 100%;
+		height: 100%;
+
+		img {
+			.floor-1;
+			position: absolute;
+			display: block;
+			max-width: 100%;
+			border: 3px solid white;
+		}
+		// 1 talker
+		img:nth-child(1):nth-last-child(1) {
+			width: 100%;
+		}
+		// 2 talkers
+		img:first-child:nth-last-child(2),
+		img:first-child:nth-last-child(2) ~ img {
+			width: 60%;
+		}
+		img:first-child:nth-last-child(2) ~ img {
+			.floor-2;
+			top: 10px;
+			right: 0;
+		}
+
+	}
+	.talk-summary {
+		.title {
+			font-weight: 700;
+			margin-bottom: 0.25em;
+		}
+		.subtitle {
+			font-size: @font-size-base;
+		}
+		.summary {
+			font-size: @font-size-base * 1.1;
+		}
+	}
+}
+
+// Attending list
+.attending {
+	margin-top: 4em;
+}
+.heading-with-line {
+	position: relative;
+	overflow: hidden;
+	line-height: 1.5;
+	text-align: center;
+	&:after,&:before {
+		position: relative;
+		display: inline-block;
+		width: 50%;
+		height: 1px;
+		background: lighten(@gray-light, 10%);
+		content: '';
+		vertical-align: middle;
+	}
+	&:before { right: 1em; margin-left: -50%; }
+	&:after { left: 1em; margin-right: -50%; }
+}
+.attendees-list {
+	margin-top: 4em;
+	li {
+		margin: 0.25em 0;
+	}
+}
+

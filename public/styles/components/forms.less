@@ -1,0 +1,40 @@
+// Forms
+// ------------------------------
+
+
+// twbs right aligned labels looks weird
+.form-horizontal .control-label {
+	text-align: left;
+}
+
+// labels for checkboxes should look like content
+.checkbox { font-weight: inherit; }
+
+// allow gap between collapsed fields on small devices
+@media (max-width: @screen-xs-max) {
+	.form-group .row > [class^='col-'] {
+		margin-bottom: 10px;
+	}
+}
+
+// assume textarea's have adequate width
+// allow vertical resizing
+textarea {
+	.resizable(vertical);
+}
+
+// maintain alignment of label text and input/button text
+
+.faux-label {
+	padding-top: @padding-base-vertical;
+}
+
+
+// keep inline with body text
+
+.radio-inline,
+.checkbox-inline,
+.radio label,
+.checkbox label {
+	font-weight: @font-weight-base;
+}

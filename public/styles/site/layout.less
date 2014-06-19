@@ -1,206 +1,106 @@
-// EASTER EGG
+//
+// Layout
+// ==============================
+
+
+// Base
+
+html {
+	.square( 100% );
+}
+body {
+	height: 100%;
+	font-weight: @font-weight-base;
+}
+
+
+// Containers
 // ------------------------------
-#easter-egg {
-	background: url('/images/blueprintbg.png') #365bb4;
-	border-bottom: 4px solid @link-color;
-	height: 400px;
-	
-	#old-logo {
-		position: relative;
-		width: 512px;
-		height: 342px;
-		left: 50%;
-		margin-left: -305px;
-		svg {}
-	}
+.container-xs,
+.container-sm,
+.container-md {
+	.container-fixed();
+}
+@media (min-width: @screen-sm-min) {
+	.container-xs { width: 600px; }
+	.container-sm { width: @screen-sm-min - @grid-gutter-width; }
+	.container-md { max-width: @screen-md-min - @grid-gutter-width; }
 }
 
 
 
-
-
-// NAVBAR
+// Body
 // ------------------------------
-@navbar-border-top-width: 4px;
-.navbar {
-	border-top: @navbar-border-top-width solid @navbar-default-link-hover-bg;
-	font-size: @font-size-small;
-	font-weight: 500;
-	margin: 0;
-	
-	.container {
-		position: relative;
-	}
-}
-.navbar-nav > li {
-	margin-top: -@navbar-border-top-width;
-	
-	&.active a {
-		border-top-color: @orange;
-	}
-}
-.navbar-nav > li > a {
-	border-top: @navbar-border-top-width solid transparent;
-	padding-bottom: @navbar-padding-vertical + floor(@navbar-border-top-width / 2);
-	padding-left: 20px;
-	padding-right: 20px;
-	text-transform: uppercase;
-	
-	@media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
-		padding-left: 10px;
-		padding-right: 10px;
-	}
-	@media (min-width: @screen-lg-min) {
-		padding-left: 30px;
-		padding-right: 30px;
-	}
-}
-.navbar-default .navbar-toggle {
-	background-color: @navbar-default-toggle-bg;
-}
-.navbar-logo {
-	.transition( top 0.1s ease-in-out );
-	border-top: 0px solid @brand-primary;
-	display: block;
-	margin-left: (@grid-gutter-width / 2);
-	position: absolute;
-	top: -(@navbar-border-top-width + 2);
-	z-index: 1;
-	
-	img {
-		width: 100%;
-	}
-	
-	@media (max-width: @screen-sm-max) {
-		img {
-			.size(90px,80px);
-		}
-	}
-	@media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
-		.size(90px,80px);
-		left: 50%;
-		margin-left: -45px;
-	}
-	@media (min-width: @screen-md-min) {
-		.size(130px,119px);
-		left: 50%;
-		margin-left: -65px;
-		top: -(@navbar-border-top-width + 4);
-	
-	}
-	&:hover, &.clicked {
-		top: -@navbar-border-top-width;
-	}
-}
-
-.navbar-collapse {
-	.box-shadow( none );
-	// why max-height, bootstrap, why???
-	max-height: 1000px;
-	// not sure what the padding is doing on this element...
-	padding-left: 0;
-	padding-right: 0;
-}
-.navbar-nav {
-	margin-left: 0;
-	margin-right: 0;
-}
-
-// hide the home link so it doesn't intersect the logo
-@media (max-width: @screen-xs-max) {
-	.nav-item-home {
-		visibility: hidden;
-	}
-	.navbar-nav .divider {
-		background-color: @navbar-default-toggle-border-color;
-	}
+.site-body {
+	.floor;
+	.floor-1;
+	padding-bottom: @page-padding;
+	padding-top: @page-padding;
 }
 
 
 
-// FOOTER
+// Footer
 // ------------------------------
-#sydjs-body {
-	
-}
-#sydjs-footer {
-	// border-top: 8px solid white;
-	background-color: @brown;
-	color: mix(@brown, white, 50%);
-	font-size: @font-size-small;
-	padding: 20px 0;
-	margin-top: 60px;
+.site-footer {
+	background-color: darken(@body-bg, 3.5%);
+	color: @gray-light;
+	padding: 3em 0 0;
+	font-size: @font-size-base * 1.1;
 	position: relative;
-	text-align: center;
-	// text-transform: uppercase;
-	
+
+	.footer-heading {
+		color: @gray;
+	}
+	ul, ol {
+		.list-unstyled();
+	}
 	p {
 		margin-bottom: 5px;
 	}
 	a {
-		color: white;
+		color: @gray;
 	}
 	
 }
-
-
-
-
-
-// BLOG
-// ------------------------------
-@post-image-width: 170px;
-.blog-post {
-	.clearfix();
+.footer-copyright {
+	margin-top: 2em;
+	padding: 2em @page-padding;
+	border-top: 1px solid fade(black, 10%);
 	text-align: center;
-	margin-bottom: 40px;
-	
 }
-.blog-post__image {
-	margin-bottom: 20px;
-}
-.blog-post__content {
-	text-align: left;
-}
-.blog-post__heading {
-	margin-top: 0;
-	
-	a {
-		color: @headings-color;
-	}
-}
-.blog-post__author {
-	color: mix(@body-bg, @text-color, 50%);
-	font-weight: 200;
-	
-	a {
-		color: mix(@body-bg, @text-color, 50%);
+
+
+// Sticky footer (only on desktop)
+// ------------------------------
+@footerHeight: 320px;
+.site-wrapper.has-sticky-footer {
+	position: relative;
+	padding-bottom: @footerHeight;
+	min-height: 100%;
+	background: @body-bg;
+	@media (max-width: @screen-xs-max) {
+		padding-bottom: 0;
 	}
 }
 
-@media (min-width: @screen-sm-min) {
-	.blog-post__image {
-		float: left;
-		width: @post-image-width;
-	}
-	.blog-post__content {
-		margin-left: @post-image-width + 20;
-		&.link {
-			margin-left: 0;
-		}
+.site-footer.site-footer--sticky {
+	position: absolute;
+	bottom: 0;
+	display: block;
+	width: 100%;
+	height: @footerHeight;
+	@media (max-width: @screen-xs-max) {
+		position: relative;
+		bottom: auto;
+		height: auto;
 	}
 }
 
 
-// full post
-.full-post {
-	padding-bottom: 40px;
-}
 
 
-
-
-// LINKS
+// Links
 // ------------------------------
 .links-list {
 	h3 {
@@ -211,8 +111,8 @@
 	.byline { margin: 0 0 0 0; }
 	
 	.link {
-		font-size: @font-size-base + 2;
 		margin: 0;
+		font-size: @font-size-base + 2;
 	}
 
 	.tags-list {
@@ -237,16 +137,16 @@
 		margin-bottom: 5px;
 	}
 	a {
-		padding: 2px 10px;
 		display: inline-block;
+		padding: 2px 10px;
 		border-radius: @border-radius-base;
-		font-size: @font-size-base;
 		background-color: @gray-light;
 		color: white;
+		font-size: @font-size-base;
 		
 		&:hover {
-			text-decoration: none;
 			background-color: @link-color;
+			text-decoration: none;
 		}
 		&.active {
 			background-color: @link-color;
@@ -261,124 +161,67 @@
 
 
 
-// FORMS
+// Page
 // ------------------------------
 
-// twbs right aligned labels looks weird
-.form-horizontal .control-label {
-	text-align: left;
+// Secondary page intro
+.page-intro {
+	padding-bottom: @page-padding;
+	text-align: center;
+	h1 {
+		margin-bottom: 0.25em;
+	}
+	.buttons > .btn {
+		margin-right: 10px;
+	}
+	.lead {
+		max-width: @screen-sm-min - @grid-gutter-width;
+		margin-left: auto;
+		margin-right: auto;
+	}
 }
 
-// labels for checkboxes should look like content
-.checkbox { font-weight: inherit; }
 
-// allow gap between collapsed fields on small devices
+// Page content
+.page-content {
+	.floor;
+	.floor-1;
+}
+
+// Page section
+.section {
+	padding-bottom: @page-padding * 1.5;
+	padding-top: @page-padding * 1.5;
+}
+.section--featured {
+	padding-bottom: @page-padding * 1;
+	padding-top: @page-padding * 2.5;
+}
+
+// Add space at the top on tiny screens
+@media (max-width: @screen-sm-max) {
+	.row {
+		[class^="col-md"] + [class^="col-md"] {
+			margin-top: @page-padding;
+		}
+	}
+}
+
 @media (max-width: @screen-xs-max) {
-	.form-group .row > [class^='col-'] {
-		margin-bottom: 10px;
-	}
-}
-
-// assume textarea's have adequate width
-// allow vertical resizing
-textarea {
-	.resizable(vertical);
-}
-
-
-
-// PAGE INTROS
-// ------------------------------
-.back-bar,
-.page-intro {
-	background-color: white;
-	border-bottom: 1px solid darken(desaturate(@body-bg, 30%), 8%);
-}
-.page-intro {
-	padding-bottom: 35px;
-	margin-bottom: 40px;
-	
-	p {
-		
-		font-size: floor(@font-size-base * 1.15);
-		font-weight: 200;
-		line-height: 1.4;
-		margin-bottom: 8px;
-
-		@media (min-width: @screen-sm-min) {
-			font-size: (@font-size-base * 1.5);
-		}
-		
-	}
-	
-	.buttons {
-		min-height: 30px;
-		margin-top: 14px;
-		
-		.btn {
-			margin-right: 10px;
-		}
-	
-		.twitter-follow-button {
-			position: absolute;
-			margin-top: 2px;
+	.row {
+		[class^="col-sm"] + [class^="col-sm"] {
+			margin-top: @page-padding;
 		}
 	}
 }
 
 
 
-
-// MEETUPS
-// ------------------------------
-.meetup {
-	margin-top: 60px;
-}
-.meetup--present {
-	margin-top: 0;
-}
-.meetup-talks {
-	border-top: 1px dashed @hr-border;
-	font-size: @font-size-base;
-	padding-left: 40px;
-	padding-top: 20px;
-	position: relative;
-	
-	.meetup-talks__icon {
-		color: mix(@text-color, @body-bg, 30%);
-		display: block;
-		position: absolute;
-		left: 0;
-		top: 20px;
-	}
-	.meetup-talks__heading {
-		.text-muted();
-		margin-top: 0;
-	}
-	.talk {
-		margin-bottom: 15px;
-	}
-	.talk__name {
-		color: @headings-color;
-		font-size: @font-size-large;
-	}
-	.talk__speaker {
-		// .text-muted();
-		margin-bottom: 5px;
-	}
-	.talk__resource {
-		.text-muted();
-	}
-}
-	
-
-
-
-// MISC
+// Misc
 // ------------------------------
 .back-bar {
-	padding-bottom: 10px;
 	padding-top: 10px;
+	padding-bottom: 10px;
 	
 	p {
 		margin-bottom: 8px;
@@ -390,14 +233,13 @@ textarea {
 
 
 
-
-// organisers
+// Organisers
 .about-organisers {
 	.organiser {
 		.img-wrapper {
 			.square( 40px );
-			overflow: hidden;
 			float: left;
+			overflow: hidden;
 			margin-right: 9px;
 			
 			img {
@@ -409,42 +251,14 @@ textarea {
 		margin: 0;
 	} 
 	.organiser__twitter {
-		font-size: @font-size-base;
 		margin-bottom: 9px;
+		font-size: @font-size-base;
 	} 
 }
 
 
 
-
-
-// share buttons
-.share-buttons {
-	margin: 20px 0;
-	min-height: 20px;
-	
-	@media (min-width: @screen-sm-min) {
-		&.right {
-			float: right;
-		
-			.share-button {
-				margin-left: 10px;
-				margin-right: 0;
-			}
-		}
-	}
-}	
-
-.share-button {
-	display: inline-block;
-	margin-right: 10px;
-	vertical-align: middle;
-	width: 76px;
-}
-
-
-
-// organisations
+// Organisations
 .org__heading {
 	margin-top: 0;
 	
@@ -457,9 +271,8 @@ textarea {
 }
 .org__location-icon {
 	float: left;
-	font-size: 42px;
 	margin-right: 10px;
-	// margin-top: 2px;
+	font-size: 42px;
 }
 .org__location-address {
 	display: table;
@@ -468,8 +281,60 @@ textarea {
 	display: block;
 	margin-bottom: 20px;
 }
+
 @media (min-width: @screen-sm-min) {
 	.org__logo img {
 		.img-responsive();
 	}
+}
+
+
+
+// Animation
+// ------------------------------
+@-moz-keyframes pulse {
+  0% { -moz-transform: scale(1); }
+  50% { -moz-transform: scale(1.4); }
+  100% { -moz-transform: scale(1); }
+}
+@-webkit-keyframes pulse {
+  0% { -webkit-transform: scale(1); }
+  50% { -webkit-transform: scale(1.4); }
+  100% { -webkit-transform: scale(1); }
+}
+@-o-keyframes pulse {
+  0% { -o-transform: scale(1); }
+  50% { -o-transform: scale(1.4); }
+  100% { -o-transform: scale(1); }
+}
+@-ms-keyframes pulse {
+  0% { -ms-transform: scale(1); }
+  50% { -ms-transform: scale(1.4); }
+  100% { -ms-transform: scale(1); }
+}
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.4); }
+  100% { transform: scale(1); }
+}
+
+@-moz-keyframes spin {
+  0% { -moz-transform: rotate(0deg); }
+  100% { -moz-transform: rotate(359deg); }
+}
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(359deg); }
+}
+@-o-keyframes spin {
+  0% { -o-transform: rotate(0deg); }
+  100% { -o-transform: rotate(359deg); }
+}
+@-ms-keyframes spin {
+  0% { -ms-transform: rotate(0deg); }
+  100% { -ms-transform: rotate(359deg); }
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(359deg); }
 }

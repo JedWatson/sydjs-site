@@ -4,24 +4,21 @@ include ../../mixins/post
 
 block intro
 	.page-intro: .container
-		h1=data.category ? data.category.name : 'Blog'
-		p This is the blog of SydJS, contributed by our members and guest authors. Join to contribute.
-		.buttons
-			if !user
-				a(href='/join').btn.btn-primary Join SydJS
-				a(href='/signin').btn.btn-default Sign In
-			else
-				a(href='/me/create/post').btn.btn-primary Add post
+		h1.page-title=data.category ? data.category.name : 'Blog'
+		p.lead
+			| This is the blog of SydJS, contributed by our members and guest authors.&nbsp;
+			a(href='/join').js-auth-trigger Join now
+			| &nbsp;to contribute.
 
 block content
-	.container
+	.page-content: .container
 		.row
-			div(class= data.categories.length || !data.posts.length ? 'col-sm-8' : 'col-sm-8 col-sm-offset-2')
+			div(class= data.categories.length || !data.posts.length ? 'col-md-10' : 'col-md-10 col-md-offset-1')
 				if filters.category && !data.category
 					h3 Invalid Category.
 				else
 					if data.posts.length
-						.blog
+						.post-cards.row(itemscope itemtype="http://schema.org/Blog")
 							each post in data.posts
 								+post(post)
 					else
@@ -31,7 +28,7 @@ block content
 							h3.text-muted There are no posts yet.
 			
 			if data.categories.length
-				.col-sm-3.col-sm-offset-1
+				.col-md-2
 					if data.categories.length
 						h5.text-muted Filter by tag
 						ul.list-unstyled.tags-list

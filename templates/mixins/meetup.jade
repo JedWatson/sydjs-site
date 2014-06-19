@@ -1,42 +1,54 @@
-mixin meetup(meetup, mode)
-	.meetup(class='meetup--'+mode)
-		.meetup-calendar.calendar(class=mode == 'past' ? 'calendar--past' : null)
+include meetup-talk
+
+mixin meetup(meetup)
+
+	- var today = new Date();
+
+	.tile.ph-1.pv-1
+		.meetup-calendar.calendar.hidden-xs.hidden-sm(class=meetup.state == 'past' ? 'calendar--past' : null)
 			.calendar__header=meetup._.date.format('MMM')
 			.calendar__body
 				.calendar__date=meetup._.date.format('DD')
 				.calendar__year=meetup._.date.format('YYYY')
 		.meetup-content
-			.text-muted=meetup._.date.format('dddd D MMM YYYY')
+			h2.mv-5= meetup.name
+			h5.mb-1=meetup._.date.format('dddd D MMM YYYY')
 				if meetup.time
 					|  from #{meetup.time}
-			h2.mt-0= meetup.name
 			if meetup.description
 				p!= meetup.description
 			if meetup.talks.length
-				.meetup-talks
-					span.meetup-talks__icon.entypo.entypo-large.entypo-comment
-					h4.meetup-talks__heading Talks 
-						=mode == 'past' ? 'from ' : 'on '
-						| the night
-					ul.list-unstyled
-						each talk in meetup.talks
-							li.talk
-								strong.talk__name= talk.name
-										|  
-								if talk.who.length
-									.talk__speaker
-										| by 
-										each user in talk.who
-											= user.name.full + ' '
-											if user.twitter
-												a(href='http://twitter.com/' + user.twitter.replace('@', ''), target='_blank' data-size="large")= user.twitter + ' '
-								if talk.slides
-									.talk__resource
-										span.entypo.entypo-docs
-										|  Slides - 
-										a(href=talk.slides, target='_blank', title='View the slides from this talk').talk__resource-anchor=talk.slides
-								if talk.link
-									.talk__resource
-										span.entypo.entypo-link
-										|  Website - 
-										a(href=talk.link, target='_blank', title='View the website for this talk').talk__resource-anchor=talk.link
+				hr.mv-2
+				ul.meetup-talks
+					each talk in meetup.talks
+						+meetup-talk(talk)
+
+		if meetup.state == 'active'
+			hr.mv-2
+			if user
+				if meetup.rsvpsAvailable
+					h4.text-center.mb-1 Are you coming? 
+						span.text-thin (#{plural(meetup.remainingRSVPs, '* spot left', '* spots left')})
+					include ../includes/attendance-toggle
+				else
+					.alert.alert-success.mb-0.text-center No more tickets...
+
+			else
+				#next-meetup(data-id=meetup.id)
+					a(href='/join', data-from=page.path).btn.btn-primary.btn-lg.btn-block.js-auth-trigger RSVP Now 
+						span.text-thin (#{plural(meetup.remainingRSVPs, '* spot left', '* spots left')})
+		else if meetup.totalRSVPs
+			hr
+			.text-center
+				.h1.text-muted.mb-0= meetup.totalRSVPs
+				.lead.text-muted people #{meetup.state == 'active' ? "are attending" : "attended"} this meetup
+			if meetup.state == 'past'
+				ul.list-unstyled.list-inline.text-center
+					for rsvp in meetup.rsvps
+						if rsvp.who
+							- var attendee = rsvp.who;
+							if attendee.isPublic
+								li: a(href=attendee.url, title=attendee.name.full)
+									img(src=attendee.photo.exists ? attendee._.photo.thumbnail(80,80) : attendee.avatarUrl || '/images/avatar.png', width=40, height=40, alt=attendee.name.full).img-circle
+							else
+								li(title=attendee.name.full): img(src=attendee.photo.exists ? attendee._.photo.thumbnail(80,80) : attendee.avatarUrl || '/images/avatar.png', width=40, height=40, alt=attendee.name.full).img-circle

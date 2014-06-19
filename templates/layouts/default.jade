@@ -1,7 +1,10 @@
 include ../mixins/flash-messages
+include ../mixins/auth/auth-forms
 
 doctype html
 html
+
+	//- HTML HEAD
 	head
 		if env == 'production' && chartbeat_property && chartbeat_domain
 			script.
@@ -10,56 +13,35 @@ html
 		meta(charset="utf-8")
 		meta(name="viewport", content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width")
 		
-		title= title || 'SydJS'
+		title= page.title
 		link(rel="shortcut icon", href="/favicon.ico", type="image/x-icon")
 		link(href="/styles/site.min.css", rel="stylesheet")
 		
 		if user && user.canAccessKeystone
 			link(href="/keystone/styles/content/editor.min.css", rel="stylesheet")
-		
+
 		block css
 		block head
-	body: #sydjs-wrapper
-		
-		//- EASTER EGG
-		#easter-egg(style='display: none;')
-			#old-logo
-		
-		//- HEADER
-		header(role='banner')#sydjs-nav
-			nav.navbar.navbar-default.navbar-static-top(role='navigation'): .container
-				.navbar-header
-					button.navbar-toggle.navbar-toggle-menu.navbar-toggle-left(type='button', data-toggle='collapse', data-target='.navbar-headernav-collapse')
-						span.sr-only Toggle navigation
-						!='<span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>'
-					a(href='/', title='Back to Home').navbar-logo
-						img(src='/images/logo.svg', alt='SydJS logo', width=130, height=119)
-					//- a(href='/', title='Back to Home').navbar-brand.visible-xs SydJS
-				.collapse.navbar-collapse.navbar-headernav-collapse
-					ul.nav.navbar-nav
-						each link in navLinks
-							if link.layout == 'left'
-								li(class=(section == link.key ? 'nav-item-' + link.key + ' active' : 'nav-item-' + link.key)): a(href=link.href)= link.label
-					ul.nav.navbar-nav.navbar-right
-						each link in navLinks
-							if link.layout == 'right'
-								li(class=(section == link.key ? 'nav-item-' + link.key + ' active' : 'nav-item-' + link.key)): a(href=link.href)= link.label
-						if user
-							li: a(href='/me')= user.name.first
-							li: a(href='/signout')
-								span.visible-xs Sign out
-								span.entypo.entypo-large.entypo-logout.hidden-xs
-						else
-							li: a(href='/signin') Sign In
-		
-		
-		//- BODY
-		#sydjs-body
+
+	//- HTML BODY
+	body(class=section ? 'sitesection-' + section : null)
+		.site-wrapper.has-sticky-footer
 			
-			block intro
+			//- SITE HEADER
+			include ../includes/layout/header
 			
-			+flash-messages(messages)
+			//- SITE BODY
+			block body
+				main.site-body(role='main')
+
+					block intro
+
+					block flash-messages
+						+flash-messages(messages)
+
+					block content
 			
+<<<<<<< HEAD
 			block content
 		
 		
@@ -69,40 +51,38 @@ html
 			p If you run a meetup, please feel free to clone our site and make your own! You can <a href="https://github.com/JedWatson/sydjs-site", target='_blank'>find it on GitHub</a>.
 		
 	//- scripts
+=======
+			//- SITE FOOTER
+			block footer
+				include ../includes/layout/footer
+
+
+		//- MODALS
+		block modal
+		if !user
+			#modal-auth(tabindex="-1", role="dialog", aria-labelledby="signin", aria-hidden="true").modal.fade
+				.modal-dialog
+					.modal-content
+						+auth-forms({ modal: true, initial: 'signin' })
+
+	//- JAVASCRIPT
+>>>>>>> june-wip
 	script(src='/js/lib/jquery/jquery-1.10.2.min.js')
 	script(src='/js/lib/bootstrap/collapse.js')
 	script(src='/js/lib/bootstrap/dropdown.js')
-	
+	script(src='/js/lib/bootstrap/modal.js')
+
+	//- Headroom
+	//-script(src="//cdn.jsdelivr.net/headroomjs/0.5.0/headroom.min.js")
+	//-script(src="//cdn.jsdelivr.net/headroomjs/0.5.0/jQuery.headroom.min.js")
+	//-script(src='/js/common/header.js')
+
 	if user && user.canAccessKeystone
 		script(src='/keystone/js/content/editor.js')
 	
-	script(src='/js/site.js')
+	script(src='/js/ui.js')
+
 	
+	//- ANALYTICS
+	include ../includes/layout/analytics
 	block js
-	
-	if env == 'production' && ga_property && ga_domain
-		script.
-			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-			
-			ga('create', '#{ga_property}', '#{ga_domain}');
-			ga('send', 'pageview');
-	
-	if env == 'production' && chartbeat_property && chartbeat_domain
-		script.
-			var _sf_async_config = { uid: #{chartbeat_property}, domain: '#{chartbeat_domain}', useCanonical: true };
-			(function() {
-				function loadChartbeat() {
-					window._sf_endpt = (new Date()).getTime();
-					var e = document.createElement('script');
-					e.setAttribute('language', 'javascript');
-					e.setAttribute('type', 'text/javascript');
-					e.setAttribute('src','//static.chartbeat.com/js/chartbeat.js');
-					document.body.appendChild(e);
-				};
-				var oldonload = window.onload;
-				window.onload = (typeof window.onload != 'function') ?
-				loadChartbeat : function() { oldonload(); loadChartbeat(); };
-			})();

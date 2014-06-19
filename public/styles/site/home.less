@@ -1,246 +1,45 @@
+// HOME PAGE
+// ------------------------------------------------------
 
-// coverall
-.section {
-	// border-bottom: 8px solid white;
-	
-	&:last-child {
-		border-bottom: 0 none;
-	}
-	
-	.container {
-		padding-bottom: 40px;
-		padding-top: 40px;
-	}
-}
-
-
-
-
-// NEXT MEETUP
-.home-meetup {
-	
-	h5 {
-		color: mix(@brown, @tan, 40%);
-		font-weight: normal;
-		margin: 0px;
-		text-transform: uppercase;
-	}
-	h1 {
-		margin: 0px 0px 10px;
-		color: @brown;
-	}
-	.btn-register {
-		background-color: @orange;
-		border-color: @orange;
-		border-bottom-color: mix(@orange, black, 85%);
-		border-bottom-width: 2px;
-		color: white;
-		padding-bottom: 15px;
-		padding-top: 15px;
-		font-weight: bold;
-		position: relative;
-		text-transform: uppercase;
-		
-		&:hover,
-		&:focus {
-			background-color: mix(@orange, white, 90%);
-			border-color: @orange;
-			border-bottom-color: mix(@orange, black, 90%);
-			outline: 0 none;
-		}
-		&:active {
-			box-shadow: none;
-			background-color: @orange;
-			border-bottom-color: @orange;
-			top: 2px;
-		}
-	}
-}
-.home-meetup-wrapper {
-	border-bottom: 8px solid mix(black, @body-bg, 10%);
-	position: relative;
-	z-index: 2;
-}
-.home-meetup-map {
-	position: relative;
-	
-	.map {
-		height: 300px;
-	}
-	.directions-button {
+.sitesection-home {
+	.header-placeholder {
 		display: none;
 	}
-	@media (min-width: @screen-sm-min) {
-		.directions-button {
-			.transition( opacity 200ms linear );
-			.box-shadow( ~"0 0 0 1px rgba(0,0,0,0.15), 0 1px 5px rgba(0,0,0,0.2)" );
-			background-color: white;
-			border-radius: 4px;
-			// bottom: 20px;
-			display: block;
-			font-weight: bold;
-			// left: 50%;
-			// margin-left: -150px;
-			padding: @padding-large-vertical @padding-base-horizontal;
-			position: absolute;
-			opacity: 0;
-			text-align: center;
-			top: 20px;
-			right: 20px;
-			width: 240px;
-			z-index: 300;
-			
-			&:hover {
-				@shadow: 0 0 0 2px @link-color, 0 1px 5px rgba(0,0,0,0.2);
-				.box-shadow( @shadow );
-				color: @link-color;
-				text-decoration: none;
-			}
-			&:active,
-			&:focus {
-				outline: 0 none;
-				text-decoration: none;
-				top: 22px;
-			}
-		}
-		&:hover .directions-button {
-			opacity: 1;
-		}
-	}
-}
-.home-meetup__details-list {
-	font-size: @font-size-large;
-	font-weight: 200;
-	
-	dt, dd {
-		margin-bottom: 5px;
-	}
-	dt {
-		float: left;
-		width: 40px;
-	}
-	dd {
-		margin-left: 40px;
-	}
-	.entypo {
-		color: mix(@brown, @tan, 50%);
+	.site-body {
+		padding-bottom: 0;
 	}
 }
 
-// Talks
-.talks__heading {
-	color: mix(@brown, @tan, 60%) !important;
-	margin-top: 30px;
-	font-weight: normal;
-	text-transform: uppercase;
-}
-.talks {
-	list-style: none;
-	margin-top: 10px;
-	padding: 0;
+// About
+// ------------------------------
 
-	.talk {
-		line-height: 1.1;
-		margin-bottom: 1em;
-	}
-	.talk__heading {
-		.h3();
-		margin: 0 0 5px;
-		font-weight: 200;
-	}
-	.talk__speaker {
-		color: mix(@brand-primary, black, 50%);
-	}
-	a {
-		color: mix(@brand-primary, black, 80%);
-		
-		&:hover {
-			color: @brand-primary;
-			text-decoration: none;
-		}
-	}
-}
-
-
-
-// ABOUT
 .home-about {
-	background-color: @brand-primary;
-	border-bottom: 8px solid mix(white, @brand-primary, 20%);
-	border-top: 8px solid mix(white, @brand-primary, 20%);
-	color: white;
+	background: url( "/images/group-photo.jpg" ) center bottom no-repeat #f9f9f9;
+	border-top: 1px solid rgba(0, 0, 0, 0.05);
+	overflow: hidden;
+	position: relative;
 	text-align: center;
-	
-	.container {
-		padding-left: 10%;
-		padding-right: 10%;
-	}
-	
-	h2 {
-		color: white;
-	}
-	p {
-		color: mix(@brand-primary, white, 40%);
-		// font-size: @font-size-small;
-		font-weight: bold;
-		text-transform: uppercase;
-	}
-	a {
-		color: mix(@brand-primary, white, 40%);
-		
-		&:hover {
-			color: white;
-			text-decoration: none;
-		}
-	}
+	padding-top: 3em;
+	padding-bottom: 18em;
 }
-
-
-
-
-
-// BLOG
-.home-blog {
-	background-color: white;
-	
-	.illustrative-heading__line { border-color: #eee; }
-	.illustrative-heading__text { background-color: white; }
-	
-	@media (min-width: @screen-sm-min) {
-		.container {
-			width: @screen-sm-min;
-		}
-	}
-}
-
-
-
 
 // LINKS
 .home-links {
-	border-top: 8px solid mix(black, @body-bg, 10%);
-	
+	text-align: center;
 	.home-links__heading a {
 		color: @headings-color;
+
 	}
 	
 	.link-icon-badge {
 		.square( 90px );
-		background-color: @brand-primary;
 		border-radius: 50%;
-		display: block;
+		display: inline-block;
 		line-height: 90px;
-		margin-left: auto;
-		margin-right: auto;
 		text-align: center;
-		
-		&:hover {
-			background-color: @link-hover-color;
-			text-decoration: none;
-		}
 	}
 	.link-icon {
-		color: white;
+		color: @text-color;
 		display: inline-block;
 		font-size: 80px;
 		margin-top: -4px;

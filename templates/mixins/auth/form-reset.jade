@@ -1,0 +1,37 @@
+//-
+	Reset Password
+	------------------------------
+	
+	Args
+	* modal  - boolean
+	* initial [default "join"] - accepts "signin" | "join" | "password"
+	
+mixin form-reset(args)
+	.auth-box.modal-pane-signin(class=args.modal && args.initial != 'signin' ? 'hidden' : null)
+		if args.modal
+			.modal-header
+				button(
+					type="button"
+					class="close"
+					data-dismiss="modal"
+					aria-hidden="true") &times;
+				h4.modal-title Reset password
+		div(class=args.modal ? 'modal-body' : null)
+			form.auth-form.form-signin(
+				method='post'
+				action='/reset-password/' + key
+				role='signin')
+				input(
+					type='hidden'
+					name='action'
+					value='reset-password')
+				.form-control-box
+					label.sr-only(for='signin-password') New password
+					input.form-control.form-control--last(
+						type='password'
+						name='password'
+						placeholder='Password'
+						id='signin-password'
+						value='')
+				button.btn.btn-block.btn-primary.btn-submit(type='submit') Reset password
+			

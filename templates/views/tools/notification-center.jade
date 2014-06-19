@@ -1,0 +1,77 @@
+include ../../mixins/flash-messages
+
+mixin notification-form(args)
+	.notification-form.tile.ph-1.pv-1.mv-1
+		label.notification-form_label: .row
+			.col-sm-1: input(type='radio', name='form_toggle', value=args.fieldnameprefix)
+			.col-sm-11: h4.mb-0= args.heading
+		.row.notification-form_body
+			.col-sm-11.col-sm-offset-1
+				form(method='post', autocomplete='off', novalidate)
+					input(type='hidden', name='action', value='notify.' + args.fieldnameprefix)
+					.form-group
+						label.sr-only Push Notification
+						textarea(name=args.fieldnameprefix + '_push', placeholder='Push Notification' rows=2).form-control
+					hr.line-dashed
+					.form-group
+						label.sr-only Email Subject
+						input(name=args.fieldnameprefix + '_subject', type='text', placeholder='Email Subject').form-control
+					.form-group
+						label.sr-only Email Copy
+						textarea(name=args.fieldnameprefix + '_email', placeholder='Email Copy' rows=5).form-control
+					.form-group.form-row
+						.col-sm-6: input(name=args.fieldnameprefix + '_link_label', type='text', placeholder='Email link label').form-control
+						.col-sm-6: input(name=args.fieldnameprefix + '_link_url', type='text', placeholder='Email link URL').form-control
+					button(type='submit').js-confirm.btn.btn-primary Send to #{plural(args.sendtocount, '* ' + args.singular, '* ' + args.plural)}
+
+doctype html
+html
+	head
+		if env == 'production' && chartbeat_property && chartbeat_domain
+			script.
+				var _sf_startpt=(new Date()).getTime()
+		
+		meta(charset="utf-8")
+		meta(name="viewport", content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width")
+		
+		title Notification Center - SydJS
+		link(rel="shortcut icon", href="/favicon.ico", type="image/x-icon")
+		link(href="/styles/site.min.css", rel="stylesheet")
+		style.
+			.confirm-page__logo { display: inline-block; opacity: .25; }
+			.confirm-page__logo img { max-width: 100%; }
+
+			.notification-form_label { display: block; margin: 0; padding: 1em; }
+			.notification-form_body { padding: 1em; }
+
+	body.confirm-page: .site-body
+		.container-xs
+			.page-intro
+				.confirm-page__logo
+					img(src='/images/logo-inverted.svg', alt='SydJS', width=155, height=35)
+			
+			.page-content
+				h1 Notification Center
+				+flash-messages(messages)
+				if nextMeetup
+					+notification-form({ heading: 'Notify members who are attending the next meetup',  fieldnameprefix: 'attendee',   singular: 'attendee',   plural: 'attendees',   sendtocount: nextMeetup.rsvps.length })
+				+notification-form({ heading: 'Notify all SydJS members who accept email',         fieldnameprefix: 'subscriber', singular: 'subscriber', plural: 'subscribers', sendtocount: subscribers.length })
+
+	script(src='/js/lib/jquery/jquery-1.10.2.min.js')
+	script.
+
+		//- generic confirm
+		$('.js-confirm').click(function(e) {
+			if ( !confirm( $(this).data('confirm') || 'Are you sure? This cannot be undone.') )
+				return e.preventDefault();
+		});
+
+		//- toggle forms
+		$('.notification-form_body').hide();
+		$('input[name=form_toggle]').change(function() {
+			$('.notification-form_body').hide();
+			$(this).closest('.notification-form').find('.notification-form_body')[$(this).prop('checked') ? 'show' : 'hide']();
+		});
+
+
+

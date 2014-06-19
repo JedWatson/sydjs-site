@@ -1,0 +1,144 @@
+/**
+*
+* Headroom - Give your pages some headroom. Hide your header until you need it.
+* Thanks to http://wicky.nillia.ms/headroom.js/
+*
+**/
+
+@media (min-width: @screen-md) {
+	.header--fixed {
+		position: fixed;
+		width: 100%;
+		left: 0;
+		top: 0;
+		.ceiling;
+	}
+	/*.headroom--not-top {
+		.site-branding {
+			.logo--shape,
+			.logo--text {
+				fill: @gray-light;
+			}
+		}
+		.navbar {
+			background: fade(white, 98%);
+			border-color: @gray-light;
+		}
+
+		.navbar-nav > li > a {
+			color: @gray;
+			&:hover {
+				color: @gray-dark;
+			}
+			&:active,&:focus {
+				color: @gray-light;
+			}
+		}
+
+		.navbar-nav > li.active > a {
+			background: none;
+			color: @gray-dark;
+		}
+	}
+	*/
+}
+.animated {
+  -webkit-animation-duration: 0.3s;
+     -moz-animation-duration: 0.3s;
+       -o-animation-duration: 0.3s;
+          animation-duration: 0.3s;
+  -webkit-animation-fill-mode: both;
+     -moz-animation-fill-mode: both;
+       -o-animation-fill-mode: both;
+          animation-fill-mode: both;
+}
+@-webkit-keyframes slideDown {
+	0% {
+		-webkit-transform: translateY(-100%);
+	}
+
+	100% {
+		-webkit-transform: translateY(0);
+	}
+}
+
+@-moz-keyframes slideDown {
+	0% {
+		-moz-transform: translateY(-100%);
+	}
+
+	100% {
+		-moz-transform: translateY(0);
+	}
+}
+
+@-o-keyframes slideDown {
+	0% {
+		-o-transform: translateY(-100%);
+	}
+
+	100% {
+		-o-transform: translateY(0);
+	}
+}
+
+@keyframes slideDown {
+	0% {
+		transform: translateY(-100%);
+	}
+
+	100% {
+		transform: translateY(0);
+	}
+}
+
+.animated.slideDown {
+	-webkit-animation-name: slideDown;
+	-moz-animation-name: slideDown;
+	-o-animation-name: slideDown;
+	animation-name: slideDown;
+}
+
+@-webkit-keyframes slideUp {
+	0% {
+		-webkit-transform: translateY(0);
+	}
+
+	100% {
+		-webkit-transform: translateY(-100%);
+	}
+}
+@-moz-keyframes slideUp {
+	0% {
+		-moz-transform: translateY(0);
+	}
+
+	100% {
+		-moz-transform: translateY(-100%);
+	}
+}
+@-o-keyframes slideUp {
+	0% {
+		-o-transform: translateY(0);
+	}
+
+	100% {
+		-o-transform: translateY(-100%);
+	}
+}
+@keyframes slideUp {
+	0% {
+		transform: translateY(0);
+	}
+
+	100% {
+		transform: translateY(-100%);
+	}
+}
+
+.animated.slideUp {
+	-webkit-animation-name: slideUp;
+	-moz-animation-name: slideUp;
+	-o-animation-name: slideUp;
+	animation-name: slideUp;
+}

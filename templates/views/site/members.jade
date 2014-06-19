@@ -1,75 +1,66 @@
 extends ../../layouts/default
 
+block flash-messages
+	//- !!! intentionally left blank
+
 block intro
 	.page-intro: .container
-		h1 Members
-		p The people and organisations who are part of SydJS. Should you be here? Join us!
-		.buttons
+		h1.page-title Members
+		p.lead The people and who make up SydJS. 
 			if !user
-				a(href='/join').btn.btn-primary Join SydJS
-			a(href='/members/organisations').btn.btn-default View Organisations
-			a(href='/members/mentors').btn.btn-default View Mentors
+				a(href='/join').js-auth-trigger Add your tile
 
+mixin member(member)
+	- var twitterUsername = member.twitterUsername || (member.twitter ? member.twitter.replace('@', ''): '');
+	- var githubUsername = member.githubUsername || (member.github ? member.github.replace('@', '') : '');
+
+	li.member-item
+		.member.member--card
+			.member-section.member__photo
+				a(href=member.url): img(src=(member.photo.exists ? member._.photo.thumbnail(360,360) : member.avatarUrl || '/images/avatar.png'), alt=member.name.full, width=180, height=180)
+			.member-section.member__info
+				h5.member__title(class=(member.bio.html ? null : 'member__title-only')): a(href=member.url)= member.name.full
+				if member.bio.html
+					.member__bio!=utils.cropString( utils.htmlToText(member.bio.html), 100, '...', true )
+				if twitterUsername || member.github
+					.member__accounts.hidden-xs
+						if twitterUsername
+							a(href='https://twitter.com/' + twitterUsername, target='_blank', data-toggle='tooltip', data-title='@' + twitterUsername, data-placement='top', data-container='#members').member__account.member__account--twitter.is-tooltip
+								span.entypo-social.entypo-twitter
+						if githubUsername
+							a(href='https://github.com/' + githubUsername, target='_blank', data-toggle='tooltip', data-title=githubUsername, data-placement='top', data-container='#members').member__account.member__account--github.is-tooltip
+								span.entypo-social.entypo-github
 block content
 	.container
-
-		if members.length
-			ul#members.list-unstyled.members-list
-				each member in members
-					li.item
-						.member
-							if member.photo.exists
-								.mug-shot
-									//- img(src=member.photo.exists ? member._.photo.thumbnail(120,120):'/images/placeholders/user-120x120.jpg').img-circle
-									img(src=member._.photo.thumbnail(120,120)).img-circle
-							.info
-								.title.text-center
-									h4= member.name.full
-									if member.facebook || member.twitter || member.github
-										p.mv-0.socials
-											if member.facebook
-												a(href='https://facebook.com/' + member.facebook, target='_blank', data-toggle='tooltip', data-title=member.facebook, data-placement='top').is-tooltip
-													span.entypo-social.entypo-facebook
-													//-| @#{member.facebook.replace('@', '')}
-											if member.twitter
-												a(href='https://twitter.com/' + member.twitter.replace('@', ''), target='_blank', data-toggle='tooltip', data-title='@' + member.twitter.replace('@', ''), data-placement='top').is-tooltip
-													span.entypo-social.entypo-twitter
-													//-| @#{member.twitter.replace('@', '')}
-											if member.github
-												a(href='https://github.com/' + member.github, target='_blank', data-toggle='tooltip', data-title=member.github, data-placement='top').is-tooltip
-													span.entypo-social.entypo-github
-													//-| @#{member.github.replace('@', '')}
-								if member.bio.html
-									.bio.mt-1.text-center!= member.bio.html
-							if member.talks && member.talks.length
-								.talks
-									h6.text-muted.mt-0 Talks
-									ul.list-unstyled
-										each talk in member.talks
-											li.media(class=moment(talk.meetup.date) < moment() ? 'past' : 'present')
-												.pull-left
-													.date
-														small.block=talk.meetup._.date.format('MMM')
-														strong.block=talk.meetup._.date.format('DD')
-												.media-body
-													p=talk.name
-							if member.posts && member.posts.length
-								.posts
-									h6.text-muted.mt-0 Post
-									ul.list-unstyled
-										each post in member.posts
-											li
-												.text-danger= moment(post.publishedDate).fromNow()
-												p: a(href='/blog/post/' + post.slug)=post.title
-		else
+		+flash-messages(messages)
+		if organisers.length
+			.members-group
+				h3.text-caps.mb-1 Organisers
+				ul.list-unstyled.members-list
+					li.grid-sizer
+					each organiser in organisers
+						+member(organiser)
+		if speakers.length
+			.members-group
+				h3.text-caps.mt-2.mb-1 Speakers
+				ul.list-unstyled.members-list
+					li.grid-sizer
+					each speaker in speakers
+						+member(speaker)
+		if community.length
+			.members-group
+				h3.text-caps.mt-2.mb-1 Community
+				ul.list-unstyled.members-list
+					li.grid-sizer
+					each member in community
+						+member(member)
+		
+		if !organisers.length && !speakers.length && !community.length
 			h3.text-muted There are no members yet.
 
 block js
 	script(src='/js/lib/bootstrap/transition.js')
 	script(src='/js/lib/bootstrap/tooltip.js')
 	script(src="/js/lib/masonry/masonry.pkgd.min.js")
-	script.
-		jQuery(function($) {
-			$( '#members' ).masonry( { itemSelector: '.item' } );
-			$('.is-tooltip').tooltip();
-		});
+	script(src="/js/lib/masonry/imagesloaded.pkgd.min.js")
+	script(src="/js/views/members.js")

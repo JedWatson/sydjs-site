@@ -9,18 +9,17 @@ exports = module.exports = function(req, res) {
 		locals = res.locals;
 	
 	locals.section = 'meetups';
+	locals.page.title = 'Meetups - SydJS';
 	
-	view.query('meetups.upcoming',
-		Meetup.model.find()
-			.where('date').gte(moment().startOf('day').toDate())
-			.where('state', 'published')
+	view.query('upcomingMeetup',
+		Meetup.model.findOne()
+			.where('state', 'active')
 			.sort('-date')
 	, 'talks[who]');
 	
-	view.query('meetups.past',
+	view.query('pastMeetups',
 		Meetup.model.find()
-			.where('date').lt(moment().subtract('days', 1).endOf('day').toDate())
-			.where('state', 'published')
+			.where('state', 'past')
 			.sort('-date')
 	, 'talks[who]');
 	
