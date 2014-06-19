@@ -123,6 +123,14 @@ a.media {
 		padding-left: 5px;
 		padding-right: 5px;
 	}
+
+	@media (max-width: @screen-xs-max) {
+		[class^="col-sm"] + [class^="col-sm"],
+		[class^="col-md"] + [class^="col-md"],
+		[class^="col-lg"] + [class^="col-lg"] {
+			margin-top: 10px;
+		}
+	}
 }
 
 

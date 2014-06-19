@@ -1,0 +1,8 @@
+extends /layouts/default
+
+block body-contents
+	h1 Hi #{subscriber.name.first},
+	if content
+		!=content
+	if link_url
+		a(href='#{host}#{link_url}')= link_label ? link_label : link_url

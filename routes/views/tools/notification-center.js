@@ -19,13 +19,15 @@ exports = module.exports = function(req, res) {
 	}
 
 
-	// Count all subscribers
+	// Get all subscribers
 
 	view.on('init', function(next) {
-		keystone.list('User').model.where('notifications.meetups', true).model.count(function(err, count) {
-			locals.subscribersCount = count;
-			next();
-		});
+		keystone.list('User').model
+			.where('notifications.meetups', true)
+			.exec(function(err, subscribers) {
+				locals.subscribers = subscribers;
+				next();
+			});
 	});
 
 	
@@ -53,21 +55,47 @@ exports = module.exports = function(req, res) {
 	});
 
 	
-	// Notify subscribers
+	// Notify next meetup attendees
 
-	view.on('post', { action: 'notify.subscribers' }, function(next) {
+	view.on('post', { action: 'notify.attendee' }, function(next) {
 		if (!locals.nextMeetup) {
 			req.flash('warning', 'There isn\'t a "next" meetup at the moment' );
 			return next();
 		} else {
-			locals.nextMeetup.notifySubscribers(req, res, function(err) {
+			locals.nextMeetup.notifyAttendees(req, res, function(err) {
 				if (err) {
 					console.error("===== Failed to send meetup notification emails =====");
 					console.error(err);
 				} else {
-					req.flash('success', 'Sent to ' + locals.subscribersCount + ' members.');
+					req.flash('success', 'Sent to ' + keystone.utils.plural(locals.nextMeetup.rsvps.length, '* attendee', '* attendees'));
 				}
 				next();
+			});
+		}
+	});
+
+	
+	// Notify all SydJS subscribers
+
+	view.on('post', { action: 'notify.subscriber' }, function(next) {
+		if (!locals.subscribers) {
+			req.flash('warning', 'There aren\'t any subscribers at the moment' );
+			return next();
+		} else {
+			locals.subscribers.forEach(function(subscriber) {
+				new keystone.Email('member-notification').send({
+					subscriber: subscriber,
+					subject: req.body.subscriber_subject || 'Notification from SydJS',
+					content: req.body.subscriber_content,
+					link_label: req.body.subscriber_link_label,
+					link_url: req.body.subscriber_link_url,
+					to: subscriber.email,
+					from: {
+						name: 'KeystoneJS Forum',
+						email: 'forum@keystonejs.com'
+					}
+				}, next);
+				req.flash('success', 'Sent to ' + keystone.utils.plural(locals.subscribers.length, '* subscriber', '* subscribers'));
 			});
 		}
 	});
@@ -77,7 +105,7 @@ exports = module.exports = function(req, res) {
 
 	view.on('render', function(next) {
 		if (locals.nextMeetup) {
-			locals.nextMeetup.populateRelated('rsvps[who]', next);
+			locals.nextMeetup.populateRelated('rsvps', next);
 		} else {
 			next();
 		}

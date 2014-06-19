@@ -1,5 +1,29 @@
 include ../../mixins/flash-messages
 
+mixin notification-form(args)
+	.notification-form.tile.ph-1.pv-1.mv-1
+		label.notification-form_label: .row
+			.col-sm-1: input(type='radio', name='form_toggle', value=args.fieldnameprefix)
+			.col-sm-11: h4.mb-0= args.heading
+		.row.notification-form_body
+			.col-sm-11.col-sm-offset-1
+				form(method='post', autocomplete='off', novalidate)
+					input(type='hidden', name='action', value='notify.' + args.fieldnameprefix)
+					.form-group
+						label.sr-only Push Notification
+						textarea(name=args.fieldnameprefix + '_push', placeholder='Push Notification' rows=2).form-control
+					hr.line-dashed
+					.form-group
+						label.sr-only Email Subject
+						input(name=args.fieldnameprefix + '_subject', type='text', placeholder='Email Subject').form-control
+					.form-group
+						label.sr-only Email Copy
+						textarea(name=args.fieldnameprefix + '_email', placeholder='Email Copy' rows=5).form-control
+					.form-group.form-row
+						.col-sm-6: input(name=args.fieldnameprefix + '_link_label', type='text', placeholder='Email link label').form-control
+						.col-sm-6: input(name=args.fieldnameprefix + '_link_url', type='text', placeholder='Email link URL').form-control
+					button(type='submit').js-confirm.btn.btn-primary Send to #{plural(args.sendtocount, '* ' + args.singular, '* ' + args.plural)}
+
 doctype html
 html
 	head
@@ -17,6 +41,9 @@ html
 			.confirm-page__logo { display: inline-block; opacity: .25; }
 			.confirm-page__logo img { max-width: 100%; }
 
+			.notification-form_label { display: block; margin: 0; padding: 1em; }
+			.notification-form_body { padding: 1em; }
+
 	body.confirm-page: .site-body
 		.container-xs
 			.page-intro
@@ -25,35 +52,26 @@ html
 			
 			.page-content
 				h1 Notification Center
-				.tile.ph-2.pv-2.mv-1
-					h4 Notifications for Next Meetup
-					p.mb-2.text-muted This will go out to all "#{nextMeetup.name}" attendees
-					form(method='post', autocomplete='off', novalidate)
-						input(type='hidden', name='action', value='notify.subscribers')
-						+flash-messages(messages)
-						.form-group
-							label.sr-only Push Notification
-							textarea(name='push', placeholder='Push Notification' rows=2).form-control
-						.form-group
-							label.sr-only Email Copy
-							textarea(name='email', placeholder='Email Copy' rows=5).form-control
-						button(type='submit', data-confirm='Are you sure?').js-confirm.btn.btn-primary Send to #{nextMeetup.rsvps.length} attendees
-				.tile.ph-2.pv-2
-					h4 Notifications for all SydJS subscribers
-					form(method='post', autocomplete='off', novalidate)
-						input(type='hidden', name='action', value='notify.subscribers')
-						+flash-messages(messages)
-						.form-group
-							label.sr-only Push Notification
-							textarea(name='push', placeholder='Push Notification' rows=2).form-control
-						.form-group
-							label.sr-only Email Copy
-							textarea(name='email', placeholder='Email Copy' rows=5).form-control
-						button(type='submit', data-confirm='Are you sure?').js-confirm.btn.btn-danger Send to #{subscribersCount} subscribers
+				+flash-messages(messages)
+				if nextMeetup
+					+notification-form({ heading: 'Notify members who are attending the next meetup',  fieldnameprefix: 'attendee',   singular: 'attendee',   plural: 'attendees',   sendtocount: nextMeetup.rsvps.length })
+				+notification-form({ heading: 'Notify all SydJS members who accept email',         fieldnameprefix: 'subscriber', singular: 'subscriber', plural: 'subscribers', sendtocount: subscribers.length })
 
 	script(src='/js/lib/jquery/jquery-1.10.2.min.js')
 	script.
+
+		//- generic confirm
 		$('.js-confirm').click(function(e) {
 			if ( !confirm( $(this).data('confirm') || 'Are you sure? This cannot be undone.') )
 				return e.preventDefault();
 		});
+
+		//- toggle forms
+		$('.notification-form_body').hide();
+		$('input[name=form_toggle]').change(function() {
+			$('.notification-form_body').hide();
+			$(this).closest('.notification-form').find('.notification-form_body')[$(this).prop('checked') ? 'show' : 'hide']();
+		});
+
+
+

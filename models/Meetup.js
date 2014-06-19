@@ -104,23 +104,23 @@ Meetup.schema.methods.refreshRSVPs = function(callback) {
 	
 }
 
-Meetup.schema.methods.notifySubscribers = function(req, res, next) {
+Meetup.schema.methods.notifyAttendees = function(req, res, next) {
 	
 	var meetup = this;
 	
-	keystone.list('User').model.find().where('notifications.meetups', true).exec(function(err, subscribers) {
+	keystone.list('User').model.find().where('notifications.meetups', true).exec(function(err, attendees) {
 
 		if (err) return next(err);
 		
-		if (!subscribers.length) {
+		if (!attendees.length) {
 			next();
 		} else {
-			subscribers.forEach(function(subscriber) {
+			attendees.forEach(function(attendee) {
 				new keystone.Email('new-meetup').send({
-					subscriber: subscriber,
+					attendee: attendee,
 					meetup: meetup,
 					subject: 'New meetup: ' + meetup.name,
-					to: subscriber.email,
+					to: attendee.email,
 					from: {
 						name: 'SydJS',
 						email: 'system@sydjs.com'
