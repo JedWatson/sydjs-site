@@ -3,10 +3,10 @@ include ../../mixins/flash-messages
 mixin notification-form(args)
 	.notification-form.tile.ph-1.pv-1.mv-1
 		label.notification-form_label: .row
-			.col-sm-1: input(type='radio', name='form_toggle', value=args.fieldnameprefix)
-			.col-sm-11: h4.mb-0= args.heading
+			.col-xs-2.col-sm-1: input(type='radio', name='form_toggle', value=args.fieldnameprefix)
+			.col-xs-10.col-sm-11: h4.mb-0= args.heading
 		.row.notification-form_body
-			.col-sm-11.col-sm-offset-1
+			.col-xs-10.col-sm-11.col-xs-offset-2.col-sm-offset-1
 				form(method='post', autocomplete='off', novalidate)
 					input(type='hidden', name='action', value='notify.' + args.fieldnameprefix)
 					.form-group
@@ -38,7 +38,7 @@ html
 		link(rel="shortcut icon", href="/favicon.ico", type="image/x-icon")
 		link(href="/styles/site.min.css", rel="stylesheet")
 		style.
-			.confirm-page__logo { display: inline-block; opacity: .25; }
+			.confirm-page__logo { display: inline-block; margin-bottom: 2em; opacity: .25; }
 			.confirm-page__logo img { max-width: 100%; }
 
 			.notification-form_label { display: block; margin: 0; padding: 1em; }
@@ -47,11 +47,11 @@ html
 	body.confirm-page: .site-body
 		.container-xs
 			.page-intro
-				.confirm-page__logo
+				a(href='/').confirm-page__logo
 					img(src='/images/logo-inverted.svg', alt='SydJS', width=155, height=35)
+				h1 Notification Center
 			
 			.page-content
-				h1 Notification Center
 				+flash-messages(messages)
 				if nextMeetup
 					+notification-form({ heading: 'Notify members who are attending the next meetup',  fieldnameprefix: 'attendee',   singular: 'attendee',   plural: 'attendees',   sendtocount: nextMeetup.rsvps.length })
