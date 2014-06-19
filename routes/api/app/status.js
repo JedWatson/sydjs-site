@@ -18,7 +18,7 @@ exports = module.exports = function(req, res) {
 		function(next) {
 			keystone.list('Meetup').model.findOne()
 				.where('date').gte(moment().startOf('day').toDate())
-				.where('state', 'published')
+				.where('state', 'active')
 				.sort('date')
 				.exec(function(err, meetup) {
 					data.meetup = meetup;
