@@ -21,6 +21,7 @@ Meetup.add({
 	place: { type: String, required: true, initial: true, width: 'medium', default: 'Level 6, 341 George St (Atlassian)', note: 'Usually Atlassian – Level 6, 341 George St' },
 	map: { type: String, required: true, initial: true, width: 'medium', default: 'Level 6, 341 George St', note: 'Level 6, 341 George St' },
 	description: { type: Types.Html, wysiwyg: true },
+	legacy: { type: Boolean },
 	
 	maxRSVPs: { type: Number, default: 100 },
 	totalRSVPs: { type: Number, noedit: true }
