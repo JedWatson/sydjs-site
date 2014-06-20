@@ -95,9 +95,9 @@ exports = module.exports = function(app) {
 	app.get('/api/app/ping', routes.api.app.ping);
 	app.all('/api/app/status', routes.api.app.status);
 	app.all('/api/app/rsvp', routes.api.app.rsvp);
-	app.all('/api/app/signin', routes.api.app.signin);
-	app.all('/api/app/signup', routes.api.app.signup);
-	app.all('/api/app/service', routes.api.app.service);
-	app.all('/api/app/recover', routes.api.app.recover);
+	app.all('/api/app/signin-email', routes.api.app['signin-email']);
+	app.all('/api/app/signup-email', routes.api.app['signup-email']);
+	app.all('/api/app/signin-service', routes.api.app['signin-service']);
+	app.all('/api/app/signin-recover', routes.api.app['signin-recover']);
 
 }

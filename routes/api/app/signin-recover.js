@@ -35,7 +35,7 @@ exports = module.exports = function(req, res) {
 		}
 		user.resetPassword(function(err) {
 			if (err) {
-				console.log('[api.app.reset-password] - Error reseting user password.');
+				console.log('[api.app.reset-password] - Error reseting user password.', err);
 				console.log('------------------------------------------------------------');
 				return res.apiResponse({
 					success: false,

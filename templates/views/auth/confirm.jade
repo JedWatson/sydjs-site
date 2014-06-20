@@ -6,57 +6,60 @@ html
 		meta(charset="utf-8")
 		meta(name="viewport", content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width")
 		
-		title Join: confirm details - SydJS
-		link(rel="shortcut icon", href="/favicon.ico", type="image/x-icon")
-		link(href="/styles/site.min.css", rel="stylesheet")
-		style.
-			.confirm-page__logo { display: inline-block; opacity: .25; }
-			.confirm-page__logo img { max-width: 100%; }
-
-	body.confirm-page: .site-body
-		.container-xs
-			.page-intro
-				.confirm-page__logo
-					img(src='/images/logo-inverted.svg', alt='SydJS', width=155, height=35)
+		if !appAuth
+			title Join: confirm details - SydJS
+			link(rel="shortcut icon", href="/favicon.ico", type="image/x-icon")
+			link(href="/styles/site.min.css", rel="stylesheet")
+			style.
+				.confirm-page__logo { display: inline-block; opacity: .25; }
+				.confirm-page__logo img { max-width: 100%; }
+	
+	if !appAuth
+		body.confirm-page: .site-body
+			.container-xs
+				.page-intro
+					.confirm-page__logo
+						img(src='/images/logo-inverted.svg', alt='SydJS', width=155, height=35)
+				
+				.page-content
+					form(method='post', autocomplete='off', novalidate).profile-form
+						input(type='hidden', name='action', value='confirm.details')
+						//- h3.profile-form__heading Confirm Details
+						p.lead.mb-2 Thanks for joining! Please confirm your details:
+						+flash-messages(messages)
+						//- TODO Gravatar / Optional image
+						.form-group.form-row
+							.col-xs-6: input(type='text' name='name.first' placeholder='First Name (required)' value=authUser.name.first).form-control
+							.col-xs-6: input(type='text' name='name.last' placeholder='Last Name (required)' value=authUser.name.last).form-control
+						.form-group
+							input(type='email' name='email' placeholder='Email (required)' value=authUser.email).form-control.form-control-labelled
+						.form-group
+							input(type='text' name='website' placeholder='Website (optional)' value=authUser.website).form-control.form-control-labelled
+						.form-group
+							button(type='submit').btn.btn-primary.btn-block That all checks out, let's go &rarr;
+	
+	if appAuth
+		script.
+			// This should be automatically injected by Cordova, but it isn't :( stopgap solution for now
+			(function(d){var e = _cdvIframeBridge = d.createElement('iframe');e.style.display='none';d.body.appendChild(e);})(document)
 			
-			.page-content
-				form(method='post', autocomplete='off', novalidate).profile-form
-					input(type='hidden', name='action', value='confirm.details')
-					//- h3.profile-form__heading Confirm Details
-					p.lead.mb-2 Thanks for joining! Please confirm your details:
-					+flash-messages(messages)
-					//- TODO Gravatar / Optional image
-					.form-group.form-row
-						.col-xs-6: input(type='text' name='name.first' placeholder='First Name (required)' value=authUser.name.first).form-control
-						.col-xs-6: input(type='text' name='name.last' placeholder='Last Name (required)' value=authUser.name.last).form-control
-					.form-group
-						input(type='email' name='email' placeholder='Email (required)' value=authUser.email).form-control.form-control-labelled
-					.form-group
-						input(type='text' name='website' placeholder='Website (optional)' value=authUser.website).form-control.form-control-labelled
-					.form-group
-						button(type='submit').btn.btn-primary.btn-block That all checks out, let's go &rarr;
-		
-	script.
-		// This should be automatically injected by Cordova, but it isn't :( stopgap solution for now
-		(function(d){var e = _cdvIframeBridge = d.createElement('iframe');e.style.display='none';d.body.appendChild(e);})(document)
-		
-		var authUser = {
-			type: '#{authUser.type}',
+			var authUser = {
+				type: '#{authUser.type}',
+				
+				name: {
+					first: '#{authUser.name.first}',
+					last: '#{authUser.name.last}'
+				},
+				
+				email: '#{authUser.email}',
+				
+				website: '#{authUser.website}',
+				
+				profileId: '#{authUser.profileId}',
+				
+				username: '#{authUser.username}',
+				accessToken: '#{authUser.accessToken}',
+				refreshToken: '#{authUser.refreshToken}'
+			}
 			
-			name: {
-				first: '#{authUser.name.first}',
-				last: '#{authUser.name.last}'
-			},
-			
-			email: '#{authUser.email}',
-			
-			website: '#{authUser.website}',
-			
-			profileId: '#{authUser.profileId}',
-			
-			username: '#{authUser.username}',
-			accessToken: '#{authUser.accessToken}',
-			refreshToken: '#{authUser.refreshToken}'
-		}
-		
-		localStorage.setItem('authUser', JSON.stringify(authUser));
+			localStorage.setItem('authUser', JSON.stringify(authUser));
