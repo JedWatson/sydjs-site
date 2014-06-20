@@ -26,6 +26,12 @@ mixin meetup-talk(talk)
 								a(href=speaker.url)=speaker.name.full
 							else
 								=speaker.name.full
+				if talk.legacy.name
+					p.subtitle.mb-1 by 
+						if talk.legacy.name && talk.legacy.twitter
+							a(href='http://twitter.com/' + talk.legacy.twitter)=talk.legacy.name
+						else if talk.legacy.name
+							=talk.legacy.name
 				if talk.description
 					!=talk.description
 				if talk.link

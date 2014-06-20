@@ -28,6 +28,18 @@ block content
 						h4= meetup.name
 						!=utils.cropString( utils.htmlToText(meetup.description), 240, '...', true )
 						//- !=utils.htmlToText(meetup.description)
+						if meetup.legacy
+							if meetup.talks.length
+								each talk, talk_i in meetup.talks
+									=talk.name
+									if talk_i < meetup.talks.length - 1
+										| ,&nbsp;
+									else
+										|&nbsp;
+							else
+								em Unknown
+						
+								
 		
 		if !upcomingMeetup && !pastMeetups.length
 			h3.text-muted There are no meetups yet.
