@@ -37,8 +37,7 @@ keystone.init({
 	'user model': 'User',
 	'cookie secret': process.env.COOKIE_SECRET || 'sydjs',
 	
-	// the default mandrill api key is a *test* key. it will 'work', but not send emails.
-	'mandrill api key': process.env.MANDRILL_KEY || 'v17RkIoARDkqTqPSbvrmkw',
+	'mandrill api key': process.env.MANDRILL_KEY,
 
 	'google api key': process.env.GOOGLE_BROWSER_KEY,
 	'google server api key': process.env.GOOGLE_SERVER_KEY,
