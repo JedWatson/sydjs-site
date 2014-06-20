@@ -8,8 +8,6 @@ exports = module.exports = function(req, res) {
 	
 	view.on('init', function(next) {
 		
-		console.log(req.params.key);
-		
 		User.model.findOne().where('resetPasswordKey', req.params.key).exec(function(err, user) {
 			if (err) return next(err);
 			if (!user) {
@@ -24,6 +22,11 @@ exports = module.exports = function(req, res) {
 	
 	view.on('post', { action: 'reset-password' }, function(next) {
 		
+		if (!req.body.password || !req.body.password_confirm) {
+			req.flash('error', "Please enter, and confirm your new password.");
+			return next();
+		}
+		
 		if (req.body.password != req.body.password_confirm) {
 			req.flash('error', 'Please make sure both passwords match.');
 			return next();
@@ -33,7 +36,7 @@ exports = module.exports = function(req, res) {
 		locals.found.resetPasswordKey = '';
 		locals.found.save(function(err) {
 			if (err) return next(err);
-			req.flash('success', 'We changed your password, please sign in.');
+			req.flash('success', 'Your password has been reset, please sign in.');
 			res.redirect('/signin');
 		});
 		

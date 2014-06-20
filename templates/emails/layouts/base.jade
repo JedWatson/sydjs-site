@@ -1,0 +1,25 @@
+doctype html
+html
+	head
+		meta(http-equiv="Content-Type", content="text/html; charset=UTF-8")
+		meta(name="viewport", content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width")
+		title= subject
+		meta(property="og:title", content=subject)
+		include styles
+	body(leftmargin='0', marginwidth='0', topmargin='0', marginheight='0', offset='0')
+		center
+			table#background(border='0', cellpadding='0', cellspacing='0', height='100%', width='100%')
+				tr
+					td(align='center', valign='top')#populate-container
+						table#populate(border=0, cellpadding=0, cellspacing=0, width=660)
+							
+							//- Template Header
+							tr: td(valign='middle')#header
+								#header-brand: a(href=host): img(src='#{host}/images/email-logo.gif', width=155, height=35, alt='SydJS')
+									
+							//- Template Body
+							tr: td(valign='top')#body
+								table(border=0, cellpadding=0, cellspacing=0, width='100%')
+									tr
+										td(valign='top')#content
+											block content

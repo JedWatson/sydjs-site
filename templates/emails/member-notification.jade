@@ -1,8 +1,8 @@
-extends /layouts/default
+extends layouts/base
 
-block body-contents
-	h1 Hi #{subscriber.name.first},
+block content
+	p Hi #{subscriber.name.first},
 	if content
-		!=content
+		!=content.replace(/\n/g, '<br>')
 	if link_url
-		a(href='#{host}#{link_url}')= link_label ? link_label : link_url
+		p: a(href='#{host}#{link_url}')= link_label ? link_label : link_url

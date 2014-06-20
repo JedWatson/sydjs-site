@@ -1,0 +1,173 @@
+- var linkColor = '#348dd9';
+- var dividerColor = '#e5e5e5';
+- var emailGutter = '30';
+
+style(type='text/css').
+	
+	/* Client-specific Styles */
+	#outlook a { padding: 0; } /* Force Outlook to provide a "view in browser" button. */
+	body { width: 100% !important; } .ReadMsgBody { width: 100%; } .ExternalClass { width: 100%; } /* Force Hotmail to display emails at full width */
+	body { -webkit-text-size-adjust: none; } /* Prevent Webkit platforms from changing default text sizes. */
+
+	/* Reset Styles */
+	body { margin: 0; padding: 0; }
+	img { border: 0; height: auto; line-height: 130%; outline: none; text-decoration: none; }
+	table td { border-collapse: collapse; }
+	#background { height: 100% !important; margin: 0; padding: 0; width: 100% !important; }
+
+	/* Common Page Elements */
+	body, #background { background-color: #f7f7f7; }
+	h1, .h1 { color: #1a1a1a; display: block; font-family: Helvetica, Arial, sans-serif; font-size: 24px; font-weight: bold; line-height: 20px; margin-top: 0; margin-right: 0; margin-bottom: 10px; margin-left: 0; text-align: left; }
+	h2, .h2 { color: #333; display: block; font-family: Helvetica, Arial, sans-serif; font-size: 18px; font-weight: bold; line-height: 20px; margin-top: 0; margin-right: 0; margin-bottom: 10px; margin-left: 0; text-align: left; }
+	h3, .h3 { color: #333; display: block; font-family: Helvetica, Arial, sans-serif; font-size: 16px; font-weight: bold; line-height: 18px; margin-top: 0; margin-right: 0; margin-bottom: 10px; margin-left: 0; text-align: left; }
+	h4, .h4 { color: #333; display: block; font-family: Helvetica, Arial, sans-serif; font-size: 14px; font-weight: bold; line-height: 18px; margin-top: 0; margin-right: 0; margin-bottom: 10px; margin-left: 0; text-align: left; }
+
+	/**
+	===============
+		POPULATE
+	===============
+	**/
+	#populate { color: #333; font-family: Helvetica, Arial, sans-serif; line-height: 130%; text-align: left; }
+	#populate a, #populate a:link, .preheaderContent a:visited, #populate a .yshortcuts { color: #{linkColor}; font-weight: inherit; text-decoration: underline; }
+	#populate img { display: inline; height: auto; }
+
+	#body h1 a, #body .h1 a, #body h2 a, #body .h2 a, #body h3 a, #body .h3 a, #body h4 a, #body .h4 a { color: #333; text-decoration: none; }
+	#body h1 a:hover, #body .h1 a:hover, #body h2 a:hover, #body .h2 a:hover, #body h3 a:hover, #body .h3 a:hover, #body h4 a:hover, #body .h4 a:hover { text-decoration: underline; }
+	#body h3 { margin-top: 30px; }
+	
+	/* helper classes */
+	#populate .img-fix { display: block; }
+	#populate hr, #populate .hr { border: 0 none; border-top: 1px solid #{dividerColor}; margin: #{emailGutter}px 0; }
+	#populate hr.spacer, #populate .hr.spacer { border-color: transparent; margin: 5px 0; }
+
+	
+	/* HEADER */
+	
+	#header { line-height: 0; text-align: center; }
+
+	
+	/* BODY */
+	
+	#body { background-color: #ffffff; border: 1px solid #e5e5e5; }
+	#body .intro-text p { font-size: 16px; margin-bottom: 0; }
+	#body .sections td { vertical-align: middle; }
+	#body .sections p { margin-bottom: 0; }
+	
+	#content { padding-bottom: 30px; padding-top: 30px; }
+
+	/* FOOTER */
+	#footer { color: #999999; font-size: 12px; text-align: center; }
+	#footer a { color: #999999; }
+
+	
+	/**
+	===============
+		Utilities
+	===============
+	**/
+
+	/* Text */
+	.text-muted { color: #999999; }
+	.text-left { text-align: left; }
+	.text-right { text-align: right; }
+	.text-center { text-align: center; }
+
+	
+	/**
+	===============
+		Components
+	===============
+	**/
+
+	/* Tables */
+	.table { margin-bottom: 20px; width: 100%; }
+	.table th,
+	.table td {
+		padding: 8px;
+		line-height: 1;
+		text-align: left;
+		vertical-align: top;
+	}
+	.table.bordered th {
+		border-bottom: 1px solid #{dividerColor};
+	}
+	.table.bordered td,
+	.table.bordered tfoot th {
+		border-top: 1px solid #{dividerColor};
+	}
+
+	/* Highlight */
+	.highlight {
+		background-color: #f6f6f6;
+		border-radius: 4px;
+		padding: 15px;
+		margin-bottom: 20px;
+	}
+	.highlight .table { margin-bottom: 0; }
+	
+	
+	
+	/**
+	===============
+		RESPONSIVE
+	===============
+	**/
+
+
+	#populate-container {
+		padding: #{emailGutter}px;
+	}
+	#populate {
+		font-size: 16px;
+		width: 620px;
+	}
+	#header {
+		padding-left: #{emailGutter}px;
+		padding-right: #{emailGutter}px;
+	}
+	#header-brand { padding-bottom: #{emailGutter}px; }
+	#body {
+		padding-left: #{emailGutter}px;
+		padding-right: #{emailGutter}px;
+	}
+	
+	/* small screens */
+	@media only screen and (max-width: 680px) {
+		body, #background { background-color: white !important; }
+		h1 {
+			font-size: 16px !important;
+		}
+		pre {
+			background-color: transparent !important;
+			padding: 0 !important;
+		}
+		#populate-container {
+			padding: 0 !important;
+		}
+		#populate {
+			font-size: 14px !important;
+			width: 100% !important;
+		}
+		#header {
+			padding-left: #{emailGutter / 2}px !important;
+			padding-right: #{emailGutter / 2}px !important;
+			text-align: left !important;
+		}
+		#header-brand {
+			padding-bottom: 10px !important;
+		}
+		#body {
+			border: 0 none !important;
+			padding-left: #{emailGutter / 2}px !important;
+			padding-right: #{emailGutter / 2}px !important;
+		}
+		#content { border-top: 1px solid #{dividerColor}; }
+	}
+	
+	
+	
+	/**
+	===============
+		SPECIFIC
+	===============
+	**

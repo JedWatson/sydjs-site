@@ -73,27 +73,12 @@ keystone.set('locals', {
 });
 
 keystone.set('email locals', {
-	keystoneURL: 'http://www.sydjs.com/keystone',
-	logo: '/images/logo_email.jpg',
-	logo_width: 120,
-	logo_height: 112,
-	theme: {
-		email_bg: '#f9f9f9',
-		link_color: '#2697de'
-	},
 	utils: keystone.utils,
 	host: (function() {
 		if (keystone.get('env') === 'staging') return 'http://sydjs-beta.herokuapp.com';
 		if (keystone.get('env') === 'production') return 'http://www.sydjs.com';
 		return (keystone.get('host') || 'http://localhost:') + (keystone.get('port') || '3000');
 	})()
-});
-
-keystone.set('email tests', {
-	'forgotten-password': {
-		name: 'User',
-		link: 'http://www.sydjs.com/reset-password/key'
-	}
 });
 
 keystone.set('nav', {
