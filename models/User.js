@@ -226,15 +226,15 @@ User.schema.methods.resetPassword = function(callback) {
 	
 	var user = this;
 	
-	this.resetPasswordKey = keystone.utils.randomString([16,24]);
+	user.resetPasswordKey = keystone.utils.randomString([16,24]);
 	
-	this.save(function(err) {
+	user.save(function(err) {
 		
 		if (err) return callback(err);
 		
 		new keystone.Email('forgotten-password').send({
-			name: user.name.first || user.name.full,
-			link: 'http://www.sydjs.com/reset-password/' + user.resetPasswordKey,
+			user: user,
+			link: '/reset-password/' + user.resetPasswordKey,
 			subject: 'Reset your SydJS Password',
 			to: user.email,
 			from: {

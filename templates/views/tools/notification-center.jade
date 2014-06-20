@@ -11,17 +11,17 @@ mixin notification-form(args)
 					input(type='hidden', name='action', value='notify.' + args.fieldnameprefix)
 					.form-group
 						label.sr-only Push Notification
-						textarea(name=args.fieldnameprefix + '_push', placeholder='Push Notification' rows=2).form-control
+						textarea(name=args.fieldnameprefix + '_push_content', placeholder='Push Notification' rows=2).form-control
 					hr.line-dashed
 					.form-group
 						label.sr-only Email Subject
-						input(name=args.fieldnameprefix + '_subject', type='text', placeholder='Email Subject').form-control
+						input(name=args.fieldnameprefix + '_email_subject', type='text', placeholder='Email Subject').form-control
 					.form-group
 						label.sr-only Email Copy
-						textarea(name=args.fieldnameprefix + '_email', placeholder='Email Copy' rows=5).form-control
+						textarea(name=args.fieldnameprefix + '_email_content', placeholder='Email Copy' rows=5).form-control
 					.form-group.form-row
-						.col-sm-6: input(name=args.fieldnameprefix + '_link_label', type='text', placeholder='Email link label').form-control
-						.col-sm-6: input(name=args.fieldnameprefix + '_link_url', type='text', placeholder='Email link URL').form-control
+						.col-sm-6: input(name=args.fieldnameprefix + '_email_link_label', type='text', placeholder='Email link label').form-control
+						.col-sm-6: input(name=args.fieldnameprefix + '_email_link_url', type='text', placeholder='Email link URL').form-control
 					button(type='submit').js-confirm.btn.btn-primary Send to #{plural(args.sendtocount, '* ' + args.singular, '* ' + args.plural)}
 
 doctype html

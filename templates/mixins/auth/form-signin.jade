@@ -15,7 +15,7 @@ mixin form-signin(args)
 		div(class=args.modal ? 'modal-body' : null)
 			include ../../includes/social-signin
 			p.auth-form-divider: span.auth-form-divider-text or
-			form(method='post', action='/signin', role='signin').auth-form
+			form(method='post', action='/signin', role='signin', novalidate).auth-form
 				input(type='hidden', name='action', value='signin')
 				input(type='hidden', name='target', value=!args.modal ? form.target : page.path)
 				.form-groups

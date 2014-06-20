@@ -85,14 +85,14 @@ exports = module.exports = function(req, res) {
 			locals.subscribers.forEach(function(subscriber) {
 				new keystone.Email('member-notification').send({
 					subscriber: subscriber,
-					subject: req.body.subscriber_subject || 'Notification from SydJS',
-					content: req.body.subscriber_content,
-					link_label: req.body.subscriber_link_label,
-					link_url: req.body.subscriber_link_url,
+					subject: req.body.subscriber_email_subject || 'Notification from SydJS',
+					content: req.body.subscriber_email_content,
+					link_label: req.body.subscriber_email_link_label,
+					link_url: req.body.subscriber_email_link_url,
 					to: subscriber.email,
 					from: {
-						name: 'KeystoneJS Forum',
-						email: 'forum@keystonejs.com'
+						name: 'SydJS',
+						email: 'hello@sydjs.com'
 					}
 				}, next);
 				req.flash('success', 'Sent to ' + keystone.utils.plural(locals.subscribers.length, '* subscriber', '* subscribers'));

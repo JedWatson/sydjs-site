@@ -124,7 +124,7 @@ Meetup.schema.methods.notifyAttendees = function(req, res, next) {
 					to: attendee.email,
 					from: {
 						name: 'SydJS',
-						email: 'system@sydjs.com'
+						email: 'hello@sydjs.com'
 					}
 				}, next);
 			});

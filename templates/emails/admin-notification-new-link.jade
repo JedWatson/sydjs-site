@@ -1,8 +1,7 @@
-extends /layouts/default
+extends layouts/base
 
-block body-contents
+block content
 	h1 Hi #{name},
 	p #{author} just added a link to SydJS:
 	p: strong= title
-	p Head over to Keystone to approve or reject it.
-	+button({ url: keystoneUrl, label: 'Open Keystone', background_color: '#2697de', border_color: '#1a7cb7', border_width: '1px', border_radius: 4, color: '#fff', height: 40, width: '100%' })
+	p You can <a href="#{host}/keystone">approve or reject it</a> from the Keystone admin UI.
