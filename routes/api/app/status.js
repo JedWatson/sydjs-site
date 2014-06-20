@@ -55,8 +55,10 @@ exports = module.exports = function(req, res) {
 			response.meetup = {
 				id: data.meetup._id,
 				
-				date: data.meetup.date,
 				name: data.meetup.name,
+				
+				date: moment(data.meetup.date).format('YYYY-MM-DD'),
+				time: data.meetup.time,
 				
 				ticketsAvailable: data.meetup.rsvpsAvailable,
 				ticketsRemaining: data.meetup.remainingRSVPs,
