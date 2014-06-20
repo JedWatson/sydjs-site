@@ -15,16 +15,17 @@ Meetup.add({
 	name: { type: String, required: true, initial: true },
 	publishedDate: { type: Types.Date, index: true },
 	
-	state: { type: Types.Select, options: 'draft, scheduled, active, past', noedit: false },
+	state: { type: Types.Select, options: 'draft, scheduled, active, past', noedit: true },
 	date: { type: Types.Date, required: true, initial: true, index: true },
-	time: { type: String, required: true, initial: true, width: 'short', default: '6pm - 9pm', note: 'e.g. 6pm - 9pm' },
-	place: { type: String, required: true, initial: true, width: 'medium', default: 'Level 6, 341 George St (Atlassian)', note: 'Usually Atlassian – Level 6, 341 George St' },
-	map: { type: String, required: true, initial: true, width: 'medium', default: 'Level 6, 341 George St', note: 'Level 6, 341 George St' },
+	time: { type: String, required: false, initial: true, width: 'short', default: '6pm - 9pm', note: 'e.g. 6pm - 9pm' },
+	place: { type: String, required: false, initial: true, width: 'medium', default: 'Level 6, 341 George St (Atlassian)', note: 'Usually Atlassian – Level 6, 341 George St' },
+	map: { type: String, required: false, initial: true, width: 'medium', default: 'Level 6, 341 George St', note: 'Level 6, 341 George St' },
 	description: { type: Types.Html, wysiwyg: true },
-	legacy: { type: Boolean },
 	
 	maxRSVPs: { type: Number, default: 100 },
-	totalRSVPs: { type: Number, noedit: true }
+	totalRSVPs: { type: Number, noedit: true },
+	
+	legacy: { type: Boolean, noedit: true },
 });
 
 
@@ -68,7 +69,7 @@ Meetup.schema.pre('save', function(next) {
 	// If no published date, it's a draft meetup
 	if (!meetup.publishedDate) meetup.state = 'draft';
 	
-	// If meetup date is after today, it's an past meetup
+	// If meetup date plus one day is after today, it's a past meetup
 	else if (moment().isAfter(moment(meetup.date).add('day', 1))) meetup.state = 'past';
 	
 	// If publish date is after today, it's an active meetup
