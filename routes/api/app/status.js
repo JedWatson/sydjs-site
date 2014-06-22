@@ -51,14 +51,15 @@ exports = module.exports = function(req, res) {
 			meetup: false,
 			user: false
 		}
-		if (data.meetup) {
+		var from = data.meetup ? _.first(data.meetup.time.split('-')).trim() : false;
+			date = data.meetup ? moment(data.meetup.date + (from ? ' ' + from : ''), 'YYYY-MM-DD' + (from ? ' ha' : '')) : false;
+		if (data.meetup && moment().isBefore(date)) {
 			response.meetup = {
 				id: data.meetup._id,
 				
 				name: data.meetup.name,
 				
-				date: moment(data.meetup.date).format('YYYY-MM-DD'),
-				time: data.meetup.time,
+				date: date.toDate(),
 				
 				ticketsAvailable: data.meetup.rsvpsAvailable,
 				ticketsRemaining: data.meetup.remainingRSVPs,
