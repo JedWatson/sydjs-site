@@ -52,8 +52,10 @@ exports = module.exports = function(req, res) {
 			meetup: false,
 			user: false
 		}
-		var from = data.meetup ? _.first(data.meetup.time.split('-')).trim() : false;
-			date = data.meetup ? moment(data.meetup.date + (from ? ' ' + from : ''), 'YYYY-MM-DD' + (from ? ' ha' : '')) : false;
+		// TODO: Would really help if meetups had an actual time field
+		var day = moment(data.meetup.date).format('YYYY-MM-DD'),
+			from = data.meetup ? _.first(data.meetup.time.split('-')).trim() : false,
+			date = data.meetup ? moment(day + (from ? ' ' + from : ''), 'YYYY-MM-DD' + (from ? ' ha' : '')) : false;
 		if (data.meetup && moment().isBefore(date)) {
 			response.meetup = {
 				id: data.meetup._id,
