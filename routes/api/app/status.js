@@ -70,6 +70,8 @@ exports = module.exports = function(req, res) {
 				
 				place: data.meetup.place,
 				
+				description: keystone.utils.cropHTMLString(data.meetup.description, 250, '...', true),
+				
 				ticketsAvailable: data.meetup.rsvpsAvailable,
 				ticketsRemaining: data.meetup.remainingRSVPs,
 				
