@@ -59,7 +59,7 @@ exports = module.exports = function(req, res) {
 			endTime = data.meetup ? _.last(times).trim() : false;
 		var startDate = data.meetup ? moment(day + (startTime ? ' ' + startTime : ''), 'YYYY-MM-DD' + (startTime ? ' ha' : '')) : false,
 			endDate = data.meetup ? moment(day + (endTime ? ' ' + endTime : ''), 'YYYY-MM-DD' + (endTime ? ' ha' : '')) : false;
-		if (data.meetup && moment().isBefore(date)) {
+		if (data.meetup && moment().isBefore(endDate)) {
 			response.meetup = {
 				id: data.meetup._id,
 				
