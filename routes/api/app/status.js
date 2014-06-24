@@ -53,9 +53,12 @@ exports = module.exports = function(req, res) {
 			user: false
 		}
 		// TODO: Would really help if meetups had an actual time field
+		var times = data.meetup.time.split('-');
 		var day = moment(data.meetup.date).format('YYYY-MM-DD'),
-			from = data.meetup ? _.first(data.meetup.time.split('-')).trim() : false,
-			date = data.meetup ? moment(day + (from ? ' ' + from : ''), 'YYYY-MM-DD' + (from ? ' ha' : '')) : false;
+			startTime = data.meetup ? _.first(times).trim() : false,
+			endTime = data.meetup ? _.last(times).trim() : false;
+		var startDate = data.meetup ? moment(day + (startTime ? ' ' + startTime : ''), 'YYYY-MM-DD' + (startTime ? ' ha' : '')) : false,
+			endDate = data.meetup ? moment(day + (endTime ? ' ' + endTime : ''), 'YYYY-MM-DD' + (endTime ? ' ha' : '')) : false;
 		if (data.meetup && moment().isBefore(date)) {
 			response.meetup = {
 				id: data.meetup._id,
@@ -63,6 +66,10 @@ exports = module.exports = function(req, res) {
 				name: data.meetup.name,
 				
 				date: date.toDate(),
+				time: {
+					starts: startDate,
+					ends: endDate
+				},
 				
 				place: data.meetup.place,
 				
