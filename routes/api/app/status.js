@@ -64,6 +64,8 @@ exports = module.exports = function(req, res) {
 				
 				date: date.toDate(),
 				
+				place: data.meetup.place,
+				
 				ticketsAvailable: data.meetup.rsvpsAvailable,
 				ticketsRemaining: data.meetup.remainingRSVPs,
 				
