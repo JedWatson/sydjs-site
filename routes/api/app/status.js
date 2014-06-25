@@ -47,18 +47,31 @@ exports = module.exports = function(req, res) {
 				});
 		}
 	], function(err) {
+		
 		var response = {
 			success: true,
+			config: {
+				versions: { 
+					compatibility: process.env.APP_COMPATIBILITY_VERSION,
+					production: process.env.APP_PRODUCTION_VERSION
+				},
+				killSwitch: false
+			},
 			meetup: false,
 			user: false
 		}
+		
+		var day = moment(data.meetup.date).format('YYYY-MM-DD');
+		
 		// TODO: Would really help if meetups had an actual time field
 		var times = data.meetup.time.split('-');
-		var day = moment(data.meetup.date).format('YYYY-MM-DD'),
-			startTime = data.meetup ? _.first(times).trim() : false,
+		
+		var startTime = data.meetup ? _.first(times).trim() : false,
 			endTime = data.meetup ? _.last(times).trim() : false;
+			
 		var startDate = data.meetup ? moment(day + (startTime ? ' ' + startTime : ''), 'YYYY-MM-DD' + (startTime ? ' ha' : '')) : false,
 			endDate = data.meetup ? moment(day + (endTime ? ' ' + endTime : ''), 'YYYY-MM-DD' + (endTime ? ' ha' : '')) : false;
+		
 		if (data.meetup && moment().isBefore(endDate)) {
 			response.meetup = {
 				id: data.meetup._id,
@@ -81,6 +94,7 @@ exports = module.exports = function(req, res) {
 				attending: data.rsvp && data.rsvp.attending ? true : false,
 			}
 		}
+		
 		if (data.user) {
 			response.user = {
 				date: new Date().getTime(),
@@ -90,15 +104,11 @@ exports = module.exports = function(req, res) {
 					last: data.user.name.last,
 					full: data.user.name.full
 				},
-				email: data.user.email,
-				services: {
-					github: {},
-					facebook: {},
-					twitter: {},
-					pushNotifications: data.user.services.pushNotifications
-				}
+				email: data.user.email
 			}
 		}
+		
 		res.apiResponse(response);
+		
 	});
 }
