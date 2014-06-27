@@ -6,15 +6,14 @@ mixin meetup(meetup)
 
 	.tile.ph-1.pv-1
 		.meetup-calendar.calendar.hidden-xs.hidden-sm(class=meetup.state == 'past' ? 'calendar--past' : null)
-			.calendar__header=meetup._.date.format('MMM')
+			.calendar__header=meetup._.startDate.format('MMM')
 			.calendar__body
-				.calendar__date=meetup._.date.format('DD')
-				.calendar__year=meetup._.date.format('YYYY')
+				.calendar__date=meetup._.startDate.format('DD')
+				.calendar__year=meetup._.startDate.format('YYYY')
 		.meetup-content
 			h2.mv-5= meetup.name
-			h5.mb-1=meetup._.date.format('dddd D MMM YYYY')
-				if meetup.time
-					|  from #{meetup.time}
+			h5.mb-1=meetup._.startDate.format('dddd D MMM YYYY')
+				|  from #{meetup._.startDate.format('h:mma')} - #{meetup._.endDate.format('h:mma')}
 			if meetup.description
 				p!= meetup.description
 			if meetup.talks.length

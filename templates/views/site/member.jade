@@ -42,8 +42,8 @@ block content
 								li.media
 									.pull-left
 										.date(class=talk.meetup.state == 'past' ? 'date--past' : 'date--present')
-											small.block=moment(talk.meetup.date).format('MMM')
-											strong.block=moment(talk.meetup.date).format('DD')
+											small.block=moment(talk.meetup.startDate).format('MMM')
+											strong.block=moment(talk.meetup.startDate).format('DD')
 									.media-body
 										h5: a(href=talk.meetup.url)=talk.name
 										!=talk.description

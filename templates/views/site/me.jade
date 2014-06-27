@@ -13,7 +13,7 @@ block content
 				.alert.alert-info 
 					span.entypo.entypo-calendar
 					|  The next meetup has been announced - 
-					a(href=nextMeetup.url).alert-link= nextMeetup._.date.format('dddd D MMM YYYY')
+					a(href=nextMeetup.url).alert-link= nextMeetup._.startDate.format('dddd D MMM YYYY')
 		.page-content.tile.ph-2.pv-2.mb-2
 			+flash-messages(messages)
 			form(method='post', enctype='multipart/form-data', autocomplete='off', novalidate).form-horizontal
