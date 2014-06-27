@@ -17,9 +17,6 @@ Meetup.add({
 	
 	state: { type: Types.Select, options: 'draft, scheduled, active, past', noedit: true },
 	
-	date: { type: Types.Date, required: true, initial: true, index: true },
-	time: { type: String, required: false, initial: true, width: 'short', default: '6pm - 9pm', note: 'e.g. 6pm - 9pm' },
-	
 	startDate: { type: Types.Datetime, required: true, initial: true, index: true, width: 'short', note: 'e.g. 2014-07-15 / 6:00pm' },
 	endDate: { type: Types.Datetime, required: true, initial: true, index: true, width: 'short', note: 'e.g. 2014-07-15 / 9:00pm' },
 	
