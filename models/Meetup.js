@@ -75,7 +75,7 @@ Meetup.schema.pre('save', function(next) {
 	if (!meetup.publishedDate) meetup.state = 'draft';
 	
 	// If meetup date plus one day is after today, it's a past meetup
-	else if (moment().isAfter(moment(meetup.date).add('day', 1))) meetup.state = 'past';
+	else if (moment().isAfter(moment(meetup.startDate).add('day', 1))) meetup.state = 'past';
 	
 	// If publish date is after today, it's an active meetup
 	else if (moment().isAfter(meetup.publishedDate)) meetup.state = 'active';
@@ -147,6 +147,6 @@ Meetup.schema.methods.notifyAttendees = function(req, res, next) {
  */
 
 Meetup.addPattern('standard meta');
-Meetup.defaultSort = '-date';
-Meetup.defaultColumns = 'name, state|10%, date|15%, publishedDate|15%';
+Meetup.defaultSort = '-startDate';
+Meetup.defaultColumns = 'name, state|10%, startDate|15%, publishedDate|15%';
 Meetup.register();

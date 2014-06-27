@@ -36,7 +36,7 @@ exports = module.exports = function(req, res) {
 	view.on('init', function(next) {
 		Meetup.model.findOne()
 			.where('state', 'active')
-			.sort('-date')
+			.sort('-startDate')
 			.exec(function(err, meetup) {
 			
 				if (err) {

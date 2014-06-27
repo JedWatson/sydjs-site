@@ -14,13 +14,13 @@ exports = module.exports = function(req, res) {
 	view.query('upcomingMeetup',
 		Meetup.model.findOne()
 			.where('state', 'active')
-			.sort('-date')
+			.sort('-startDate')
 	, 'talks[who]');
 	
 	view.query('pastMeetups',
 		Meetup.model.find()
 			.where('state', 'past')
-			.sort('-date')
+			.sort('-startDate')
 	, 'talks[who]');
 	
 	view.render('site/meetups');

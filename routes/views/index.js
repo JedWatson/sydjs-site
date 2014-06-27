@@ -19,7 +19,7 @@ exports = module.exports = function(req, res) {
 	view.on('init', function(next) {
 		Meetup.model.findOne()
 			.where('state', 'active')
-			.sort('-date')
+			.sort('-startDate')
 			.exec(function(err, activeMeetup) {
 				locals.activeMeetup = activeMeetup;
 				next();
@@ -33,7 +33,7 @@ exports = module.exports = function(req, res) {
 	view.on('init', function(next) {
 		Meetup.model.findOne()
 			.where('state', 'past')
-			.sort('-date')
+			.sort('-startDate')
 			.exec(function(err, pastMeetup) {
 				locals.pastMeetup = pastMeetup;
 				next();

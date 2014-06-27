@@ -16,7 +16,7 @@ exports = module.exports = function(req, res) {
 	view.query('nextMeetup',
 		Meetup.model.findOne()
 			.where('state', 'active')
-			.sort('date')
+			.sort('startDate')
 	, 'talks[who]');
 	
 	view.query('rsvps.history',
