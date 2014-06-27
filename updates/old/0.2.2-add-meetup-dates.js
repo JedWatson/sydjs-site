@@ -7,8 +7,8 @@ exports = module.exports = function(done) {
 	keystone.list('Meetup').model.find().exec(function(err, meetups) {
 		async.each(meetups, function(meetup, doneMeetup) {
 			meetup.set({
-				startDate: moment(meetup.date).startOf('day').add('hours', 18).toDate(),
-				endDate: moment(meetup.date).startOf('day').add('hours', 21).toDate()
+				state: 'draft', // Date is in a corrupted state, throws validation errors unless we first set a default
+				publishedDate: moment(meetup.date).subtract('days', 7).toDate() // Set 7 days before actual meetup date
 			}).save(function(err) {
 				return doneMeetup();
 			});
@@ -19,4 +19,4 @@ exports = module.exports = function(done) {
 	
 };
 
-exports.__defer__ = false;
+exports.__defer__ = true;
