@@ -25,6 +25,7 @@ keystone.init({
 
 	'views': 'templates/views',
 	'view engine': 'jade',
+	'view cache': false,
 	
 	'emails': 'templates/emails',
 
