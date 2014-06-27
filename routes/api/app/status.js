@@ -18,9 +18,9 @@ exports = module.exports = function(req, res) {
 		},
 		function(next) {
 			keystone.list('Meetup').model.findOne()
-				.where('date').gte(moment().startOf('day').toDate())
+				.where('startDate').gte(moment().startOf('day').toDate())
 				.where('state', 'active')
-				.sort('date')
+				.sort('startDate')
 				.exec(function(err, meetup) {
 					data.meetup = meetup;
 					return next();
@@ -61,25 +61,14 @@ exports = module.exports = function(req, res) {
 			user: false
 		}
 		
-		var day = moment(data.meetup.date).format('YYYY-MM-DD');
-		
-		// TODO: Would really help if meetups had an actual time field
-		var times = data.meetup.time.split('-');
-		
-		var startTime = data.meetup ? _.first(times).trim() : false,
-			endTime = data.meetup ? _.last(times).trim() : false;
-			
-		var startDate = data.meetup ? moment(day + (startTime ? ' ' + startTime : ''), 'YYYY-MM-DD' + (startTime ? ' ha' : '')) : false,
-			endDate = data.meetup ? moment(day + (endTime ? ' ' + endTime : ''), 'YYYY-MM-DD' + (endTime ? ' ha' : '')) : false;
-		
-		if (data.meetup && moment().isBefore(endDate)) {
+		if (data.meetup && moment().isBefore(data.meetup.endDate)) {
 			response.meetup = {
 				id: data.meetup._id,
 				
 				name: data.meetup.name,
 				
-				starts: startDate.toDate(),
-				ends: endDate.toDate(),
+				starts: data.meetup.startDate,
+				ends: data.meetup.endDate,
 				
 				place: data.meetup.place,
 				
