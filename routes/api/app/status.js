@@ -5,7 +5,7 @@ var keystone = require('keystone'),
 
 exports = module.exports = function(req, res) {
 	
-	var data = {};
+	var data = { meetups: {} };
 	
 	async.series([
 		function(next) {
@@ -18,11 +18,19 @@ exports = module.exports = function(req, res) {
 		},
 		function(next) {
 			keystone.list('Meetup').model.findOne()
-				.where('startDate').gte(moment().startOf('day').toDate())
-				.where('state', 'active')
-				.sort('startDate')
+				.where('state', 'past')
+				.sort('-startDate')
 				.exec(function(err, meetup) {
-					data.meetup = meetup;
+					data.meetups.last = meetup;
+					return next();
+				});
+		},
+		function(next) {
+			keystone.list('Meetup').model.findOne()
+				.where('state', 'active')
+				.sort('-startDate')
+				.exec(function(err, meetup) {
+					data.meetups.next = meetup;
 					return next();
 				});
 		},
@@ -57,31 +65,42 @@ exports = module.exports = function(req, res) {
 				},
 				killSwitch: false
 			},
-			meetup: false,
+			meetups: {
+				last: false,
+				next: false
+			},
 			user: false
 		}
 		
-		if (data.meetup && moment().isBefore(data.meetup.endDate)) {
-			response.meetup = {
-				id: data.meetup._id,
+		var meetup = function(m, current) {
+			return {
+				id: m._id,
 				
-				name: data.meetup.name,
+				name: m.name,
 				
-				starts: data.meetup.startDate,
-				ends: data.meetup.endDate,
+				starts: m.startDate,
+				ends: m.endDate,
 				
-				place: data.meetup.place,
+				place: m.place,
 				
-				description: keystone.utils.cropString(keystone.utils.htmlToText(data.meetup.description), 250, '...', true),
+				description: keystone.utils.cropString(keystone.utils.htmlToText(m.description), 250, '...', true),
 				
-				ticketsAvailable: data.meetup.rsvpsAvailable,
-				ticketsRemaining: data.meetup.remainingRSVPs,
+				ticketsAvailable: m.rsvpsAvailable,
+				ticketsRemaining: m.remainingRSVPs,
 				
-				talks: data.talks,
+				talks: m.talks,
 				
-				rsvped: data.rsvp ? true : false,
-				attending: data.rsvp && data.rsvp.attending ? true : false,
+				rsvped: current && data.rsvp ? true : false,
+				attending: current && data.rsvp && data.rsvp.attending ? true : false
 			}
+		}
+		
+		if (data.meetups.last) {
+			response.meetups.last = meetup(data.meetups.last);
+		}
+		
+		if (data.meetups.next && moment().isBefore(data.meetups.next.endDate)) {
+			response.meetups.next = meetup(data.meetups.next, true);
 		}
 		
 		if (data.user) {
