@@ -5,7 +5,7 @@ var keystone = require('keystone'),
 
 exports = module.exports = function(req, res) {
 	
-	var data = { meetups: {} };
+	var data = { meetups: {}, talks: {} };
 	
 	async.series([
 		function(next) {
@@ -36,11 +36,21 @@ exports = module.exports = function(req, res) {
 		},
 		function(next) {
 			keystone.list('Talk').model.find()
-				.where('meetup', data.meetup)
+				.where('meetup', data.meetups.last)
 				.populate('who')
 				.sort('sortOrder')
 				.exec(function(err, talks) {
-					data.talks = talks;
+					data.talks.last = talks;
+					return next();
+				});
+		},
+		function(next) {
+			keystone.list('Talk').model.find()
+				.where('meetup', data.meetups.next)
+				.populate('who')
+				.sort('sortOrder')
+				.exec(function(err, talks) {
+					data.talks.next = talks;
 					return next();
 				});
 		},
@@ -88,7 +98,7 @@ exports = module.exports = function(req, res) {
 				ticketsAvailable: m.rsvpsAvailable,
 				ticketsRemaining: m.remainingRSVPs,
 				
-				talks: m.talks,
+				talks: current ? data.talks.next : data.talks.last,
 				
 				rsvped: current && data.rsvp ? true : false,
 				attending: current && data.rsvp && data.rsvp.attending ? true : false
