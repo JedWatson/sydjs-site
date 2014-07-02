@@ -92,6 +92,7 @@ exports = module.exports = function(req, res) {
 				ends: m.endDate,
 				
 				place: m.place,
+				map: m.map,
 				
 				description: keystone.utils.cropString(keystone.utils.htmlToText(m.description), 250, '...', true),
 				
