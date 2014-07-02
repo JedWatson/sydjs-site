@@ -122,7 +122,8 @@ exports = module.exports = function(req, res) {
 					last: data.user.name.last,
 					full: data.user.name.full
 				},
-				email: data.user.email
+				email: data.user.email,
+				avatar: data.user.avatarUrl
 			}
 		}
 		
