@@ -21,7 +21,7 @@ exports = module.exports = function(req, res) {
 				.where('state', 'past')
 				.sort('-startDate')
 				.exec(function(err, meetup) {
-					data.meetups.last = meetup;
+					data.meetups.last = meetup.toJSON();
 					return next();
 				});
 		},
@@ -30,7 +30,7 @@ exports = module.exports = function(req, res) {
 				.where('state', 'active')
 				.sort('-startDate')
 				.exec(function(err, meetup) {
-					data.meetups.next = meetup;
+					data.meetups.next = meetup.toJSON();
 					return next();
 				});
 		},
@@ -40,7 +40,9 @@ exports = module.exports = function(req, res) {
 				.populate('who')
 				.sort('sortOrder')
 				.exec(function(err, talks) {
-					data.talks.last = talks;
+					data.talks.last = talks.map(function(i) {
+						return i.toJSON();
+					});
 					return next();
 				});
 		},
@@ -48,9 +50,10 @@ exports = module.exports = function(req, res) {
 			keystone.list('Talk').model.find()
 				.where('meetup', data.meetups.next)
 				.populate('who')
-				.sort('sortOrder')
 				.exec(function(err, talks) {
-					data.talks.next = talks;
+					data.talks.next = talks.map(function(i) {
+						return i.toJSON();
+					});
 					return next();
 				});
 		},

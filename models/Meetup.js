@@ -1,5 +1,6 @@
 var keystone = require('keystone'),
 	moment = require('moment'),
+	_ = require('underscore'),
 	Types = keystone.Field.Types;
 
 /**
@@ -136,6 +137,21 @@ Meetup.schema.methods.notifyAttendees = function(req, res, next) {
 	});
 	
 }
+
+
+
+Meetup.schema.set('toJSON', {
+	virtuals: true,
+	transform: function(doc, rtn, options) {
+		
+		rtn = _.pick(rtn, '_id', 'name', 'startDate', 'endDate', 'place', 'map', 'description', 'rsvpsAvailable', 'remainingRSVPs');
+		
+		return rtn;
+		
+	}
+});
+
+
 
 
 /**
