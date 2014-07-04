@@ -37,8 +37,6 @@ Talk.schema.set('toJSON', {
 			});
 		}
 		
-		console.log(rtn);
-		
 		return rtn;
 		
 	}

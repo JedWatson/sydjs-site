@@ -40,9 +40,9 @@ exports = module.exports = function(req, res) {
 				.populate('who')
 				.sort('sortOrder')
 				.exec(function(err, talks) {
-					data.talks.last = talks.map(function(i) {
+					data.talks.last = talks && talks.length ? talks.map(function(i) {
 						return i.toJSON();
-					});
+					}) : false;
 					return next();
 				});
 		},
@@ -51,9 +51,9 @@ exports = module.exports = function(req, res) {
 				.where('meetup', data.meetups.next)
 				.populate('who')
 				.exec(function(err, talks) {
-					data.talks.next = talks.map(function(i) {
+					data.talks.next = talks && talks.length ? talks.map(function(i) {
 						return i.toJSON();
-					});
+					}) : false;
 					return next();
 				});
 		},
