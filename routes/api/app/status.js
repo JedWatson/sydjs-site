@@ -21,7 +21,7 @@ exports = module.exports = function(req, res) {
 				.where('state', 'past')
 				.sort('-startDate')
 				.exec(function(err, meetup) {
-					data.meetups.last = meetup.toJSON();
+					data.meetups.last = meetup ? meetup.toJSON() : false;
 					return next();
 				});
 		},
@@ -30,7 +30,7 @@ exports = module.exports = function(req, res) {
 				.where('state', 'active')
 				.sort('-startDate')
 				.exec(function(err, meetup) {
-					data.meetups.next = meetup.toJSON();
+					data.meetups.next = meetup ? meetup.toJSON() : false;
 					return next();
 				});
 		},
