@@ -32,7 +32,8 @@ Talk.schema.set('toJSON', {
 			rtn.who = doc.who.map(function(i) {
 				return {
 					name: i.name,
-					twitter: i.twitter
+					twitter: i.twitter,
+					avatarUrl: i.avatarUrl
 				}
 			});
 		}
