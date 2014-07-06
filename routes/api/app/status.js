@@ -1,7 +1,8 @@
 var keystone = require('keystone'),
 	async = require('async'),
 	_ = require('underscore'),
-	moment = require('moment');
+	moment = require('moment'),
+	crypto = require('crypto');
 
 exports = module.exports = function(req, res) {
 	
@@ -85,36 +86,38 @@ exports = module.exports = function(req, res) {
 			user: false
 		}
 		
-		var meetup = function(m, current) {
-			return {
-				id: m._id,
+		var parseMeetup = function(meetup, current) {
+			var meetupData = {
+				id: meetup._id,
 				
-				name: m.name,
+				name: meetup.name,
 				
-				starts: m.startDate,
-				ends: m.endDate,
+				starts: meetup.startDate,
+				ends: meetup.endDate,
 				
-				place: m.place,
-				map: m.map,
+				place: meetup.place,
+				map: meetup.map,
 				
-				description: keystone.utils.cropString(keystone.utils.htmlToText(m.description), 250, '...', true),
+				description: keystone.utils.cropString(keystone.utils.htmlToText(meetup.description), 250, '...', true),
 				
-				ticketsAvailable: m.rsvpsAvailable,
-				ticketsRemaining: m.remainingRSVPs,
+				ticketsAvailable: meetup.rsvpsAvailable,
+				ticketsRemaining: meetup.remainingRSVPs,
 				
 				talks: current ? data.talks.next : data.talks.last,
 				
 				rsvped: current && data.rsvp ? true : false,
 				attending: current && data.rsvp && data.rsvp.attending ? true : false
 			}
+			meetupData.hash = crypto.createHash('md5').update(JSON.stringify(meetupData)).digest('hex');
+			return meetupData;
 		}
 		
 		if (data.meetups.last) {
-			response.meetups.last = meetup(data.meetups.last);
+			response.meetups.last = parseMeetup(data.meetups.last);
 		}
 		
 		if (data.meetups.next && moment().isBefore(data.meetups.next.endDate)) {
-			response.meetups.next = meetup(data.meetups.next, true);
+			response.meetups.next = parseMeetup(data.meetups.next, true);
 		}
 		
 		if (data.user) {
