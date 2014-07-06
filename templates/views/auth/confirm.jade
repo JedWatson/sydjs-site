@@ -14,7 +14,32 @@ html
 				.confirm-page__logo { display: inline-block; opacity: .25; }
 				.confirm-page__logo img { max-width: 100%; }
 	
-	if !appAuth
+	if appAuth
+		script.
+			// This should be automatically injected by Cordova, but it isn't :( stopgap solution for now
+			(function(d){var e = _cdvIframeBridge = d.createElement('iframe');e.style.display='none';d.body.appendChild(e);})(document)
+			
+			var authUser = {
+				type: "#{authUser.type}",
+				
+				name: {
+					first: "#{authUser.name.first}",
+					last: "#{authUser.name.last}"
+				},
+				
+				email: "#{authUser.email}",
+				
+				website: "#{authUser.website}",
+				
+				profileId: "#{authUser.profileId}",
+				
+				username: "#{authUser.username}",
+				accessToken: "#{authUser.accessToken}",
+				refreshToken: "#{authUser.refreshToken}"
+			}
+			
+			localStorage.setItem('authUser', JSON.stringify(authUser));
+	else
 		body.confirm-page: .site-body
 			.container-xs
 				.page-intro
@@ -37,29 +62,3 @@ html
 							input(type='text' name='website' placeholder='Website (optional)' value=authUser.website).form-control.form-control-labelled
 						.form-group
 							button(type='submit').btn.btn-primary.btn-block That all checks out, let's go &rarr;
-	
-	if appAuth
-		script.
-			// This should be automatically injected by Cordova, but it isn't :( stopgap solution for now
-			(function(d){var e = _cdvIframeBridge = d.createElement('iframe');e.style.display='none';d.body.appendChild(e);})(document)
-			
-			var authUser = {
-				type: '#{authUser.type}',
-				
-				name: {
-					first: '#{authUser.name.first}',
-					last: '#{authUser.name.last}'
-				},
-				
-				email: '#{authUser.email}',
-				
-				website: '#{authUser.website}',
-				
-				profileId: '#{authUser.profileId}',
-				
-				username: '#{authUser.username}',
-				accessToken: '#{authUser.accessToken}',
-				refreshToken: '#{authUser.refreshToken}'
-			}
-			
-			localStorage.setItem('authUser', JSON.stringify(authUser));
