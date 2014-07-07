@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "async": "^0.2.10",
+    "connect-mongo": "^0.4.1",
     "crypto": "0.0.3",
     "dotenv": "^0.2.4",
     "keystone": "^0.2.22",
