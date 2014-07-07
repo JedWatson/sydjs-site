@@ -53,6 +53,7 @@ exports = module.exports = function(req, res) {
 			keystone.list('Talk').model.find()
 				.where('meetup', data.meetups.next)
 				.populate('who')
+				.sort('sortOrder')
 				.exec(function(err, talks) {
 					data.talks.next = talks && talks.length ? talks.map(function(i) {
 						return i.toJSON();
