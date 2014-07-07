@@ -6,7 +6,7 @@ var keystone = require('keystone'),
 
 exports = module.exports = function(req, res) {
 	
-	var data = { meetups: {}, talks: {} };
+	var data = { meetups: {}, talks: {}, rsvp: {} };
 	
 	async.series([
 		function(next) {
@@ -36,6 +36,7 @@ exports = module.exports = function(req, res) {
 				});
 		},
 		function(next) {
+			if (!data.meetups.last) return next();
 			keystone.list('Talk').model.find()
 				.where('meetup', data.meetups.last)
 				.populate('who')
@@ -48,6 +49,7 @@ exports = module.exports = function(req, res) {
 				});
 		},
 		function(next) {
+			if (!data.meetups.next) return next();
 			keystone.list('Talk').model.find()
 				.where('meetup', data.meetups.next)
 				.populate('who')
@@ -60,6 +62,7 @@ exports = module.exports = function(req, res) {
 		},
 		function(next) {
 			if (!req.body.user) return next();
+			if (!data.meetups.next) return next();
 			keystone.list('RSVP').model.findOne()
 				.where('who', data.user)
 				.where('meetup', data.meetups.next)
@@ -83,6 +86,10 @@ exports = module.exports = function(req, res) {
 				last: false,
 				next: false
 			},
+			rsvp: {
+				responded: false,
+				attending: false
+			},
 			user: false
 		}
 		
@@ -103,10 +110,7 @@ exports = module.exports = function(req, res) {
 				ticketsAvailable: meetup.rsvpsAvailable,
 				ticketsRemaining: meetup.remainingRSVPs,
 				
-				talks: current ? data.talks.next : data.talks.last,
-				
-				rsvped: current && data.rsvp ? true : false,
-				attending: current && data.rsvp && data.rsvp.attending ? true : false
+				talks: current ? data.talks.next : data.talks.last
 			}
 			meetupData.hash = crypto.createHash('md5').update(JSON.stringify(meetupData)).digest('hex');
 			return meetupData;
@@ -118,6 +122,9 @@ exports = module.exports = function(req, res) {
 		
 		if (data.meetups.next && moment().isBefore(data.meetups.next.endDate)) {
 			response.meetups.next = parseMeetup(data.meetups.next, true);
+			response.rsvp.responded = data.rsvp ? true : false;
+			response.rsvp.attending = data.rsvp && data.rsvp.attending ? true : false;
+			response.rsvp.date = data.rsvp ? data.rsvp.changedAt : false;
 		}
 		
 		if (data.user) {

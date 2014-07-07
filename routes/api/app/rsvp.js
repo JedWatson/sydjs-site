@@ -24,7 +24,8 @@ exports = module.exports = function(req, res) {
 					} else {
 						console.log('[api.app.rsvp] - Existing RSVP found, updating...');
 						rsvp.set({
-							attending: req.body.attending == 'true'
+							attending: req.body.attending == 'true',
+							changedAt: req.body.changed
 						}).save(function(err) {
 							if (err) return res.apiResponse({ success: false, err: err });
 							console.log('[api.app.rsvp] - Updated RSVP.');
@@ -39,7 +40,8 @@ exports = module.exports = function(req, res) {
 					new RSVP.model({
 						meetup: req.body.meetup,
 						who: user,
-						attending: req.body.attending == 'true'
+						attending: req.body.attending == 'true',
+						changedAt: req.body.changed
 					}).save(function(err) {
 						if (err) return res.apiResponse({ success: false, err: err });
 						console.log('[api.app.rsvp] - Created RSVP.');

@@ -23,7 +23,9 @@ RSVP.add({
  */
 
 RSVP.schema.pre('save', function(next) {
-	this.changedAt = Date.now();
+	if (!this.isModified('changedAt')) {
+		this.changedAt = Date.now();
+	}
 	next();
 });
 
