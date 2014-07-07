@@ -123,9 +123,11 @@ exports = module.exports = function(req, res) {
 		
 		if (data.meetups.next && moment().isBefore(data.meetups.next.endDate)) {
 			response.meetups.next = parseMeetup(data.meetups.next, true);
-			response.rsvp.responded = data.rsvp ? true : false;
-			response.rsvp.attending = data.rsvp && data.rsvp.attending ? true : false;
-			response.rsvp.date = data.rsvp ? data.rsvp.changedAt : false;
+			if (data.user) {
+				response.rsvp.responded = data.rsvp ? true : false;
+				response.rsvp.attending = data.rsvp && data.rsvp.attending ? true : false;
+				response.rsvp.date = data.rsvp ? data.rsvp.changedAt : false;
+			}
 		}
 		
 		if (data.user) {
