@@ -35,7 +35,7 @@ var routes = {
 exports = module.exports = function(app) {
 	
 	// Allow cross-domain requests (development only)
-	if (process.env.NODE_ENV != 'production') {
+	// if (process.env.NODE_ENV != 'production') {
 		console.log('------------------------------------------------');
 		console.log('Notice: Enabling CORS for development.');
 		console.log('------------------------------------------------');
@@ -45,7 +45,7 @@ exports = module.exports = function(app) {
 			res.header('Access-Control-Allow-Headers', 'Content-Type');
 			next();
 		});
-	}
+	// }
 	
 	// Website
 	app.get('/', routes.views.index);
