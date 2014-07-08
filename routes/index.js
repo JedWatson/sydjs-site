@@ -98,6 +98,7 @@ exports = module.exports = function(app) {
 	app.all('/api/app/signin-email', routes.api.app['signin-email']);
 	app.all('/api/app/signup-email', routes.api.app['signup-email']);
 	app.all('/api/app/signin-service', routes.api.app['signin-service']);
+	app.all('/api/app/signin-service-check', routes.api.app['signin-service-check']);
 	app.all('/api/app/signin-recover', routes.api.app['signin-recover']);
 
 }

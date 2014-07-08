@@ -35,7 +35,8 @@ exports = module.exports = function(req, res) {
 			console.log('------------------------------------------------------------');
 			return res.apiResponse({
 				success: false,
-				session: false
+				session: false,
+				message: err.message || 'Sorry, there was an issue signing you in, please try again.'
 			});
 		}
 		
