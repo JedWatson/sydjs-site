@@ -7,7 +7,7 @@ var keystone = require('keystone'),
 exports = module.exports = function(req, res) {
 	
 	var locals = {
-		authUser: req.body.authUser
+		authUser: req.body.authUser,
 		
 		existingUser: false
 	}
