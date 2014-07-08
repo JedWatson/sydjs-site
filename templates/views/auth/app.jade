@@ -4,28 +4,30 @@ html
 		meta(charset="utf-8")
 		meta(name="viewport", content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width")
 	
-	if authUser
-		script.
-			// This should be automatically injected by Cordova, but it isn't :( stopgap solution for now
-			(function(d){var e = _cdvIframeBridge = d.createElement('iframe');e.style.display='none';d.body.appendChild(e);})(document)
-			
-			var authUser = {
-				type: "#{authUser.type}",
+	body
+		textarea=authUser ? JSON.stringify(authUser) : false
+		if authUser
+			script.
+				// This should be automatically injected by Cordova, but it isn't :( stopgap solution for now
+				(function(d){var e = _cdvIframeBridge = d.createElement('iframe');e.style.display='none';d.body.appendChild(e);})(document)
 				
-				name: {
-					first: "#{authUser.name.first}",
-					last: "#{authUser.name.last}"
-				},
+				var authUser = {
+					type: "#{authUser.type}",
+					
+					name: {
+						first: "#{authUser.name.first}",
+						last: "#{authUser.name.last}"
+					},
+					
+					email: "#{authUser.email}",
+					
+					website: "#{authUser.website}",
+					
+					profileId: "#{authUser.profileId}",
+					
+					username: "#{authUser.username}",
+					accessToken: "#{authUser.accessToken}",
+					refreshToken: "#{authUser.refreshToken}"
+				}
 				
-				email: "#{authUser.email}",
-				
-				website: "#{authUser.website}",
-				
-				profileId: "#{authUser.profileId}",
-				
-				username: "#{authUser.username}",
-				accessToken: "#{authUser.accessToken}",
-				refreshToken: "#{authUser.refreshToken}"
-			}
-			
-			localStorage.setItem('authUser', JSON.stringify(authUser));
+				localStorage.setItem('authUser', JSON.stringify(authUser));

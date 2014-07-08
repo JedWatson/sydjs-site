@@ -7,8 +7,6 @@ exports = module.exports = function(req, res) {
 	
 	locals.authUser = req.session.auth;
 	
-	console.log(req.session.auth);
-	
 	view.render('auth/app');
 	
 }
