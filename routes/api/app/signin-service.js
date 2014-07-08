@@ -47,33 +47,6 @@ exports = module.exports = function(req, res) {
 	// Function to handle data confirmation process
 	async.series([
 		
-		// Check for user by profile id (only if not signed in)
-		function(next) {
-			
-			if (locals.existingUser) return next();
-			
-			console.log('[api.app.service]  - Searching for existing users via [' + locals.authUser.type + '] profile id...');
-			console.log('------------------------------------------------------------');
-			
-			var query = User.model.findOne();
-				query.where('services.' + locals.authUser.type + '.profileId', locals.authUser.profileId);
-				query.exec(function(err, user) {
-					if (err) {
-						console.log('[api.app.service]  - Error finding existing user via profile id.', err);
-						console.log('------------------------------------------------------------');
-						return next({ message: 'Sorry, there was an error processing your information, please try again.' });
-					}
-					if (user) {
-						console.log('[api.app.service]  - Found existing user via [' + locals.authUser.type + '] profile id...');
-						console.log('------------------------------------------------------------');
-						locals.existingUser = user;
-						return doSignIn();
-					}
-					return next();
-				});
-		
-		},
-		
 		// Check for user by email (only if not signed in)
 		function(next) {
 			

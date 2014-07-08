@@ -49,8 +49,6 @@ exports = module.exports = function(req, res) {
 		// Check for user by profile id (only if not signed in)
 		function(next) {
 			
-			if (locals.existingUser) return next();
-			
 			console.log('[api.app.service]  - Searching for existing users via [' + locals.authUser.type + '] profile id...');
 			console.log('------------------------------------------------------------');
 			
