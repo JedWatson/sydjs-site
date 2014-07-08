@@ -6,6 +6,8 @@ html
 	
 	body
 		textarea=authUser ? JSON.stringify(authUser) : false
+		script.
+			alert('test');
 		if authUser
 			script.
 				// This should be automatically injected by Cordova, but it isn't :( stopgap solution for now
