@@ -16,8 +16,6 @@ exports = module.exports = function(req, res) {
 	locals.authUser = req.session.auth;
 	locals.existingUser = false;
 	
-	locals.appAuth ? req.cookies.target && req.cookies.target == 'app' : false;
-	
 	// Reject request if no auth data is stored in session
 	if (!locals.authUser) {
 		console.log('[auth.confirm] - No auth data detected, redirecting to signin.');

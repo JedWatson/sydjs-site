@@ -6,41 +6,14 @@ html
 		meta(charset="utf-8")
 		meta(name="viewport", content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width")
 		
-		if !appAuth
-			title Join: confirm details - SydJS
-			link(rel="shortcut icon", href="/favicon.ico", type="image/x-icon")
-			link(href="/styles/site.min.css", rel="stylesheet")
-			style.
-				.confirm-page__logo { display: inline-block; opacity: .25; }
-				.confirm-page__logo img { max-width: 100%; }
+		title Join: confirm details - SydJS
+		link(rel="shortcut icon", href="/favicon.ico", type="image/x-icon")
+		link(href="/styles/site.min.css", rel="stylesheet")
+		style.
+			.confirm-page__logo { display: inline-block; opacity: .25; }
+			.confirm-page__logo img { max-width: 100%; }
 	
-	if appAuth
-		script.
-			// This should be automatically injected by Cordova, but it isn't :( stopgap solution for now
-			(function(d){var e = _cdvIframeBridge = d.createElement('iframe');e.style.display='none';d.body.appendChild(e);})(document)
-			
-			var authUser = {
-				type: "#{authUser.type}",
-				
-				name: {
-					first: "#{authUser.name.first}",
-					last: "#{authUser.name.last}"
-				},
-				
-				email: "#{authUser.email}",
-				
-				website: "#{authUser.website}",
-				
-				profileId: "#{authUser.profileId}",
-				
-				username: "#{authUser.username}",
-				accessToken: "#{authUser.accessToken}",
-				refreshToken: "#{authUser.refreshToken}"
-			}
-			
-			localStorage.setItem('authUser', JSON.stringify(authUser));
-	else
-		body.confirm-page: .site-body
+	body.confirm-page: .site-body
 			.container-xs
 				.page-intro
 					.confirm-page__logo
