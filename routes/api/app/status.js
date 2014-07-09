@@ -12,7 +12,7 @@ exports = module.exports = function(req, res) {
 		function(next) {
 			if (!req.body.user) return next();
 			keystone.list('User').model.findById(req.body.user).exec(function(err, user) {
-				if (err || !user) return res.apiResponse({ success: false });
+				if (err || !user) return next();
 				data.user = user;
 				return next();
 			});
