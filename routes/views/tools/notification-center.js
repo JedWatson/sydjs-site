@@ -1,5 +1,8 @@
 var keystone = require('keystone'),
-	Meetup = keystone.list('Meetup');
+	async = require('async');
+
+var Meetup = keystone.list('Meetup'),
+	User = keystone.list('User');
 
 exports = module.exports = function(req, res) {
 	
@@ -20,15 +23,8 @@ exports = module.exports = function(req, res) {
 
 
 	// Get all subscribers
-
-	view.on('init', function(next) {
-		keystone.list('User').model
-			.where('notifications.meetups', true)
-			.exec(function(err, subscribers) {
-				locals.subscribers = subscribers;
-				next();
-			});
-	});
+	
+	view.query('subscribers', User.model.find().where('notifications.meetups', true));
 
 	
 	// Get the next meetup
@@ -67,7 +63,7 @@ exports = module.exports = function(req, res) {
 					console.error("===== Failed to send meetup notification emails =====");
 					console.error(err);
 				} else {
-					req.flash('success', 'Sent to ' + keystone.utils.plural(locals.nextMeetup.rsvps.length, '* attendee', '* attendees'));
+					req.flash('success', 'Notification sent to ' + keystone.utils.plural(locals.nextMeetup.rsvps.length, '* attendee'));
 				}
 				next();
 			});
@@ -95,7 +91,7 @@ exports = module.exports = function(req, res) {
 						email: 'hello@sydjs.com'
 					}
 				}, next);
-				req.flash('success', 'Sent to ' + keystone.utils.plural(locals.subscribers.length, '* subscriber', '* subscribers'));
+				req.flash('success', 'Email sent to ' + keystone.utils.plural(locals.subscribers.length, '* subscriber'));
 			});
 		}
 	});
