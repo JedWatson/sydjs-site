@@ -60,6 +60,7 @@ exports = module.exports = function(req, res) {
 		} else {
 			locals.nextMeetup.notifyAttendees(req, res, function(err) {
 				if (err) {
+					req.flash('error', 'There was an error sending the notifications, please check the logs for more info.');
 					console.error("===== Failed to send meetup notification emails =====");
 					console.error(err);
 				} else {
@@ -78,7 +79,7 @@ exports = module.exports = function(req, res) {
 			req.flash('warning', 'There aren\'t any subscribers at the moment' );
 			return next();
 		} else {
-			locals.subscribers.forEach(function(subscriber) {
+			async.each(locals.subscribers, function(subscriber, doneSubscriber) {
 				new keystone.Email('member-notification').send({
 					subscriber: subscriber,
 					subject: req.body.subscriber_email_subject || 'Notification from SydJS',
@@ -90,8 +91,16 @@ exports = module.exports = function(req, res) {
 						name: 'SydJS',
 						email: 'hello@sydjs.com'
 					}
-				}, next);
-				req.flash('success', 'Email sent to ' + keystone.utils.plural(locals.subscribers.length, '* subscriber'));
+				}, doneSubscriber);
+			}, function(err) {
+				if (err) {
+					req.flash('error', 'There was an error sending the emails, please check the logs for more info.');
+					console.error("===== Failed to send subscriber emails =====");
+					console.error(err);
+				} else {
+					req.flash('success', 'Email sent to ' + keystone.utils.plural(locals.subscribers.length, '* subscriber'));
+				}
+				next();
 			});
 		}
 	});
