@@ -26,20 +26,24 @@ block intro
 					p.byline: strong #{meetup._.startDate.format('ddd, DD MMM YYYY')} &#8212; #{meetup._.startDate.format('h:mma')} - #{meetup._.endDate.format('h:mma')}
 					p.byline #{meetup.place} &#8212; 
 						a(href='http://maps.google.com.au/?daddr=' + (meetup.map || meetup.place), target='_blank') Directions
-				if meetup.state == 'active'
-					.hero-button
-						if user
-							if meetup.rsvpsAvailable
-								h4.hero-button-title Are you coming? 
-									span.text-thin (#{plural(meetup.remainingRSVPs, '* spot left', '* spots left')})
-								include ../../includes/attendance-toggle
-							else
-								.alert.alert-success.mb-0.text-center No more tickets...
+				//- TW: Temporary disabling RSVPing
+				.hero-button
+					.alert.alert-success.mb-0.text-center No more tickets...
+				//- TW: Re-enable
+					if meetup.state == 'active'
+						.hero-button
+							if user
+								if meetup.rsvpsAvailable
+									h4.hero-button-title Are you coming? 
+										span.text-thin (#{plural(meetup.remainingRSVPs, '* spot left', '* spots left')})
+									include ../../includes/attendance-toggle
+								else
+									.alert.alert-success.mb-0.text-center No more tickets...
 
-						else
-							#next-meetup(data-id=meetup.id)
-								a(href='/join', data-from=page.path).btn.btn-primary.btn-lg.btn-block.js-auth-trigger RSVP Now 
-									span.text-thin (#{plural(meetup.remainingRSVPs, '* spot left', '* spots left')})
+							else
+								#next-meetup(data-id=meetup.id)
+									a(href='/join', data-from=page.path).btn.btn-primary.btn-lg.btn-block.js-auth-trigger RSVP Now 
+										span.text-thin (#{plural(meetup.remainingRSVPs, '* spot left', '* spots left')})
 			
 			//- Details
 			section.hero-details: .container

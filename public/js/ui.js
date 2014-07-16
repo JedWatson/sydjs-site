@@ -109,6 +109,9 @@ $(function() {
 	var $nextMeetup = $('#next-meetup');
 	if ($nextMeetup.length) {
 		
+		//- TW: Temporary disabling RSVPing
+		return;
+		
 		if (!$('.meetup-toggle').length) return;
 		
 		var meetup = $nextMeetup.data();
