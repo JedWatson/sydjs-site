@@ -1,0 +1,105 @@
+/**
+*
+* SydJS Showbag
+*
+**/
+@showbag-bg: white;
+
+body.sitesection-showbag {
+	background-color: @showbag-bg;
+	.patty, .patty:after, .patty:before {
+		background: @gray;
+	}
+	#header.header--page {
+		background-color: @showbag-bg;
+		//-border-bottom: 1px solid @gray-lighter;
+		.site-branding {
+			.logo--text,.logo--shape { fill: @gray; }
+			&:hover {
+				.logo--text,.logo--shape { fill: @gray; }
+			}
+		}
+		ul > li > a {
+			color: @gray-light;
+			&:hover {
+				color: @gray;
+			}
+		}
+
+	}
+	.site-wrapper {
+		background-color: @showbag-bg;
+	}
+	.site-footer {
+		background-color: #F9F9F9;
+	}
+}
+
+#showbag {
+	.showbag-header {
+		//-background-color: #F5F5F5;
+		//-#gradient .vertical(white, #F5F5F5);
+		padding: 1em 0 3em;
+		.showbag-hero {
+			width: 100%;
+			max-height: 900px;
+			background: url("/images/showbag/sydjsshowbag.png") center center / cover no-repeat;
+			img {
+				margin: auto;
+			}
+		}
+		.showbag-buttons {
+			
+		}
+	}
+	.showbag-main {
+		.showbag-createdwith {
+			text-align: center;
+			margin: 1em 0 0;
+			img {
+				display: inline-block;
+				width: 25%;
+			}
+		}
+		.members-list {
+			margin: 3em 0;
+			text-align: center;
+		}
+		.member-item {
+			width: 20%;
+			.member {
+				.box-shadow(none);
+				text-align: center;
+			}
+			.member__photo {
+				width: 75%;
+				display: block;
+				float: none;
+				margin: auto;
+				img {
+					.img-responsive;
+				}
+			}
+			@media (max-width: @screen-xs-max) {
+				float: none;
+				display: inline-block;
+				vertical-align: top;
+				width: 48%;
+				border: none;
+				margin-bottom: 1em;
+
+				.member__info {
+					margin: 1em 0;
+				}
+			}
+		}
+
+	}
+	.showbag-footer {
+
+	}
+
+	section {
+		padding: 2em 0;
+	}
+}

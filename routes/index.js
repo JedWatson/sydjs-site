@@ -62,6 +62,8 @@ exports = module.exports = function(app) {
 	app.all('/blog/post/:post', routes.views.post);
 	app.get('/about', routes.views.about);
 	app.get('/mentoring', routes.views.mentoring);
+
+	app.get('/showbag', routes.views.showbag);
 	
 	// Session
 	app.all('/join', routes.views.session.join);
