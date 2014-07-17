@@ -25,15 +25,12 @@ mixin meetup(meetup)
 		if meetup.state == 'active'
 			hr.mv-2
 			if user
-				//- TW: Temporary disabling RSVPing
-				.alert.alert-success.mb-0.text-center No more tickets...
-				//- TW: Re-enable
-					if meetup.rsvpsAvailable
-						h4.text-center.mb-1 Are you coming? 
-							span.text-thin (#{plural(meetup.remainingRSVPs, '* spot left', '* spots left')})
-						include ../includes/attendance-toggle
-					else
-						.alert.alert-success.mb-0.text-center No more tickets...
+				if meetup.rsvpsAvailable
+					h4.text-center.mb-1 Are you coming? 
+						span.text-thin (#{plural(meetup.remainingRSVPs, '* spot left', '* spots left')})
+					include ../includes/attendance-toggle
+				else
+					.alert.alert-success.mb-0.text-center No more tickets...
 
 			else
 				#next-meetup(data-id=meetup.id)
