@@ -28,7 +28,7 @@ Meetup.add({
 	maxRSVPs: { type: Number, default: 100 },
 	totalRSVPs: { type: Number, noedit: true },
 	
-	legacy: { type: Boolean, noedit: true },
+	legacy: { type: Boolean, noedit: true, collapse: true },
 });
 
 
@@ -56,7 +56,7 @@ Meetup.schema.virtual('remainingRSVPs').get(function() {
 });
 
 Meetup.schema.virtual('rsvpsAvailable').get(function() {
-	return (this.remainingRSVPs != 0);
+	return (this.remainingRSVPs > 0);
 });
 
 
@@ -141,13 +141,8 @@ Meetup.schema.methods.notifyAttendees = function(req, res, next) {
 
 
 Meetup.schema.set('toJSON', {
-	virtuals: true,
 	transform: function(doc, rtn, options) {
-		
-		rtn = _.pick(rtn, '_id', 'name', 'startDate', 'endDate', 'place', 'map', 'description', 'rsvpsAvailable', 'remainingRSVPs');
-		
-		return rtn;
-		
+		return _.pick(doc, '_id', 'name', 'startDate', 'endDate', 'place', 'map', 'description', 'rsvpsAvailable', 'remainingRSVPs');
 	}
 });
 
