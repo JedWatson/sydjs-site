@@ -2,7 +2,12 @@ $(function() {
 
 	$('.dismiss-alert').click(function () {
 		$('#app-alert').hide();
+		$.cookie('dismissAppBanner', true);
 	});
+
+	if ($.cookie('dismissAppBanner')) {
+		$('#app-alert').addClass('hidden');
+	}
 
 	// Nav
 	// ------------------------------
