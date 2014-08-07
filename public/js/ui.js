@@ -5,9 +5,11 @@ $(function() {
 		$.cookie('dismissAppBanner', true);
 	});
 
-	if ($.cookie('dismissAppBanner')) {
-		$('#app-alert').addClass('hidden');
+	if (!$.cookie('dismissAppBanner')) {
+		$('#app-alert').removeClass('hidden-md hidden-lg');
 	}
+
+
 
 	// Nav
 	// ------------------------------
