@@ -1,0 +1,21 @@
+#app-alert(class=(system.mobile && system.ios ? "hidden" : null ))
+	a(href='javascript:;').dismiss-alert.dismiss-alert-md.visible-md.visible-lg: span &times;
+	.container: .row
+		.col-sm-8.app-icon.col-xs-8
+			a(href='javascript:;').dismiss-alert.dismiss-alert-xs.visible-xs.visible-sm: span &times;
+			img(src='/images/app-icon.png', alt='app icon', title='app icon', width='64').visible-md.visible-lg
+			img(src='/images/app-icon-android.png', alt='app icon', title='app icon', width='64').visible-xs.visible-sm
+			.visible-md.visible-lg
+				h5 The new SysJS app is available 
+				p.mb-0 Get the app and never miss another meetup again
+			.visible-xs.visible-sm
+				h5 SydJS
+				p.mb-0 Thinkmill
+		.col-sm-2.hidden-xs.hidden-sm
+			a(href="https://itunes.apple.com/au/app/sydjs/id897396382?mt=8&uo=4", target="itunes_store").app-button
+				img(src='/images/app-store-button.png', alt='download on the appstore', title='download on the appstore', height='45')
+		.col-sm-2.col-xs-4
+			a(href="https://play.google.com/store/apps/details?id=com.sydjs&hl=en", target="_blank").app-button.visible-md.visible-lg
+				img(src='/images/google-play-button.png', alt='get it on Google Play', title='get it on Google Play', height='45')
+			a(href="https://play.google.com/store/apps/details?id=com.sydjs&hl=en", target="_blank").app-link.visible-xs.visible-md.text-right Install
+

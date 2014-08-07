@@ -32,6 +32,39 @@ exports.initLocals = function(req, res, next) {
 	locals.qs_set = qs_set(req, res);
 	
 	if (req.cookies.target && req.cookies.target == locals.page.path) res.clearCookie('target');
+
+	//	TW 2013-04-12: User agent testing, is there a better solution or location for this?
+	var ua = req.headers['user-agent'];
+	locals.system = [];
+	locals.browser = [];
+	
+	if (/mobile/i.test(ua)) {
+		locals.system.mobile = true;
+	}
+	if (/like Mac OS X/.test(ua)) {
+		try {
+			locals.system.ios = /CPU( iPhone)? OS ([0-9\._]+) like Mac OS X/.exec(ua)[2].replace(/_/g, '.');
+			locals.system.iphone = /iPhone/.test(ua);
+			locals.system.ipad = /iPad/.test(ua);
+		} catch(e) {
+			console.log('[locals] - Bad user agent [like Mac OS X] detected: ' + JSON.stringify(ua));
+		}
+	}
+	if (/Android/.test(ua)) {
+		var android = /Android ([0-9\.]+)[\);]/.exec(ua);
+		if (android) {
+			locals.system.android = android[1];
+		}
+	}
+	
+	if ( /MSIE/.test(ua) ) {
+		locals.browser.name = 'ie';
+		if ( /MSIE 9.0/.test(ua) ) {
+			locals.browser.version = 9;
+		} else if ( /MSIE 10.0/.test(ua) ) {
+			locals.browser.version = 10;
+		}
+	}
 	
 	next();
 	

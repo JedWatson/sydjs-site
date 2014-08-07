@@ -1,5 +1,9 @@
 $(function() {
 
+	$('.dismiss-alert').click(function () {
+		$('#app-alert').hide();
+	});
+
 	// Nav
 	// ------------------------------
 	$('#site-nav-toggle').click(function () {

@@ -12,6 +12,9 @@ html
 		
 		meta(charset="utf-8")
 		meta(name="viewport", content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width")
+
+		//- Appstore smart banner
+		meta(name="apple-itunes-app", content="app-id=897396382")
 		
 		title= page.title
 		link(rel="shortcut icon", href="/favicon.ico", type="image/x-icon")
@@ -27,6 +30,10 @@ html
 	body(class=section ? 'sitesection-' + section : null)
 		.site-wrapper.has-sticky-footer
 			
+			//- APP ALERT
+			if section == 'home'
+				include ../includes/layout/app-alert
+
 			//- SITE HEADER
 			include ../includes/layout/header
 			
