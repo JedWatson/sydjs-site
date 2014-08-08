@@ -34,7 +34,7 @@ exports = module.exports = function(req, res) {
 			return res.apiResponse({
 				success: false,
 				session: false,
-				message: err.message || 'Sorry, there was an issue signing you in, please try again.'
+				message: (err && err.message ? err.message : false) || 'Sorry, there was an issue signing you in, please try again.'
 			});
 		}
 		
@@ -141,7 +141,7 @@ exports = module.exports = function(req, res) {
 			return res.apiResponse({
 				success: false,
 				session: false,
-				message: err.message || 'Sorry, there was an issue signing you in, please try again.'
+				message: (err && err.message ? err.message : false) || 'Sorry, there was an issue signing you in, please try again.'
 			});
 		}
 	});
