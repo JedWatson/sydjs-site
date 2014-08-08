@@ -6,7 +6,7 @@ mixin post(post)
 			.post-summary
 				.post-byline
 					.post-author: a(href='/blog/post/' + post.slug)=post.author.name.full
-					.date-stamp: em=moment(post.publishedDate).fromNow()
+					//- .date-stamp: em=moment(post.publishedDate).fromNow()
 
 				h4(itemprop='name').post-title.mv-1
 					a(href='/blog/post/' + post.slug, itemprop='url')=post.title
