@@ -25,7 +25,7 @@ exports = module.exports = function(req, res) {
 				if (!post) return res.notfound('Post not found');
 				
 				// Allow admins or the author to see draft posts
-				if (post.state == 'published' || req.user.isAdmin || (post.author && req.user.id == post.author.id)) {
+				if (post.state == 'published' || (req.user && req.user.isAdmin) || (req.user && post.author && (req.user.id == post.author.id))) {
 					locals.post = post;
 					locals.post.populateRelated('comments[author]', next);
 					locals.page.title = post.title + ' - Blog - SydJS';
