@@ -86,7 +86,7 @@ block intro
 					h3.heading-with-line #{meetup.totalRSVPs} people #{meetup.state == 'active' ? "are attending" : "attended"}
 					ul.list-unstyled.list-inline.text-center.attendees-list
 						for rsvp in meetup.rsvps
-							if rsvp.who
+							if rsvp.attending
 								- var attendee = rsvp.who;
 								if attendee.isPublic
 									li: a(href=attendee.url, title=attendee.name.full)
