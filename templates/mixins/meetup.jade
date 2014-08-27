@@ -25,17 +25,20 @@ mixin meetup(meetup)
 		if meetup.state == 'active'
 			hr.mv-2
 			if user
-				if meetup.rsvpsAvailable
-					h4.text-center.mb-1 Are you coming? 
+				if meetup.rsvpsAvailable || rsvpStatus.rsvped && rsvpStatus.attending
+					h4.hero-button-title Are you coming? 
 						span.text-thin (#{plural(meetup.remainingRSVPs, '* spot left', '* spots left')})
 					include ../includes/attendance-toggle
 				else
 					.alert.alert-success.mb-0.text-center No more tickets...
-
+			
 			else
 				#next-meetup(data-id=meetup.id)
-					a(href='/join', data-from=page.path).btn.btn-primary.btn-lg.btn-block.js-auth-trigger RSVP Now 
-						span.text-thin (#{plural(meetup.remainingRSVPs, '* spot left', '* spots left')})
+					if meetup.rsvpsAvailable
+						a(href='/join', data-from=page.path).btn.btn-primary.btn-lg.btn-block.js-auth-trigger RSVP Now 
+							span.text-thin (#{plural(meetup.remainingRSVPs, '* spot left', '* spots left')})
+					else
+						.alert.alert-success.mb-0.text-center No more tickets...
 		else if meetup.totalRSVPs
 			hr
 			.text-center

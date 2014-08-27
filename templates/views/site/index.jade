@@ -29,7 +29,7 @@ block intro
 				if meetup.state == 'active'
 					.hero-button
 						if user
-							if meetup.rsvpsAvailable
+							if meetup.rsvpsAvailable || rsvpStatus.rsvped && rsvpStatus.attending
 								h4.hero-button-title Are you coming? 
 									span.text-thin (#{plural(meetup.remainingRSVPs, '* spot left', '* spots left')})
 								include ../../includes/attendance-toggle
@@ -38,8 +38,11 @@ block intro
 
 						else
 							#next-meetup(data-id=meetup.id)
-								a(href='/join', data-from=page.path).btn.btn-primary.btn-lg.btn-block.js-auth-trigger RSVP Now 
-									span.text-thin (#{plural(meetup.remainingRSVPs, '* spot left', '* spots left')})
+								if meetup.rsvpsAvailable
+									a(href='/join', data-from=page.path).btn.btn-primary.btn-lg.btn-block.js-auth-trigger RSVP Now 
+										span.text-thin (#{plural(meetup.remainingRSVPs, '* spot left', '* spots left')})
+								else
+									.alert.alert-success.mb-0.text-center No more tickets...
 			
 			//- Details
 			section.hero-details: .container
