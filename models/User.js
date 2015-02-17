@@ -9,6 +9,7 @@ var keystone = require('keystone'),
  */
 
 var User = new keystone.List('User', {
+	track: true,
 	autokey: { path: 'key', from: 'name', unique: true }
 });
 
@@ -254,6 +255,5 @@ User.schema.methods.resetPassword = function(callback) {
  * ============
 */
 
-User.addPattern('standard meta');
 User.defaultColumns = 'name, email, twitter, isAdmin';
 User.register();

@@ -7,6 +7,7 @@ var keystone = require('keystone'),
  */
 
 var Organisation = new keystone.List('Organisation', {
+	track: true,
 	autokey: { path: 'key', from: 'name', unique: true }
 });
 
@@ -33,6 +34,5 @@ Organisation.relationship({ ref: 'User', refPath: 'organisation', path: 'members
  * ============
  */
 
-Organisation.addPattern('standard meta');
 Organisation.defaultColumns = 'name, website, isHiring';
 Organisation.register();

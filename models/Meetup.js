@@ -9,6 +9,7 @@ var keystone = require('keystone'),
  */
 
 var Meetup = new keystone.List('Meetup', {
+	track: true,
 	autokey: { path: 'key', from: 'name', unique: true }
 });
 
@@ -154,7 +155,6 @@ Meetup.schema.set('toJSON', {
  * ============
  */
 
-Meetup.addPattern('standard meta');
 Meetup.defaultSort = '-startDate';
 Meetup.defaultColumns = 'name, state|10%, startDate|15%, publishedDate|15%';
 Meetup.register();

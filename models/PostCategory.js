@@ -7,6 +7,7 @@ var keystone = require('keystone'),
  */
 
 var PostCategory = new keystone.List('PostCategory', {
+	track: true,
 	autokey: { from: 'name', path: 'key', unique: true }
 });
 
@@ -28,5 +29,4 @@ PostCategory.relationship({ ref: 'Post', refPath: 'categories', path: 'posts' })
  * ============
  */
 
-PostCategory.addPattern('standard meta');
 PostCategory.register();

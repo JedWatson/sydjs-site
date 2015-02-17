@@ -8,6 +8,7 @@ var keystone = require('keystone'),
 
 var Link = new keystone.List('Link', {
 	map: { name: 'label' },
+	track: true,
 	autokey: { path: 'slug', from: 'label', unique: true }
 });
 
@@ -35,6 +36,5 @@ Link.relationship({ ref: 'LinkComment', refPath: 'link', path: 'comments' });
  * ============
  */
 
-Link.addPattern('standard meta');
 Link.defaultColumns = 'label, href, author|20%, state|20%';
 Link.register();

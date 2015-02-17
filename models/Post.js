@@ -9,6 +9,7 @@ var keystone = require('keystone'),
 
 var Post = new keystone.List('Post', {
 	map: { name: 'title' },
+	track: true,
 	autokey: { path: 'slug', from: 'title', unique: true }
 });
 
@@ -96,7 +97,6 @@ Post.schema.methods.notifyAdmins = function(callback) {
  * ============
  */
 
-Post.addPattern('standard meta');
 Post.defaultSort = '-publishedDate';
 Post.defaultColumns = 'title, state|20%, author|20%, publishedDate|20%';
 Post.register();

@@ -8,6 +8,7 @@ var keystone = require('keystone'),
  */
 
 var Talk = new keystone.List('Talk', {
+	track: true,
 	sortable: true,
 	sortContext: 'Meetup:talks'
 });
@@ -48,6 +49,5 @@ Talk.schema.set('toJSON', {
  * ============
  */
 
-Talk.addPattern('standard meta');
 Talk.defaultColumns = 'name, meetup|20%, who|20%';
 Talk.register();
