@@ -90,7 +90,7 @@ exports = module.exports = function(app) {
 	app.all('/maintenance', routes.views.maintenance);
 	
 	// API
-	app.all('/api*', keystone.initAPI);
+	app.all('/api*', keystone.middleware.api);
 	app.all('/api/me/meetup', routes.api.me.meetup);
 	app.all('/api/stats', routes.api.stats);
 	
