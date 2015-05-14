@@ -16,7 +16,6 @@ exports = module.exports = function(req, res) {
 	
 	locals.rsvpStatus = {};
 	
-	
 	// Load the first, NEXT meetup
 	
 	view.on('init', function(next) {
