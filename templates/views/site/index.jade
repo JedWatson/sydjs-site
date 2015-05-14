@@ -97,6 +97,9 @@ block intro
 										img(src=attendee.photo.exists ? attendee._.photo.thumbnail(80,80) : attendee.avatarUrl || '/images/avatar.png', width=40, height=40, alt=attendee.name.full).img-circle
 								else
 									li(title=attendee.name.full): img(src=attendee.photo.exists ? attendee._.photo.thumbnail(80,80) : attendee.avatarUrl || '/images/avatar.png', width=40, height=40, alt=attendee.name.full).img-circle
+
+				#react-attending
+
 //- BODY
 block content
 	.page-content
@@ -117,7 +120,7 @@ block content
 			p.mt-1: a(href="https://twitter.com/sydjs", class="twitter-follow-button", data-show-count="true", data-size="large") Follow @sydjs
 //- JS
 block js
-	script.
+	//- script.
 		//- var SydJS = {};
 		//- SydJS.user = !{JSON.serialize(user)};
 		//- SydJS.meetup = !{JSON.serialize(meetup)};
