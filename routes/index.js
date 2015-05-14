@@ -117,4 +117,6 @@ exports = module.exports = function(app) {
 	app.all('/api/app/signin-service-check', routes.api.app['signin-service-check']);
 	app.all('/api/app/signin-recover', routes.api.app['signin-recover']);
 
+	app.all('/api/react/react', routes.api.react.react);
+
 }
