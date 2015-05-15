@@ -40,7 +40,7 @@ exports = module.exports = function(req, res) {
 						return {
 							url: rsvp.who.isPublic ? rsvp.who.url : false,
 							photo: rsvp.who.photo.exists ? rsvp.who._.photo.thumbnail(80,80) : '/images/avatar.png',
-							name: rsvp.name.full
+							// name: rsvp.name.full
 						};
 					}));
 					return next();
