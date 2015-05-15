@@ -23,6 +23,7 @@ var App = React.createClass({
 				attendees: result.people
 			});
 		});
+
 	},
 
 	render: function() {
@@ -31,7 +32,7 @@ var App = React.createClass({
 		if (results) {
 			resultsList = results.map(function(person) {
 				console.log(person);
-				return <li key={person.id}><img width="40" height="40" alt={person.name} className="img-circle" src={person.photo && person.url ? person.photo : "/images/avatar.png"} /></li>
+				return <li key={person.id}><a href={person.url}><img width="40" height="40" alt={person.name} className="img-circle" src={person.photo ? person.photo : "/images/avatar.png"} /></a></li>
 			});
 		}
 		return (

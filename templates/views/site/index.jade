@@ -26,24 +26,25 @@ block intro
 					p.byline: strong #{meetup._.startDate.format('ddd, DD MMM YYYY')} &#8212; #{meetup._.startDate.format('h:mma')} - #{meetup._.endDate.format('h:mma')}
 					p.byline #{meetup.place} &#8212; 
 						a(href='http://maps.google.com.au/?daddr=' + (meetup.map || meetup.place), target='_blank') Directions
-					#react-app
+					
 				if meetup.state == 'active'
-					#herobutton.hero-button
-						if user
-							if meetup.rsvpsAvailable || rsvpStatus.rsvped && rsvpStatus.attending
-								h4.hero-button-title Are you coming? 
-									span.text-thin (#{plural(meetup.remainingRSVPs, '* spot left', '* spots left')})
-								include ../../includes/attendance-toggle
-							else
-								.alert.alert-success.mb-0.text-center No more tickets...
+					#react-hero-button
+					//- .hero-button
+					//- 	if user
+					//- 		if meetup.rsvpsAvailable || rsvpStatus.rsvped && rsvpStatus.attending
+					//- 			h4.hero-button-title Are you coming? 
+					//- 				span.text-thin (#{plural(meetup.remainingRSVPs, '* spot left', '* spots left')})
+					//- 			include ../../includes/attendance-toggle
+					//- 		else
+					//- 			.alert.alert-success.mb-0.text-center No more tickets...
 
-						else
-							#next-meetup(data-id=meetup.id)
-								if meetup.rsvpsAvailable
-									a(href='/join', data-from=page.path).btn.btn-primary.btn-lg.btn-block.js-auth-trigger RSVP Now 
-										span.text-thin (#{plural(meetup.remainingRSVPs, '* spot left', '* spots left')})
-								else
-									.alert.alert-success.mb-0.text-center No more tickets...
+					//- 	else
+					//- 		#next-meetup(data-id=meetup.id)
+					//- 			if meetup.rsvpsAvailable
+					//- 				a(href='/join', data-from=page.path).btn.btn-primary.btn-lg.btn-block.js-auth-trigger RSVP Now 
+					//- 					span.text-thin (#{plural(meetup.remainingRSVPs, '* spot left', '* spots left')})
+					//- 			else
+					//- 				.alert.alert-success.mb-0.text-center No more tickets...
 			
 			//- Details
 			section.hero-details: .container
@@ -87,18 +88,18 @@ block intro
 													.summary!= talk.description
 				//- Attending
 				section.attending
-					h3.heading-with-line #{meetup.totalRSVPs} people #{meetup.state == 'active' ? "are attending" : "attended"}
-					ul.list-unstyled.list-inline.text-center.attendees-list
-						for rsvp in meetup.rsvps
-							if rsvp.attending
-								- var attendee = rsvp.who;
-								if attendee.isPublic
-									li: a(href=attendee.url, title=attendee.name.full)
-										img(src=attendee.photo.exists ? attendee._.photo.thumbnail(80,80) : attendee.avatarUrl || '/images/avatar.png', width=40, height=40, alt=attendee.name.full).img-circle
-								else
-									li(title=attendee.name.full): img(src=attendee.photo.exists ? attendee._.photo.thumbnail(80,80) : attendee.avatarUrl || '/images/avatar.png', width=40, height=40, alt=attendee.name.full).img-circle
+					#react-attending
+					//- h3.heading-with-line #{meetup.totalRSVPs} people #{meetup.state == 'active' ? "are attending" : "attended"}
+					//- ul.list-unstyled.list-inline.text-center.attendees-list
+					//- 	for rsvp in meetup.rsvps
+					//- 		if rsvp.attending
+					//- 			- var attendee = rsvp.who;
+					//- 			if attendee.isPublic
+					//- 				li: a(href=attendee.url, title=attendee.name.full)
+					//- 					img(src=attendee.photo.exists ? attendee._.photo.thumbnail(80,80) : attendee.avatarUrl || '/images/avatar.png', width=40, height=40, alt=attendee.name.full).img-circle
+					//- 			else
+					//- 				li(title=attendee.name.full): img(src=attendee.photo.exists ? attendee._.photo.thumbnail(80,80) : attendee.avatarUrl || '/images/avatar.png', width=40, height=40, alt=attendee.name.full).img-circle
 
-				#react-attending
 
 //- BODY
 block content
@@ -120,16 +121,9 @@ block content
 			p.mt-1: a(href="https://twitter.com/sydjs", class="twitter-follow-button", data-show-count="true", data-size="large") Follow @sydjs
 //- JS
 block js
-	//- script.
-		//- var SydJS = {};
-		//- SydJS.user = !{JSON.serialize(user)};
-		//- SydJS.meetup = !{JSON.serialize(meetup)};
-		//- React.render(<RSVPButton user={SydJS.user} meetup={SydJS.meetup} />, document.getElementById('hero-button'));
-	//- twitter
 	script.
-		//- !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
-	//- map
+		!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
 	if google_api_key
 		script(src!='https://maps.googleapis.com/maps/api/js?key=' + google_api_key + '&sensor=false&libraries=places')
-		//- script(src='/js/views/attendees.js')
-		script(src='/js/views/index.js')
+		script(src='/js/views/attendingApp.js')
+		script(src='/js/views/heroApp.js')
