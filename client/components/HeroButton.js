@@ -19,8 +19,12 @@ var HeroButton = React.createClass({
 				<h4 className="hero-button-title">Are you coming? <br /><span className="text-thin">119 spots left</span></h4>
 				<div id="next-meetup" className="form-row meetup-toggle">
 					<div className="col-xs-4 col-xs-offset-4">
-						<button id="react-rsvp-button" type="button" isAttending={this.state.isAttending} onClick={this.toggleAttendingStatus} className="btn btn-lg btn-block btn-default js-rsvp-attending">{this.state.isAttending ? "Yes" : "No" }</button>
-						<h4 className="attending-message mt-2">{this.state.isAttending ? "Looking foward to seeing you there!" : null}</h4>
+						<div className="col-xs-6">
+							<button id="react-rsvp-button" type="button" isAttending={this.state.isAttending} onClick={this.toggleAttendingStatus} className="btn btn-lg btn-block btn-default js-rsvp-attending">Yes</button>
+						</div>
+						<div className="col-xs-6">
+							<button id="react-rsvp-button" type="button" isAttending={this.state.isAttending} onClick={this.toggleAttendingStatus} className="btn btn-lg btn-block btn-default js-rsvp-decline">No</button>
+						</div>
 					</div>
 				</div>
 			</div>
