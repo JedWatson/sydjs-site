@@ -2,7 +2,7 @@ var React = require('react/addons');
 var HeroButton = require('../components/heroButton');
 var request = require('superagent');
 
-var IntroApp = React.createClass({
+var HeroApp = React.createClass({
 
 	getInitialState: function() {
 		return {
@@ -32,4 +32,4 @@ var IntroApp = React.createClass({
 	}
 });
 
-React.render(<IntroApp />, document.getElementById('react-hero-button'));
+React.render(<HeroApp />, document.getElementById('react-hero-button'));

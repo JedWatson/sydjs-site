@@ -91,16 +91,16 @@ block intro
 				//- Attending
 				section.attending
 					#react-attending
-					h3.heading-with-line #{meetup.totalRSVPs} people #{meetup.state == 'active' ? "are attending" : "attended"}
-					ul.list-unstyled.list-inline.text-center.attendees-list
-						for rsvp in meetup.rsvps
-							if rsvp.attending
-								- var attendee = rsvp.who;
-								if attendee.isPublic
-									li: a(href=attendee.url, title=attendee.name.full)
-										img(src=attendee.photo.exists ? attendee._.photo.thumbnail(80,80) : attendee.avatarUrl || '/images/avatar.png', width=40, height=40, alt=attendee.name.full).img-circle
-								else
-									li(title=attendee.name.full): img(src=attendee.photo.exists ? attendee._.photo.thumbnail(80,80) : attendee.avatarUrl || '/images/avatar.png', width=40, height=40, alt=attendee.name.full).img-circle
+					//- h3.heading-with-line #{meetup.totalRSVPs} people #{meetup.state == 'active' ? "are attending" : "attended"}
+					//- ul.list-unstyled.list-inline.text-center.attendees-list
+					//- 	for rsvp in meetup.rsvps
+					//- 		if rsvp.attending
+					//- 			- var attendee = rsvp.who;
+					//- 			if attendee.isPublic
+					//- 				li: a(href=attendee.url, title=attendee.name.full)
+					//- 					img(src=attendee.photo.exists ? attendee._.photo.thumbnail(80,80) : attendee.avatarUrl || '/images/avatar.png', width=40, height=40, alt=attendee.name.full).img-circle
+					//- 			else
+					//- 				li(title=attendee.name.full): img(src=attendee.photo.exists ? attendee._.photo.thumbnail(80,80) : attendee.avatarUrl || '/images/avatar.png', width=40, height=40, alt=attendee.name.full).img-circle
 
 				#react-attending
 
@@ -129,4 +129,4 @@ block js
 	if google_api_key
 		script(src!='https://maps.googleapis.com/maps/api/js?key=' + google_api_key + '&sensor=false&libraries=places')
 		script(src='/js/views/attendingApp.js')
-		script(src='/js/views/heroApp.js')
+		//- script(src='/js/views/heroApp.js')

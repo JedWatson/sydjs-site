@@ -20,7 +20,7 @@ var App = React.createClass({
 
 				if (!err && this.isMounted()) {
 					this.setState({
-						attendees: attendees.persons
+						attendees: attendees.people
 					})
 				}
 			}.bind(this));
@@ -33,7 +33,7 @@ var App = React.createClass({
 		if (results) {
 			resultsList = results.map(function(person) {
 				console.log(person);
-				return <li key={person.id}><img width="40" height="40" alt={person.name} className="img-circle" src={person.who && person.who.photo && person.who.photo.url ? person.who.photo.url : "/images/avatar.png"} /></li>
+				return <li key={person.id}><a href={person.url}><img width="40" height="40" alt={person.name} className="img-circle" src={person.photo ? person.photo : "/images/avatar.png"} /></a></li>
 			});
 		}
 		return (
