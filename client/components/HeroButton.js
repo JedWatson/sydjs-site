@@ -12,9 +12,9 @@ var HeroButton = React.createClass({
 		this.setState({ isAttending: !this.state.isAttending })
 	},
 
-	render: function() {
-		console.log(this.props)
-		return (
+	renderValue: function() {
+		if (this.props.status.user) {
+			return (
 			<div> 
 				<h4 className="hero-button-title">Are you coming? <br /><span className="text-thin">119 spots left</span></h4>
 				<div id="next-meetup" className="form-row meetup-toggle">
@@ -24,6 +24,16 @@ var HeroButton = React.createClass({
 					</div>
 				</div>
 			</div>
+			)
+		}
+	},
+
+	render: function() {
+		console.log("Is there a user", this.props.status.user)
+		console.log("Is the user attending", this.props.status.rsvp)
+		return (
+			
+			<div className="hero-button">{this.renderValue()}</div> 
 		);
 	}
 });

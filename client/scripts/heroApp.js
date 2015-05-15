@@ -23,10 +23,10 @@ var HeroApp = React.createClass({
 			}.bind(this));
 	},
 
-	render: function() {
+	render: function() { 
 		return (
 			<div> 
-				<HeroButton status={this.state.status} />
+				<HeroButton className="hero-button" status={this.state.status} />
 			</div>
 		);
 	}

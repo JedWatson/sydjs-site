@@ -29,8 +29,6 @@ block intro
 					
 				if meetup.state == 'active'
 					#react-hero-button
-					
-
 					//- .hero-button
 					//- 	if user
 					//- 		if meetup.rsvpsAvailable || rsvpStatus.rsvped && rsvpStatus.attending
@@ -102,7 +100,6 @@ block intro
 					//- 			else
 					//- 				li(title=attendee.name.full): img(src=attendee.photo.exists ? attendee._.photo.thumbnail(80,80) : attendee.avatarUrl || '/images/avatar.png', width=40, height=40, alt=attendee.name.full).img-circle
 
-				#react-attending
 
 //- BODY
 block content
@@ -129,4 +126,4 @@ block js
 	if google_api_key
 		script(src!='https://maps.googleapis.com/maps/api/js?key=' + google_api_key + '&sensor=false&libraries=places')
 		script(src='/js/views/attendingApp.js')
-		//- script(src='/js/views/heroApp.js')
+		script(src='/js/views/heroApp.js')

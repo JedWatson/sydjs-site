@@ -29,10 +29,8 @@ var App = React.createClass({
 	render: function() {
 		var results = this.state.attendees;
 		var resultsList;
-		console.log('is this what we see: ', results);
 		if (results) {
 			resultsList = results.map(function(person) {
-				console.log(person);
 				return <li key={person.id}><a href={person.url}><img width="40" height="40" alt={person.name} className="img-circle" src={person.photo ? person.photo : "/images/avatar.png"} /></a></li>
 			});
 		}
