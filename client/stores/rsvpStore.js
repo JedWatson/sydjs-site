@@ -24,7 +24,6 @@ rsvpStore.extend({
 					console.log('Error with the AJAX request: ', err)
 				}
 				if (!err && res.body) {
-					console.log('All good inside the AJAX request', res.body)
 					rsvpStore.notifyChange();
 				}
 				return callback && callback(err, res.body)

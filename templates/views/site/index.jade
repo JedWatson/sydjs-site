@@ -27,7 +27,7 @@ block intro
 					p.byline #{meetup.place} &#8212; 
 						a(href='http://maps.google.com.au/?daddr=' + (meetup.map || meetup.place), target='_blank') Directions
 					
-				if meetup.state == 'active'
+				if meetup.state == 'active' || 'past'
 					#react-hero-button
 					//- .hero-button
 					//- 	if user

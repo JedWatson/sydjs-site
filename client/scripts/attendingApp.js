@@ -31,7 +31,6 @@ var App = React.createClass({
 		var resultsList;
 		if (results) {
 			resultsList = results.map(function(person) {
-				console.log(person);
 				return <li key={person.id}><a href={person.url}><img width="40" height="40" alt={person.name} className="img-circle" src={person.photo ? person.photo : "/images/avatar.png"} /></a></li>
 			});
 		}
@@ -50,8 +49,5 @@ var App = React.createClass({
 });
 
 React.render(<App />, document.getElementById('react-attending'));
-
-module.exports = App;
-
 
 {/* */}

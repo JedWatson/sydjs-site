@@ -116,7 +116,7 @@ $(function() {
 	
 	// Handle attendence
 	// ------------------------------
-	
+
 	var $nextMeetup = $('#next-meetup');
 	if ($nextMeetup.length) {
 		
@@ -139,6 +139,7 @@ $(function() {
 		}
 		
 		$attending.click(function() {
+			console.log('attending');
 			$attending.addClass('btn-success').closest('.meetup-toggle')
 				.find('.js-rsvp-decline')
 				.removeClass('btn-danger')
@@ -151,6 +152,7 @@ $(function() {
 		});
 		
 		$decline.click(function() {
+			console.log('decline');
 			$decline.addClass('btn-danger').closest('.meetup-toggle')
 				.find('.js-rsvp-attending')
 				.removeClass('btn-success')
