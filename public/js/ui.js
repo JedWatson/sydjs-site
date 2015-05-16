@@ -128,6 +128,7 @@ $(function() {
 			$decline = $('.js-rsvp-decline');
 		
 		var toggleRSVP = function(attending) {
+			console.log("toggling the rsvp post request")
 			$.ajax({
 				url: '/api/me/meetup',
 				type: 'POST',
@@ -172,6 +173,7 @@ $(function() {
 				meetup: meetup.id
 			},
 			success: function(data) {
+				console.log("are we in the other ajax")
 				if (data.rsvped) {
 					data.attending ? $attending.addClass('btn-success active') : $decline.addClass('btn-danger active')
 				} else {

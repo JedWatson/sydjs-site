@@ -11,12 +11,12 @@ exports = module.exports = function(req, res) {
 		locals = res.locals;
 	
 	locals.section = 'home';
-	locals.meetup = false;
+	locals.meetup = {};
 	locals.page.title = 'Welcome to SydJS';
 	
 	locals.rsvpStatus = {};
 
-	// locals.user = req.user
+	locals.user = req.user
 	
 	// Load the first, NEXT meetup
 	

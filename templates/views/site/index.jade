@@ -25,7 +25,6 @@ block intro
 					p.byline: strong #{meetup._.startDate.format('ddd, DD MMM YYYY')} &#8212; #{meetup._.startDate.format('h:mma')} - #{meetup._.endDate.format('h:mma')}
 					p.byline #{meetup.place} &#8212; 
 						a(href='http://maps.google.com.au/?daddr=' + (meetup.map || meetup.place), target='_blank') Directions
-					p #{page.title}
 
 				if meetup.state == 'active'
 					#react-hero-button
@@ -88,17 +87,17 @@ block intro
 													.summary!= talk.description
 				//- Attending
 				section.attending
-					#react-attending
-					//- h3.heading-with-line #{meetup.totalRSVPs} people #{meetup.state == 'active' ? "are attending" : "attended"}
-					//- ul.list-unstyled.list-inline.text-center.attendees-list
-					//- 	for rsvp in meetup.rsvps
-					//- 		if rsvp.attending
-					//- 			- var attendee = rsvp.who;
-					//- 			if attendee.isPublic
-					//- 				li: a(href=attendee.url, title=attendee.name.full)
-					//- 					img(src=attendee.photo.exists ? attendee._.photo.thumbnail(80,80) : attendee.avatarUrl || '/images/avatar.png', width=40, height=40, alt=attendee.name.full).img-circle
-					//- 			else
-					//- 				li(title=attendee.name.full): img(src=attendee.photo.exists ? attendee._.photo.thumbnail(80,80) : attendee.avatarUrl || '/images/avatar.png', width=40, height=40, alt=attendee.name.full).img-circle
+					//- #react-attending
+					h3.heading-with-line #{meetup.totalRSVPs} people #{meetup.state == 'active' ? "are attending" : "attended"}
+					ul.list-unstyled.list-inline.text-center.attendees-list
+						for rsvp in meetup.rsvps
+							if rsvp.attending
+								- var attendee = rsvp.who;
+								if attendee.isPublic
+									li: a(href=attendee.url, title=attendee.name.full)
+										img(src=attendee.photo.exists ? attendee._.photo.thumbnail(80,80) : attendee.avatarUrl || '/images/avatar.png', width=40, height=40, alt=attendee.name.full).img-circle
+								else
+									li(title=attendee.name.full): img(src=attendee.photo.exists ? attendee._.photo.thumbnail(80,80) : attendee.avatarUrl || '/images/avatar.png', width=40, height=40, alt=attendee.name.full).img-circle
 
 
 //- BODY
@@ -129,7 +128,7 @@ block js
 	//- REACT SCRIPTS
 	script(src='/js/packages.js')
 	script(src='/js/heroApp.js')
-	script(src='/js/attendingApp.js')
+	//- script(src='/js/attendingApp.js')
 
 
 block js

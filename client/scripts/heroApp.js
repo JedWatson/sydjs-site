@@ -1,11 +1,8 @@
 var React = require('react/addons');
-var rsvpStore = require('../stores/rsvpStore');
-var rsvpStatus = Keystone.rsvpStatus;
 
 var HeroApp = React.createClass({
 
 	render: function() {
-		console.log('Meetup please: ', this.props.meetup)
 		if (this.props.user) {
 			if(this.props.meetup.rsvpsAvailable || this.props.rsvpStatus.rsvped && this.props.rsvpStatus.attending) {
 				return (
@@ -14,10 +11,10 @@ var HeroApp = React.createClass({
 						<div className="hero-button">
 							<div id="next-meetup" className="form-row meetup-toggle">
 								<div className="col-xs-6">
-									<button type="button" className="btn btn-lg btn-block btn-default js-rsvp-attending">Yes</button>
+									<button type="button" onClick={this.rsvpAttending} className="btn btn-lg btn-block btn-default js-rsvp-attending">Yes</button>
 								</div>
 								<div className="col-xs-6">
-									<button type="button" className="btn btn-lg btn-block btn-default js-rsvp-decline">No</button>
+									<button type="button" onClick={this.rsvpNotAttending} className="btn btn-lg btn-block btn-default js-rsvp-decline">No</button>
 								</div>
 							</div>
 						</div>
@@ -33,7 +30,9 @@ var HeroApp = React.createClass({
 		} else {
 			if (this.props.meetup.rsvpsAvailable) {
 				return (
-					<h1>RSVPs available</h1>
+					<div className="hero-button">
+						<a className="btn btn-primary btn-lg btn-block js-auth-trigger">RSVP Now {this.props.meetup.remainingRSVPs} spots left<span class="text-thin"></span></a>
+					</div>
 				)
 			} else {
 				 return (
