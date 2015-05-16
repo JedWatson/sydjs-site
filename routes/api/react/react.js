@@ -8,7 +8,8 @@ exports = module.exports = function(req, res) {
 
 	var rtn = {
 		meetups: {},
-		people: []
+		people: [],
+		rsvpStatus: {}
 	};
 
 	async.series([
@@ -22,6 +23,23 @@ exports = module.exports = function(req, res) {
 						console.log('WTF: ', err)
 					}
 					rtn.meetups.last = meetup;
+					return next();
+				});
+		},
+
+		function(next) {
+			keystone.list('RSVP').model.findOne()
+				// .where('who', req.user._id)
+				.where('meetup', rtn.meetups.last)
+				.exec(function(err, rsvp) {
+					if (err) {
+						return console.log('Fucked out')
+					}
+					rsvpStatus = {
+						rsvped: rsvp ? true : false,
+						attending: rsvp && rsvp.attending ? true : false
+					}
+					console.log('working yeah?')
 					return next();
 				});
 		},

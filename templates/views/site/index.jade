@@ -6,7 +6,6 @@ include ../../mixins/post
 include ../../mixins/meetup-talk
 include ../../mixins/advertisement
 
-
 //- INTRO
 block intro
 
@@ -26,8 +25,9 @@ block intro
 					p.byline: strong #{meetup._.startDate.format('ddd, DD MMM YYYY')} &#8212; #{meetup._.startDate.format('h:mma')} - #{meetup._.endDate.format('h:mma')}
 					p.byline #{meetup.place} &#8212; 
 						a(href='http://maps.google.com.au/?daddr=' + (meetup.map || meetup.place), target='_blank') Directions
-					
-				if meetup.state == 'active' || 'past'
+					p #{page.title}
+
+				if meetup.state == 'active'
 					#react-hero-button
 					//- .hero-button
 					//- 	if user
@@ -120,6 +120,18 @@ block content
 				a(href='/members') Find your friends in SydJS
 			p.mt-1: a(href="https://twitter.com/sydjs", class="twitter-follow-button", data-show-count="true", data-size="large") Follow @sydjs
 //- JS
+block js
+	script.
+		Keystone.rsvpStatus = !{JSON.stringify(rsvpStatus)};
+		Keystone.meetup = !{JSON.stringify(meetup)};
+		Keystone.user = !{JSON.stringify(user)}
+
+	//- REACT SCRIPTS
+	script(src='/js/packages.js')
+	script(src='/js/heroApp.js')
+	script(src='/js/attendingApp.js')
+
+
 block js
 	script.
 		!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");

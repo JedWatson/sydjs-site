@@ -15,6 +15,8 @@ exports = module.exports = function(req, res) {
 	locals.page.title = 'Welcome to SydJS';
 	
 	locals.rsvpStatus = {};
+
+	// locals.user = req.user
 	
 	// Load the first, NEXT meetup
 	
@@ -47,7 +49,7 @@ exports = module.exports = function(req, res) {
 	// Load an RSVP
 	
 	view.on('init', function(next) {
-	
+
 		if (!req.user || !locals.activeMeetup) return next();
 		
 		RSVP.model.findOne()
