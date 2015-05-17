@@ -117,72 +117,74 @@ $(function() {
 	// Handle attendence
 	// ------------------------------
 
-	var $nextMeetup = $('#next-meetup');
-	if ($nextMeetup.length) {
+	// var $nextMeetup = $('#next-meetup');
+	// if ($nextMeetup.length) {
 		
-		if (!$('.meetup-toggle').length) return;
+	// 	if (!$('.meetup-toggle').length) return;
 		
-		var meetup = $nextMeetup.data();
+	// 	var meetup = $nextMeetup.data();
 		
-		var $attending = $('.js-rsvp-attending'),
-			$decline = $('.js-rsvp-decline');
+	// 	var $attending = $('.js-rsvp-attending'),
+	// 		$decline = $('.js-rsvp-decline');
 		
-		var toggleRSVP = function(attending) {
-			console.log("toggling the rsvp post request")
-			$.ajax({
-				url: '/api/me/meetup',
-				type: 'POST',
-				data: {
-					meetup: meetup.id,
-					attending: attending
-				}
-			});
-		}
+	// 	var toggleRSVP = function(attending) {
+	// 		console.log("toggleRSVP function", attending)
+	// 		console.log("here is the meetup", meetup)
+	// 		$.ajax({
+	// 			url: '/api/me/meetup',
+	// 			type: 'POST',
+	// 			data: {
+	// 				meetup: meetup.id,
+	// 				attending: attending
+	// 			}
+	// 		})
+	// 	};
+
 		
-		$attending.click(function() {
-			console.log('attending');
-			$attending.addClass('btn-success').closest('.meetup-toggle')
-				.find('.js-rsvp-decline')
-				.removeClass('btn-danger')
-				.removeClass('active')
-				.addClass('btn-default');
-			if (!$attending.hasClass('active')) {
-				$attending.addClass('active');
-				toggleRSVP(true);
-			}
-		});
 		
-		$decline.click(function() {
-			console.log('decline');
-			$decline.addClass('btn-danger').closest('.meetup-toggle')
-				.find('.js-rsvp-attending')
-				.removeClass('btn-success')
-				.removeClass('active')
-				.addClass('btn-default');
-			if (!$decline.hasClass('active')) {
-				$decline.addClass('active');
-				toggleRSVP(false);
-			}
-		});
+	// 	$attending.click(function() {
+	// 		console.log('clicked attending');
+	// 		$attending.addClass('btn-success').closest('.meetup-toggle')
+	// 			.find('.js-rsvp-decline')
+	// 			.removeClass('btn-danger')
+	// 			.removeClass('active')
+	// 			.addClass('btn-default');
+	// 		if (!$attending.hasClass('active')) {
+	// 			$attending.addClass('active');
+	// 			toggleRSVP(true);
+	// 		}
+	// 	});
 		
-		$.ajax({
-			url: '/api/me/meetup',
-			type: 'POST',
-			data: {
-				statusOnly: true,
-				meetup: meetup.id
-			},
-			success: function(data) {
-				console.log("are we in the other ajax")
-				if (data.rsvped) {
-					data.attending ? $attending.addClass('btn-success active') : $decline.addClass('btn-danger active')
-				} else {
-					$attending.addClass('btn-success');
-					$decline.addClass('btn-danger');
-				}
-			}
-		});
-	}
+	// 	$decline.click(function() {
+	// 		console.log(' clicked decline');
+	// 		$decline.addClass('btn-danger').closest('.meetup-toggle')
+	// 			.find('.js-rsvp-attending')
+	// 			.removeClass('btn-success')
+	// 			.removeClass('active')
+	// 			.addClass('btn-default');
+	// 		if (!$decline.hasClass('active')) {
+	// 			$decline.addClass('active');
+	// 			toggleRSVP(false);
+	// 		}
+	// 	});
+		
+	// 	$.ajax({
+	// 		url: '/api/me/meetup',
+	// 		type: 'POST',
+	// 		data: {
+	// 			statusOnly: true,
+	// 			meetup: meetup.id
+	// 		},
+	// 		success: function(data) {
+	// 			if (data.rsvped) {
+	// 				data.attending ? $attending.addClass('btn-success active') : $decline.addClass('btn-danger active')
+	// 			} else {
+	// 				$attending.addClass('btn-success');
+	// 				$decline.addClass('btn-danger');
+	// 			}
+	// 		}
+	// 	});
+	// }
 	
 	// Clean up URL if signed in via Facebook, see - https://github.com/jaredhanson/passport-facebook/issues/12
 	if (window.location.hash && window.location.hash === "#_=_") {

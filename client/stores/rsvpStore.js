@@ -16,8 +16,6 @@ rsvpStore.extend({
 
 	getAttendees: function(callback) {
 
-		console.log("polling");
-
 		request
 			.get('/api/react/react')
 			.end(function(err, res) {
@@ -31,7 +29,6 @@ rsvpStore.extend({
 				// setTimeout(rsvpStore.getAttendees(), 5000);
 				return callback && callback(err, res.body)
 			});
-		// setTimeout(rsvpStore.getAttendees(), 1000000);
 	}
 
 });
