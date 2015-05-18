@@ -1,7 +1,6 @@
 var React = require('react/addons');
 var request = require('superagent');
-var rsvpStore = require('../stores/rsvpStore');
-var spotsLeft = 0;
+var RSVPStore = require('../stores/rsvpStore');
 
 var HeroApp = React.createClass({
 
@@ -16,48 +15,25 @@ var HeroApp = React.createClass({
 	sendRSVP: function(attending) {
 
 		var self = this;
+		RSVPStore.rsvp({
+			meetup: this.state.meetup._id,
+			attending: attending
+		}, function(data) {
+			console.log("What is the data?", data)
+			self.setState(data);
+		});
 
-		request
-			.post('/api/me/meetup')
-			.send({data: {
-				meetup: this.state.meetup._id,
-				attending: attending
-			}})
-			.end(function(err, res) {
-				if (err) {
-					console.log('Error with the AJAX request: ', err)
-					return;
-				}
-				if (!err && res.body) {
-					console.log(res.body)
-				}
-				self.setState({
-					rsvpStatus: {rsvped: true, attending: attending}
-				})
-
-				self.updateSpotsLeft();
-
-			});
-	},
-
-	updateSpotsLeft: function() {
-		if (this.state.rsvpStatus.attending) {
-			spotsLeft -= 1
-		} else {
-			spotsLeft += 1
-		}
 	},
 
 	render: function() {
 		console.log("rsvpsAvailable",this.state.meetup.rsvpsAvailable)
-		console.log(spotsLeft);
 		if (this.state.user) {
 			var attending = this.state.rsvpStatus.attending ?  ' btn-success btn-default active' : null
 			var notAttending = this.state.rsvpStatus.attending ? null : ' btn-danger btn-default active' 
 			if(this.state.meetup.rsvpsAvailable || this.state.rsvpStatus.rsvped && this.state.rsvpStatus.attending) {
 				return (
 					<div>
-						<h4 className="hero-button-title">Are you coming? <br /> <span className="text-thin">{ this.state.meetup.remainingRSVPs + spotsLeft} spots left</span></h4>
+						<h4 className="hero-button-title">Are you coming? <br /> <span className="text-thin">{ this.state.meetup.remainingRSVPs} spots left</span></h4>
 						<div className="hero-button">
 							<div id="next-meetup" data-id={this.state.meetup._id} className="form-row meetup-toggle">
 								<div className="col-xs-6">

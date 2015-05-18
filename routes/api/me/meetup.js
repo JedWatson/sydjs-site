@@ -29,7 +29,7 @@ exports = module.exports = function(req, res) {
 						attending: req.body.data.attending
 					}).save(function(err) {
 						if (err) return res.apiResponse({ success: false, err: err });
-						return res.apiResponse({ success: true });
+						return res.apiResponse({ success: true, attending: req.body.data.attending });
 					});
 				
 				} else {

@@ -2,35 +2,70 @@ var _ = require('lodash');
 var Store = require('store-prototype');
 var request = require('superagent');
 
-var rsvpStore = new Store();
+var RSVPStore = new Store();
 
-var details = getDefaultDetails();
+var attendees = false;
+var refreshTimeout = null;
 
-function getDefaultDetails () {
-	return {
-		'name': '',
-	};
+function cancelRefresh() {
+	clearTimeout(refreshTimeout);
 }
 
-rsvpStore.extend({
+function loadAttendees(callback) {
+	cancelRefresh();
+	request
+		.get('/api/react/react')
+		.end(function(err, res) {
+			attendees = res.body;
+			if (err) {
+				console.log('Error with the AJAX request: ', err)
+			}
+			if (!err && res.body) {
+				RSVPStore.notifyChange();
+			}
+			refreshTimeout = setTimeout(RSVPStore.refreshAttendees, 2000);
+			attendees = res.body.people;
+			RSVPStore.notifyChange();
+			return callback && callback(err, res.body)
+		});
+}
 
-	getAttendees: function(callback) {
+RSVPStore.extend({
 
+	rsvp: function(data, callback) {
+		cancelRefresh();
 		request
-			.get('/api/react/react')
+			.post('/api/me/meetup')
+			.send({ data: data })
 			.end(function(err, res) {
-				var attendees = res.body;
 				if (err) {
 					console.log('Error with the AJAX request: ', err)
+					return;
 				}
 				if (!err && res.body) {
-					rsvpStore.notifyChange();
+					console.log(res.body)
 				}
-				// setTimeout(rsvpStore.getAttendees(), 5000);
-				return callback && callback(err, res.body)
+				callback && callback({
+					rsvpStatus: { rsvped: true, attending: res.body.attending }
+				});
+				loadAttendees();
 			});
+	},
+
+	isLoaded: function() {
+		return attendees ? true : false;
+	},
+
+	refreshAttendees: function(callback) {
+		loadAttendees(callback);
+	},
+
+	getAttendees: function(callback) {
+		return attendees;
 	}
 
 });
 
-module.exports = rsvpStore;
+loadAttendees();
+
+module.exports = RSVPStore;
