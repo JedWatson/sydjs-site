@@ -34,16 +34,23 @@ var HeroApp = React.createClass({
 		});
 	},
 
+	welcomeMessage: function() {
+		if (this.state.rsvpStatus.attending) {
+			return <h4 className="hero-button-title"><span className = "welcome-message">See you there!</span></h4>
+		} else {
+			return <h4 className="hero-button-title">Are you coming? <br /> <span className="spots-left">{this.state.meetup.remainingRSVPs - this.state.attendees.length}<span className="text-thin"> spots left</span></span><br /></h4>
+		}
+	},
+
 	render: function() {
 		var attendees =  this.state.attendees
-
 		if (this.state.user) {
 			var attending = this.state.rsvpStatus.attending ?  ' btn-success btn-default active' : null
-			var notAttending = this.state.rsvpStatus.attending ? null : ' btn-danger btn-default active' 
+			var notAttending = this.state.rsvpStatus.attending ? null : ' btn-danger btn-default active'
 			if(this.state.meetup.rsvpsAvailable || this.state.rsvpStatus.rsvped && this.state.rsvpStatus.attending) {
 				return (
 					<div>
-						<h4 className="hero-button-title">Are you coming? <br /> <span className="spots-left">{this.state.meetup.remainingRSVPs - attendees.length} <span className="text-thin">spots left</span></span><br /><span>{this.state.rsvpStatus.attending ? 'See you there!' : null}</span></h4>
+						{this.welcomeMessage()}
 						<div className="hero-button">
 							<div id="next-meetup" data-id={this.state.meetup._id} className="form-row meetup-toggle">
 								<div className="col-xs-6">
