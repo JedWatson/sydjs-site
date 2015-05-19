@@ -43,7 +43,7 @@ var HeroApp = React.createClass({
 			if(this.state.meetup.rsvpsAvailable || this.state.rsvpStatus.rsvped && this.state.rsvpStatus.attending) {
 				return (
 					<div>
-						<h4 className="hero-button-title">Are you coming? <br /> <span className="text-thin">{this.state.meetup.remainingRSVPs - attendees.length} spots left</span></h4>
+						<h4 className="hero-button-title">Are you coming? <br /> <span className="spots-left">{this.state.meetup.remainingRSVPs - attendees.length} <span className="text-thin">spots left</span></span></h4>
 						<div className="hero-button">
 							<div id="next-meetup" data-id={this.state.meetup._id} className="form-row meetup-toggle">
 								<div className="col-xs-6">

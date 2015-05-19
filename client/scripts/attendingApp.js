@@ -24,8 +24,8 @@ var App = React.createClass({
 	renderHeading: function() {
 		if (!this.state.attendees) return <h3 className="heading-with-line">...</h3>;
 		var count = this.state.attendees ? this.state.attendees.length : '...';
-		return <h3 className="heading-with-line">{count} people are attending</h3>;
-
+		var plural = count === 1 ? ' person is' : ' people are';
+		return <h3 className="heading-with-line"> {count + plural} attending</h3>;
 	},
 
 	render: function() {
@@ -43,8 +43,8 @@ var App = React.createClass({
 				<section className="attending">
 					{this.renderHeading()}
 					{<ul className="list-unstyled list-inline text-center attendees-list">
-											{resultsList}
-										</ul>}
+						{resultsList}
+					</ul>}
 				</section>
 			</div>
 		);
