@@ -6,9 +6,9 @@ var HeroApp = React.createClass({
 
 	getInitialState: function() {
 		return {
-			meetup: Keystone.meetup,
-			user: Keystone.user,
-			rsvpStatus: Keystone.rsvpStatus,
+			meetup: SydJS.meetup,
+			user: SydJS.user,
+			rsvpStatus: SydJS.rsvpStatus,
 			attendees: false
 		};
 	},
