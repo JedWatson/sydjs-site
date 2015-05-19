@@ -20,7 +20,7 @@ exports = module.exports = function(req, res) {
 				.sort('-startDate')
 				.exec(function(err, meetup) {
 					if (err) {
-						console.log('WTF: ', err)
+						console.log('Error finding meetup: ', err)
 					}
 					rtn.meetups.last = meetup;
 					return next();
@@ -33,13 +33,12 @@ exports = module.exports = function(req, res) {
 				.where('meetup', rtn.meetups.last)
 				.exec(function(err, rsvp) {
 					if (err) {
-						return console.log('Fucked out')
+						return console.log('Error finding RSVP', err)
 					}
 					rsvpStatus = {
 						rsvped: rsvp ? true : false,
 						attending: rsvp && rsvp.attending ? true : false
 					}
-					console.log('working yeah?')
 					return next();
 				});
 		},
@@ -50,7 +49,7 @@ exports = module.exports = function(req, res) {
 				.populate('who')
 				.exec(function(err, results) {
 					if (err) {
-						console.log('WTF: ', err);
+						console.log('Error ', err);
 						return next(err);
 					}
 					rtn.people = _.compact(results.map(function(rsvp) {

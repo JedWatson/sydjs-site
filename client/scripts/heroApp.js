@@ -5,35 +5,45 @@ var RSVPStore = require('../stores/rsvpStore');
 var HeroApp = React.createClass({
 
 	getInitialState: function() {
+		console.log("HeroApp - getInitialState")
 		return {
 			meetup: Keystone.meetup,
 			user: Keystone.user,
-			rsvpStatus: Keystone.rsvpStatus
+			rsvpStatus: Keystone.rsvpStatus,
+			attendees: false
 		};
 	},
 
-	sendRSVP: function(attending) {
+	componentDidMount: function() {
+		RSVPStore.addChangeListener(this.updateAttendees);
+	},
 
+	updateAttendees: function() {
+		this.setState({
+			attendees: RSVPStore.getAttendees()
+		});
+	},
+
+	sendRSVP: function(attending) {
 		var self = this;
 		RSVPStore.rsvp({
 			meetup: this.state.meetup._id,
 			attending: attending
 		}, function(data) {
-			console.log("What is the data?", data)
 			self.setState(data);
 		});
-
 	},
 
 	render: function() {
-		console.log("rsvpsAvailable",this.state.meetup.rsvpsAvailable)
+		var attendees =  this.state.attendees
+
 		if (this.state.user) {
 			var attending = this.state.rsvpStatus.attending ?  ' btn-success btn-default active' : null
 			var notAttending = this.state.rsvpStatus.attending ? null : ' btn-danger btn-default active' 
 			if(this.state.meetup.rsvpsAvailable || this.state.rsvpStatus.rsvped && this.state.rsvpStatus.attending) {
 				return (
 					<div>
-						<h4 className="hero-button-title">Are you coming? <br /> <span className="text-thin">{ this.state.meetup.remainingRSVPs} spots left</span></h4>
+						<h4 className="hero-button-title">Are you coming? <br /> <span className="text-thin">{this.state.meetup.remainingRSVPs - attendees.length} spots left</span></h4>
 						<div className="hero-button">
 							<div id="next-meetup" data-id={this.state.meetup._id} className="form-row meetup-toggle">
 								<div className="col-xs-6">

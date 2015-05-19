@@ -19,6 +19,7 @@
     "superagent": "^1.2.0",
     "connect-mongo": "^0.8.0",
     "crypto": "0.0.3",
+    "node-jsx": "^0.13.3",
     "dotenv": "^1.1.0",
     "keystone": "0.3.5",
     "keystone-utils": "^0.1.13",

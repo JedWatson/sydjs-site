@@ -12,21 +12,22 @@ function cancelRefresh() {
 }
 
 function loadAttendees(callback) {
+	console.log("RSVPStore - loading attendees");
 	cancelRefresh();
 	request
 		.get('/api/react/react')
 		.end(function(err, res) {
-			attendees = res.body;
 			if (err) {
 				console.log('Error with the AJAX request: ', err)
 			}
 			if (!err && res.body) {
+				refreshTimeout = setTimeout(RSVPStore.refreshAttendees, 2000);
+				attendees = res.body.people;
+				console.log("======Refreshing attendees======", attendees);
 				RSVPStore.notifyChange();
-			}
-			refreshTimeout = setTimeout(RSVPStore.refreshAttendees, 2000);
-			attendees = res.body.people;
-			RSVPStore.notifyChange();
-			return callback && callback(err, res.body)
+				return callback && callback(err, res.body)
+				}
+			
 		});
 }
 
