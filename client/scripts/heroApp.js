@@ -5,7 +5,6 @@ var RSVPStore = require('../stores/rsvpStore');
 var HeroApp = React.createClass({
 
 	getInitialState: function() {
-		console.log("HeroApp - getInitialState")
 		return {
 			meetup: Keystone.meetup,
 			user: Keystone.user,

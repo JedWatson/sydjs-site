@@ -5,7 +5,6 @@ var RSVPStore = require('../stores/rsvpStore');
 var App = React.createClass({
 
 	getInitialState: function() {
-		console.log("AttendingApp - getInitialState")
 		return {
 			loaded: RSVPStore.isLoaded(),
 			attendees: RSVPStore.getAttendees()
@@ -30,7 +29,6 @@ var App = React.createClass({
 
 	render: function() {
 		var results = this.state.attendees;
-		console.log("++++++Here are the results+++++",results.length)
 		var numberAttending = results.length
 		var resultsList;
 		if (results) {

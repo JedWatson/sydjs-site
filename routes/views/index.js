@@ -1,5 +1,5 @@
 var keystone = require('keystone'),
-	moment = require('moment');
+	moment = require('moment')
 
 var Meetup = keystone.list('Meetup'),
 	Post = keystone.list('Post'),
@@ -17,6 +17,8 @@ exports = module.exports = function(req, res) {
 	locals.rsvpStatus = {};
 
 	locals.user = req.user
+
+	// var HelloMessage = React.createFactory(components)
 	
 	// Load the first, NEXT meetup
 	
@@ -64,7 +66,6 @@ exports = module.exports = function(req, res) {
 			});
 			
 	});
-	
 	
 	// Decide which to render
 	

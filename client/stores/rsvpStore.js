@@ -12,7 +12,6 @@ function cancelRefresh() {
 }
 
 function loadAttendees(callback) {
-	console.log("RSVPStore - loading attendees");
 	cancelRefresh();
 	request
 		.get('/api/react/react')
@@ -23,7 +22,6 @@ function loadAttendees(callback) {
 			if (!err && res.body) {
 				refreshTimeout = setTimeout(RSVPStore.refreshAttendees, 2000);
 				attendees = res.body.people;
-				console.log("======Refreshing attendees======", attendees);
 				RSVPStore.notifyChange();
 				return callback && callback(err, res.body)
 				}
@@ -44,7 +42,6 @@ RSVPStore.extend({
 					return;
 				}
 				if (!err && res.body) {
-					console.log(res.body)
 				}
 				callback && callback({
 					rsvpStatus: { rsvped: true, attending: res.body.attending }
