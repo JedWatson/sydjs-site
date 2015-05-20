@@ -83,7 +83,7 @@ var HeroApp = React.createClass({
 	renderRSVPSignin: function() {
 		return (
 			<div className="hero-button">
-				<a className="btn btn-primary btn-lg btn-block js-auth-trigger">RSVP Now <span class="text-thin">({this.state.meetup.remainingRSVPs} spots left)</span></a>
+				<a className="btn btn-primary btn-lg btn-block js-auth-trigger">RSVP Now <span className="text-thin">({this.state.meetup.remainingRSVPs} spots left)</span></a>
 			</div>
 		);
 	},

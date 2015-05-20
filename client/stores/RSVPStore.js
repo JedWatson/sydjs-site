@@ -9,7 +9,7 @@ var meetup = {};
 var rsvp = {};
 var attendees = [];
 
-var REFRESH_INTERVAL = 10000; // 10 seconds
+var REFRESH_INTERVAL = 5000; // 5 seconds
 
 var refreshTimeout = null;
 function cancelRefresh() {
@@ -69,6 +69,7 @@ RSVPStore.extend({
 					attendees = res.body.attendees;
 					RSVPStore.notifyChange();
 				}
+				RSVPStore.queueMeetupRefresh();
 				return callback && callback(err, res.body);
 			});
 	},
