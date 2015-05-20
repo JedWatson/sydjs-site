@@ -6,34 +6,37 @@ var AttendingApp = React.createClass({
 
 	getInitialState: function() {
 		return {
-			loaded: RSVPStore.isLoaded(),
+			isReady: RSVPStore.isLoaded(),
 			attendees: RSVPStore.getAttendees()
 		};
 	},
 
 	componentDidMount: function() {
-		RSVPStore.addChangeListener(this.updateAttendees);
+		RSVPStore.addChangeListener(this.updateStoreFromState);
 	},
 
-	updateAttendees: function() {
+	componentWillUnmount: function() {
+		RSVPStore.removeChangeListener(this.updateStoreFromState);
+	},
+
+	updateStoreFromState: function() {
 		this.setState({
+			isReady: RSVPStore.isLoaded(),
 			attendees: RSVPStore.getAttendees()
 		});
 	},
 	
 	renderHeading: function() {
-		if (!this.state.attendees) return <h3 className="heading-with-line">...</h3>;
+		if (!this.state.isReady) return <h3 className="heading-with-line">...</h3>;
 		var count = this.state.attendees ? this.state.attendees.length : '...';
 		var plural = count === 1 ? ' person is' : ' people are';
 		return <h3 className="heading-with-line"> {count + plural} attending</h3>;
 	},
 
 	render: function() {
-		var results = this.state.attendees;
-		var numberAttending = results.length
-		var resultsList;
-		if (results) {
-			resultsList = results.map(function(person) {
+		var attendeesList;
+		if (this.state.isReady) {
+			attendeesList = this.state.attendees.map(function(person) {
 				return <li key={person.id}><a href={person.url}><img width="40" height="40" alt={person.name} className="img-circle" src={person.photo ? person.photo : "/images/avatar.png"} /></a></li>
 			});
 		}
@@ -41,9 +44,9 @@ var AttendingApp = React.createClass({
 			<div>
 				<section className="attending">
 					{this.renderHeading()}
-					{<ul className="list-unstyled list-inline text-center attendees-list">
-						{resultsList}
-					</ul>}
+					<ul className="list-unstyled list-inline text-center attendees-list">
+						{attendeesList}
+					</ul>
 				</section>
 			</div>
 		);
