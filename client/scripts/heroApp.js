@@ -1,6 +1,6 @@
 var React = require('react/addons');
 var request = require('superagent');
-var RSVPStore = require('../stores/rsvpStore');
+var RSVPStore = require('../stores/RSVPStore');
 
 var HeroApp = React.createClass({
 
