@@ -16,9 +16,7 @@ exports = module.exports = function(req, res) {
 	
 	locals.rsvpStatus = {};
 
-	locals.user = req.user
-
-	// var HelloMessage = React.createFactory(components)
+	locals.user = req.user;
 	
 	// Load the first, NEXT meetup
 	

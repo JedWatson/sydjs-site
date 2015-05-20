@@ -7,6 +7,8 @@ var RSVPStore = new Store();
 var attendees = false;
 var refreshTimeout = null;
 
+var REFRESH_INTERVAL = 10000; // 10 seconds
+
 function cancelRefresh() {
 	clearTimeout(refreshTimeout);
 }
@@ -20,7 +22,7 @@ function loadAttendees(callback) {
 				console.log('Error with the AJAX request: ', err)
 			}
 			if (!err && res.body) {
-				refreshTimeout = setTimeout(RSVPStore.refreshAttendees, 2000);
+				refreshTimeout = setTimeout(RSVPStore.refreshAttendees, REFRESH_INTERVAL);
 				attendees = res.body.people;
 				RSVPStore.notifyChange();
 				return callback && callback(err, res.body)
