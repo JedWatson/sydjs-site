@@ -5,29 +5,12 @@ var request = require('superagent');
 var RSVPStore = new Store();
 
 var attendees = false;
-var refreshTimeout = null;
 
 var REFRESH_INTERVAL = 10000; // 10 seconds
 
+var refreshTimeout = null;
 function cancelRefresh() {
 	clearTimeout(refreshTimeout);
-}
-
-function loadAttendees(callback) {
-	cancelRefresh();
-	request
-		.get('/api/activeMeetup')
-		.end(function(err, res) {
-			if (err) {
-				console.log('Error with the AJAX request: ', err)
-			}
-			if (!err && res.body) {
-				refreshTimeout = setTimeout(RSVPStore.refreshAttendees, REFRESH_INTERVAL);
-				attendees = res.body.people;
-				RSVPStore.notifyChange();
-				return callback && callback(err, res.body)
-			}
-		});
 }
 
 RSVPStore.extend({
@@ -50,7 +33,7 @@ RSVPStore.extend({
 						attending: data.attending
 					}
 				});
-				loadAttendees();
+				RSVPStore.queueAttendeeRefresh();
 			});
 	},
 
@@ -58,9 +41,28 @@ RSVPStore.extend({
 		return attendees ? true : false;
 	},
 
-	refreshAttendees: function(callback) {
-		loadAttendees(callback);
+	loadAttendees: function(callback) {
+		// ensure any scheduled refresh is stopped,
+		// in case this was called directly
+		cancelRefresh();
+		// request the update from the API
+		request
+			.get('/api/meetup')
+			.end(function(err, res) {
+				if (err) {
+					console.log('Error with the AJAX request: ', err)
+				}
+				if (!err && res.body) {
+					attendees = res.body.people;
+					RSVPStore.notifyChange();
+					return callback && callback(err, res.body)
+				}
+			});
 	},
+
+	queueAttendeeRefresh: function() {
+		refreshTimeout = setTimeout(RSVPStore.loadAttendees, REFRESH_INTERVAL);
+	}
 
 	getAttendees: function(callback) {
 		return attendees;
@@ -68,6 +70,6 @@ RSVPStore.extend({
 
 });
 
-loadAttendees();
+RSVPStore.loadAttendees();
 
 module.exports = RSVPStore;
