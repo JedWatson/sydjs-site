@@ -87,4 +87,4 @@ var HeroApp = React.createClass({
 	},
 });
 
-React.render(<HeroApp />, document.getElementById('react-hero-button'));
+module.exports = HeroApp;

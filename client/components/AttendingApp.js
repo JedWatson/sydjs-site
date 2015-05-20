@@ -2,7 +2,7 @@ var React = require('react/addons');
 var request = require('superagent');
 var RSVPStore = require('../stores/RSVPStore');
 
-var App = React.createClass({
+var AttendingApp = React.createClass({
 
 	getInitialState: function() {
 		return {
@@ -16,10 +16,11 @@ var App = React.createClass({
 	},
 
 	updateAttendees: function() {
-			this.setState({
-				attendees: RSVPStore.getAttendees()
-			});
+		this.setState({
+			attendees: RSVPStore.getAttendees()
+		});
 	},
+	
 	renderHeading: function() {
 		if (!this.state.attendees) return <h3 className="heading-with-line">...</h3>;
 		var count = this.state.attendees ? this.state.attendees.length : '...';
@@ -50,6 +51,5 @@ var App = React.createClass({
 
 });
 
-React.render(<App />, document.getElementById('react-attending'));
+module.exports = AttendingApp;
 
-{/* */}
