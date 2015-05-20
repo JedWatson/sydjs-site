@@ -1,3 +1,5 @@
+var React = require('react');
+
 /** Attendees */
 
 var AttendingApp = require('../components/AttendingApp.js');
