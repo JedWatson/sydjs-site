@@ -14,7 +14,7 @@ function cancelRefresh() {
 function loadAttendees(callback) {
 	cancelRefresh();
 	request
-		.get('/api/react/react')
+		.get('/api/activeMeetup')
 		.end(function(err, res) {
 			if (err) {
 				console.log('Error with the AJAX request: ', err)
@@ -24,8 +24,7 @@ function loadAttendees(callback) {
 				attendees = res.body.people;
 				RSVPStore.notifyChange();
 				return callback && callback(err, res.body)
-				}
-			
+			}
 		});
 }
 
@@ -44,7 +43,10 @@ RSVPStore.extend({
 				if (!err && res.body) {
 				}
 				callback && callback({
-					rsvpStatus: { rsvped: true, attending: res.body.attending }
+					rsvpStatus: {
+						rsvped: true,
+						attending: data.attending
+					}
 				});
 				loadAttendees();
 			});
