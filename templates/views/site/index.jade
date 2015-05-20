@@ -92,8 +92,10 @@ block content
 //- JS
 block js
 	script.
-		SydJS.user = !{JSON.stringify(user)};
 		SydJS.currentMeetupId = !{JSON.stringify(meetup.id)};
+	if user
+		script.
+			SydJS.user = !{JSON.stringify(user)};
 
 	//- REACT SCRIPTS
 	script(src='/js/packages.js')
