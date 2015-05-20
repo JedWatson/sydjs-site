@@ -107,7 +107,7 @@ exports = module.exports = function(app) {
 	app.all('/api*', keystone.middleware.api);
 	app.all('/api/me/meetup', routes.api.me.meetup);
 	app.all('/api/stats', routes.api.stats);
-	app.all('/api/activeMeetup', routes.api.activeMeetup);
+	app.all('/api/meetup/:id', routes.api.meetup);
 	
 	// API - App
 	app.all('/api/app/status', routes.api.app.status);

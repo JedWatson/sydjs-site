@@ -6,9 +6,11 @@ var RSVP = keystone.list('RSVP');
 
 exports = module.exports = function(req, res) {
 
+	var meetupId = req.params.id;
+
 	var rtn = {
 		meetup: {},
-		people: [],
+		attendees: [],
 		rsvp: {
 			exists: false,
 			attending: false
@@ -18,16 +20,13 @@ exports = module.exports = function(req, res) {
 	async.series([
 
 		function(next) {
-			keystone.list('Meetup').model.findOne()
-				.where('state', 'active')
-				.sort('-startDate')
-				.exec(function(err, meetup) {
-					if (err) {
-						console.log('Error finding meetup: ', err)
-					}
-					rtn.meetup = meetup;
-					return next();
-				});
+			keystone.list('Meetup').model.findById(meetupId, function(err, meetup) {
+				if (err) {
+					console.log('Error finding meetup: ', err)
+				}
+				rtn.meetup = meetup;
+				return next();
+			});
 		},
 
 		function(next) {
@@ -58,7 +57,7 @@ exports = module.exports = function(req, res) {
 						console.log('Error loading attendee RSVPs', err);
 					}
 					if (results) {
-						rtn.people = _.compact(results.map(function(rsvp) {
+						rtn.attendees = _.compact(results.map(function(rsvp) {
 							if (!rsvp.who) return;
 							return {
 								url: rsvp.who.isPublic ? rsvp.who.url : false,

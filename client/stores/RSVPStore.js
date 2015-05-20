@@ -4,7 +4,10 @@ var request = require('superagent');
 
 var RSVPStore = new Store();
 
-var attendees = false;
+var loaded = false;
+var meetup = {};
+var rsvp = {};
+var attendees = [];
 
 var REFRESH_INTERVAL = 10000; // 10 seconds
 
@@ -14,6 +17,18 @@ function cancelRefresh() {
 }
 
 RSVPStore.extend({
+
+	getMeetup: function() {
+		return meetup;
+	},
+
+	getRSVP: function() {
+		return rsvp;
+	},
+
+	getAttendees: function(callback) {
+		return attendees;
+	},
 
 	rsvp: function(data, callback) {
 		cancelRefresh();
@@ -33,43 +48,41 @@ RSVPStore.extend({
 						attending: data.attending
 					}
 				});
-				RSVPStore.queueAttendeeRefresh();
+				RSVPStore.queueMeetupRefresh();
 			});
 	},
 
 	isLoaded: function() {
-		return attendees ? true : false;
+		return loaded ? true : false;
 	},
 
-	loadAttendees: function(callback) {
+	getMeetupData: function(callback) {
 		// ensure any scheduled refresh is stopped,
 		// in case this was called directly
 		cancelRefresh();
 		// request the update from the API
 		request
-			.get('/api/meetup')
+			.get('/api/meetup/' + SydJS.currentMeetupId)
 			.end(function(err, res) {
 				if (err) {
 					console.log('Error with the AJAX request: ', err)
 				}
 				if (!err && res.body) {
-					attendees = res.body.people;
+					loaded = true;
+					meetup = res.body.meetup;
+					rsvp = res.body.rsvp;
+					attendees = res.body.attendees;
 					RSVPStore.notifyChange();
-					return callback && callback(err, res.body)
 				}
+				return callback && callback(err, res.body);
 			});
 	},
 
-	queueAttendeeRefresh: function() {
-		refreshTimeout = setTimeout(RSVPStore.loadAttendees, REFRESH_INTERVAL);
-	}
-
-	getAttendees: function(callback) {
-		return attendees;
+	queueMeetupRefresh: function() {
+		refreshTimeout = setTimeout(RSVPStore.getMeetupData, REFRESH_INTERVAL);
 	}
 
 });
 
-RSVPStore.loadAttendees();
-
+RSVPStore.getMeetupData();
 module.exports = RSVPStore;
