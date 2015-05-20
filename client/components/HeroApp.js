@@ -55,55 +55,69 @@ var HeroApp = React.createClass({
 		);
 	},
 
-	renderSignedIn: function() {
+	renderRSVPButton: function() {
+		return (
+			<div className="hero-button">
+				<a className="btn btn-primary btn-lg btn-block">
+					RSVP Now (<span className="text-thin">{this.state.meetup.remainingRSVPs} spots left</span>)
+				</a>
+			</div>
+		);
+	},
+
+	renderRSVPToggle: function() {
 		var attending = this.state.rsvp.attending ?  ' btn-success btn-default active' : null;
 		var notAttending = this.state.rsvp.attending ? null : ' btn-danger btn-default active';
-		if(this.state.meetup.rsvpsAvailable || this.state.rsvp.rsvped && this.state.rsvp.attending) {
-			return (
-				<div>
-					{this.renderWelcome()}
-					<div className="hero-button">
-						<div id="next-meetup" data-id={this.state.meetup._id} className="form-row meetup-toggle">
-							<div className="col-xs-6">
-								<button type="button" onClick={this.sendRSVP.bind(this, true)} className={"btn btn-lg btn-block btn-default js-rsvp-attending" + attending}>Yes</button>
-							</div>
-							<div className="col-xs-6">
-								<button type="button" onClick={this.sendRSVP.bind(this, false)} className={"btn btn-lg btn-block btn-default js-rsvp-decline" + notAttending}>No</button>
-							</div>
+		return (
+			<div>
+				{this.renderWelcome()}
+				<div className="hero-button">
+					<div id="next-meetup" data-id={this.state.meetup._id} className="form-row meetup-toggle">
+						<div className="col-xs-6">
+							<button type="button" onClick={this.sendRSVP.bind(this, true)} className={"btn btn-lg btn-block btn-default js-rsvp-attending" + attending}>Yes</button>
+						</div>
+						<div className="col-xs-6">
+							<button type="button" onClick={this.sendRSVP.bind(this, false)} className={"btn btn-lg btn-block btn-default js-rsvp-decline" + notAttending}>No</button>
 						</div>
 					</div>
 				</div>
-			);
-		} else {
-			return (
-				<div className="hero-button">
-					<div className="alert alert-success mb-0 text-center">No more tickets...</div>
-				</div>
-			);
-		}
+			</div>
+		);
 	},
 
-	renderSignedOut: function() {
-		if (this.state.meetup.rsvpsAvailable) {
-			return (
-				<div className="hero-button">
-					<a className="btn btn-primary btn-lg btn-block js-auth-trigger">RSVP Now (<span class="text-thin">{this.state.meetup.remainingRSVPs} spots left</span>)</a>
-				</div>
-			)
-		} else {
-			return (
-				<div className="hero-button">
-					<div className="alert alert-success mb-0 text-center">No more tickets...</div>
-				</div>
-			);
-		}
+	renderRSVPSignin: function() {
+		return (
+			<div className="hero-button">
+				<a className="btn btn-primary btn-lg btn-block js-auth-trigger">RSVP Now <span class="text-thin">({this.state.meetup.remainingRSVPs} spots left)</span></a>
+			</div>
+		);
+	},
+
+	renderNoMoreTickets: function() {
+		return (
+			<div className="hero-button">
+				<div className="alert alert-success mb-0 text-center">No more tickets...</div>
+			</div>
+		);
 	},
 
 	render: function() {
 		if (!this.state.isReady) {
 			return this.renderLoading();
 		}
-		return this.state.user ? this.renderSignedIn() : this.renderSignedOut();
+		if (this.state.user) {
+			if (this.state.meetup.rsvpsAvailable) {
+				if (this.state.rsvp.exists) {
+					return this.renderRSVPToggle();
+				} else {
+					return this.renderRSVPButton();
+				}
+			} else {
+				return this.renderNoMoreTickets();
+			}
+		} else {
+			return this.state.meetup.rsvpsAvailable ? this.renderRSVPSignin() : this.renderNoMoreTickets();
+		}
 	},
 });
 
