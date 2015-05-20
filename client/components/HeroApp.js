@@ -29,14 +29,9 @@ var HeroApp = React.createClass({
 		});
 	},
 
-	sendRSVP: function(attending) {
+	toggleRSVP: function(attending) {
 		var self = this;
-		RSVPStore.rsvp({
-			meetup: this.state.meetup._id,
-			attending: attending
-		}, function(data) {
-			self.setState(data);
-		});
+		RSVPStore.rsvp(attending);
 	},
 
 	renderWelcome: function() {
@@ -57,7 +52,7 @@ var HeroApp = React.createClass({
 
 	renderRSVPButton: function() {
 		return (
-			<div className="hero-button">
+			<div className="hero-button" onClick={this.toggleRSVP.bind(this, true)}>
 				<a className="btn btn-primary btn-lg btn-block">
 					RSVP Now (<span className="text-thin">{this.state.meetup.remainingRSVPs} spots left</span>)
 				</a>
@@ -74,10 +69,10 @@ var HeroApp = React.createClass({
 				<div className="hero-button">
 					<div id="next-meetup" data-id={this.state.meetup._id} className="form-row meetup-toggle">
 						<div className="col-xs-6">
-							<button type="button" onClick={this.sendRSVP.bind(this, true)} className={"btn btn-lg btn-block btn-default js-rsvp-attending" + attending}>Yes</button>
+							<button type="button" onClick={this.toggleRSVP.bind(this, true)} className={"btn btn-lg btn-block btn-default js-rsvp-attending" + attending}>Yes</button>
 						</div>
 						<div className="col-xs-6">
-							<button type="button" onClick={this.sendRSVP.bind(this, false)} className={"btn btn-lg btn-block btn-default js-rsvp-decline" + notAttending}>No</button>
+							<button type="button" onClick={this.toggleRSVP.bind(this, false)} className={"btn btn-lg btn-block btn-default js-rsvp-decline" + notAttending}>No</button>
 						</div>
 					</div>
 				</div>

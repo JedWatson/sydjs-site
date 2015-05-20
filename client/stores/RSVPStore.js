@@ -30,25 +30,20 @@ RSVPStore.extend({
 		return attendees;
 	},
 
-	rsvp: function(data, callback) {
+	rsvp: function(attending, callback) {
 		cancelRefresh();
 		request
 			.post('/api/me/meetup')
-			.send({ data: data })
+			.send({ data: {
+				meetup: SydJS.currentMeetupId,
+				attending: attending
+			}})
 			.end(function(err, res) {
 				if (err) {
 					console.log('Error with the AJAX request: ', err)
 					return;
 				}
-				if (!err && res.body) {
-				}
-				callback && callback({
-					rsvpStatus: {
-						rsvped: true,
-						attending: data.attending
-					}
-				});
-				RSVPStore.queueMeetupRefresh();
+				RSVPStore.getMeetupData();
 			});
 	},
 
