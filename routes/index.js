@@ -1,7 +1,10 @@
-var _ = require('underscore'),
-	keystone = require('keystone'),
-	middleware = require('./middleware'),
-	importRoutes = keystone.importer(__dirname);
+var _ = require('underscore');
+var keystone = require('keystone');
+var browserify = require('browserify-middleware');
+var babelify = require('babelify');
+var middleware = require('./middleware');
+var importRoutes = keystone.importer(__dirname);
+var clientConfig = require('../client/config');
 
 // Common Middleware
 keystone.pre('routes', middleware.initErrorHandlers);
@@ -33,6 +36,17 @@ var routes = {
 
 // Bind Routes
 exports = module.exports = function(app) {
+
+	// Browserification
+	app.get('/js/packages.js', browserify(clientConfig.packages, {
+		cache: true,
+		precompile: true
+	}));
+
+	app.use('/js', browserify('./client/scripts', {
+		external: clientConfig.packages,
+		transform: ['babelify']
+	}));
 	
 	// Allow cross-domain requests (development only)
 	if (process.env.NODE_ENV != 'production') {
@@ -93,6 +107,7 @@ exports = module.exports = function(app) {
 	app.all('/api*', keystone.middleware.api);
 	app.all('/api/me/meetup', routes.api.me.meetup);
 	app.all('/api/stats', routes.api.stats);
+	app.all('/api/meetup/:id', routes.api.meetup);
 	
 	// API - App
 	app.all('/api/app/status', routes.api.app.status);
