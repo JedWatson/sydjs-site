@@ -38,6 +38,6 @@
     "npm": "1.3.x"
   },
   "scripts": {
-    "start": "keystone.js"
+    "start": "node keystone.js"
   }
 }
