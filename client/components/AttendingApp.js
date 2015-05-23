@@ -12,14 +12,14 @@ var AttendingApp = React.createClass({
 	},
 
 	componentDidMount: function() {
-		RSVPStore.addChangeListener(this.updateStoreFromState);
+		RSVPStore.addChangeListener(this.updateStateFromStore);
 	},
 
 	componentWillUnmount: function() {
-		RSVPStore.removeChangeListener(this.updateStoreFromState);
+		RSVPStore.removeChangeListener(this.updateStateFromStore);
 	},
 
-	updateStoreFromState: function() {
+	updateStateFromStore: function() {
 		this.setState({
 			isReady: RSVPStore.isLoaded(),
 			attendees: RSVPStore.getAttendees()
