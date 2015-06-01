@@ -80,10 +80,16 @@ var HeroApp = React.createClass({
 		);
 	},
 
+	// MAKESHIFT WAY TO EXPOSE JQUERY AUTH LOGIC TO REACT
+	signinModalTrigger: function (e) {
+		e.preventDefault;
+		window.signinModalTrigger(e);
+	},
+
 	renderRSVPSignin: function() {
 		return (
 			<div className="hero-button">
-				<a className="btn btn-primary btn-lg btn-block js-auth-trigger">RSVP Now <span className="text-thin">({this.state.meetup.remainingRSVPs} spots left)</span></a>
+				<a className="btn btn-primary btn-lg btn-block js-auth-trigger" onClick={this.signinModalTrigger}>RSVP Now <span className="text-thin">({this.state.meetup.remainingRSVPs} spots left)</span></a>
 			</div>
 		);
 	},

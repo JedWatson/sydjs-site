@@ -71,10 +71,12 @@ $(function() {
 	// start on the right pane
 	// defaults to "join"
 	// options "signin" | "join" | "password"
-	$("[href='#modal-auth'], [data-modal='auth'], .js-auth-trigger").click( function(e) {
+
+	// MAKESHIFT WAY TO EXPOSE JQUERY AUTH LOGIC TO REACT
+	window.signinModalTrigger = function signinModalTrigger(e) {
 
 		e.preventDefault();
-		
+
 		var initial = $(this).data("initial") || 'join';
 		var initialPane = $authmodal.find('.modal-pane-' + initial);
 		var from = $(this).data("from");
@@ -93,7 +95,9 @@ $(function() {
 		if (from) {
 			$authmodal.find('[name="from"]').val(from);
 		}
-	});
+	}
+
+	$("[href='#modal-auth'], [data-modal='auth'], .js-auth-trigger").on('click', signinModalTrigger);
 	
 	// move between panes
 	$("[rel='modal-pane']").click( function() {
