@@ -55,4 +55,3 @@ var AttendingApp = React.createClass({
 });
 
 module.exports = AttendingApp;
-
