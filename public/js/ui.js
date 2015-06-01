@@ -72,7 +72,7 @@ $(function() {
 	// defaults to "join"
 	// options "signin" | "join" | "password"
 	$("[href='#modal-auth'], [data-modal='auth'], .js-auth-trigger").click( function(e) {
-		
+
 		e.preventDefault();
 		
 		var initial = $(this).data("initial") || 'join';
