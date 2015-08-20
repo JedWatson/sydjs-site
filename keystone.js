@@ -10,8 +10,8 @@ if (process.env.NEW_RELIC_APP_NAME && process.env.NEW_RELIC_LICENSE_KEY) {
  * Application Initialisation
  */
 
-var keystone = require('keystone'),
-	pkg = require('./package.json');
+var keystone = require('keystone');
+var pkg = require('./package.json');
 
 keystone.init({
 
@@ -26,7 +26,7 @@ keystone.init({
 	'views': 'templates/views',
 	'view engine': 'jade',
 	'view cache': false,
-	
+
 	'emails': 'templates/emails',
 
 	'auto update': true,
@@ -37,7 +37,7 @@ keystone.init({
 	'auth': true,
 	'user model': 'User',
 	'cookie secret': process.env.COOKIE_SECRET || 'sydjs',
-	
+
 	'mandrill api key': process.env.MANDRILL_KEY,
 
 	'google api key': process.env.GOOGLE_BROWSER_KEY,
@@ -45,12 +45,12 @@ keystone.init({
 
 	'ga property': process.env.GA_PROPERTY,
 	'ga domain': process.env.GA_DOMAIN,
-	
+
 	'chartbeat property': process.env.CHARTBEAT_PROPERTY,
 	'chartbeat domain': process.env.CHARTBEAT_DOMAIN,
 
 	'basedir': __dirname
-	
+
 });
 
 keystone.import('models');

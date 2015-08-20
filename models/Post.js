@@ -1,6 +1,6 @@
-var keystone = require('keystone'),
-	async = require('async'),
-	Types = keystone.Field.Types;
+var async = require('async');
+var keystone = require('keystone');
+var Types = keystone.Field.Types;
 
 /**
  * Posts Model
@@ -50,16 +50,11 @@ Post.relationship({ ref: 'PostComment', refPath: 'post', path: 'comments' });
  */
 
 Post.schema.methods.notifyAdmins = function(callback) {
-	
 	var post = this;
-	
 	// Method to send the notification email after data has been loaded
 	var sendEmail = function(err, results) {
-		
 		if (err) return callback(err);
-		
 		async.each(results.admins, function(admin, done) {
-			
 			new keystone.Email('admin-notification-new-post').send({
 				admin: admin.name.first || admin.name.full,
 				author: results.author ? results.author.name.full : 'Somebody',
@@ -73,11 +68,8 @@ Post.schema.methods.notifyAdmins = function(callback) {
 					email: 'contact@sydjs.com'
 				}
 			}, done);
-			
 		}, callback);
-		
 	}
-	
 	// Query data in parallel
 	async.parallel({
 		author: function(next) {
@@ -88,8 +80,7 @@ Post.schema.methods.notifyAdmins = function(callback) {
 			keystone.list('User').model.find().where('isAdmin', true).exec(next)
 		}
 	}, sendEmail);
-	
-}
+};
 
 
 /**

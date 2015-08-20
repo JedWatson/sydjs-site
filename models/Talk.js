@@ -1,6 +1,6 @@
-var keystone = require('keystone'),
-	_ = require('underscore'),
-	Types = keystone.Field.Types;
+var _ = require('underscore');
+var keystone = require('keystone');
+var Types = keystone.Field.Types;
 
 /**
  * Talks Model
@@ -26,9 +26,7 @@ Talk.add({
 Talk.schema.set('toJSON', {
 	virtuals: true,
 	transform: function(doc, rtn, options) {
-		
 		rtn = _.pick(rtn, '_id', 'name', 'place', 'map', 'description', 'slides', 'link');
-		
 		if (doc.who) {
 			rtn.who = doc.who.map(function(i) {
 				return {
@@ -38,9 +36,7 @@ Talk.schema.set('toJSON', {
 				}
 			});
 		}
-		
 		return rtn;
-		
 	}
 });
 
