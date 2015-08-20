@@ -60,6 +60,10 @@ If you want to run against a different server or database, add a line to your `.
 
 When it's all up and running, you should see the message `SydJS is ready on port 3000` and you'll be able to browse the site on [localhost:3000](http://localhost:3000).
 
+### Facebook login
+Add `FACEBOOK_API=X.x` in your .env file.
+For Facebook API >= 2.4 you must specify the fields you want to get in user profile.
+
 ### Here be ~~dragons~~ errors
 
 #### or, how you don't have any content yet
