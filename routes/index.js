@@ -100,9 +100,6 @@ exports = module.exports = function(app) {
 	// Tools
 	app.all('/notification-center', routes.views.tools['notification-center']);
 
-	// Maintenace
-	app.all('/maintenance', routes.views.maintenance);
-
 	// API
 	app.all('/api*', keystone.middleware.api);
 	app.all('/api/me/meetup', routes.api.me.meetup);
