@@ -14,8 +14,6 @@
     "connect-mongo": "^0.8.1",
     "crypto": "0.0.3",
     "dotenv": "^1.1.0",
-    "jsx": "^0.9.89",
-    "keystone": "0.3.10",
     "keystone-utils": "^0.1.13",
     "lodash": "^3.9.1",
     "moment": "^2.10.3",
