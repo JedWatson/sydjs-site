@@ -12,6 +12,29 @@ function getMeetup (id) {
 	}
 }
 
+var meetupStateEnum = new GraphQL.GraphQLEnumType({
+	name: 'MeetupState',
+	description: 'The state of the meetup',
+	values: {
+		draft: {
+			value: 'draft',
+			description: 'Draft'
+		},
+		scheduled: {
+			value: 'scheduled',
+			description: 'Scheduled'
+		},
+		active: {
+			value: 'active',
+			description: 'Active'
+		},
+		past: {
+			value: 'past',
+			description: 'Past'
+		},
+	},
+});
+
 var meetupType = new GraphQL.GraphQLObjectType({
 	name: 'Meetup',
 	fields: () => ({
@@ -22,6 +45,33 @@ var meetupType = new GraphQL.GraphQLObjectType({
 		name: {
 			type: GraphQL.GraphQLString,
 			description: 'The name of the meetup.',
+		},
+		publishedDate: {
+			type: GraphQL.GraphQLString,
+		},
+		state: {
+			type: meetupStateEnum,
+		},
+		startDate: {
+			type: GraphQL.GraphQLString,
+		},
+		endDate: {
+			type: GraphQL.GraphQLString,
+		},
+		place: {
+			type: GraphQL.GraphQLString,
+		},
+		map: {
+			type: GraphQL.GraphQLString,
+		},
+		description: {
+			type: GraphQL.GraphQLString,
+		},
+		maxRSVPs: {
+			type: GraphQL.GraphQLInt,
+		},
+		totalRSVPs: {
+			type: GraphQL.GraphQLInt,
 		},
 	}),
 });
