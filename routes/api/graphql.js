@@ -1,6 +1,8 @@
 var GraphQL = require('graphql');
 var keystone = require('keystone');
+
 var Meetup = keystone.list('Meetup');
+var Talk = keystone.list('Talk');
 
 function getMeetup (id) {
 	if (id === 'next') {
@@ -76,6 +78,42 @@ var meetupType = new GraphQL.GraphQLObjectType({
 	}),
 });
 
+var talkType = new GraphQL.GraphQLObjectType({
+	name: 'Talk',
+	fields: () => ({
+		id: {
+			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString),
+			description: 'The id of the talk.',
+		},
+		name: {
+			type: GraphQL.GraphQLString,
+			description: 'The title of the talk.',
+		},
+		isLightningTalk: {
+			type: GraphQL.GraphQLBoolean,
+			description: 'Whether the talk is a Lightning talk',
+		},
+		meetup: {
+			type: meetupType,
+			description: 'The Meetup the talk is scheduled for',
+		},
+		// TODO: who (relationship to User)
+		description: {
+			type: GraphQL.GraphQLString,
+		},
+		slides: {
+			type: GraphQL.GraphQLString,
+		},
+		link: {
+			type: GraphQL.GraphQLString,
+		},
+	}),
+});
+
+function getTalk (id) {
+	return Talk.model.findById(id);
+}
+
 var schema = new GraphQL.GraphQLSchema({
 	query: new GraphQL.GraphQLObjectType({
 		name: 'RootQueryType',
@@ -89,6 +127,16 @@ var schema = new GraphQL.GraphQLSchema({
 					},
 				},
 				resolve: (root, args) => getMeetup(args.id),
+			},
+			talk: {
+				type: talkType,
+				args: {
+					id: {
+						description: 'id of the talk',
+						type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString)
+					},
+				},
+				resolve: (root, args) => getTalk(args.id),
 			},
 		}),
 	}),
