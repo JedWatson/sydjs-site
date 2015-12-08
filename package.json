@@ -40,6 +40,7 @@
     "npm": "1.3.x"
   },
   "scripts": {
-    "start": "node keystone.js"
+    "start": "node keystone.js",
+    "print-graphql-schema": "node ./graphql/scripts/printSchema.js"
   }
 }
