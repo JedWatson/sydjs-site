@@ -114,7 +114,7 @@ function getTalk (id) {
 	return Talk.model.findById(id);
 }
 
-var schema = new GraphQL.GraphQLSchema({
+module.exports = new GraphQL.GraphQLSchema({
 	query: new GraphQL.GraphQLObjectType({
 		name: 'RootQueryType',
 		fields: () => ({
@@ -141,10 +141,3 @@ var schema = new GraphQL.GraphQLSchema({
 		}),
 	}),
 });
-
-module.exports = function (req, res) {
-	GraphQL.graphql(schema, req.body)
-		.then((result) => {
-			res.send(JSON.stringify(result, null, 2));
-		});
-}
