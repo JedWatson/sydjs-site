@@ -6,11 +6,13 @@ var Talk = keystone.list('Talk');
 
 function getMeetup (id) {
 	if (id === 'next') {
-		return Meetup.model.findOne().sort('-startDate').where('state', 'active');
+		return Meetup.model.findOne().sort('-startDate')
+						.where('state', 'active').exec();
 	} else if (id === 'last') {
-		return Meetup.model.findOne().sort('-startDate').where('state', 'past');
+		return Meetup.model.findOne().sort('-startDate')
+						.where('state', 'past').exec();
 	} else {
-		return Meetup.model.findById(id);
+		return Meetup.model.findById(id).exec();
 	}
 }
 
