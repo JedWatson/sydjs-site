@@ -1,5 +1,11 @@
 {
   "extends": "standard",
+  "plugins": [
+    "react"
+  ],
+  "ecmaFeatures": {
+    "jsx": true
+  },
   "rules": {
     "indent": [2, "tab"],
     "semi": [2, "always"]
