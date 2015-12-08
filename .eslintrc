@@ -1,0 +1,7 @@
+{
+  "extends": "standard",
+  "rules": {
+    "indent": [2, "tab"],
+    "semi": [2, "always"]
+  }
+}
