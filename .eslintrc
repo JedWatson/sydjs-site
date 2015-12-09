@@ -1,13 +1,14 @@
 {
   "extends": "standard",
   "plugins": [
-    "react"
+    "react",
   ],
   "ecmaFeatures": {
-    "jsx": true
+    "jsx": true,
   },
   "rules": {
     "indent": [2, "tab"],
-    "semi": [2, "always"]
-  }
+    "semi": [2, "always"],
+    "comma-dangle": [2, "always-multiline"],
+  },
 }

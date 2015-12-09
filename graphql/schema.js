@@ -22,18 +22,18 @@ var meetupStateEnum = new GraphQL.GraphQLEnumType({
 	description: 'The state of the meetup',
 	values: {
 		draft: {
-			description: "No published date, it's a draft meetup"
+			description: "No published date, it's a draft meetup",
 		},
 		scheduled: {
-			description: "Publish date is before today, it's a scheduled meetup"
+			description: "Publish date is before today, it's a scheduled meetup",
 		},
 		active: {
-			description: "Publish date is after today, it's an active meetup"
+			description: "Publish date is after today, it's an active meetup",
 		},
 		past: {
-			description: "Meetup date plus one day is after today, it's a past meetup"
-		}
-	}
+			description: "Meetup date plus one day is after today, it's a past meetup",
+		},
+	},
 });
 
 var meetupType = new GraphQL.GraphQLObjectType({
@@ -41,76 +41,76 @@ var meetupType = new GraphQL.GraphQLObjectType({
 	fields: {
 		id: {
 			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString),
-			description: 'The id of the meetup.'
+			description: 'The id of the meetup.',
 		},
 		name: {
 			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString),
-			description: 'The name of the meetup.'
+			description: 'The name of the meetup.',
 		},
 		publishedDate: {
-			type: GraphQL.GraphQLString
+			type: GraphQL.GraphQLString,
 		},
 		state: {
-			type: new GraphQL.GraphQLNonNull(meetupStateEnum)
+			type: new GraphQL.GraphQLNonNull(meetupStateEnum),
 		},
 		startDate: {
-			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString)
+			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString),
 		},
 		endDate: {
-			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString)
+			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString),
 		},
 		place: {
-			type: GraphQL.GraphQLString
+			type: GraphQL.GraphQLString,
 		},
 		map: {
-			type: GraphQL.GraphQLString
+			type: GraphQL.GraphQLString,
 		},
 		description: {
-			type: GraphQL.GraphQLString
+			type: GraphQL.GraphQLString,
 		},
 		maxRSVPs: {
-			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLInt)
+			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLInt),
 		},
 		totalRSVPs: {
-			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLInt)
+			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLInt),
 		},
 		url: {
-			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString)
+			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString),
 		},
 		remainingRSVPs: {
-			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLInt)
+			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLInt),
 		},
 		rsvpsAvailable: {
-			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLBoolean)
-		}
-	}
+			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLBoolean),
+		},
+	},
 });
 
 var userNameType = new GraphQL.GraphQLObjectType({
 	name: 'UserName',
 	fields: {
 		first: {
-			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString)
+			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString),
 		},
 		last: {
-			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString)
+			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString),
 		},
 		full: {
-			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString)
-		}
-	}
+			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString),
+		},
+	},
 });
 
 var userType = new GraphQL.GraphQLObjectType({
 	name: 'User',
 	fields: {
 		name: {
-			type: new GraphQL.GraphQLNonNull(userNameType)
+			type: new GraphQL.GraphQLNonNull(userNameType),
 		},
 		email: {
-			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString)
-		}
-	}
+			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString),
+		},
+	},
 });
 
 var talkType = new GraphQL.GraphQLObjectType({
@@ -118,38 +118,38 @@ var talkType = new GraphQL.GraphQLObjectType({
 	fields: {
 		id: {
 			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString),
-			description: 'The id of the talk.'
+			description: 'The id of the talk.',
 		},
 		name: {
 			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString),
-			description: 'The title of the talk.'
+			description: 'The title of the talk.',
 		},
 		isLightningTalk: {
 			type: GraphQL.GraphQLBoolean,
-			description: 'Whether the talk is a Lightning talk'
+			description: 'Whether the talk is a Lightning talk',
 		},
 		meetup: {
 			type: new GraphQL.GraphQLNonNull(meetupType),
 			description: 'The Meetup the talk is scheduled for',
 			resolve: (source, args, info) =>
-				Meetup.model.findById(source.meetup).exec()
+				Meetup.model.findById(source.meetup).exec(),
 		},
 		who: {
 			type: new GraphQL.GraphQLList(userType),
 			description: 'A list of at least one User running the talk',
 			resolve: (source, args, info) =>
-				User.model.find().where('_id').in(source.who).exec()
+				User.model.find().where('_id').in(source.who).exec(),
 		},
 		description: {
-			type: GraphQL.GraphQLString
+			type: GraphQL.GraphQLString,
 		},
 		slides: {
-			type: GraphQL.GraphQLString
+			type: GraphQL.GraphQLString,
 		},
 		link: {
-			type: GraphQL.GraphQLString
-		}
-	}
+			type: GraphQL.GraphQLString,
+		},
+	},
 });
 
 function getTalk (id) {
@@ -168,24 +168,24 @@ var queryRootType = new GraphQL.GraphQLObjectType({
 			args: {
 				id: {
 					description: 'id of the meetup, can be "next" or "last"',
-					type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString)
-				}
+					type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString),
+				},
 			},
-			resolve: (root, args) => getMeetup(args.id)
+			resolve: (root, args) => getMeetup(args.id),
 		},
 		talk: {
 			type: talkType,
 			args: {
 				id: {
 					description: 'id of the talk',
-					type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString)
-				}
+					type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString),
+				},
 			},
-			resolve: (root, args) => getTalk(args.id)
-		}
-	}
+			resolve: (root, args) => getTalk(args.id),
+		},
+	},
 });
 
 module.exports = new GraphQL.GraphQLSchema({
-	query: queryRootType
+	query: queryRootType,
 });
