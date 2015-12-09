@@ -42,7 +42,7 @@ var meetupType = new GraphQL.GraphQLObjectType({
 	name: 'Meetup',
 	fields: () => ({
 		id: {
-			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString),
+			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLID),
 			description: 'The id of the meetup.',
 		},
 		name: {
@@ -100,7 +100,7 @@ var talkType = new GraphQL.GraphQLObjectType({
 	name: 'Talk',
 	fields: () => ({
 		id: {
-			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString),
+			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLID),
 			description: 'The id of the talk.',
 		},
 		name: {
@@ -138,6 +138,10 @@ var talkType = new GraphQL.GraphQLObjectType({
 var userType = new GraphQL.GraphQLObjectType({
 	name: 'User',
 	fields: {
+		id: {
+			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLID),
+			description: 'The id of the user.',
+		},
 		name: {
 			type: new GraphQL.GraphQLNonNull(keystoneTypes.name),
 		},
@@ -150,6 +154,10 @@ var userType = new GraphQL.GraphQLObjectType({
 var rsvpType = new GraphQL.GraphQLObjectType({
 	name: 'RSVP',
 	fields: {
+		id: {
+			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLID),
+			description: 'The id of the RSVP.',
+		},
 		meetup: {
 			type: new GraphQL.GraphQLNonNull(meetupType),
 			resolve: (source) => Meetup.model.findById(source.meetup).exec(),
@@ -170,7 +178,7 @@ var queryRootType = new GraphQL.GraphQLObjectType({
 			args: {
 				id: {
 					description: 'id of the meetup, can be "next" or "last"',
-					type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString),
+					type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLID),
 				},
 			},
 			resolve: (_, args) => getMeetup(args.id),
@@ -180,7 +188,7 @@ var queryRootType = new GraphQL.GraphQLObjectType({
 			args: {
 				id: {
 					description: 'id of the talk',
-					type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString),
+					type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLID),
 				},
 			},
 			resolve: (_, args) => Talk.model.findById(args.id).exec(),
