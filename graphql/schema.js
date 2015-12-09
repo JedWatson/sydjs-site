@@ -104,7 +104,10 @@ var talkType = new GraphQL.GraphQLObjectType({
 			type: new GraphQL.GraphQLNonNull(meetupType),
 			description: 'The Meetup the talk is scheduled for'
 		},
-		// TODO: who (relationship to User)
+		who: {
+			type: new GraphQL.GraphQLList(userType),
+			description: 'A list of at least one User running the talk'
+		},
 		description: {
 			type: GraphQL.GraphQLString
 		},
@@ -118,8 +121,39 @@ var talkType = new GraphQL.GraphQLObjectType({
 });
 
 function getTalk (id) {
-	return Talk.model.findById(id);
+	/**
+	* TODO reduce query cost and run second query in who field `resolve` function
+	* making the who lookup optional
+	*/
+	return Talk.model.findById(id).populate('who').exec();
 }
+
+var userType = new GraphQL.GraphQLObjectType({
+	name: 'User',
+	fields: () => ({
+		name: {
+			type: new GraphQL.GraphQLNonNull(userNameType)
+		},
+		email: {
+			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString)
+		}
+	})
+});
+
+var userNameType = new GraphQL.GraphQLObjectType({
+	name: 'UserName',
+	fields: () => ({
+		first: {
+			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString)
+		},
+		last: {
+			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString)
+		},
+		full: {
+			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString)
+		}
+	})
+});
 
 var queryRootType = new GraphQL.GraphQLObjectType({
 	name: 'Query',
