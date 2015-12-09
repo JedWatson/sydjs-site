@@ -181,7 +181,7 @@ var organisationType = new GraphQL.GraphQLObjectType({
 	name: 'Organisation',
 	fields: {
 		name: { type: GraphQL.GraphQLString },
-		logo: { type: GraphQL.GraphQLString },
+		logo: { type: keystoneTypes.cloudinaryImage },
 		website: { type: GraphQL.GraphQLString },
 		isHiring: { type: GraphQL.GraphQLBoolean },
 		description: { type: GraphQL.GraphQLString },
