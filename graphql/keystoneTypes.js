@@ -77,7 +77,7 @@ module.exports.location = new GraphQL.GraphQLObjectType({
 		},
 		geo: {
 			type: new GraphQL.GraphQLList(GraphQL.GraphQLString),
-			description: 'An array [longitude, latitude]'
+			description: 'An array [longitude, latitude]',
 		},
 	},
 });
@@ -93,9 +93,9 @@ module.exports.date = new GraphQL.GraphQLObjectType({
 					default: 'Do MMM YYYY',
 					description: 'A formated string using Moment.js tokens ' +
 						'http://momentjs.com/docs/#/displaying/format/',
-				}
+				},
 			},
 			resolve: (source, args) => source.format(args.stringOfTokens),
 		},
 	},
-})
+});
