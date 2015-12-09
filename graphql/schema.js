@@ -142,14 +142,6 @@ var talkType = new GraphQL.GraphQLObjectType({
 	}),
 });
 
-function getTalk (id) {
-	/**
-	* TODO reduce query cost and run second query in who field `resolve` function
-	* making the who lookup optional
-	*/
-	return Talk.model.findById(id).exec();
-}
-
 var queryRootType = new GraphQL.GraphQLObjectType({
 	name: 'Query',
 	fields: {
@@ -161,7 +153,7 @@ var queryRootType = new GraphQL.GraphQLObjectType({
 					type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString),
 				},
 			},
-			resolve: (root, args) => getMeetup(args.id),
+			resolve: (_, args) => getMeetup(args.id),
 		},
 		talk: {
 			type: talkType,
@@ -171,7 +163,7 @@ var queryRootType = new GraphQL.GraphQLObjectType({
 					type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString),
 				},
 			},
-			resolve: (root, args) => getTalk(args.id),
+			resolve: (_, args) => Talk.model.findById(args.id).exec(),
 		},
 	},
 });
