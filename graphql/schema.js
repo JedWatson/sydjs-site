@@ -37,7 +37,7 @@ var meetupStateEnum = new GraphQL.GraphQLEnumType({
 
 var meetupType = new GraphQL.GraphQLObjectType({
 	name: 'Meetup',
-	fields: () => ({
+	fields: {
 		id: {
 			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString),
 			description: 'The id of the meetup.'
@@ -82,12 +82,39 @@ var meetupType = new GraphQL.GraphQLObjectType({
 		rsvpsAvailable: {
 			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLBoolean)
 		}
-	})
+	}
+});
+
+var userNameType = new GraphQL.GraphQLObjectType({
+	name: 'UserName',
+	fields: {
+		first: {
+			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString)
+		},
+		last: {
+			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString)
+		},
+		full: {
+			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString)
+		}
+	}
+});
+
+var userType = new GraphQL.GraphQLObjectType({
+	name: 'User',
+	fields: {
+		name: {
+			type: new GraphQL.GraphQLNonNull(userNameType)
+		},
+		email: {
+			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString)
+		}
+	}
 });
 
 var talkType = new GraphQL.GraphQLObjectType({
 	name: 'Talk',
-	fields: () => ({
+	fields: {
 		id: {
 			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString),
 			description: 'The id of the talk.'
@@ -117,7 +144,7 @@ var talkType = new GraphQL.GraphQLObjectType({
 		link: {
 			type: GraphQL.GraphQLString
 		}
-	})
+	}
 });
 
 function getTalk (id) {
@@ -128,36 +155,9 @@ function getTalk (id) {
 	return Talk.model.findById(id).populate('who').exec();
 }
 
-var userType = new GraphQL.GraphQLObjectType({
-	name: 'User',
-	fields: () => ({
-		name: {
-			type: new GraphQL.GraphQLNonNull(userNameType)
-		},
-		email: {
-			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString)
-		}
-	})
-});
-
-var userNameType = new GraphQL.GraphQLObjectType({
-	name: 'UserName',
-	fields: () => ({
-		first: {
-			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString)
-		},
-		last: {
-			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString)
-		},
-		full: {
-			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString)
-		}
-	})
-});
-
 var queryRootType = new GraphQL.GraphQLObjectType({
 	name: 'Query',
-	fields: () => ({
+	fields: {
 		meetup: {
 			type: meetupType,
 			args: {
@@ -178,7 +178,7 @@ var queryRootType = new GraphQL.GraphQLObjectType({
 			},
 			resolve: (root, args) => getTalk(args.id)
 		}
-	})
+	}
 });
 
 module.exports = new GraphQL.GraphQLSchema({
