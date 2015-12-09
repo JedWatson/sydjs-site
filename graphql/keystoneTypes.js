@@ -91,7 +91,25 @@ module.exports.date = new GraphQL.GraphQLObjectType({
 				stringOfTokens: {
 					type: GraphQL.GraphQLString,
 					default: 'Do MMM YYYY',
-					description: 'A formated string using Moment.js tokens ' +
+					description: 'A formated time using Moment.js tokens ' +
+						'http://momentjs.com/docs/#/displaying/format/',
+				},
+			},
+			resolve: (source, args) => source.format(args.stringOfTokens),
+		},
+	},
+});
+
+module.exports.datetime = new GraphQL.GraphQLObjectType({
+	name: 'KeystoneDatetime',
+	fields: {
+		format: {
+			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString),
+			args: {
+				stringOfTokens: {
+					type: GraphQL.GraphQLString,
+					default: 'Do MMM YYYY hh:mm:ss a',
+					description: 'A formated datetime using Moment.js tokens ' +
 						'http://momentjs.com/docs/#/displaying/format/',
 				},
 			},

@@ -51,16 +51,19 @@ var meetupType = new GraphQL.GraphQLObjectType({
 			description: 'The name of the meetup.',
 		},
 		publishedDate: {
-			type: GraphQL.GraphQLString,
+			type: keystoneTypes.date,
+			resolve: (source) => source._.publishedDate,
 		},
 		state: {
 			type: new GraphQL.GraphQLNonNull(meetupStateEnum),
 		},
 		startDate: {
-			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString),
+			type: keystoneTypes.datetime,
+			resolve: (source) => source._.startDate,
 		},
 		endDate: {
-			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString),
+			type: keystoneTypes.datetime,
+			resolve: (source) => source._.endDate,
 		},
 		place: {
 			type: GraphQL.GraphQLString,
