@@ -1,6 +1,6 @@
 var GraphQL = require('graphql');
-var keystone = require('keystone');
 
+var keystone = require('keystone');
 var Meetup = keystone.list('Meetup');
 var Talk = keystone.list('Talk');
 
@@ -21,19 +21,15 @@ var meetupStateEnum = new GraphQL.GraphQLEnumType({
 	description: 'The state of the meetup',
 	values: {
 		draft: {
-			value: 'draft',
 			description: 'Draft'
 		},
 		scheduled: {
-			value: 'scheduled',
 			description: 'Scheduled'
 		},
 		active: {
-			value: 'active',
 			description: 'Active'
 		},
 		past: {
-			value: 'past',
 			description: 'Past'
 		},
 	},
