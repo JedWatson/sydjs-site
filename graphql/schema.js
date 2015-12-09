@@ -167,6 +167,12 @@ var rsvpType = new GraphQL.GraphQLObjectType({
 			resolve: (source) => User.model.findById(source.who).exec(),
 		},
 		attending: { type: GraphQL.GraphQLBoolean },
+		createdAt: {
+			type: GraphQL.GraphQLString,
+		},
+		changedAt: {
+			type: GraphQL.GraphQLString,
+		},
 	},
 });
 
