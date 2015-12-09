@@ -43,20 +43,20 @@ var meetupType = new GraphQL.GraphQLObjectType({
 			description: 'The id of the meetup.',
 		},
 		name: {
-			type: GraphQL.GraphQLString,
+			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString),
 			description: 'The name of the meetup.',
 		},
 		publishedDate: {
 			type: GraphQL.GraphQLString,
 		},
 		state: {
-			type: meetupStateEnum,
+			type: new GraphQL.GraphQLNonNull(meetupStateEnum),
 		},
 		startDate: {
-			type: GraphQL.GraphQLString,
+			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString),
 		},
 		endDate: {
-			type: GraphQL.GraphQLString,
+			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString),
 		},
 		place: {
 			type: GraphQL.GraphQLString,
@@ -68,10 +68,10 @@ var meetupType = new GraphQL.GraphQLObjectType({
 			type: GraphQL.GraphQLString,
 		},
 		maxRSVPs: {
-			type: GraphQL.GraphQLInt,
+			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLInt),
 		},
 		totalRSVPs: {
-			type: GraphQL.GraphQLInt,
+			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLInt),
 		},
 	}),
 });
