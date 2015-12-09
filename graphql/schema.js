@@ -116,30 +116,32 @@ function getTalk (id) {
 	return Talk.model.findById(id);
 }
 
-module.exports = new GraphQL.GraphQLSchema({
-	query: new GraphQL.GraphQLObjectType({
-		name: 'RootQueryType',
-		fields: () => ({
-			meetup: {
-				type: meetupType,
-				args: {
-					id: {
-						description: 'id of the meetup, can be "next" or "last"',
-						type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString)
-					},
+var queryRootType = new GraphQL.GraphQLObjectType({
+	name: 'Query',
+	fields: () => ({
+		meetup: {
+			type: meetupType,
+			args: {
+				id: {
+					description: 'id of the meetup, can be "next" or "last"',
+					type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString)
 				},
-				resolve: (root, args) => getMeetup(args.id),
 			},
-			talk: {
-				type: talkType,
-				args: {
-					id: {
-						description: 'id of the talk',
-						type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString)
-					},
+			resolve: (root, args) => getMeetup(args.id),
+		},
+		talk: {
+			type: talkType,
+			args: {
+				id: {
+					description: 'id of the talk',
+					type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString)
 				},
-				resolve: (root, args) => getTalk(args.id),
 			},
-		}),
+			resolve: (root, args) => getTalk(args.id),
+		},
 	}),
+});
+
+module.exports = new GraphQL.GraphQLSchema({
+	query: queryRootType
 });
