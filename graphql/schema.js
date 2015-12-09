@@ -1,4 +1,5 @@
 var GraphQL = require('graphql');
+var keystoneTypes = require('./keystoneTypes');
 
 var keystone = require('keystone');
 var Meetup = keystone.list('Meetup');
@@ -86,26 +87,11 @@ var meetupType = new GraphQL.GraphQLObjectType({
 	},
 });
 
-var userNameType = new GraphQL.GraphQLObjectType({
-	name: 'UserName',
-	fields: {
-		first: {
-			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString),
-		},
-		last: {
-			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString),
-		},
-		full: {
-			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString),
-		},
-	},
-});
-
 var userType = new GraphQL.GraphQLObjectType({
 	name: 'User',
 	fields: {
 		name: {
-			type: new GraphQL.GraphQLNonNull(userNameType),
+			type: new GraphQL.GraphQLNonNull(keystoneTypes.name),
 		},
 		email: {
 			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString),
