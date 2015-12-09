@@ -73,7 +73,16 @@ var meetupType = new GraphQL.GraphQLObjectType({
 		totalRSVPs: {
 			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLInt),
 		},
-	}),
+		url: {
+			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString),
+		},
+		remainingRSVPs: {
+			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLInt),
+		},
+		rsvpsAvailable: {
+			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLBoolean),
+		}
+	})
 });
 
 var talkType = new GraphQL.GraphQLObjectType({
