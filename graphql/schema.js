@@ -5,6 +5,7 @@ var keystone = require('keystone');
 var Meetup = keystone.list('Meetup');
 var Talk = keystone.list('Talk');
 var User = keystone.list('User');
+var RSVP = keystone.list('RSVP');
 
 function getMeetup (id) {
 	if (id === 'next') {
@@ -88,19 +89,11 @@ var meetupType = new GraphQL.GraphQLObjectType({
 			type: new GraphQL.GraphQLList(talkType),
 			resolve: (source) => Talk.model.find().where('meetup', source.id).exec(),
 		},
+		rsvps: {
+			type: new GraphQL.GraphQLList(rsvpType),
+			resolve: (source) => RSVP.model.find().where('meetup', source.id).exec(),
+		},
 	}),
-});
-
-var userType = new GraphQL.GraphQLObjectType({
-	name: 'User',
-	fields: {
-		name: {
-			type: new GraphQL.GraphQLNonNull(keystoneTypes.name),
-		},
-		email: {
-			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString),
-		},
-	},
 });
 
 var talkType = new GraphQL.GraphQLObjectType({
@@ -140,6 +133,33 @@ var talkType = new GraphQL.GraphQLObjectType({
 			type: GraphQL.GraphQLString,
 		},
 	}),
+});
+
+var userType = new GraphQL.GraphQLObjectType({
+	name: 'User',
+	fields: {
+		name: {
+			type: new GraphQL.GraphQLNonNull(keystoneTypes.name),
+		},
+		email: {
+			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString),
+		},
+	},
+});
+
+var rsvpType = new GraphQL.GraphQLObjectType({
+	name: 'RSVP',
+	fields: {
+		meetup: {
+			type: new GraphQL.GraphQLNonNull(meetupType),
+			resolve: (source) => Meetup.model.findById(source.meetup).exec(),
+		},
+		who: {
+			type: new GraphQL.GraphQLNonNull(userType),
+			resolve: (source) => User.model.findById(source.who).exec(),
+		},
+		attending: { type: GraphQL.GraphQLBoolean },
+	},
 });
 
 var queryRootType = new GraphQL.GraphQLObjectType({
