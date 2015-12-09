@@ -39,7 +39,7 @@ var meetupStateEnum = new GraphQL.GraphQLEnumType({
 
 var meetupType = new GraphQL.GraphQLObjectType({
 	name: 'Meetup',
-	fields: {
+	fields: () => ({
 		id: {
 			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString),
 			description: 'The id of the meetup.',
@@ -84,7 +84,11 @@ var meetupType = new GraphQL.GraphQLObjectType({
 		rsvpsAvailable: {
 			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLBoolean),
 		},
-	},
+		talks: {
+			type: new GraphQL.GraphQLList(talkType),
+			resolve: (source) => Talk.model.find().where('meetup', source.id).exec(),
+		},
+	}),
 });
 
 var userType = new GraphQL.GraphQLObjectType({
@@ -101,7 +105,7 @@ var userType = new GraphQL.GraphQLObjectType({
 
 var talkType = new GraphQL.GraphQLObjectType({
 	name: 'Talk',
-	fields: {
+	fields: () => ({
 		id: {
 			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString),
 			description: 'The id of the talk.',
@@ -135,7 +139,7 @@ var talkType = new GraphQL.GraphQLObjectType({
 		link: {
 			type: GraphQL.GraphQLString,
 		},
-	},
+	}),
 });
 
 function getTalk (id) {
