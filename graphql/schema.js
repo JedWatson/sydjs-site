@@ -185,7 +185,7 @@ var organisationType = new GraphQL.GraphQLObjectType({
 		website: { type: GraphQL.GraphQLString },
 		isHiring: { type: GraphQL.GraphQLBoolean },
 		description: { type: GraphQL.GraphQLString },
-		location: { type: GraphQL.GraphQLString },
+		location: { type: keystoneTypes.location },
 		members: {
 			type: new GraphQL.GraphQLList(userType),
 			resolve: (source) =>

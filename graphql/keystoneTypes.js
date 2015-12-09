@@ -48,6 +48,40 @@ module.exports.cloudinaryImage = new GraphQL.GraphQLObjectType({
 	},
 });
 
+module.exports.location = new GraphQL.GraphQLObjectType({
+	name: 'KeystoneLocation',
+	fields: {
+		name: {
+			type: GraphQL.GraphQLString,
+		},
+		number: {
+			type: GraphQL.GraphQLInt,
+		},
+		street1: {
+			type: GraphQL.GraphQLString,
+		},
+		street2: {
+			type: GraphQL.GraphQLString,
+		},
+		suburb: {
+			type: GraphQL.GraphQLString,
+		},
+		state: {
+			type: GraphQL.GraphQLString,
+		},
+		postcode: {
+			type: GraphQL.GraphQLInt,
+		},
+		country: {
+			type: GraphQL.GraphQLInt,
+		},
+		geo: {
+			type: new GraphQL.GraphQLList(GraphQL.GraphQLString),
+			description: 'An array [longitude, latitude]'
+		},
+	},
+});
+
 // WIP
 // module.exports.date = new GraphQL.GraphQLObjectType({
 // 	name: 'KeystoneDate',
