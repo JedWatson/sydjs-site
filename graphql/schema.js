@@ -227,6 +227,26 @@ var queryRootType = new GraphQL.GraphQLObjectType({
 			},
 			resolve: (_, args) => Organisation.model.findById(args.id).exec(),
 		},
+		user: {
+			type: userType,
+			args: {
+				id: {
+					description: 'id of the user',
+					type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLID),
+				},
+			},
+			resolve: (_, args) => User.model.findById(args.id).exec(),
+		},
+		rsvp: {
+			type: rsvpType,
+			args: {
+				id: {
+					description: 'id of the RSVP',
+					type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLID),
+				},
+			},
+			resolve: (_, args) => RSVP.model.findById(args.id).exec(),
+		},
 	},
 });
 
