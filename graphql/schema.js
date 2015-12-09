@@ -169,10 +169,12 @@ var rsvpType = new GraphQL.GraphQLObjectType({
 		},
 		attending: { type: GraphQL.GraphQLBoolean },
 		createdAt: {
-			type: GraphQL.GraphQLString,
+			type: keystoneTypes.date,
+			resolve: (source) => source._.createdAt,
 		},
 		changedAt: {
-			type: GraphQL.GraphQLString,
+			type: keystoneTypes.date,
+			resolve: (source) => source._.changedAt,
 		},
 	},
 });

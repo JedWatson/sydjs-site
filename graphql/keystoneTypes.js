@@ -82,23 +82,20 @@ module.exports.location = new GraphQL.GraphQLObjectType({
 	},
 });
 
-// WIP
-// module.exports.date = new GraphQL.GraphQLObjectType({
-// 	name: 'KeystoneDate',
-// 	fields: {
-// 		format: {
-// 			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString),
-// 			args: {
-// 				tokens: {
-// 					type: GraphQL.GraphQLString,
-// 					default: 'Do MMM YYYY',
-// 				}
-// 			},
-// 			description: 'A formated string using http://momentjs.com/docs/#/displaying/format/',
-// 			resolve: (source, args) => {
-// 				// console.dir(source);
-// 				return source._.format(args.token);
-// 			}
-// 		},
-// 	},
-// })
+module.exports.date = new GraphQL.GraphQLObjectType({
+	name: 'KeystoneDate',
+	fields: {
+		format: {
+			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString),
+			args: {
+				stringOfTokens: {
+					type: GraphQL.GraphQLString,
+					default: 'Do MMM YYYY',
+					description: 'A formated string using Moment.js tokens ' +
+						'http://momentjs.com/docs/#/displaying/format/',
+				}
+			},
+			resolve: (source, args) => source.format(args.stringOfTokens),
+		},
+	},
+})
