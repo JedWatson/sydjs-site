@@ -93,7 +93,7 @@ var talkType = new GraphQL.GraphQLObjectType({
 			description: 'The id of the talk.'
 		},
 		name: {
-			type: GraphQL.GraphQLString,
+			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString),
 			description: 'The title of the talk.'
 		},
 		isLightningTalk: {
@@ -101,7 +101,7 @@ var talkType = new GraphQL.GraphQLObjectType({
 			description: 'Whether the talk is a Lightning talk'
 		},
 		meetup: {
-			type: meetupType,
+			type: new GraphQL.GraphQLNonNull(meetupType),
 			description: 'The Meetup the talk is scheduled for'
 		},
 		// TODO: who (relationship to User)
