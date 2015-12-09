@@ -3,6 +3,7 @@ var GraphQL = require('graphql');
 var keystone = require('keystone');
 var Meetup = keystone.list('Meetup');
 var Talk = keystone.list('Talk');
+var User = keystone.list('User');
 
 function getMeetup (id) {
 	if (id === 'next') {
@@ -129,11 +130,15 @@ var talkType = new GraphQL.GraphQLObjectType({
 		},
 		meetup: {
 			type: new GraphQL.GraphQLNonNull(meetupType),
-			description: 'The Meetup the talk is scheduled for'
+			description: 'The Meetup the talk is scheduled for',
+			resolve: (source, args, info) =>
+				Meetup.model.findById(source.meetup).exec()
 		},
 		who: {
 			type: new GraphQL.GraphQLList(userType),
-			description: 'A list of at least one User running the talk'
+			description: 'A list of at least one User running the talk',
+			resolve: (source, args, info) =>
+				User.model.find().where('_id').in(source.who).exec()
 		},
 		description: {
 			type: GraphQL.GraphQLString
@@ -152,7 +157,7 @@ function getTalk (id) {
 	* TODO reduce query cost and run second query in who field `resolve` function
 	* making the who lookup optional
 	*/
-	return Talk.model.findById(id).populate('who').exec();
+	return Talk.model.findById(id).exec();
 }
 
 var queryRootType = new GraphQL.GraphQLObjectType({
