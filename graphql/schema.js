@@ -131,10 +131,18 @@ var talkType = new GraphQL.GraphQLObjectType({
 			type: GraphQL.GraphQLString,
 		},
 		slides: {
-			type: GraphQL.GraphQLString,
+			type: keystoneTypes.link,
+			resolve: (source) => ({
+				raw: source.slides,
+				format: source._.slides.format,
+			}),
 		},
 		link: {
-			type: GraphQL.GraphQLString,
+			type: keystoneTypes.link,
+			resolve: (source) => ({
+				raw: source.link,
+				format: source._.link.format,
+			}),
 		},
 	}),
 });

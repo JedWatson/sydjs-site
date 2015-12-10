@@ -117,3 +117,17 @@ module.exports.datetime = new GraphQL.GraphQLObjectType({
 		},
 	},
 });
+
+module.exports.link = new GraphQL.GraphQLObjectType({
+	name: 'KeystoneLink',
+	fields: {
+		raw: {
+			type: GraphQL.GraphQLString,
+			description: 'The raw unformmated URL',
+		},
+		format: {
+			type: GraphQL.GraphQLString,
+			description: 'The URL after being passed through the `format Function` option',
+		},
+	},
+});
