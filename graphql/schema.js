@@ -158,7 +158,11 @@ var userType = new GraphQL.GraphQLObjectType({
 			type: new GraphQL.GraphQLNonNull(keystoneTypes.name),
 		},
 		email: {
-			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString),
+			type: keystoneTypes.email,
+			resolve: (source) => ({
+				email: source.email,
+				gravatarUrl: source._.email.gravatarUrl,
+			}),
 		},
 		talks: {
 			type: new GraphQL.GraphQLList(talkType),
