@@ -18,7 +18,7 @@
     "express-graphql": "^0.4.5",
     "graphql": "^0.4.14",
     "history": "^1.12.0",
-    "keystone": "0.3.15",
+    "keystone": "https://github.com/keystonejs/keystone.git",
     "lodash": "^3.10.1",
     "moment": "^2.10.6",
     "newrelic": "^1.24.0",
