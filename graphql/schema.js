@@ -149,7 +149,7 @@ var talkType = new GraphQL.GraphQLObjectType({
 
 var userType = new GraphQL.GraphQLObjectType({
 	name: 'User',
-	fields: {
+	fields: () => ({
 		id: {
 			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLID),
 			description: 'The id of the user.',
@@ -160,7 +160,17 @@ var userType = new GraphQL.GraphQLObjectType({
 		email: {
 			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString),
 		},
-	},
+		talks: {
+			type: new GraphQL.GraphQLList(talkType),
+			resolve: (source) =>
+				Talk.model.find().where('who', source.id).exec(),
+		},
+		rsvps: {
+			type: new GraphQL.GraphQLList(rsvpType),
+			resolve: (source) =>
+				RSVP.model.find().where('who', source.id).exec(),
+		},
+	}),
 });
 
 var rsvpType = new GraphQL.GraphQLObjectType({
