@@ -131,3 +131,17 @@ module.exports.link = new GraphQL.GraphQLObjectType({
 		},
 	},
 });
+
+module.exports.markdown = new GraphQL.GraphQLObjectType({
+	name: 'KeystoneMarkdown',
+	fields: {
+		md: {
+			type: GraphQL.GraphQLString,
+			description: 'source markdown text',
+		},
+		html: {
+			type: GraphQL.GraphQLString,
+			description: 'generated html code',
+		},
+	},
+});
