@@ -50,21 +50,12 @@ var meetupType = new GraphQL.GraphQLObjectType({
 			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString),
 			description: 'The name of the meetup.',
 		},
-		publishedDate: {
-			type: keystoneTypes.date,
-			resolve: (source) => source._.publishedDate,
-		},
+		publishedDate: keystoneTypes.date(Meetup.fields.publishedDate),
 		state: {
 			type: new GraphQL.GraphQLNonNull(meetupStateEnum),
 		},
-		startDate: {
-			type: keystoneTypes.datetime,
-			resolve: (source) => source._.startDate,
-		},
-		endDate: {
-			type: keystoneTypes.datetime,
-			resolve: (source) => source._.endDate,
-		},
+		startDate: keystoneTypes.datetime(Meetup.fields.startDate),
+		endDate: keystoneTypes.datetime(Meetup.fields.endDate),
 		place: {
 			type: GraphQL.GraphQLString,
 		},
@@ -193,14 +184,8 @@ var rsvpType = new GraphQL.GraphQLObjectType({
 			resolve: (source) => User.model.findById(source.who).exec(),
 		},
 		attending: { type: GraphQL.GraphQLBoolean },
-		createdAt: {
-			type: keystoneTypes.date,
-			resolve: (source) => source._.createdAt,
-		},
-		changedAt: {
-			type: keystoneTypes.date,
-			resolve: (source) => source._.changedAt,
-		},
+		createdAt: keystoneTypes.datetime(Meetup.fields.createdAt),
+		changedAt: keystoneTypes.datetime(Meetup.fields.changedAt),
 	},
 });
 

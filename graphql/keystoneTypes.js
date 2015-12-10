@@ -82,39 +82,37 @@ module.exports.location = new GraphQL.GraphQLObjectType({
 	},
 });
 
-module.exports.date = new GraphQL.GraphQLObjectType({
-	name: 'KeystoneDate',
-	fields: {
+module.exports.date = (field) => ({
+	type: GraphQL.GraphQLString,
+	args: {
 		format: {
-			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString),
-			args: {
-				stringOfTokens: {
-					type: GraphQL.GraphQLString,
-					default: 'Do MMM YYYY',
-					description: 'A formated time using Moment.js tokens ' +
-						'http://momentjs.com/docs/#/displaying/format/',
-				},
-			},
-			resolve: (source, args) => source.format(args.stringOfTokens),
+			type: GraphQL.GraphQLString,
+			description: 'A formated time using Moment.js tokens ' +
+				'http://momentjs.com/docs/#/displaying/format/',
 		},
+	},
+	resolve: (source, args) => {
+		if (args.format) {
+			return field.format(source, args.format);
+		}
+		return source.get(field.path);
 	},
 });
 
-module.exports.datetime = new GraphQL.GraphQLObjectType({
-	name: 'KeystoneDatetime',
-	fields: {
+module.exports.datetime = (field) => ({
+	type: GraphQL.GraphQLString,
+	args: {
 		format: {
-			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString),
-			args: {
-				stringOfTokens: {
-					type: GraphQL.GraphQLString,
-					default: 'Do MMM YYYY hh:mm:ss a',
-					description: 'A formated datetime using Moment.js tokens ' +
-						'http://momentjs.com/docs/#/displaying/format/',
-				},
-			},
-			resolve: (source, args) => source.format(args.stringOfTokens),
+			type: GraphQL.GraphQLString,
+			description: 'A formated datetime using Moment.js tokens ' +
+				'http://momentjs.com/docs/#/displaying/format/',
 		},
+	},
+	resolve: (source, args) => {
+		if (args.format) {
+			return field.format(source, args.format);
+		}
+		return source.get(field.path);
 	},
 });
 
