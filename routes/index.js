@@ -4,6 +4,8 @@ var browserify = require('browserify-middleware');
 var clientConfig = require('../client/config');
 var keystone = require('keystone');
 var middleware = require('./middleware');
+var graphqlHTTP = require('express-graphql');
+var graphQLSchema = require('../graphql/schema');
 
 var importRoutes = keystone.importer(__dirname);
 
@@ -48,6 +50,9 @@ exports = module.exports = function (app) {
 		external: clientConfig.packages,
 		transform: ['babelify'],
 	}));
+
+	// GraphQL
+	app.use('/api/graphql', graphqlHTTP({ schema: graphQLSchema, graphiql: true }));
 
 	// Allow cross-domain requests (development only)
 	if (process.env.NODE_ENV !== 'production') {
@@ -100,9 +105,6 @@ exports = module.exports = function (app) {
 
 	// Tools
 	app.all('/notification-center', routes.views.tools['notification-center']);
-
-	// GraphQL API
-	app.post('/api/graphql', bodyParser.text({ type: 'application/graphql' }), routes.api.graphql);
 
 	// API
 	app.all('/api*', keystone.middleware.api);

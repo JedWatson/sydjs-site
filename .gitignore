@@ -18,3 +18,5 @@ node_modules
 
 .env
 ACCOUNTS.md
+
+graphql/schema.graphql

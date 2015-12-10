@@ -15,9 +15,10 @@
     "connect-mongo": "^0.8.2",
     "crypto": "0.0.3",
     "dotenv": "^1.2.0",
-    "graphql": "^0.4.13",
+    "express-graphql": "^0.4.5",
+    "graphql": "^0.4.14",
     "history": "^1.12.0",
-    "keystone": "0.3.15",
+    "keystone": "https://github.com/keystonejs/keystone.git",
     "lodash": "^3.10.1",
     "moment": "^2.10.6",
     "newrelic": "^1.24.0",
@@ -39,6 +40,14 @@
     "npm": "1.3.x"
   },
   "scripts": {
-    "start": "node keystone.js"
+    "start": "node keystone.js",
+    "print-graphql-schema": "node ./graphql/scripts/printSchema.js",
+    "lint": "eslint ."
+  },
+  "devDependencies": {
+    "eslint": "^1.10.3",
+    "eslint-config-standard": "^4.4.0",
+    "eslint-plugin-react": "^3.11.3",
+    "eslint-plugin-standard": "^1.3.1"
   }
 }
