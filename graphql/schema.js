@@ -1,4 +1,5 @@
 var GraphQL = require('graphql');
+var GraphQLRelay = require('graphql-relay');
 var keystoneTypes = require('./keystoneTypes');
 
 var keystone = require('keystone');
@@ -8,7 +9,42 @@ var User = keystone.list('User');
 var RSVP = keystone.list('RSVP');
 var Organisation = keystone.list('Organisation');
 
+var nodeDefinitions = GraphQLRelay.nodeDefinitions(
+	(globalId) => {
+		var _fromGlobalId = GraphQLRelay.fromGlobalId(globalId);
+		var id = _fromGlobalId.id;
+		var type = _fromGlobalId.type;
 
+		switch (type) {
+		case 'Meetup':
+			return Meetup.model.findById(id).exec();
+		case 'Talk':
+			return Talk.model.findById(id).exec();
+		case 'User':
+			return User.model.findById(id).exec();
+		case 'RSVP':
+			return RSVP.model.findById(id).exec();
+		case 'Organisation':
+			return Organisation.model.findById(id).exec();
+		default:
+			return null;
+		}
+	},
+	(obj) => {
+		if (obj instanceof Meetup.model) {
+			return meetupType;
+		} else if (obj instanceof Talk.model) {
+			return talkType;
+		} else if (obj instanceof User.model) {
+			return userType;
+		} else if (obj instanceof RSVP.model) {
+			return rsvpType;
+		} else if (obj instanceof Organisation.model) {
+			return organisationType;
+		}
+		return null;
+	}
+);
 
 var meetupStateEnum = new GraphQL.GraphQLEnumType({
 	name: 'MeetupState',
@@ -32,10 +68,10 @@ var meetupStateEnum = new GraphQL.GraphQLEnumType({
 var meetupType = new GraphQL.GraphQLObjectType({
 	name: 'Meetup',
 	fields: () => ({
-		id: {
-			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLID),
-			description: 'The id of the meetup.',
-		},
+		// TODO when the new version of `graphql-relay` comes out it
+		// will not need the typeName String 'Meetup' because it will call
+		// `info.parentType.name` inside the `globalIdField` function
+		id: GraphQLRelay.globalIdField('Meetup'),
 		name: {
 			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString),
 			description: 'The name of the meetup.',
@@ -79,15 +115,13 @@ var meetupType = new GraphQL.GraphQLObjectType({
 			resolve: (source) => RSVP.model.find().where('meetup', source.id).exec(),
 		},
 	}),
+	interfaces: [nodeDefinitions.nodeInterface],
 });
 
 var talkType = new GraphQL.GraphQLObjectType({
 	name: 'Talk',
 	fields: () => ({
-		id: {
-			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLID),
-			description: 'The id of the talk.',
-		},
+		id: GraphQLRelay.globalIdField('Talk'),
 		name: {
 			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString),
 			description: 'The title of the talk.',
@@ -126,15 +160,13 @@ var talkType = new GraphQL.GraphQLObjectType({
 			}),
 		},
 	}),
+	interfaces: [nodeDefinitions.nodeInterface],
 });
 
 var userType = new GraphQL.GraphQLObjectType({
 	name: 'User',
 	fields: () => ({
-		id: {
-			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLID),
-			description: 'The id of the user.',
-		},
+		id: GraphQLRelay.globalIdField('User'),
 		name: {
 			type: new GraphQL.GraphQLNonNull(keystoneTypes.name),
 		},
@@ -156,15 +188,13 @@ var userType = new GraphQL.GraphQLObjectType({
 				RSVP.model.find().where('who', source.id).exec(),
 		},
 	}),
+	interfaces: [nodeDefinitions.nodeInterface],
 });
 
 var rsvpType = new GraphQL.GraphQLObjectType({
 	name: 'RSVP',
 	fields: {
-		id: {
-			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLID),
-			description: 'The id of the RSVP.',
-		},
+		id: GraphQLRelay.globalIdField('RSVP'),
 		meetup: {
 			type: new GraphQL.GraphQLNonNull(meetupType),
 			resolve: (source) => Meetup.model.findById(source.meetup).exec(),
@@ -177,11 +207,13 @@ var rsvpType = new GraphQL.GraphQLObjectType({
 		createdAt: keystoneTypes.datetime(Meetup.fields.createdAt),
 		changedAt: keystoneTypes.datetime(Meetup.fields.changedAt),
 	},
+	interfaces: [nodeDefinitions.nodeInterface],
 });
 
 var organisationType = new GraphQL.GraphQLObjectType({
 	name: 'Organisation',
 	fields: {
+		id: GraphQLRelay.globalIdField('Organisation'),
 		name: { type: GraphQL.GraphQLString },
 		logo: { type: keystoneTypes.cloudinaryImage },
 		website: { type: GraphQL.GraphQLString },
@@ -194,11 +226,13 @@ var organisationType = new GraphQL.GraphQLObjectType({
 				User.model.find().where('organisation', source.id).exec(),
 		},
 	},
+	interfaces: [nodeDefinitions.nodeInterface],
 });
 
 var queryRootType = new GraphQL.GraphQLObjectType({
 	name: 'Query',
 	fields: {
+		node: nodeDefinitions.nodeField,
 		meetup: {
 			type: meetupType,
 			args: {
