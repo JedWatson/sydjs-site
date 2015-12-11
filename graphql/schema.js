@@ -8,17 +8,7 @@ var User = keystone.list('User');
 var RSVP = keystone.list('RSVP');
 var Organisation = keystone.list('Organisation');
 
-function getMeetup (id) {
-	if (id === 'next') {
-		return Meetup.model.findOne().sort('-startDate')
-						.where('state', 'active').exec();
-	} else if (id === 'last') {
-		return Meetup.model.findOne().sort('-startDate')
-						.where('state', 'past').exec();
-	} else {
-		return Meetup.model.findById(id).exec();
-	}
-}
+
 
 var meetupStateEnum = new GraphQL.GraphQLEnumType({
 	name: 'MeetupState',
@@ -217,7 +207,17 @@ var queryRootType = new GraphQL.GraphQLObjectType({
 					type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLID),
 				},
 			},
-			resolve: (_, args) => getMeetup(args.id),
+			resolve: (_, args) => {
+				if (args.id === 'next') {
+					return Meetup.model.findOne().sort('-startDate')
+									.where('state', 'active').exec();
+				} else if (args.id === 'last') {
+					return Meetup.model.findOne().sort('-startDate')
+									.where('state', 'past').exec();
+				} else {
+					return Meetup.model.findById(args.id).exec();
+				}
+			},
 		},
 		talk: {
 			type: talkType,
