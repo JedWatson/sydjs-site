@@ -11,9 +11,7 @@ var Organisation = keystone.list('Organisation');
 
 var nodeDefinitions = GraphQLRelay.nodeDefinitions(
 	(globalId) => {
-		var _fromGlobalId = GraphQLRelay.fromGlobalId(globalId);
-		var id = _fromGlobalId.id;
-		var type = _fromGlobalId.type;
+		var {type, id} = GraphQLRelay.fromGlobalId(globalId);
 
 		switch (type) {
 		case 'Meetup':
