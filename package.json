@@ -43,7 +43,7 @@
   },
   "scripts": {
     "start": "node keystone.js",
-    "print-graphql-schema": "node ./graphql/scripts/printSchema.js",
+    "print-graphql-schema": "babel-node ./graphql/scripts/printSchema.js",
     "lint": "eslint ."
   },
   "devDependencies": {
