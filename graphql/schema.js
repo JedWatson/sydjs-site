@@ -335,9 +335,15 @@ var queryRootType = new GraphQLObjectType({
 		meetup: modelFieldById(meetupType, Meetup),
 		allMeetups: {
 			type: meetupConnection,
-			args: connectionArgs,
-			resolve: (_, args) => connectionFromPromisedArray(
-				Meetup.model.find().exec(),
+			args: {
+				state: {
+					type: meetupStateEnum,
+				},
+				...connectionArgs,
+			},
+			resolve: (_, {state, ...args}) => connectionFromPromisedArray(
+				state ? Meetup.model.find().where('state', state).exec()
+					:	Meetup.model.find().exec(),
 				args
 			),
 		},
