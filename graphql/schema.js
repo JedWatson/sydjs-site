@@ -124,12 +124,20 @@ var meetupType = new GraphQLObjectType({
 			type: new GraphQLNonNull(GraphQLBoolean),
 		},
 		talks: {
-			type: new GraphQLList(talkType),
-			resolve: (source) => Talk.model.find().where('meetup', source.id).exec(),
+			type: talkConnection,
+			args: connectionArgs,
+			resolve: ({id}, args) => connectionFromPromisedArray(
+				Talk.model.find().where('meetup', id).exec(),
+				args
+			),
 		},
 		rsvps: {
-			type: new GraphQLList(rsvpType),
-			resolve: (source) => RSVP.model.find().where('meetup', source.id).exec(),
+			type: rsvpConnection,
+			args: connectionArgs,
+			resolve: ({id}, args) => connectionFromPromisedArray(
+				RSVP.model.find().where('meetup', id).exec(),
+				args
+			),
 		},
 	}),
 	interfaces: [nodeInterface],
@@ -195,14 +203,20 @@ var userType = new GraphQLObjectType({
 			}),
 		},
 		talks: {
-			type: new GraphQLList(talkType),
-			resolve: (source) =>
-				Talk.model.find().where('who', source.id).exec(),
+			type: talkConnection,
+			args: connectionArgs,
+			resolve: ({id}, args) => connectionFromPromisedArray(
+				Talk.model.find().where('who', id).exec(),
+				args
+			),
 		},
 		rsvps: {
-			type: new GraphQLList(rsvpType),
-			resolve: (source) =>
-				RSVP.model.find().where('who', source.id).exec(),
+			type: rsvpConnection,
+			args: connectionArgs,
+			resolve: ({id}, args) => connectionFromPromisedArray(
+				RSVP.model.find().where('who', id).exec(),
+				args
+			),
 		},
 	}),
 	interfaces: [nodeInterface],
@@ -250,10 +264,34 @@ var organisationType = new GraphQLObjectType({
 });
 
 var {
+	connectionType: meetupConnection,
+} = connectionDefinitions({
+	name: 'Meetup',
+	nodeType: meetupType,
+});
+var {
+	connectionType: talkConnection,
+} = connectionDefinitions({
+	name: 'Talk',
+	nodeType: talkType,
+});
+var {
 	connectionType: userConnection,
 } = connectionDefinitions({
 	name: 'User',
 	nodeType: userType,
+});
+var {
+	connectionType: rsvpConnection,
+} = connectionDefinitions({
+	name: 'RSVP',
+	nodeType: rsvpType,
+});
+var {
+	connectionType: organisationConnection,
+} = connectionDefinitions({
+	name: 'Organisation',
+	nodeType: organisationType,
 });
 
 var queryRootType = new GraphQLObjectType({
@@ -280,6 +318,14 @@ var queryRootType = new GraphQLObjectType({
 				}
 			},
 		},
+		allMeetups: {
+			type: meetupConnection,
+			args: connectionArgs,
+			resolve: (_, args) => connectionFromPromisedArray(
+				Meetup.model.find().exec(),
+				args
+			),
+		},
 		talk: {
 			type: talkType,
 			args: {
@@ -289,6 +335,14 @@ var queryRootType = new GraphQLObjectType({
 				},
 			},
 			resolve: (_, args) => Talk.model.findById(args.id).exec(),
+		},
+		allTalks: {
+			type: talkConnection,
+			args: connectionArgs,
+			resolve: (_, args) => connectionFromPromisedArray(
+				Talk.model.find().exec(),
+				args
+			),
 		},
 		organisation: {
 			type: organisationType,
@@ -300,6 +354,14 @@ var queryRootType = new GraphQLObjectType({
 			},
 			resolve: (_, args) => Organisation.model.findById(args.id).exec(),
 		},
+		allOrganisations: {
+			type: organisationConnection,
+			args: connectionArgs,
+			resolve: (_, args) => connectionFromPromisedArray(
+				Organisation.model.find().exec(),
+				args
+			),
+		},
 		user: {
 			type: userType,
 			args: {
@@ -310,7 +372,7 @@ var queryRootType = new GraphQLObjectType({
 			},
 			resolve: (_, args) => User.model.findById(args.id).exec(),
 		},
-		users: {
+		allUsers: {
 			type: userConnection,
 			args: connectionArgs,
 			resolve: (_, args) => connectionFromPromisedArray(
@@ -318,7 +380,7 @@ var queryRootType = new GraphQLObjectType({
 				args
 			),
 		},
-		rsvp: {
+		RSVP: {
 			type: rsvpType,
 			args: {
 				id: {
@@ -327,6 +389,14 @@ var queryRootType = new GraphQLObjectType({
 				},
 			},
 			resolve: (_, args) => RSVP.model.findById(args.id).exec(),
+		},
+		allRSVPs: {
+			type: rsvpConnection,
+			args: connectionArgs,
+			resolve: (_, args) => connectionFromPromisedArray(
+				RSVP.model.find().exec(),
+				args
+			),
 		},
 	},
 });
