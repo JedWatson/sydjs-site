@@ -1,5 +1,21 @@
-var GraphQL = require('graphql');
-var GraphQLRelay = require('graphql-relay');
+import {
+	GraphQLBoolean,
+	GraphQLSchema,
+	GraphQLID,
+	GraphQLInt,
+	GraphQLList,
+	GraphQLNonNull,
+	GraphQLObjectType,
+	GraphQLString,
+	GraphQLEnumType,
+} from 'graphql';
+
+import {
+	fromGlobalId,
+	globalIdField,
+	nodeDefinitions,
+} from 'graphql-relay';
+
 var keystoneTypes = require('./keystoneTypes');
 
 var keystone = require('keystone');
@@ -9,9 +25,9 @@ var User = keystone.list('User');
 var RSVP = keystone.list('RSVP');
 var Organisation = keystone.list('Organisation');
 
-var nodeDefinitions = GraphQLRelay.nodeDefinitions(
+var {nodeInterface, nodeField} = nodeDefinitions(
 	(globalId) => {
-		var {type, id} = GraphQLRelay.fromGlobalId(globalId);
+		var {type, id} = fromGlobalId(globalId);
 
 		switch (type) {
 		case 'Meetup':
@@ -44,7 +60,7 @@ var nodeDefinitions = GraphQLRelay.nodeDefinitions(
 	}
 );
 
-var meetupStateEnum = new GraphQL.GraphQLEnumType({
+var meetupStateEnum = new GraphQLEnumType({
 	name: 'MeetupState',
 	description: 'The state of the meetup',
 	values: {
@@ -63,85 +79,85 @@ var meetupStateEnum = new GraphQL.GraphQLEnumType({
 	},
 });
 
-var meetupType = new GraphQL.GraphQLObjectType({
+var meetupType = new GraphQLObjectType({
 	name: 'Meetup',
 	fields: () => ({
 		// TODO when the new version of `graphql-relay` comes out it
 		// will not need the typeName String 'Meetup' because it will call
 		// `info.parentType.name` inside the `globalIdField` function
-		id: GraphQLRelay.globalIdField('Meetup'),
+		id: globalIdField('Meetup'),
 		name: {
-			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString),
+			type: new GraphQLNonNull(GraphQLString),
 			description: 'The name of the meetup.',
 		},
 		publishedDate: keystoneTypes.date(Meetup.fields.publishedDate),
 		state: {
-			type: new GraphQL.GraphQLNonNull(meetupStateEnum),
+			type: new GraphQLNonNull(meetupStateEnum),
 		},
 		startDate: keystoneTypes.datetime(Meetup.fields.startDate),
 		endDate: keystoneTypes.datetime(Meetup.fields.endDate),
 		place: {
-			type: GraphQL.GraphQLString,
+			type: GraphQLString,
 		},
 		map: {
-			type: GraphQL.GraphQLString,
+			type: GraphQLString,
 		},
 		description: {
-			type: GraphQL.GraphQLString,
+			type: GraphQLString,
 		},
 		maxRSVPs: {
-			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLInt),
+			type: new GraphQLNonNull(GraphQLInt),
 		},
 		totalRSVPs: {
-			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLInt),
+			type: new GraphQLNonNull(GraphQLInt),
 		},
 		url: {
-			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString),
+			type: new GraphQLNonNull(GraphQLString),
 		},
 		remainingRSVPs: {
-			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLInt),
+			type: new GraphQLNonNull(GraphQLInt),
 		},
 		rsvpsAvailable: {
-			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLBoolean),
+			type: new GraphQLNonNull(GraphQLBoolean),
 		},
 		talks: {
-			type: new GraphQL.GraphQLList(talkType),
+			type: new GraphQLList(talkType),
 			resolve: (source) => Talk.model.find().where('meetup', source.id).exec(),
 		},
 		rsvps: {
-			type: new GraphQL.GraphQLList(rsvpType),
+			type: new GraphQLList(rsvpType),
 			resolve: (source) => RSVP.model.find().where('meetup', source.id).exec(),
 		},
 	}),
-	interfaces: [nodeDefinitions.nodeInterface],
+	interfaces: [nodeInterface],
 });
 
-var talkType = new GraphQL.GraphQLObjectType({
+var talkType = new GraphQLObjectType({
 	name: 'Talk',
 	fields: () => ({
-		id: GraphQLRelay.globalIdField('Talk'),
+		id: globalIdField('Talk'),
 		name: {
-			type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLString),
+			type: new GraphQLNonNull(GraphQLString),
 			description: 'The title of the talk.',
 		},
 		isLightningTalk: {
-			type: GraphQL.GraphQLBoolean,
+			type: GraphQLBoolean,
 			description: 'Whether the talk is a Lightning talk',
 		},
 		meetup: {
-			type: new GraphQL.GraphQLNonNull(meetupType),
+			type: new GraphQLNonNull(meetupType),
 			description: 'The Meetup the talk is scheduled for',
 			resolve: (source, args, info) =>
 				Meetup.model.findById(source.meetup).exec(),
 		},
 		who: {
-			type: new GraphQL.GraphQLList(userType),
+			type: new GraphQLList(userType),
 			description: 'A list of at least one User running the talk',
 			resolve: (source, args, info) =>
 				User.model.find().where('_id').in(source.who).exec(),
 		},
 		description: {
-			type: GraphQL.GraphQLString,
+			type: GraphQLString,
 		},
 		slides: {
 			type: keystoneTypes.link,
@@ -158,15 +174,15 @@ var talkType = new GraphQL.GraphQLObjectType({
 			}),
 		},
 	}),
-	interfaces: [nodeDefinitions.nodeInterface],
+	interfaces: [nodeInterface],
 });
 
-var userType = new GraphQL.GraphQLObjectType({
+var userType = new GraphQLObjectType({
 	name: 'User',
 	fields: () => ({
-		id: GraphQLRelay.globalIdField('User'),
+		id: globalIdField('User'),
 		name: {
-			type: new GraphQL.GraphQLNonNull(keystoneTypes.name),
+			type: new GraphQLNonNull(keystoneTypes.name),
 		},
 		email: {
 			type: keystoneTypes.email,
@@ -176,67 +192,67 @@ var userType = new GraphQL.GraphQLObjectType({
 			}),
 		},
 		talks: {
-			type: new GraphQL.GraphQLList(talkType),
+			type: new GraphQLList(talkType),
 			resolve: (source) =>
 				Talk.model.find().where('who', source.id).exec(),
 		},
 		rsvps: {
-			type: new GraphQL.GraphQLList(rsvpType),
+			type: new GraphQLList(rsvpType),
 			resolve: (source) =>
 				RSVP.model.find().where('who', source.id).exec(),
 		},
 	}),
-	interfaces: [nodeDefinitions.nodeInterface],
+	interfaces: [nodeInterface],
 });
 
-var rsvpType = new GraphQL.GraphQLObjectType({
+var rsvpType = new GraphQLObjectType({
 	name: 'RSVP',
 	fields: {
-		id: GraphQLRelay.globalIdField('RSVP'),
+		id: globalIdField('RSVP'),
 		meetup: {
-			type: new GraphQL.GraphQLNonNull(meetupType),
+			type: new GraphQLNonNull(meetupType),
 			resolve: (source) => Meetup.model.findById(source.meetup).exec(),
 		},
 		who: {
-			type: new GraphQL.GraphQLNonNull(userType),
+			type: new GraphQLNonNull(userType),
 			resolve: (source) => User.model.findById(source.who).exec(),
 		},
-		attending: { type: GraphQL.GraphQLBoolean },
+		attending: { type: GraphQLBoolean },
 		createdAt: keystoneTypes.datetime(Meetup.fields.createdAt),
 		changedAt: keystoneTypes.datetime(Meetup.fields.changedAt),
 	},
-	interfaces: [nodeDefinitions.nodeInterface],
+	interfaces: [nodeInterface],
 });
 
-var organisationType = new GraphQL.GraphQLObjectType({
+var organisationType = new GraphQLObjectType({
 	name: 'Organisation',
 	fields: {
-		id: GraphQLRelay.globalIdField('Organisation'),
-		name: { type: GraphQL.GraphQLString },
+		id: globalIdField('Organisation'),
+		name: { type: GraphQLString },
 		logo: { type: keystoneTypes.cloudinaryImage },
-		website: { type: GraphQL.GraphQLString },
-		isHiring: { type: GraphQL.GraphQLBoolean },
+		website: { type: GraphQLString },
+		isHiring: { type: GraphQLBoolean },
 		description: { type: keystoneTypes.markdown },
 		location: { type: keystoneTypes.location },
 		members: {
-			type: new GraphQL.GraphQLList(userType),
+			type: new GraphQLList(userType),
 			resolve: (source) =>
 				User.model.find().where('organisation', source.id).exec(),
 		},
 	},
-	interfaces: [nodeDefinitions.nodeInterface],
+	interfaces: [nodeInterface],
 });
 
-var queryRootType = new GraphQL.GraphQLObjectType({
+var queryRootType = new GraphQLObjectType({
 	name: 'Query',
 	fields: {
-		node: nodeDefinitions.nodeField,
+		node: nodeField,
 		meetup: {
 			type: meetupType,
 			args: {
 				id: {
 					description: 'id of the meetup, can be "next" or "last"',
-					type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLID),
+					type: new GraphQLNonNull(GraphQLID),
 				},
 			},
 			resolve: (_, args) => {
@@ -256,7 +272,7 @@ var queryRootType = new GraphQL.GraphQLObjectType({
 			args: {
 				id: {
 					description: 'id of the talk',
-					type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLID),
+					type: new GraphQLNonNull(GraphQLID),
 				},
 			},
 			resolve: (_, args) => Talk.model.findById(args.id).exec(),
@@ -266,7 +282,7 @@ var queryRootType = new GraphQL.GraphQLObjectType({
 			args: {
 				id: {
 					description: 'id of the organisation',
-					type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLID),
+					type: new GraphQLNonNull(GraphQLID),
 				},
 			},
 			resolve: (_, args) => Organisation.model.findById(args.id).exec(),
@@ -276,7 +292,7 @@ var queryRootType = new GraphQL.GraphQLObjectType({
 			args: {
 				id: {
 					description: 'id of the user',
-					type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLID),
+					type: new GraphQLNonNull(GraphQLID),
 				},
 			},
 			resolve: (_, args) => User.model.findById(args.id).exec(),
@@ -286,7 +302,7 @@ var queryRootType = new GraphQL.GraphQLObjectType({
 			args: {
 				id: {
 					description: 'id of the RSVP',
-					type: new GraphQL.GraphQLNonNull(GraphQL.GraphQLID),
+					type: new GraphQLNonNull(GraphQLID),
 				},
 			},
 			resolve: (_, args) => RSVP.model.findById(args.id).exec(),
@@ -294,6 +310,6 @@ var queryRootType = new GraphQL.GraphQLObjectType({
 	},
 });
 
-module.exports = new GraphQL.GraphQLSchema({
+export default new GraphQLSchema({
 	query: queryRootType,
 });
