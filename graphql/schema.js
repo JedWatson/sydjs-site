@@ -14,6 +14,9 @@ import {
 	fromGlobalId,
 	globalIdField,
 	nodeDefinitions,
+	connectionDefinitions,
+	connectionFromPromisedArray,
+	connectionArgs,
 } from 'graphql-relay';
 
 var keystoneTypes = require('./keystoneTypes');
@@ -226,7 +229,7 @@ var rsvpType = new GraphQLObjectType({
 
 var organisationType = new GraphQLObjectType({
 	name: 'Organisation',
-	fields: {
+	fields: () => ({
 		id: globalIdField('Organisation'),
 		name: { type: GraphQLString },
 		logo: { type: keystoneTypes.cloudinaryImage },
@@ -235,12 +238,22 @@ var organisationType = new GraphQLObjectType({
 		description: { type: keystoneTypes.markdown },
 		location: { type: keystoneTypes.location },
 		members: {
-			type: new GraphQLList(userType),
-			resolve: (source) =>
-				User.model.find().where('organisation', source.id).exec(),
+			type: userConnection,
+			args: connectionArgs,
+			resolve: ({id}, args) => connectionFromPromisedArray(
+				User.model.find().where('organisation', id).exec(),
+				args
+			),
 		},
-	},
+	}),
 	interfaces: [nodeInterface],
+});
+
+var {
+	connectionType: userConnection,
+} = connectionDefinitions({
+	name: 'User',
+	nodeType: userType,
 });
 
 var queryRootType = new GraphQLObjectType({
@@ -296,6 +309,14 @@ var queryRootType = new GraphQLObjectType({
 				},
 			},
 			resolve: (_, args) => User.model.findById(args.id).exec(),
+		},
+		users: {
+			type: userConnection,
+			args: connectionArgs,
+			resolve: (_, args) => connectionFromPromisedArray(
+				User.model.find().exec(),
+				args
+			),
 		},
 		rsvp: {
 			type: rsvpType,
