@@ -294,30 +294,45 @@ var {
 	nodeType: organisationType,
 });
 
+function modelFieldById (objectType, keystoneModel) {
+	const modelIDField = `${objectType.name.toLowerCase()}ID`;
+	return {
+		type: objectType,
+		args: {
+			id: {
+				description: `global ID of the ${objectType.name}`,
+				type: GraphQLID,
+			},
+			[modelIDField]: {
+				description: `MongoDB ID of the ${objectType.name}`,
+				type: GraphQLID,
+			},
+		},
+		resolve: (_, args) => {
+			if (args[modelIDField] !== undefined && args[modelIDField] !== null) {
+				return keystoneModel.model.findById(args[modelIDField]).exec();
+			}
+
+			if (args.id !== undefined && args.id !== null) {
+				var {id: mongoID} = fromGlobalId(args.id);
+				if (mongoID === null || mongoID === undefined ||
+						mongoID === '') {
+					throw new Error(`No valid ID extracted from ${args.id}`);
+				}
+
+				return keystoneModel.model.findById(mongoID).exec();
+			}
+
+			throw new Error('Must provide at least one argument');
+		},
+	};
+}
+
 var queryRootType = new GraphQLObjectType({
 	name: 'Query',
 	fields: {
 		node: nodeField,
-		meetup: {
-			type: meetupType,
-			args: {
-				id: {
-					description: 'id of the meetup, can be "next" or "last"',
-					type: new GraphQLNonNull(GraphQLID),
-				},
-			},
-			resolve: (_, args) => {
-				if (args.id === 'next') {
-					return Meetup.model.findOne().sort('-startDate')
-									.where('state', 'active').exec();
-				} else if (args.id === 'last') {
-					return Meetup.model.findOne().sort('-startDate')
-									.where('state', 'past').exec();
-				} else {
-					return Meetup.model.findById(args.id).exec();
-				}
-			},
-		},
+		meetup: modelFieldById(meetupType, Meetup),
 		allMeetups: {
 			type: meetupConnection,
 			args: connectionArgs,
@@ -326,16 +341,7 @@ var queryRootType = new GraphQLObjectType({
 				args
 			),
 		},
-		talk: {
-			type: talkType,
-			args: {
-				id: {
-					description: 'id of the talk',
-					type: new GraphQLNonNull(GraphQLID),
-				},
-			},
-			resolve: (_, args) => Talk.model.findById(args.id).exec(),
-		},
+		talk: modelFieldById(talkType, Talk),
 		allTalks: {
 			type: talkConnection,
 			args: connectionArgs,
@@ -344,16 +350,7 @@ var queryRootType = new GraphQLObjectType({
 				args
 			),
 		},
-		organisation: {
-			type: organisationType,
-			args: {
-				id: {
-					description: 'id of the organisation',
-					type: new GraphQLNonNull(GraphQLID),
-				},
-			},
-			resolve: (_, args) => Organisation.model.findById(args.id).exec(),
-		},
+		organisation: modelFieldById(organisationType, Organisation),
 		allOrganisations: {
 			type: organisationConnection,
 			args: connectionArgs,
@@ -362,16 +359,7 @@ var queryRootType = new GraphQLObjectType({
 				args
 			),
 		},
-		user: {
-			type: userType,
-			args: {
-				id: {
-					description: 'id of the user',
-					type: new GraphQLNonNull(GraphQLID),
-				},
-			},
-			resolve: (_, args) => User.model.findById(args.id).exec(),
-		},
+		user: modelFieldById(userType, User),
 		allUsers: {
 			type: userConnection,
 			args: connectionArgs,
@@ -380,16 +368,7 @@ var queryRootType = new GraphQLObjectType({
 				args
 			),
 		},
-		RSVP: {
-			type: rsvpType,
-			args: {
-				id: {
-					description: 'id of the RSVP',
-					type: new GraphQLNonNull(GraphQLID),
-				},
-			},
-			resolve: (_, args) => RSVP.model.findById(args.id).exec(),
-		},
+		RSVP: modelFieldById(rsvpType, RSVP),
 		allRSVPs: {
 			type: rsvpConnection,
 			args: connectionArgs,
