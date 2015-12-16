@@ -8,6 +8,12 @@
   },
   "dependencies": {
     "async": "^1.5.0",
+    "babel-core": "^6.3.17",
+    "babel-plugin-syntax-object-rest-spread": "^6.3.13",
+    "babel-plugin-transform-object-rest-spread": "^6.3.13",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.3.13",
+    "babel-register": "^6.3.13",
     "babelify": "^7.2.0",
     "body-parser": "^1.14.1",
     "browserify-middleware": "^7.0.0",
@@ -17,7 +23,7 @@
     "dotenv": "^1.2.0",
     "express-graphql": "^0.4.5",
     "graphql": "^0.4.14",
-    "history": "^1.12.0",
+    "graphql-relay": "^0.3.5",
     "keystone": "https://github.com/keystonejs/keystone.git",
     "lodash": "^3.10.1",
     "moment": "^2.10.6",
@@ -29,19 +35,18 @@
     "passport-twitter": "^1.0.3",
     "react": "^0.14.3",
     "react-dom": "^0.14.1",
-    "react-router": "^1.0.0",
     "request": "^2.67.0",
     "store-prototype": "^1.1.1",
     "superagent": "^1.4.0",
     "underscore": "^1.8.3"
   },
   "engines": {
-    "node": "0.10.x",
-    "npm": "1.3.x"
+    "node": "~4.1.0",
+    "npm": "~2.14.3"
   },
   "scripts": {
     "start": "node keystone.js",
-    "print-graphql-schema": "node ./graphql/scripts/printSchema.js",
+    "print-graphql-schema": "babel-node ./graphql/scripts/printSchema.js",
     "lint": "eslint ."
   },
   "devDependencies": {

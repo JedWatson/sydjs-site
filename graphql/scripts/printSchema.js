@@ -1,9 +1,9 @@
 // TODO require the parts of Keystone needed for this script to work
-require('../../keystone');
-var fs = require('fs');
-var path = require('path');
-var schema = require('../schema');
-var printSchema = require('graphql/utilities').printSchema;
+import '../../keystone';
+import fs from 'fs';
+import path from 'path';
+import schema from '../schema';
+import {printSchema} from 'graphql/utilities';
 
 // Save user readable type system shorthand of schema to help DX
 fs.writeFileSync(
