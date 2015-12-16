@@ -195,13 +195,13 @@ var userType = new GraphQLObjectType({
 		name: {
 			type: new GraphQLNonNull(keystoneTypes.name),
 		},
-		email: {
-			type: keystoneTypes.email,
-			resolve: (source) => ({
-				email: source.email,
-				gravatarUrl: source._.email.gravatarUrl,
-			}),
-		},
+		// email: {
+		// 	type: keystoneTypes.email,
+		// 	resolve: (source) => ({
+		// 		email: source.email,
+		// 		gravatarUrl: source._.email.gravatarUrl,
+		// 	}),
+		// },
 		talks: {
 			type: talkConnection,
 			args: connectionArgs,
