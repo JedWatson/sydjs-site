@@ -1,92 +1,97 @@
-var GraphQL = require('graphql');
+import {
+	GraphQLInt,
+	GraphQLList,
+	GraphQLObjectType,
+	GraphQLString,
+} from 'graphql';
 
-module.exports.name = new GraphQL.GraphQLObjectType({
+export var name = new GraphQLObjectType({
 	name: 'KeystoneName',
 	fields: {
 		first: {
-			type: GraphQL.GraphQLString,
+			type: GraphQLString,
 		},
 		last: {
-			type: GraphQL.GraphQLString,
+			type: GraphQLString,
 		},
 		full: {
-			type: GraphQL.GraphQLString,
+			type: GraphQLString,
 		},
 	},
 });
 
-module.exports.cloudinaryImage = new GraphQL.GraphQLObjectType({
+export var cloudinaryImage = new GraphQLObjectType({
 	name: 'KeystoneCloudinaryImage',
 	fields: {
 		public_id: {
-			type: GraphQL.GraphQLString,
+			type: GraphQLString,
 		},
 		version: {
-			type: GraphQL.GraphQLInt,
+			type: GraphQLInt,
 		},
 		signature: {
-			type: GraphQL.GraphQLString,
+			type: GraphQLString,
 		},
 		format: {
-			type: GraphQL.GraphQLString,
+			type: GraphQLString,
 		},
 		resource_type: {
-			type: GraphQL.GraphQLString,
+			type: GraphQLString,
 		},
 		url: {
-			type: GraphQL.GraphQLString,
+			type: GraphQLString,
 		},
 		width: {
-			type: GraphQL.GraphQLInt,
+			type: GraphQLInt,
 		},
 		height: {
-			type: GraphQL.GraphQLInt,
+			type: GraphQLInt,
 		},
 		secure_url: {
-			type: GraphQL.GraphQLString,
+			type: GraphQLString,
 		},
 	},
 });
 
-module.exports.location = new GraphQL.GraphQLObjectType({
+export var location = new GraphQLObjectType({
 	name: 'KeystoneLocation',
 	fields: {
 		name: {
-			type: GraphQL.GraphQLString,
+			type: GraphQLString,
 		},
 		number: {
-			type: GraphQL.GraphQLInt,
+			type: GraphQLInt,
 		},
 		street1: {
-			type: GraphQL.GraphQLString,
+			type: GraphQLString,
 		},
 		street2: {
-			type: GraphQL.GraphQLString,
+			type: GraphQLString,
 		},
 		suburb: {
-			type: GraphQL.GraphQLString,
+			type: GraphQLString,
 		},
 		state: {
-			type: GraphQL.GraphQLString,
+			type: GraphQLString,
 		},
 		postcode: {
-			type: GraphQL.GraphQLInt,
+			type: GraphQLInt,
 		},
 		country: {
-			type: GraphQL.GraphQLInt,
+			type: GraphQLInt,
 		},
 		geo: {
-			type: new GraphQL.GraphQLList(GraphQL.GraphQLString),
+			type: new GraphQLList(GraphQLString),
 			description: 'An array [longitude, latitude]',
 		},
 	},
 });
 
-module.exports.date = (field) => ({
-	type: GraphQL.GraphQLString,
+export var date = (field) => ({
+	type: GraphQLString,
 	args: {
 		format: {
-			type: GraphQL.GraphQLString,
+			type: GraphQLString,
 			description: 'A formated time using Moment.js tokens ' +
 				'http://momentjs.com/docs/#/displaying/format/',
 		},
@@ -99,11 +104,11 @@ module.exports.date = (field) => ({
 	},
 });
 
-module.exports.datetime = (field) => ({
-	type: GraphQL.GraphQLString,
+export var datetime = (field) => ({
+	type: GraphQLString,
 	args: {
 		format: {
-			type: GraphQL.GraphQLString,
+			type: GraphQLString,
 			description: 'A formated datetime using Moment.js tokens ' +
 				'http://momentjs.com/docs/#/displaying/format/',
 		},
@@ -116,56 +121,56 @@ module.exports.datetime = (field) => ({
 	},
 });
 
-module.exports.link = new GraphQL.GraphQLObjectType({
+export var link = new GraphQLObjectType({
 	name: 'KeystoneLink',
 	fields: {
 		raw: {
-			type: GraphQL.GraphQLString,
+			type: GraphQLString,
 			description: 'The raw unformmated URL',
 		},
 		format: {
-			type: GraphQL.GraphQLString,
+			type: GraphQLString,
 			description: 'The URL after being passed through the `format Function` option',
 		},
 	},
 });
 
-module.exports.markdown = new GraphQL.GraphQLObjectType({
+export var markdown = new GraphQLObjectType({
 	name: 'KeystoneMarkdown',
 	fields: {
 		md: {
-			type: GraphQL.GraphQLString,
+			type: GraphQLString,
 			description: 'source markdown text',
 		},
 		html: {
-			type: GraphQL.GraphQLString,
+			type: GraphQLString,
 			description: 'generated html code',
 		},
 	},
 });
 
-module.exports.email = new GraphQL.GraphQLObjectType({
+export var email = new GraphQLObjectType({
 	name: 'KeystoneEmail',
 	fields: {
 		email: {
-			type: GraphQL.GraphQLString,
+			type: GraphQLString,
 		},
 		gravatarUrl: {
-			type: GraphQL.GraphQLString,
+			type: GraphQLString,
 			args: {
 				size: {
-					type: GraphQL.GraphQLInt,
+					type: GraphQLInt,
 					defaultValue: 80,
 					description: 'Size of images ranging from 1 to 2048 pixels, square',
 				},
 				defaultImage: {
-					type: GraphQL.GraphQLString,
+					type: GraphQLString,
 					defaultValue: 'identicon',
 					description: 'default image url encoded href or one of the built ' +
 						'in options: 404, mm, identicon, monsterid, wavatar, retro, blank',
 				},
 				rating: {
-					type: GraphQL.GraphQLString,
+					type: GraphQLString,
 					defaultValue: 'g',
 					description: 'the rating of the image, either rating, g, pg, r or x',
 				},
