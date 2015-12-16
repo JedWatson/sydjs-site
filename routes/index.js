@@ -1,5 +1,4 @@
 var babelify = require('babelify');
-var bodyParser = require('body-parser');
 var browserify = require('browserify-middleware');
 var clientConfig = require('../client/config');
 var keystone = require('keystone');
