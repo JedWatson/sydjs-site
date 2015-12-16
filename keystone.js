@@ -1,5 +1,5 @@
 // Note it's checking the regex against an absoloute path
-require('babel-register')({ only: /\/sydjs-site\/graphql\/.*/ });
+require('babel-register')({ only: /\/graphql\/.*/ });
 
 // Load .env for development environments
 require('dotenv').load();
