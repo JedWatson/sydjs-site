@@ -5,7 +5,7 @@ var clientConfig = require('../client/config');
 var keystone = require('keystone');
 var middleware = require('./middleware');
 var graphqlHTTP = require('express-graphql');
-var graphQLSchema = require('../graphql/schema').default;
+var graphQLSchema = require('../graphql/basicSchema').default;
 
 var importRoutes = keystone.importer(__dirname);
 
