@@ -1,4 +1,4 @@
-var React = require('react/addons');
+var React = require('react');
 var request = require('superagent');
 var RSVPStore = require('../stores/RSVPStore');
 

@@ -1,4 +1,4 @@
-var React = require('react/addons');
+var React = require('react');
 var request = require('superagent');
 var RSVPStore = require('../stores/RSVPStore');
 
@@ -25,7 +25,7 @@ var AttendingApp = React.createClass({
 			attendees: RSVPStore.getAttendees()
 		});
 	},
-	
+
 	renderHeading: function() {
 		if (!this.state.isReady) return <h3 className="heading-with-line">...</h3>;
 		var count = this.state.attendees ? this.state.attendees.length : '...';
