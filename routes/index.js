@@ -48,7 +48,11 @@ exports = module.exports = function (app) {
 
 	app.use('/js', browserify('./client/scripts', {
 		external: clientConfig.packages,
-		transform: ['babelify'],
+		transform: [
+			babelify.configure({
+				presets: ['es2015', 'react']
+			}),
+		],
 	}));
 
 	// GraphQL
