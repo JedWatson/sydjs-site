@@ -50,6 +50,7 @@
     "lint": "eslint ."
   },
   "devDependencies": {
+    "babel-eslint": "^5.0.0-beta6",
     "eslint": "^1.10.3",
     "eslint-config-standard": "^4.4.0",
     "eslint-plugin-react": "^3.11.3",
