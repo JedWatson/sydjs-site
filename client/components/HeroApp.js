@@ -7,9 +7,10 @@ var HeroApp = React.createClass({
 	getInitialState: function() {
 		return {
 			user: SydJS.user,
+			isBusy: false,
 			isReady: RSVPStore.isLoaded(),
 			meetup: RSVPStore.getMeetup(),
-			rsvp: RSVPStore.getRSVP()
+			rsvp: RSVPStore.getRSVP(),
 		};
 	},
 
@@ -23,14 +24,14 @@ var HeroApp = React.createClass({
 
 	updateStateFromStore: function() {
 		this.setState({
+			isBusy: RSVPStore.isBusy(),
 			isReady: RSVPStore.isLoaded(),
 			meetup: RSVPStore.getMeetup(),
-			rsvp: RSVPStore.getRSVP()
+			rsvp: RSVPStore.getRSVP(),
 		});
 	},
 
 	toggleRSVP: function(attending) {
-		var self = this;
 		RSVPStore.rsvp(attending);
 	},
 
@@ -46,6 +47,14 @@ var HeroApp = React.createClass({
 		return (
 			<div className="hero-button">
 				<div className="alert alert-success mb-0 text-center">loading...</div>
+			</div>
+		);
+	},
+
+	renderBusy: function() {
+		return (
+			<div className="hero-button">
+				<div className="alert alert-success mb-0 text-center">hold on...</div>
 			</div>
 		);
 	},
@@ -105,6 +114,9 @@ var HeroApp = React.createClass({
 	render: function() {
 		if (!this.state.isReady) {
 			return this.renderLoading();
+		}
+		if (this.state.isBusy) {
+			return this.renderBusy();
 		}
 		if (this.state.user) {
 			if (this.state.meetup.rsvpsAvailable) {
