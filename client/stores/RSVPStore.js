@@ -32,6 +32,7 @@ RSVPStore.extend({
 	},
 
 	rsvp: function(attending, callback) {
+		if (busy) return;
 		cancelRefresh();
 		busy = true;
 		RSVPStore.notifyChange();
