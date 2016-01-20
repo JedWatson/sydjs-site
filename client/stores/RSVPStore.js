@@ -71,6 +71,7 @@ RSVPStore.extend({
 				if (err) {
 					console.log('Error with the AJAX request: ', err)
 				}
+				busy = false;
 				if (!err && res.body) {
 					loaded = true;
 					meetup = res.body.meetup;
@@ -78,7 +79,6 @@ RSVPStore.extend({
 					attendees = res.body.attendees;
 					RSVPStore.notifyChange();
 				}
-				busy = false;
 				RSVPStore.queueMeetupRefresh();
 				return callback && callback(err, res.body);
 			});
