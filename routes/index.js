@@ -28,7 +28,7 @@ keystone.set('500', function (err, req, res, next) {
 		message = err.message;
 		err = err.stack;
 	}
-	res.err(err, title, message);
+	res.send(err, title, message);
 });
 
 // Load Routes
