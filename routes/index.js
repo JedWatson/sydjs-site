@@ -1,12 +1,10 @@
 var babelify = require('babelify');
-var bodyParser = require('body-parser');
 var browserify = require('browserify-middleware');
 var clientConfig = require('../client/config');
 var keystone = require('keystone');
 var middleware = require('./middleware');
 var graphqlHTTP = require('express-graphql');
-var graphQLSchema = require('../graphql/basicSchema').default;
-var relaySchema = require('../graphql/relaySchema').default;
+var schema = require('../graphql/schema').default;
 
 var importRoutes = keystone.importer(__dirname);
 
@@ -57,8 +55,7 @@ exports = module.exports = function (app) {
 	}));
 
 	// GraphQL
-	app.use('/api/graphql', graphqlHTTP({ schema: graphQLSchema, graphiql: true }));
-	app.use('/api/relay', graphqlHTTP({ schema: relaySchema, graphiql: true }));
+	app.use('/api/graphql', graphqlHTTP({ schema: schema, graphiql: true }));
 
 	// Allow cross-domain requests (development only)
 	if (process.env.NODE_ENV !== 'production') {

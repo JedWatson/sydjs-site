@@ -63,6 +63,32 @@ var {nodeInterface, nodeField} = nodeDefinitions(
 	}
 );
 
+function createConnectionType (type, connectionName, shorthandPluralName) {
+	return (
+		connectionDefinitions({
+			name: connectionName,
+			nodeType: meetupType,
+			connectionFields: () => ({
+				totalCount: {
+					type: GraphQLInt,
+					resolve: (conn) => conn.edges.length,
+				},
+				[shorthandPluralName]: {
+					type: new GraphQLList(type),
+					resolve: (conn) => conn.edges.map(edge => edge.node),
+					description:
+`A list of all of the objects returned in the connection. This is a convenience
+field provided for quickly exploring the API; rather than querying for
+"{ edges { node } }" when no edge data is needed, this field can be be used
+instead. Note that when clients like Relay need to fetch the "cursor" field on
+the edge to enable efficient pagination, this shortcut cannot be used, and the
+full "{ edges { node } }" version should be used instead.`,
+				},
+			}),
+		}).connectionType
+	);
+}
+
 var meetupStateEnum = new GraphQLEnumType({
 	name: 'MeetupState',
 	description: 'The state of the meetup',
@@ -124,7 +150,7 @@ var meetupType = new GraphQLObjectType({
 			type: new GraphQLNonNull(GraphQLBoolean),
 		},
 		talks: {
-			type: talkConnection,
+			type: createConnectionType(talkType, 'MeetupTalks', 'talks'),
 			args: connectionArgs,
 			resolve: ({id}, args) => connectionFromPromisedArray(
 				Talk.model.find().where('meetup', id).exec(),
@@ -132,7 +158,7 @@ var meetupType = new GraphQLObjectType({
 			),
 		},
 		rsvps: {
-			type: rsvpConnection,
+			type: createConnectionType(userType, 'MeetupRSVPs', 'RSVPs'),
 			args: connectionArgs,
 			resolve: ({id}, args) => connectionFromPromisedArray(
 				RSVP.model.find().where('meetup', id).exec(),
@@ -203,15 +229,15 @@ var userType = new GraphQLObjectType({
 		// 	}),
 		// },
 		talks: {
-			type: talkConnection,
+			type: createConnectionType(talkType, 'UserTalks', 'talks'),
 			args: connectionArgs,
 			resolve: ({id}, args) => connectionFromPromisedArray(
 				Talk.model.find().where('who', id).exec(),
 				args
 			),
 		},
-		rsvps: {
-			type: rsvpConnection,
+		RSVPs: {
+			type: createConnectionType(rsvpType, 'OrganisationRSVPs', 'RSVPs'),
 			args: connectionArgs,
 			resolve: ({id}, args) => connectionFromPromisedArray(
 				RSVP.model.find().where('who', id).exec(),
@@ -252,7 +278,7 @@ var organisationType = new GraphQLObjectType({
 		description: { type: keystoneTypes.markdown },
 		location: { type: keystoneTypes.location },
 		members: {
-			type: userConnection,
+			type: createConnectionType(userType, 'OrganisationMembers', 'members'),
 			args: connectionArgs,
 			resolve: ({id}, args) => connectionFromPromisedArray(
 				User.model.find().where('organisation', id).exec(),
@@ -261,37 +287,6 @@ var organisationType = new GraphQLObjectType({
 		},
 	}),
 	interfaces: [nodeInterface],
-});
-
-var {
-	connectionType: meetupConnection,
-} = connectionDefinitions({
-	name: 'Meetup',
-	nodeType: meetupType,
-});
-var {
-	connectionType: talkConnection,
-} = connectionDefinitions({
-	name: 'Talk',
-	nodeType: talkType,
-});
-var {
-	connectionType: userConnection,
-} = connectionDefinitions({
-	name: 'User',
-	nodeType: userType,
-});
-var {
-	connectionType: rsvpConnection,
-} = connectionDefinitions({
-	name: 'RSVP',
-	nodeType: rsvpType,
-});
-var {
-	connectionType: organisationConnection,
-} = connectionDefinitions({
-	name: 'Organisation',
-	nodeType: organisationType,
 });
 
 function modelFieldById (objectType, keystoneModel) {
@@ -334,7 +329,7 @@ var queryRootType = new GraphQLObjectType({
 		node: nodeField,
 		meetup: modelFieldById(meetupType, Meetup),
 		allMeetups: {
-			type: meetupConnection,
+			type: createConnectionType(meetupType, 'Meetups', 'meetups'),
 			args: {
 				state: {
 					type: meetupStateEnum,
@@ -349,7 +344,7 @@ var queryRootType = new GraphQLObjectType({
 		},
 		talk: modelFieldById(talkType, Talk),
 		allTalks: {
-			type: talkConnection,
+			type: createConnectionType(talkType, 'Talks', 'talks'),
 			args: connectionArgs,
 			resolve: (_, args) => connectionFromPromisedArray(
 				Talk.model.find().exec(),
@@ -358,7 +353,7 @@ var queryRootType = new GraphQLObjectType({
 		},
 		organisation: modelFieldById(organisationType, Organisation),
 		allOrganisations: {
-			type: organisationConnection,
+			type: createConnectionType(organisationType, 'Organisations', 'organisations'),
 			args: connectionArgs,
 			resolve: (_, args) => connectionFromPromisedArray(
 				Organisation.model.find().exec(),
@@ -367,7 +362,7 @@ var queryRootType = new GraphQLObjectType({
 		},
 		user: modelFieldById(userType, User),
 		allUsers: {
-			type: userConnection,
+			type: createConnectionType(userType, 'Users', 'users'),
 			args: connectionArgs,
 			resolve: (_, args) => connectionFromPromisedArray(
 				User.model.find().exec(),
@@ -376,7 +371,7 @@ var queryRootType = new GraphQLObjectType({
 		},
 		RSVP: modelFieldById(rsvpType, RSVP),
 		allRSVPs: {
-			type: rsvpConnection,
+			type: createConnectionType(rsvpType, 'RSVPs', 'RSVPs'),
 			args: connectionArgs,
 			resolve: (_, args) => connectionFromPromisedArray(
 				RSVP.model.find().exec(),
