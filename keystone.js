@@ -22,8 +22,6 @@ keystone.init({
 	'brand': 'SydJS',
 	'back': '/me',
 
-	'db': 'sydjs-site',
-
 	'favicon': 'public/favicon.ico',
 	'less': 'public',
 	'static': 'public',
