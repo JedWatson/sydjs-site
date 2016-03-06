@@ -46,13 +46,6 @@
   },
   "scripts": {
     "start": "node keystone.js",
-    "print-graphql-schema": "babel-node ./graphql/scripts/printSchema.js",
-    "lint": "eslint ."
-  },
-  "devDependencies": {
-    "eslint": "1.10.3",
-    "eslint-config-standard": "4.4.0",
-    "eslint-plugin-react": "3.11.3",
-    "eslint-plugin-standard": "1.3.1"
+    "print-graphql-schema": "babel-node ./graphql/scripts/printSchema.js"
   }
 }
