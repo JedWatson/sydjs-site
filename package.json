@@ -18,7 +18,7 @@
     "body-parser": "1.15.0",
     "browserify-middleware": "7.0.0",
     "classnames": "2.2.3",
-    "connect-mongo": "0.8.2",
+    "connect-mongo": "1.1.0",
     "crypto": "0.0.3",
     "dotenv": "2.0.0",
     "express-graphql": "0.4.9",
@@ -37,7 +37,7 @@
     "react-dom": "0.14.7",
     "request": "2.69.0",
     "store-prototype": "1.1.1",
-    "superagent": "1.4.0",
+    "superagent": "1.7.2",
     "underscore": "1.8.3"
   },
   "engines": {
