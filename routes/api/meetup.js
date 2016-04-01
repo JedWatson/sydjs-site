@@ -1,4 +1,4 @@
-var _ = require('underscore');
+var _ = require('lodash');
 var async = require('async');
 var keystone = require('keystone');
 var Meetup = keystone.list('Meetup');

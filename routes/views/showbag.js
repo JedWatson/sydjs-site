@@ -1,5 +1,5 @@
 var keystone = require('keystone'),
-	_ = require('underscore');
+	_ = require('lodash');
 
 var User = keystone.list('User'),
 	Organisation = keystone.list('Organisation');

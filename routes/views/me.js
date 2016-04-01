@@ -1,5 +1,5 @@
 var keystone = require('keystone'),
-	_ = require('underscore'),
+	_ = require('lodash'),
 	moment = require('moment');
 
 var Meetup = keystone.list('Meetup'),

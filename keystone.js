@@ -62,7 +62,7 @@ keystone.import('models');
 keystone.set('routes', require('./routes'));
 
 keystone.set('locals', {
-	_: require('underscore'),
+	_: require('lodash'),
 	moment: require('moment'),
 	js: 'javascript:;',
 	env: keystone.get('env'),

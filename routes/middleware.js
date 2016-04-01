@@ -1,4 +1,4 @@
-var _ = require('underscore');
+var _ = require('lodash');
 var querystring = require('querystring');
 var keystone = require('keystone');
 

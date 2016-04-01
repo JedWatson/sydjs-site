@@ -1,6 +1,6 @@
 var keystone = require('keystone'),
 	async = require('async'),
-	_ = require('underscore'),
+	_ = require('lodash'),
 	User = keystone.list('User');
 
 exports = module.exports = function(req, res) {

@@ -1,6 +1,6 @@
 var keystone = require('keystone'),
 	async = require('async'),
-	_ = require('underscore'),
+	_ = require('lodash'),
 	moment = require('moment'),
 	crypto = require('crypto');
 
