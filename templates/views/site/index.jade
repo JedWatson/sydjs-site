@@ -49,9 +49,9 @@ block intro
 													if talk.who.length
 														each speaker, i in talk.who
 															if speaker.isGroup
-																img(src=speaker.photo.exists ? speaker._.photo.crop(320,320) : speaker.avatarUrl || '/images/avatar.png', width=160, height=160, alt=speaker.name.full, class=talk.who.length > 1 ? 'talk__photo--mini' : null).talk__photo
+																img(src=speaker.photo.exists ? speaker.photo.url : speaker.avatarUrl || '/images/avatar.png', width=160, height=160, alt=speaker.name.full, class=talk.who.length > 1 ? 'talk__photo--mini' : null).talk__photo__group
 															else
-																img(src=speaker.photo.exists ? speaker._.photo.thumbnail(320,320) : speaker.avatarUrl || '/images/avatar.png', width=160, height=160, alt=speaker.name.full, class=talk.who.length > 1 ? 'talk__photo--mini' : null).talk__photo
+																img(src=speaker.photo.exists ? speaker._.photo.crop(320,320) : speaker.avatarUrl || '/images/avatar.png', width=160, height=160, alt=speaker.name.full, class=talk.who.length > 1 ? 'talk__photo--mini' : null).talk__photo
 													else
 														img(src='/images/avatar.png', width=160, height=160, alt='There is no speaker...').talk__photo
 												//- if talk.who.length
