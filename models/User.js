@@ -30,6 +30,7 @@ User.add({
 }, 'Profile', {
 	isPublic: { type: Boolean, default: true },
 	isOrganiser: Boolean,
+    isGroup: Boolean,
 	organisation: { type: Types.Relationship, ref: 'Organisation' },
 	photo: { type: Types.CloudinaryImage },
 	github: { type: String, width: 'short' },

@@ -48,7 +48,10 @@ block intro
 												.talk__speakers
 													if talk.who.length
 														each speaker, i in talk.who
-															img(src=speaker.photo.exists ? speaker._.photo.thumbnail(320,320) : speaker.avatarUrl || '/images/avatar.png', width=160, height=160, alt=speaker.name.full, class=talk.who.length > 1 ? 'talk__photo--mini' : null).talk__photo
+															if speaker.isGroup
+																img(src=speaker.photo.exists ? speaker._.photo.crop(320,320) : speaker.avatarUrl || '/images/avatar.png', width=160, height=160, alt=speaker.name.full, class=talk.who.length > 1 ? 'talk__photo--mini' : null).talk__photo
+															else
+																img(src=speaker.photo.exists ? speaker._.photo.thumbnail(320,320) : speaker.avatarUrl || '/images/avatar.png', width=160, height=160, alt=speaker.name.full, class=talk.who.length > 1 ? 'talk__photo--mini' : null).talk__photo
 													else
 														img(src='/images/avatar.png', width=160, height=160, alt='There is no speaker...').talk__photo
 												//- if talk.who.length
