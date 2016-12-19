@@ -50,9 +50,6 @@ keystone.init({
 	'ga property': process.env.GA_PROPERTY,
 	'ga domain': process.env.GA_DOMAIN,
 
-	'chartbeat property': process.env.CHARTBEAT_PROPERTY,
-	'chartbeat domain': process.env.CHARTBEAT_DOMAIN,
-
 	'basedir': __dirname
 
 });
@@ -71,9 +68,7 @@ keystone.set('locals', {
 	editable: keystone.content.editable,
 	google_api_key: keystone.get('google api key'),
 	ga_property: keystone.get('ga property'),
-	ga_domain: keystone.get('ga domain'),
-	chartbeat_property: keystone.get('chartbeat property'),
-	chartbeat_domain: keystone.get('chartbeat domain')
+	ga_domain: keystone.get('ga domain')
 });
 
 keystone.set('email locals', {
