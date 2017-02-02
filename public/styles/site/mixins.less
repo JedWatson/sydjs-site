@@ -1,9 +1,9 @@
 /*
 	Mixins
 	==============================
-	
+
 	Helpers to pump out CSS
-	
+
 	* tile-base
 	* fill-space
 	* scrollable
@@ -168,4 +168,19 @@
 		color: @background;
 		background-color: @color;
 	}
+}
+
+
+
+
+/*
+	Vertical text alignment
+	------------------------------
+
+	Allows for dynamic font-size being calculated. The initial goal was to adjust
+	line-height when the font-size is changed
+*/
+
+.text-hero(@font-factor;) {
+	font-size: calc(@font-size-medium * @font-factor) !important;
 }
