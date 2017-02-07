@@ -19,7 +19,7 @@ var HeroApp = React.createClass({
 	},
 
 	componentWillUnmount: function() {
-		RSVPStore.removeChangeListener(this.updateStoreFromState);
+		RSVPStore.removeChangeListener(this.updateStateFromStore);
 	},
 
 	updateStateFromStore: function() {
