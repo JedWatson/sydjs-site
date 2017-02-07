@@ -343,7 +343,7 @@ var queryRootType = new GraphQLObjectType({
 			},
 			resolve: (_, {state, ...args}) => connectionFromPromisedArray(
 				state ? Meetup.model.find().where('state', state).exec()
-					:	Meetup.model.find().exec(),
+					: Meetup.model.find().exec(),
 				args
 			),
 		},

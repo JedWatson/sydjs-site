@@ -134,7 +134,7 @@ body {
 	a {
 		color: @gray;
 	}
-	
+
 }
 .footer-copyright {
 	margin-top: 2em;
@@ -179,10 +179,10 @@ body {
 	h3 {
 		margin: 5px 0 0 0;
 	}
-	
+
 	h4 a { color: @text-color; }
 	.byline { margin: 0 0 0 0; }
-	
+
 	.link {
 		margin: 0;
 		font-size: @font-size-base + 2;
@@ -195,7 +195,7 @@ body {
 			font-size: @font-size-base - 2;
 		}
 	}
-	
+
 	.description {
 		margin: 10px 0;
 	}
@@ -216,7 +216,7 @@ body {
 		background-color: @gray-light;
 		color: white;
 		font-size: @font-size-base;
-		
+
 		&:hover {
 			background-color: @link-color;
 			text-decoration: none;
@@ -295,7 +295,7 @@ body {
 .back-bar {
 	padding-top: 10px;
 	padding-bottom: 10px;
-	
+
 	p {
 		margin-bottom: 8px;
 	}
@@ -310,23 +310,27 @@ body {
 .about-organisers {
 	.organiser {
 		.img-wrapper {
-			.square( 40px );
+			.square( 50px );
 			float: left;
 			overflow: hidden;
-			margin-right: 9px;
-			
+			margin-bottom: 1rem;
+			margin-right: .625rem;
+
 			img {
 				.img-responsive();
+				border: .1rem solid @brand-primary;
+    			padding: .125rem;
 			}
 		}
 	}
-	.organiser__name {
+	.organiser__name,
+	.organiser__title  {
 		margin: 0;
-	} 
+	}
 	.organiser__twitter {
-		margin-bottom: 9px;
+		margin-bottom: .5rem;
 		font-size: @font-size-base;
-	} 
+	}
 }
 
 
@@ -334,7 +338,7 @@ body {
 // Organisations
 .org__heading {
 	margin-top: 0;
-	
+
 	a {
 		color: @headings-color;
 	}
