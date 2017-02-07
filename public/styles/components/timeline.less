@@ -84,7 +84,8 @@
 
 	&:hover,
 	&:focus {
-		color: @gray;
+		background-color: fade(@white, 50%);
+		color: inherit;
 		outline: none;
 		text-decoration: none;
 
@@ -112,7 +113,7 @@
 		.timeline-item-node {
 			left: 0;
 			width: 20px;
-			
+
 			&:after {
 				margin-left: -(@timeline-node / 2);
 			}
@@ -142,7 +143,7 @@
 
 		.timeline-item-node {
 			right: 0;
-			
+
 			&:after {
 				margin-right: -(@timeline-node / 2);
 				right: 0;
@@ -156,7 +157,7 @@
 
 		.timeline-item-node {
 			left: 0;
-			
+
 			&:after {
 				margin-left: -(@timeline-node / 2);
 			}
