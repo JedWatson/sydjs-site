@@ -24,21 +24,28 @@ mixin meetup(meetup)
 
 		if meetup.state == 'active'
 			hr.mv-2
-			if user
-				if meetup.rsvpsAvailable || rsvpStatus.rsvped && rsvpStatus.attending
-					h4.hero-button-title Are you coming? 
-						span.text-thin (#{plural(meetup.remainingRSVPs, '* spot left', '* spots left')})
-					include ../includes/attendance-toggle
-				else
-					.alert.alert-success.mb-0.text-center No more tickets...
-			
-			else
-				#next-meetup(data-id=meetup.id)
+			.meetup-cta
+				if user
 					if meetup.rsvpsAvailable
-						a(href='/join', data-from=page.path).btn.btn-primary.btn-lg.btn-block.js-auth-trigger RSVP Now 
-							span.text-thin (#{plural(meetup.remainingRSVPs, '* spot left', '* spots left')})
+						h4.hero-button-title
+							if !rsvpStatus.rsvped && rsvpStatus.attending
+								span RSVP Confirmed!
+							else
+								span Are you coming?&nbsp;
+								span.text-thin (#{plural(meetup.remainingRSVPs, '* spot left', '* spots left')})
+
+						include ../includes/attendance-toggle
 					else
-						.alert.alert-success.mb-0.text-center No more tickets...
+						.alert.alert-success.mb-0.text-center No more tickets&hellip;
+
+				else
+					#next-meetup(data-id=meetup.id)
+						if meetup.rsvpsAvailable
+							a(href='/join', data-from=page.path).btn.btn-primary.btn-lg.btn-block.js-auth-trigger RSVP Now 
+								span.text-thin (#{plural(meetup.remainingRSVPs, '* spot left', '* spots left')})
+						else
+							.alert.alert-success.mb-0.text-center No more tickets&hellip;
+
 		else if meetup.totalRSVPs
 			hr
 			.text-center
