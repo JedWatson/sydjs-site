@@ -387,3 +387,14 @@ address {
 	font-style: normal;
 	line-height: @line-height-base;
 }
+
+// External links
+[rel='external'] + i {
+	&:after {
+		content: "\27A1";
+		font-family: "EntypoRegular";
+		font-size: 1rem;
+    	font-style: normal;
+		padding-left: .25rem;
+	}
+}
