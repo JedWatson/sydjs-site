@@ -4,10 +4,11 @@ header(id='header', role='banner', class=(section == 'home' ? 'header--home' : '
 		//- Site logo + site nav trigger button (on mobile)
 		.navbar-header
 			a(href='/', title='Back to Home').site-branding
-				include /public/images/logo.svg
+				//- include /public/images/logo.svg
+				img(src='/images/sydjs_600.png', alt='SydJS logo', id='squared')
 			//- User avatar
 			if user
-				a(href='/me').user.visible-xs
+				a(href='/me').user.hidden-md.hidden-lg
 					img(src=(user.photo.exists ? user._.photo.thumbnail(60,60) : user.gravatarUrl || '/images/avatar.png'), width=27).img-circle
 			//- Patty
 			a#site-nav-toggle(href='javascript:;').site-nav-toggle
@@ -21,12 +22,12 @@ header(id='header', role='banner', class=(section == 'home' ? 'header--home' : '
 					li: a(href='mailto:craig.sharkie+sydjs@gmail.com') Contact
 				ul.navbar-nav.navbar-nav--right
 					if user
-						li: a(href='/me').user.hidden-xs
+						li: a(href='/me').user
 								img(src=(user.photo.exists ? user._.photo.thumbnail(27,27) : user.avatarUrl || '/images/avatar.png'), width=27).img-circle
 								=user.name.first
 						li: a(href='/signout')
-							span.visible-xs Sign out
-							span.entypo.entypo-large.entypo-logout.hidden-xs
+							span.hidden-md Sign out
+							span.entypo.entypo-large.entypo-logout
 					else
 						li: a(href='/signin', data-from=page.path, data-initial='signin').js-auth-trigger Sign in
 						li: a(href='/join', data-from=page.path).js-auth-trigger Join
