@@ -121,18 +121,17 @@ var HeroApp = React.createClass({
 			return this.renderBusy();
 		}
 
-		if (this.state.user) {
-			if (this.state.meetup.rsvpsAvailable) {
-				if (this.state.rsvp.exists) {
-					return this.renderRSVPToggle();
-				} else {
-					return this.renderRSVPButton();
-				}
-			} else {
-				return this.renderNoMoreTickets();
-			}
+		var hasUser = !!this.state.user;
+		var isRsvpOpen = this.state.meetup.rsvpsAvailable;
+		var hasRsvped = this.state.rsvp.exists;
+		var isAttending = this.state.rsvp.attending;
+
+		if (!isRsvpOpen) {
+			return hasUser && isAttending ? this.renderRSVPToggle() : this.renderNoMoreTickets();
+		} else if (hasUser) {
+			return hasRsvped ? this.renderRSVPToggle() : this.renderRSVPButton();
 		} else {
-			return this.state.meetup.rsvpsAvailable ? this.renderRSVPSignin() : this.renderNoMoreTickets();
+			return this.renderRSVPSignin();
 		}
 	},
 });
