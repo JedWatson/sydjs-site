@@ -41,7 +41,7 @@
     "superagent": "1.8.5"
   },
   "engines": {
-    "node": "~4.2.0",
+    "node": "~4.8.4",
     "npm": "~2.14.3"
   },
   "scripts": {
