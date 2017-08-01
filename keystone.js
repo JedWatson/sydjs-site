@@ -50,6 +50,8 @@ keystone.init({
 	'ga property': process.env.GA_PROPERTY,
 	'ga domain': process.env.GA_DOMAIN,
 
+	'cloudinary secure': true,
+
 	'basedir': __dirname
 
 });
