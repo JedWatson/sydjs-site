@@ -1,4 +1,4 @@
-a fork from Syd.js
+a fork from Syd
 
 
 sydjs.com
