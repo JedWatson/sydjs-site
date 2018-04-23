@@ -29,47 +29,118 @@ block intro
 					#react-hero-button
 			//- Details
 			section.hero-details: .container
-				.row: .col-sm-10.col-sm-offset-1: .row
-					
-					//- Description
-					.col-md-5
-						//- h3.mb-1 The meetup
-						.description!= meetup.description
+				.row: .col-sm-10.col-sm-offset-1
+					.row
 
-					//- Talks
-					.col-md-6.col-md-offset-1
-						if meetup.talks.length
-							//- h3.mb-1 The talks
-							.meetup-talks
-								ul.list-unstyled.talks-list
-									each talk in meetup.talks
-										li.talk.row
-											.col-xs-3
-												.talk__speakers
-													if talk.who.length
-														each speaker, i in talk.who
-															if speaker.isGroup
-																img(src=speaker.photo.exists ? speaker.photo.url : speaker.avatarUrl || '/images/avatar.png', width=160, height=160, alt=speaker.name.full, class=talk.who.length > 1 ? 'talk__photo--mini' : null).talk__photo__group
-															else
-																img(src=speaker.photo.exists ? speaker._.photo.crop(320,320) : speaker.avatarUrl || '/images/avatar.png', width=160, height=160, alt=speaker.name.full, class=talk.who.length > 1 ? 'talk__photo--mini' : null).talk__photo
-													else
-														img(src='/images/avatar.png', width=160, height=160, alt='There is no speaker...').talk__photo
-												//- if talk.who.length
-													.talkers
-														for photo in talk.who
-															img(src='http://fillmurray.com/100/100').img-circle
-											.col-xs-9
-												.talk-summary
-													h5.title= talk.name
-													p.subtitle.mb-1 by 
-														each speaker, i in talk.who
-															if i
-																| , 
-															if speaker.isPublic 
-																a(href=speaker.url)=speaker.name.full
-															else
-																=speaker.name.full
-													.summary!= talk.description
+						//- Description
+						.col-md-5
+							//- h3.mb-1 The meetup
+							.description!= meetup.description
+
+						//- Talks
+						.col-md-6.col-md-offset-1
+							if meetup.talks.length
+								//- h3.mb-1 The talks
+								.meetup-talks
+									ul.list-unstyled.talks-list
+										each talk in meetup.talks
+											li.talk.row
+												.col-xs-3
+													.talk__speakers
+														if talk.who.length
+															each speaker, i in talk.who
+																if speaker.isGroup
+																	img(src=speaker.photo.exists ? speaker.photo.url : speaker.avatarUrl || '/images/avatar.png', width=160, height=160, alt=speaker.name.full, class=talk.who.length > 1 ? 'talk__photo--mini' : null).talk__photo__group
+																else
+																	img(src=speaker.photo.exists ? speaker._.photo.crop(320,320) : speaker.avatarUrl || '/images/avatar.png', width=160, height=160, alt=speaker.name.full, class=talk.who.length > 1 ? 'talk__photo--mini' : null).talk__photo
+														else
+															img(src='/images/avatar.png', width=160, height=160, alt='There is no speaker...').talk__photo
+													//- if talk.who.length
+														.talkers
+															for photo in talk.who
+																img(src='http://fillmurray.com/100/100').img-circle
+												.col-xs-9
+													.talk-summary
+														h5.title= talk.name
+														p.subtitle.mb-1 by 
+															each speaker, i in talk.who
+																if i
+																	| , 
+																if speaker.isPublic 
+																	a(href=speaker.url)=speaker.name.full
+																else
+																	=speaker.name.full
+														.summary!= talk.description
+					.row
+
+					.row(style="margin-top:  3em")
+						.col-sm-12
+							ins.cetejob
+								article
+									header
+										h1 Job: Ansarada is looking for a Senior Front End Developer - Design Ops
+									p
+										| Design Ops is a team dedicated to making our product design consistent and at the highest standard we can deliver. We are seeking multi-disciplinary individuals with a passion for bridging design and engineering to help build out our design systems at scale.
+									footer
+										address
+											a.cetejob-apply(href="http://bit.ly/ansarada-design-ops-sydjs-com-event") Read more & apply
+											aside
+												| Jobs powered by&nbsp;
+												a(href="https://cete.io/jobs") Cete
+							style.
+								.cetejob, .cetejob * {
+								box-sizing: border-box;
+								padding: 0;
+								margin: 0;
+								transition: all .2s;
+								}
+								.cetejob {
+								display: block;
+								text-decoration: none;
+								}
+								.cetejob header, .cetejob header h1 {
+								font-size: 1em;
+								}
+								.cetejob header h1 {
+								font-weight: bold;
+								margin-top: 0.5em;
+								}
+								.cetejob p {
+								margin: 1em 0;
+								}
+								.cetejob footer a {
+								color: blue;
+								}
+								.cetejob footer a:visited {
+								color: blue;
+								}
+								.cetejob footer address {
+								display: flex;
+								flex-direction: row;
+								font-style: normal;
+								flex-wrap: wrap;
+								justify-content: space-between;
+								align-items: flex-end;
+								margin-top: -1em;
+								}
+								.cetejob footer address > * {
+								margin-top: 1em;
+								}
+								.cetejob footer address .cetejob-apply {
+								margin-right: 2em;
+								}
+								.cetejob footer aside {
+								opacity: 0.4;
+								flex: 1 0;
+								font-size: smaller;
+								text-align: right;
+								}
+								.cetejob footer aside:hover {
+								opacity: 1;
+								}
+								.cetejob footer a, .cetejob footer aside {
+								white-space: nowrap;
+								}
 				//- Attending
 				section.attending
 					#react-attending
