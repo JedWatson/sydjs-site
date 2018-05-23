@@ -31,8 +31,6 @@ keystone.init({
 	'view engine': 'jade',
 	'view cache': false,
 
-	'emails': 'templates/emails',
-
 	'auto update': true,
 	'mongo': process.env.MONGO_URI || 'mongodb://localhost/' + pkg.name,
 
@@ -70,11 +68,7 @@ keystone.set('locals', {
 	editable: keystone.content.editable,
 	google_api_key: keystone.get('google api key'),
 	ga_property: keystone.get('ga property'),
-	ga_domain: keystone.get('ga domain')
-});
-
-keystone.set('email locals', {
-	utils: keystone.utils,
+	ga_domain: keystone.get('ga domain'),
 	host: (function() {
 		if (keystone.get('env') === 'staging') return 'http://sydjs-beta.herokuapp.com';
 		if (keystone.get('env') === 'production') return 'http://www.sydjs.com';
