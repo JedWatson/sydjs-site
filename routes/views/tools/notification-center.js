@@ -81,7 +81,7 @@ exports = module.exports = function(req, res) {
 			return next();
 		} else {
 			async.each(locals.subscribers, function(subscriber, doneSubscriber) {
-				new Email('templates/emails/member-notification', { engine: 'jade', transport: 'mandrill' }).send({
+				new Email('member-notification', { engine: 'jade', transport: 'mandrill', root: 'templates/emails' }).send({
 					subscriber: subscriber,
 					subject: req.body.subscriber_email_subject || 'Notification from SydJS',
 					content: req.body.subscriber_email_content,

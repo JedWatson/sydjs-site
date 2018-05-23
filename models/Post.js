@@ -56,7 +56,7 @@ Post.schema.methods.notifyAdmins = function(callback) {
 	var sendEmail = function(err, results) {
 		if (err) return callback(err);
 		async.each(results.admins, function(admin, done) {
-			new Email('templates/emails/admin-notification-new-post', { engine: 'jade', transport: 'mandrill' }).send({
+			new Email('templates/emails/admin-notification-new-post', { engine: 'jade', transport: 'mandrill', , root: 'templates/emails' }).send({
 				admin: admin.name.first || admin.name.full,
 				author: results.author ? results.author.name.full : 'Somebody',
 				title: post.title,
