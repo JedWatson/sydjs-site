@@ -1,6 +1,7 @@
 var _ = require('lodash');
 var keystone = require('keystone');
 var moment = require('moment');
+var Email = require('keystone-email');
 var Types = keystone.Field.Types;
 
 /**
@@ -113,7 +114,7 @@ Meetup.schema.methods.notifyAttendees = function(req, res, next) {
 			next();
 		} else {
 			attendees.forEach(function(attendee) {
-				new keystone.Email('new-meetup').send({
+				new Email('new-meetup', { transport: 'mandrill' }).send({
 					attendee: attendee,
 					meetup: meetup,
 					subject: 'New meetup: ' + meetup.name,

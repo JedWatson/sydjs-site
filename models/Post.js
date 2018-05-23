@@ -1,5 +1,6 @@
 var async = require('async');
 var keystone = require('keystone');
+var Email = require('keystone-email');
 var Types = keystone.Field.Types;
 
 /**
@@ -55,7 +56,7 @@ Post.schema.methods.notifyAdmins = function(callback) {
 	var sendEmail = function(err, results) {
 		if (err) return callback(err);
 		async.each(results.admins, function(admin, done) {
-			new keystone.Email('admin-notification-new-post').send({
+			new Email('admin-notification-new-post', { transport: 'mandrill' }).send({
 				admin: admin.name.first || admin.name.full,
 				author: results.author ? results.author.name.full : 'Somebody',
 				title: post.title,

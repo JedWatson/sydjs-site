@@ -1,14 +1,15 @@
 var keystone = require('keystone'),
-	async = require('async');
+var async = require('async');
+var Email = require('keystone-email');
 
-var Meetup = keystone.list('Meetup'),
-	User = keystone.list('User');
+var Meetup = keystone.list('Meetup');
+var User = keystone.list('User');
 
 exports = module.exports = function(req, res) {
-	
+
 	var view = new keystone.View(req, res),
 		locals = res.locals;
-	
+
 	locals.section = 'tools';
 	locals.nextMeetup = false;
 
@@ -23,10 +24,10 @@ exports = module.exports = function(req, res) {
 
 
 	// Get all subscribers
-	
+
 	view.query('subscribers', User.model.find().where('notifications.meetups', true));
 
-	
+
 	// Get the next meetup
 
 	view.on('init', function(next) {
@@ -34,7 +35,7 @@ exports = module.exports = function(req, res) {
 			.where('state', 'active')
 			.sort('-startDate')
 			.exec(function(err, meetup) {
-			
+
 				if (err) {
 					console.error("===== Error loading next meetup =====");
 					console.error(err);
@@ -50,7 +51,7 @@ exports = module.exports = function(req, res) {
 			});
 	});
 
-	
+
 	// Notify next meetup attendees
 
 	view.on('post', { action: 'notify.attendee' }, function(next) {
@@ -71,7 +72,7 @@ exports = module.exports = function(req, res) {
 		}
 	});
 
-	
+
 	// Notify all SydJS subscribers
 
 	view.on('post', { action: 'notify.subscriber' }, function(next) {
@@ -80,7 +81,7 @@ exports = module.exports = function(req, res) {
 			return next();
 		} else {
 			async.each(locals.subscribers, function(subscriber, doneSubscriber) {
-				new keystone.Email('member-notification').send({
+				new Email('member-notification', { transport: 'mandrill' }).send({
 					subscriber: subscriber,
 					subject: req.body.subscriber_email_subject || 'Notification from SydJS',
 					content: req.body.subscriber_email_content,
@@ -105,7 +106,7 @@ exports = module.exports = function(req, res) {
 		}
 	});
 
-	
+
 	// Populate the RSVPs for counting
 
 	view.on('render', function(next) {
@@ -114,9 +115,9 @@ exports = module.exports = function(req, res) {
 		} else {
 			next();
 		}
-		
+
 	});
-	
+
 	view.render('tools/notification-center');
-	
+
 }
