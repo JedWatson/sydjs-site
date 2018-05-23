@@ -69,11 +69,11 @@ keystone.set('locals', {
 	google_api_key: keystone.get('google api key'),
 	ga_property: keystone.get('ga property'),
 	ga_domain: keystone.get('ga domain'),
-	host: (function() {
-		if (keystone.get('env') === 'staging') return 'http://sydjs-beta.herokuapp.com';
-		if (keystone.get('env') === 'production') return 'http://www.sydjs.com';
-		return (keystone.get('host') || 'http://localhost:') + (keystone.get('port') || '3000');
-	})()
+	// host: (function() {
+	// 	if (keystone.get('env') === 'staging') return 'http://sydjs-beta.herokuapp.com';
+	// 	if (keystone.get('env') === 'production') return 'http://www.sydjs.com';
+	// 	return (keystone.get('host') || 'http://localhost:') + (keystone.get('port') || '3000');
+	// })()
 });
 
 keystone.set('nav', {

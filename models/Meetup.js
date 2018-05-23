@@ -117,8 +117,9 @@ Meetup.schema.methods.notifyAttendees = function(req, res, next) {
 				new Email('new-meetup', { transport: 'mandrill', engine: 'jade', root: 'templates/emails' }).send({
 					attendee: attendee,
 					meetup: meetup,
-					subject: 'New meetup: ' + meetup.name,
+					host: 'http://www.sydjs.com',
 				}, {
+					subject: 'New meetup: ' + meetup.name,
 					to: attendee.email,
 					from: {
 						name: 'SydJS',

@@ -206,8 +206,9 @@ User.schema.methods.resetPassword = function(callback) {
 		new Email('forgotten-password', { transport: 'mandrill', engine: 'jade', root: 'templates/emails' }).send({
 			user: user,
 			link: '/reset-password/' + user.resetPasswordKey,
-			subject: 'Reset your SydJS Password',
+			host: 'http://www.sydjs.com',
 		}, {
+			subject: 'Reset your SydJS Password',
 			to: user.email,
 			from: {
 				name: 'SydJS',

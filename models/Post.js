@@ -61,8 +61,9 @@ Post.schema.methods.notifyAdmins = function(callback) {
 				author: results.author ? results.author.name.full : 'Somebody',
 				title: post.title,
 				keystoneURL: 'http://www.sydjs.com/keystone/post/' + post.id,
-				subject: 'New Post to SydJS'
+				host: 'http://www.sydjs.com',
 			}, {
+				subject: 'New Post to SydJS',
 				to: admin,
 				from: {
 					name: 'SydJS',

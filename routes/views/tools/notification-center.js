@@ -86,8 +86,9 @@ exports = module.exports = function(req, res) {
 					content: req.body.subscriber_email_content,
 					link_label: req.body.subscriber_email_link_label,
 					link_url: req.body.subscriber_email_link_url,
-					subject: req.body.subscriber_email_subject || 'Notification from SydJS',
+					host: 'http://www.sydjs.com',
 				}, {
+					subject: req.body.subscriber_email_subject || 'Notification from SydJS',
 					to: subscriber.email,
 					from: {
 						name: 'SydJS',
