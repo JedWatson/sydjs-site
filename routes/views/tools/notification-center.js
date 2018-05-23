@@ -1,4 +1,4 @@
-var keystone = require('keystone'),
+var keystone = require('keystone');
 var async = require('async');
 var Email = require('keystone-email');
 
