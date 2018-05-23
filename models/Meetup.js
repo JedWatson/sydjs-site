@@ -114,7 +114,7 @@ Meetup.schema.methods.notifyAttendees = function(req, res, next) {
 			next();
 		} else {
 			attendees.forEach(function(attendee) {
-				new Email('new-meetup', { engine: 'jade', transport: 'mandrill' }).send({
+				new Email('templates/emails/new-meetup', { engine: 'jade', transport: 'mandrill' }).send({
 					attendee: attendee,
 					meetup: meetup,
 					subject: 'New meetup: ' + meetup.name,
