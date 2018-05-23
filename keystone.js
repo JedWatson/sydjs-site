@@ -31,6 +31,8 @@ keystone.init({
 	'view engine': 'jade',
 	'view cache': false,
 
+	'emails': 'templates/emails',
+
 	'auto update': true,
 	'mongo': process.env.MONGO_URI || 'mongodb://localhost/' + pkg.name,
 

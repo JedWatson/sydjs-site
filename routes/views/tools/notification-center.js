@@ -81,12 +81,13 @@ exports = module.exports = function(req, res) {
 			return next();
 		} else {
 			async.each(locals.subscribers, function(subscriber, doneSubscriber) {
-				new Email('member-notification', { engine: 'jade', transport: 'mandrill', root: 'templates/emails' }).send({
+				new Email('member-notification', { transport: 'mandrill', engine: 'jade', root: 'templates/emails' }).send({
 					subscriber: subscriber,
-					subject: req.body.subscriber_email_subject || 'Notification from SydJS',
 					content: req.body.subscriber_email_content,
 					link_label: req.body.subscriber_email_link_label,
 					link_url: req.body.subscriber_email_link_url,
+					subject: req.body.subscriber_email_subject || 'Notification from SydJS',
+				}, {
 					to: subscriber.email,
 					from: {
 						name: 'SydJS',

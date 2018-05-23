@@ -203,10 +203,11 @@ User.schema.methods.resetPassword = function(callback) {
 	user.resetPasswordKey = keystone.utils.randomString([16,24]);
 	user.save(function(err) {
 		if (err) return callback(err);
-		new Email('forgotten-password', { engine: 'jade', transport: 'mandrill', root: 'templates/emails' }).send({
+		new Email('forgotten-password', { transport: 'mandrill', engine: 'jade', root: 'templates/emails' }).send({
 			user: user,
 			link: '/reset-password/' + user.resetPasswordKey,
 			subject: 'Reset your SydJS Password',
+		}, {
 			to: user.email,
 			from: {
 				name: 'SydJS',
