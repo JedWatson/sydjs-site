@@ -1,4 +1,4 @@
-var keystone = require('keystone');
+var keystone = require('keystone'),
 var async = require('async');
 var Email = require('keystone-email');
 
@@ -81,7 +81,7 @@ exports = module.exports = function(req, res) {
 			return next();
 		} else {
 			async.each(locals.subscribers, function(subscriber, doneSubscriber) {
-				new Email('member-notification', { transport: 'mandrill' }).send({
+				new Email('member-notification', { engine: 'jade', transport: 'mandrill' }).send({
 					subscriber: subscriber,
 					subject: req.body.subscriber_email_subject || 'Notification from SydJS',
 					content: req.body.subscriber_email_content,
